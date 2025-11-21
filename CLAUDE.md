@@ -19,22 +19,19 @@ python test_api_simple.py
 
 ### Running Data Collection
 
-**Primary collector (comprehensive, production):**
+**Main collector (comprehensive, production):**
 ```bash
 # Full collection with all videos and comments
-python collect_comprehensive_fixed.py --sources data/sources.csv
+python collect.py --sources data/sources.csv
 
 # Resume from checkpoint after interruption
-python collect_comprehensive_fixed.py --sources data/sources.csv --resume
+python collect.py --sources data/sources.csv --resume
 
 # Test with limited channels
-python collect_comprehensive_fixed.py --sources data/sources.csv --max-channels 5
-```
+python collect.py --sources data/sources.csv --max-channels 5
 
-**Legacy collector (limited scope):**
-```bash
-# Original collector (50 videos/channel, 100 comments/video)
-python run_collector.py --sources data/sources.csv --max-channels 5
+# Use specific configuration file
+python collect.py --sources data/sources.csv --config config/config_comprehensive.yaml
 ```
 
 ### Data Inspection
@@ -72,7 +69,7 @@ pip install -r requirements.txt
 
 ### Main Components
 
-**`collect_comprehensive_fixed.py`** - Production collector with comprehensive strategy:
+**`collect.py`** - Main collector with comprehensive strategy:
 - Collects ALL videos from each channel (no limits)
 - Collects ALL comments and replies from ALL videos
 - Robust error handling and checkpoint-based resumption
@@ -144,16 +141,7 @@ Key settings:
 
 ## Collection Strategy
 
-### Two Modes
-
-**Overview Strategy** (legacy, `run_collector.py`):
-- 50 videos per channel max
-- 100 comments per video (only first 5 videos)
-- ~15 quota units per channel
-- 2-3 minutes per channel
-- Use for testing/monitoring
-
-**Comprehensive Strategy** (production, `collect_comprehensive_fixed.py`):
+**Comprehensive Strategy** (`collect.py`):
 - ALL videos (complete channel history)
 - ALL comments and replies (all videos)
 - Caption metadata collection
@@ -193,7 +181,7 @@ Supported URL formats:
 ## Key Features
 
 ### Checkpoint-Based Resumption
-`collect_comprehensive_fixed.py` saves checkpoints every N channels to `data/checkpoints/latest_checkpoint.json`. Use `--resume` flag to continue after interruption without re-processing completed channels.
+`collect.py` saves checkpoints every N channels to `data/checkpoints/latest_checkpoint.json`. Use `--resume` flag to continue after interruption without re-processing completed channels.
 
 ### Error Handling
 - Channel-level errors don't abort collection (logged and skipped)
@@ -232,7 +220,7 @@ Before large-scale collection:
 python test_api_quick.py
 
 # Test with 3-5 channels
-python collect_comprehensive_fixed.py --sources data/sources.csv --max-channels 3
+python collect.py --sources data/sources.csv --max-channels 3
 
 # Verify data
 python view_data.py --stats
@@ -251,15 +239,13 @@ python view_data.py --stats
 
 ```
 youtube_monitoring_pipeline/
-├── collect_comprehensive_fixed.py   # Production collector
-├── run_collector.py                 # Legacy collector wrapper
+├── collect.py                       # Main data collector
 ├── view_data.py                     # Data inspection CLI
 ├── test_api_quick.py               # API key validation
 ├── config/
 │   ├── config.yaml                 # Basic collection config
 │   └── config_comprehensive.yaml   # Comprehensive config
 ├── src/
-│   ├── collector.py                # Legacy orchestrator
 │   ├── youtube_client.py           # API wrapper
 │   ├── database.py                 # SQLite persistence
 │   └── utils/
