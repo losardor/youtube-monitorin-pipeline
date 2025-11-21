@@ -1,0 +1,87 @@
+# YouTube Monitoring Pipeline Configuration - COMPREHENSIVE MODE
+# Copy this file to config_comprehensive.yaml and add your API key
+
+# API Configuration
+api:
+  youtube_api_key: "YOUR_YOUTUBE_API_KEY_HERE"  # Get from https://console.cloud.google.com/apis/credentials
+  max_retries: 5  # Increased for reliability
+  retry_delay: 3  # Longer delay between retries
+  request_timeout: 60  # Longer timeout for large requests
+
+# Data Collection Settings - COMPREHENSIVE STRATEGY
+collection:
+  # NO LIMITS - Collect everything
+  max_videos_per_channel: null  # null = get ALL videos
+  max_comments_per_video: null  # null = get ALL comments
+
+  # Order for videos: date, rating, relevance, title, videoCount, viewCount
+  video_order: "date"
+
+  # Order for comments: time, relevance
+  comment_order: "time"
+
+  # Collect captions/transcripts metadata
+  collect_captions: true
+
+  # Caption languages to prioritize (in order)
+  caption_languages: ["en", "it", "de", "fr", "es"]
+
+  # Date range for video collection (null for no limit)
+  start_date: null  # Get videos from all time
+  end_date: null    # Up to present
+
+  # Delays between operations (seconds) - be respectful to API
+  delay_between_videos: 0.5
+  delay_between_channels: 2.0
+  delay_between_comment_pages: 1.0
+
+# Database Settings
+database:
+  type: "sqlite"
+  sqlite_path: "data/youtube_monitoring.db"
+
+  # For PostgreSQL (optional - better for large datasets)
+  # postgres_host: "localhost"
+  # postgres_port: 5432
+  # postgres_database: "youtube_monitoring"
+  # postgres_user: "your_user"
+  # postgres_password: "your_password"
+
+# Logging Settings
+logging:
+  level: "INFO"  # DEBUG for more detail, INFO for normal
+  log_to_file: true
+  log_file: "logs/pipeline.log"
+  log_rotation: "1 day"
+  max_log_size: "50 MB"
+
+# Rate Limiting - For 1M quota
+rate_limiting:
+  enabled: true
+  daily_quota: 1000000  # After quota increase approval
+  quota_buffer: 50000   # Stop with 50k units remaining
+
+  # Auto-pause and resume
+  pause_on_quota_limit: true
+  resume_next_day: true
+
+# Output Settings
+output:
+  save_raw_json: false  # Disable to save disk space
+  raw_json_path: "data/raw"
+
+  save_to_csv: true  # Export daily
+  csv_path: "data/processed"
+
+  save_to_database: true
+
+  # Checkpoint settings - save progress regularly
+  checkpoint_every_n_channels: 10
+  checkpoint_path: "data/checkpoints"
+
+# Error Handling
+error_handling:
+  continue_on_error: true  # Don't stop on individual failures
+  max_consecutive_failures: 5  # Stop if too many failures in a row
+  save_failed_sources: true
+  failed_sources_path: "data/failed_sources.csv"
