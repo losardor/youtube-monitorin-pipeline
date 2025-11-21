@@ -31,7 +31,7 @@ This repository uses a two-branch workflow:
 git checkout main
 
 # Make changes, test locally
-python collect_comprehensive_fixed.py --sources data/sources.csv --max-channels 3
+python collect.py --sources data/sources.csv --max-channels 3
 
 # Commit changes
 git add .
@@ -54,7 +54,7 @@ git merge main
 
 # 3. Test the production branch
 python test_api_quick.py
-python collect_comprehensive_fixed.py --sources data/sources.csv --max-channels 3
+python collect.py --sources data/sources.csv --max-channels 3
 
 # 4. Push to production branch
 git push origin production
@@ -98,7 +98,7 @@ git checkout production
 git pull origin production
 
 # Restart collection if needed
-python collect_comprehensive_fixed.py --sources data/sources.csv --resume
+python collect.py --sources data/sources.csv --resume
 ```
 
 ## Production Checklist
@@ -107,7 +107,7 @@ Before merging to production:
 
 - [ ] All tests pass locally
 - [ ] API connection verified with `test_api_quick.py`
-- [ ] Tested with limited channels (`--max-channels 3`)
+- [ ] Tested with limited channels using `python collect.py --max-channels 3`
 - [ ] No API keys or sensitive data in code
 - [ ] Configuration templates updated if needed
 - [ ] Documentation updated (README, CLAUDE.md)
@@ -151,7 +151,7 @@ Consider setting up:
 1. **Auto-resume on failure**:
 ```bash
 # Add to crontab
-*/30 * * * * cd /path/to/youtube-monitorin-pipeline && source venv/bin/activate && python collect_comprehensive_fixed.py --sources data/sources.csv --resume >> logs/cron.log 2>&1
+*/30 * * * * cd /path/to/youtube-monitorin-pipeline && source venv/bin/activate && python collect.py --sources data/sources.csv --resume >> logs/cron.log 2>&1
 ```
 
 2. **Daily statistics report**:

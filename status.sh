@@ -11,9 +11,9 @@ echo "=========================================="
 echo ""
 
 # Check if running
-if pgrep -f "collect_comprehensive.py" > /dev/null; then
+if pgrep -f "collect.py" > /dev/null; then
     echo "✓ Collection is RUNNING"
-    PID=$(pgrep -f "collect_comprehensive.py")
+    PID=$(pgrep -f "collect.py")
     echo "  Process ID: $PID"
     echo "  Runtime: $(ps -p $PID -o etime= | tr -d ' ')"
     echo ""
@@ -33,7 +33,7 @@ else
     # Check if there's a checkpoint
     if [ -f "data/checkpoints/latest_checkpoint.json" ]; then
         echo "⚠ Checkpoint exists - collection was paused"
-        echo "  Resume with: python collect_comprehensive.py --resume"
+        echo "  Resume with: python collect.py --resume"
     else
         echo "✓ No checkpoint found - may be complete or never started"
     fi

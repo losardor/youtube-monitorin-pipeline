@@ -17,6 +17,8 @@ A comprehensive Python-based pipeline for monitoring YouTube channels, collectin
 
 ```
 youtube_monitoring_pipeline/
+├── collect.py                # Main data collection script
+├── view_data.py              # Data inspection tool
 ├── config/
 │   └── config.yaml           # Configuration file
 ├── data/
@@ -26,7 +28,6 @@ youtube_monitoring_pipeline/
 ├── logs/
 │   └── pipeline.log          # Execution logs
 ├── src/
-│   ├── collector.py          # Main orchestrator
 │   ├── youtube_client.py     # YouTube API wrapper
 │   ├── database.py           # Database operations
 │   └── utils/
@@ -79,7 +80,7 @@ You can also adjust:
 Collect data from a list of YouTube channels in a CSV file:
 
 ```bash
-python src/collector.py --sources path/to/sources.csv
+python collect.py --sources path/to/sources.csv
 ```
 
 ### Testing with Limited Channels
@@ -87,7 +88,7 @@ python src/collector.py --sources path/to/sources.csv
 Process only the first 5 channels (useful for testing):
 
 ```bash
-python src/collector.py --sources path/to/sources.csv --max-channels 5
+python collect.py --sources path/to/sources.csv --max-channels 5
 ```
 
 ### Custom Configuration
@@ -95,7 +96,7 @@ python src/collector.py --sources path/to/sources.csv --max-channels 5
 Use a different configuration file:
 
 ```bash
-python src/collector.py --sources sources.csv --config config/custom_config.yaml
+python collect.py --sources sources.csv --config config/custom_config.yaml
 ```
 
 ## Input CSV Format

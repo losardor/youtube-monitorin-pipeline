@@ -12,7 +12,7 @@ echo "Auto-resume started at $(date)" >> $LOG_FILE
 echo "==================================" >> $LOG_FILE
 
 # Check if collection is already running
-if pgrep -f "collect_comprehensive.py" > /dev/null; then
+if pgrep -f "collect.py" > /dev/null; then
     echo "Collection already running, skipping" >> $LOG_FILE
     exit 0
 fi
@@ -25,7 +25,7 @@ if [ -f "data/checkpoints/latest_checkpoint.json" ]; then
     screen -dmS youtube_collection bash -c "
         cd ~/youtube_monitoring_pipeline
         source venv/bin/activate
-        python collect_comprehensive.py --sources data/sources.csv --resume >> $LOG_FILE 2>&1
+        python collect.py --sources data/sources.csv --resume >> $LOG_FILE 2>&1
     "
     
     echo "Collection resumed in screen session 'youtube_collection'" >> $LOG_FILE
