@@ -189,13 +189,15 @@ class Database:
             snippet = channel_data.get('snippet', {})
             statistics = channel_data.get('statistics', {})
             branding = channel_data.get('brandingSettings', {}).get('channel', {})
-            
+            source_metadata = channel_data.get('source_metadata', {})
+
             self.cursor.execute("""
                 INSERT OR REPLACE INTO channels (
                     channel_id, channel_url, channel_title, description, custom_url,
                     published_at, country, subscriber_count, video_count, view_count,
-                    topic_categories, keywords, branding_keywords, last_updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    topic_categories, keywords, branding_keywords, last_updated_at,
+                    source_domain, source_rating, source_orientation
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 channel_data['id'],
                 f"https://www.youtube.com/channel/{channel_data['id']}",
@@ -210,7 +212,10 @@ class Database:
                 json.dumps(channel_data.get('topicDetails', {}).get('topicCategories', [])),
                 branding.get('keywords'),
                 json.dumps(branding.get('keywords', '').split() if branding.get('keywords') else []),
-                datetime.utcnow().isoformat()
+                datetime.utcnow().isoformat(),
+                source_metadata.get('domain'),
+                source_metadata.get('rating'),
+                source_metadata.get('orientation')
             ))
             
             self.conn.commit()
@@ -290,14 +295,20 @@ class Database:
     def insert_comment(self, comment_data: Dict) -> bool:
         """
         Insert or update comment data
-        
+
         Args:
             comment_data: Dictionary containing comment information
-            
+                Required: comment_id, video_id, text
+                Optional: parent_id, author_name, author_channel_id, like_count,
+                         reply_count, published_at, updated_at
+
         Returns:
             True if successful, False otherwise
         """
         try:
+            # Support both 'author' and 'author_name' field names
+            author = comment_data.get('author_name') or comment_data.get('author', '')
+
             self.cursor.execute("""
                 INSERT OR REPLACE INTO comments (
                     comment_id, video_id, parent_id, author_name, author_channel_id,
@@ -307,47 +318,50 @@ class Database:
                 comment_data['comment_id'],
                 comment_data['video_id'],
                 comment_data.get('parent_id'),
-                comment_data['author'],
+                author,
                 comment_data.get('author_channel_id'),
                 comment_data['text'],
-                comment_data['like_count'],
-                comment_data['reply_count'],
-                comment_data['published_at'],
-                comment_data['updated_at'],
+                comment_data.get('like_count', 0),
+                comment_data.get('reply_count', 0),
+                comment_data.get('published_at'),
+                comment_data.get('updated_at'),
                 datetime.utcnow().isoformat()
             ))
-            
+
             self.conn.commit()
             return True
-            
+
         except Exception as e:
             logger.error(f"Error inserting comment: {e}")
             self.conn.rollback()
             return False
     
-    def insert_comments_batch(self, comments: List[Dict]) -> int:
+    def insert_comments_batch(self, comments: List[Dict]) -> bool:
         """
         Insert multiple comments in a batch
-        
+
         Args:
             comments: List of comment dictionaries
-            
+
         Returns:
-            Number of successfully inserted comments
+            True if all comments were inserted successfully, False otherwise
         """
+        if not comments:
+            return True
+
         success_count = 0
-        
+
         try:
             for comment in comments:
                 if self.insert_comment(comment):
                     success_count += 1
-            
+
             logger.info(f"Inserted {success_count}/{len(comments)} comments")
-            return success_count
-            
+            return success_count == len(comments)
+
         except Exception as e:
             logger.error(f"Error in batch comment insert: {e}")
-            return success_count
+            return False
     
     def insert_caption_track(self, caption_data: Dict, video_id: str) -> bool:
         """
