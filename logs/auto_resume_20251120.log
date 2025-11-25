@@ -1,0 +1,333 @@
+==========================================
+Auto-resume started at gio 20 nov 2025, 09:30:01, CET
+==========================================
+Checkpoint found, resuming collection
+Resuming from channel: 6760
+Collection resumed in screen session 'youtube_collection'
+View with: screen -r youtube_collection
+Auto-resume finished at gio 20 nov 2025, 09:30:01, CET
+==========================================
+
+/data/home/infosphere/.local/lib/python3.10/site-packages/google/api_core/_python_version_support.py:266: FutureWarning: You are using a Python version (3.10.12) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.
+  warnings.warn(message, FutureWarning)
+2025-11-20 09:30:02 - src.utils.helpers - INFO - Logging initialized at INFO level
+2025-11-20 09:30:02 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-11-20 09:30:02 - src.youtube_client - INFO - YouTube API client initialized
+2025-11-20 09:30:02 - src.database - INFO - Connected to database: data/youtube_monitoring.db
+2025-11-20 09:30:02 - src.database - INFO - Database tables created/verified
+2025-11-20 09:30:02 - src.utils.helpers - INFO - Loaded CSV with 12846 rows
+2025-11-20 09:30:02 - src.utils.helpers - INFO - Extracted 6764 YouTube channels from CSV
+2025-11-20 09:30:03 - src.youtube_client - INFO - Retrieved details for 19 videos
+2025-11-20 09:30:04 - src.database - INFO - Inserted 6/6 comments
+2025-11-20 09:30:05 - src.database - INFO - Inserted 3/3 comments
+2025-11-20 09:30:06 - src.database - INFO - Inserted 2/2 comments
+2025-11-20 09:30:06 - src.database - INFO - Inserted 8/8 comments
+2025-11-20 09:30:07 - src.database - INFO - Inserted 4/4 comments
+2025-11-20 09:30:08 - src.database - INFO - Inserted 6/6 comments
+2025-11-20 09:30:09 - src.database - INFO - Inserted 3/3 comments
+2025-11-20 09:30:09 - src.database - INFO - Inserted 2/2 comments
+2025-11-20 09:30:10 - src.database - INFO - Inserted 2/2 comments
+2025-11-20 09:30:11 - src.database - INFO - Inserted 2/2 comments
+2025-11-20 09:30:12 - src.database - INFO - Inserted 3/3 comments
+2025-11-20 09:30:12 - src.database - INFO - Inserted 3/3 comments
+2025-11-20 09:30:13 - src.database - INFO - Inserted 33/33 comments
+2025-11-20 09:30:14 - src.database - INFO - Inserted 3/3 comments
+2025-11-20 09:30:17 - src.youtube_client - INFO - Retrieved details for 1 videos
+2025-11-20 09:30:18 - src.database - INFO - Inserted 5/5 comments
+2025-11-20 09:30:21 - src.youtube_client - INFO - Retrieved details for 24 videos
+2025-11-20 09:30:21 - src.database - INFO - Inserted 12/12 comments
+2025-11-20 09:30:30 - src.database - INFO - Inserted 636/636 comments
+2025-11-20 09:30:47 - src.database - INFO - Inserted 1273/1273 comments
+2025-11-20 09:30:48 - src.database - INFO - Inserted 19/19 comments
+2025-11-20 09:31:01 - src.database - INFO - Inserted 1134/1134 comments
+2025-11-20 09:31:02 - src.database - INFO - Inserted 16/16 comments
+2025-11-20 09:31:02 - src.database - INFO - Inserted 8/8 comments
+2025-11-20 09:31:03 - src.database - INFO - Inserted 20/20 comments
+2025-11-20 09:31:04 - src.database - INFO - Inserted 43/43 comments
+2025-11-20 09:31:05 - src.database - INFO - Inserted 23/23 comments
+2025-11-20 09:31:05 - src.database - INFO - Inserted 1/1 comments
+2025-11-20 09:31:06 - src.database - INFO - Inserted 4/4 comments
+2025-11-20 09:31:06 - src.database - INFO - Inserted 7/7 comments
+2025-11-20 09:31:07 - src.database - INFO - Inserted 2/2 comments
+2025-11-20 09:31:08 - src.database - INFO - Inserted 17/17 comments
+2025-11-20 09:31:08 - src.database - INFO - Inserted 9/9 comments
+2025-11-20 09:31:09 - src.database - INFO - Inserted 26/26 comments
+2025-11-20 09:31:10 - src.database - INFO - Inserted 1/1 comments
+2025-11-20 09:31:10 - src.database - INFO - Inserted 36/36 comments
+2025-11-20 09:31:11 - src.database - INFO - Inserted 66/66 comments
+2025-11-20 09:31:20 - src.database - INFO - Inserted 649/649 comments
+2025-11-20 09:31:21 - src.database - INFO - Inserted 3/3 comments
+2025-11-20 09:31:22 - src.database - INFO - Inserted 19/19 comments
+2025-11-20 09:31:22 - src.database - INFO - Inserted 31/31 comments
+2025-11-20 09:31:25 - src.youtube_client - WARNING - No channel found for ID: UC62KZJ1mShIQ-14rjzVYt9A
+2025-11-20 09:31:27 - src.database - INFO - Collection run 8 completed
+2025-11-20 09:31:27 - src.database - INFO - Database connection closed
+✓ Comprehensive Collector initialized
+================================================================================
+COMPREHENSIVE DATA COLLECTION - NO LIMITS
+================================================================================
+
+✓ Resuming from checkpoint at channel 6760
+Loading sources from data/sources.csv...
+✓ Loaded 6764 sources
+✓ Starting from channel 6760
+
+================================================================================
+Starting collection of 4 channels...
+Press Ctrl+C to pause and save checkpoint
+================================================================================
+
+[6761/6764] nan
+    URL: https://www.youtube.com/channel/UC-a4RHg1oIzQ7CfAg42AncA
+    ✓ Channel: Catholics for Truth
+    Subscribers: 343
+      Collecting ALL videos from channel...
+      Videos collected: 19 (page 1)      Videos collected: 19 (COMPLETE)
+    Collecting comments from 19 videos...
+      Progress: 10/19 videos, 32 comments      Progress: 19/19 videos, 80 comments      Progress: 19/19 videos, 80 comments (COMPLETE)
+    Quota used: 3 units
+
+[6762/6764] nan
+    URL: https://www.youtube.com/user/carbonatedTV
+    ✓ Channel: Carbonatedtv
+    Subscribers: 4
+      Collecting ALL videos from channel...
+      Videos collected: 1 (page 1)      Videos collected: 1 (COMPLETE)
+    Collecting comments from 1 videos...
+      Progress: 1/1 videos, 5 comments      Progress: 1/1 videos, 5 comments (COMPLETE)
+    Quota used: 107 units
+
+[6763/6764] nan
+    URL: https://www.youtube.com/user/republicanstupidity
+    ✓ Channel: republicanstupidity
+    Subscribers: 1020
+      Collecting ALL videos from channel...
+      Videos collected: 24 (page 1)      Videos collected: 24 (COMPLETE)
+    Collecting comments from 24 videos...
+      Progress: 10/24 videos, 3184 comments      Progress: 20/24 videos, 3353 comments      Progress: 24/24 videos, 4055 comments      Progress: 24/24 videos, 4055 comments (COMPLETE)
+    Quota used: 110 units
+
+[6764/6764] DavidHarrisJr.com
+    URL: https://www.youtube.com/channel/UC62KZJ1mShIQ-14rjzVYt9A
+    ✗ Could not retrieve channel info
+
+================================================================================
+COLLECTION COMPLETE
+================================================================================
+Channels processed: 6764
+Channels successful: 3
+Channels failed: 6761
+Videos collected: 44
+Comments collected: 4,140
+Total quota used: 110 units
+
+✓ Comprehensive Collector initialized
+================================================================================
+COMPREHENSIVE DATA COLLECTION - FIXED STATS TRACKING
+================================================================================
+
+Current quota usage: 0 / 1,000,000 units
+Quota buffer: 50,000 units
+Available quota: 950,000 units
+
+✓ Resuming from checkpoint at channel 6760
+✓ Restored stats: 0 attempted, 0 successful
+Loading sources from data/sources.csv...
+✓ Loaded 6764 YouTube sources from CSV
+✓ Starting from source 6760
+
+================================================================================
+Will attempt to collect from 4 channels
+Press Ctrl+C to pause and save checkpoint
+================================================================================
+
+[6761/6764] nan
+    URL: https://www.youtube.com/channel/UC-a4RHg1oIzQ7CfAg42AncA
+    ✓ Channel: Catholics for Truth
+    Subscribers: 343
+      Collecting ALL videos from channel...
+      Videos collected: 19 (page 1)      Videos collected: 19 (COMPLETE)                    
+    Collecting comments from 19 videos...
+      Progress: 10/19 videos, 32 comments      Progress: 19/19 videos, 80 comments      Progress: 19/19 videos, 80 comments (COMPLETE)                    
+    Quota used: 3 units
+
+[6762/6764] nan
+    URL: https://www.youtube.com/user/carbonatedTV
+    ✓ Channel: Carbonatedtv
+    Subscribers: 4
+      Collecting ALL videos from channel...
+      Videos collected: 1 (page 1)      Videos collected: 1 (COMPLETE)                    
+    Collecting comments from 1 videos...
+      Progress: 1/1 videos, 5 comments      Progress: 1/1 videos, 5 comments (COMPLETE)                    
+    Quota used: 107 units
+
+[6763/6764] nan
+    URL: https://www.youtube.com/user/republicanstupidity
+    ✓ Channel: republicanstupidity
+    Subscribers: 1020
+      Collecting ALL videos from channel...
+      Videos collected: 24 (page 1)      Videos collected: 24 (COMPLETE)                    
+    Collecting comments from 24 videos...
+      Progress: 10/24 videos, 3184 comments      Progress: 20/24 videos, 3353 comments      Progress: 24/24 videos, 4055 comments      Progress: 24/24 videos, 4055 comments (COMPLETE)                    
+    Quota used: 110 units
+
+[6764/6764] DavidHarrisJr.com
+    URL: https://www.youtube.com/channel/UC62KZJ1mShIQ-14rjzVYt9A
+    ✗ Could not retrieve channel info
+
+================================================================================
+COLLECTION COMPLETE
+================================================================================
+Sources loaded: 6764
+Channels attempted: 4
+Channels successful: 3
+Channels failed: 6761
+Sources skipped: 0
+Videos collected: 44
+Comments collected: 4,140
+Total quota used: 110 units
+Success rate: 75.0%
+
+✓ Checkpoint cleared (collection complete)
+✓ Comprehensive Collector initialized
+================================================================================
+COMPREHENSIVE DATA COLLECTION - ROBUST ERROR HANDLING
+================================================================================
+
+Current quota usage: 0 / 1,000,000 units
+Quota buffer: 50,000 units
+Available quota: 950,000 units
+
+Loading sources from data/sources.csv...
+✓ Loaded 6764 YouTube sources from CSV
+
+================================================================================
+Will attempt to collect from 6764 channels
+Max consecutive failures before stopping: 5
+Press Ctrl+C to pause and save checkpoint
+================================================================================
+
+[1/6764] WDR
+    URL: https://www.youtube.com/c/wdr
+    ✓ Channel: WDR Doku
+    Subscribers: 1100000
+      Collecting ALL videos from channel...
+      Videos collected: 50 (page 1)      Videos collected: 100 (page 2)      Videos collected: 150 (page 3)      Videos collected: 200 (page 4)      Videos collected: 250 (page 5)      Videos collected: 300 (page 6)      Videos collected: 350 (page 7)      Videos collected: 400 (page 8)      Videos collected: 450 (page 9)      Videos collected: 500 (page 10)      Videos collected: 550 (page 11)      Videos collected: 600 (page 12)      Videos collected: 648 (page 13)      Videos collected: 648 (COMPLETE)                    
+    Collecting comments from 648 videos...
+      Progress: 10/648 videos, 2756 comments      Progress: 20/648 videos, 5866 comments      Progress: 30/648 videos, 8188 comments      Progress: 40/648 videos, 13094 comments      Progress: 50/648 videos, 16189 comments      Progress: 60/648 videos, 20757 comments      Progress: 70/648 videos, 28768 comments      Progress: 80/648 videos, 39263 comments      Progress: 90/648 videos, 46035 comments      Progress: 100/648 videos, 55116 comments      Progress: 110/648 videos, 64514 comments      Progress: 120/648 videos, 77830 comments      Progress: 130/648 videos, 85254 comments      Progress: 140/648 videos, 98775 comments      Progress: 150/648 videos, 108060 comments      Progress: 160/648 videos, 120919 comments      Progress: 170/648 videos, 129311 comments      Progress: 180/648 videos, 137626 comments      Progress: 190/648 videos, 145632 comments      Progress: 200/648 videos, 152036 comments      Progress: 210/648 videos, 156348 comments      Progress: 220/648 videos, 165856 comments      Progress: 230/648 videos, 180780 comments      Progress: 240/648 videos, 187259 comments      Progress: 250/648 videos, 195262 comments      Progress: 260/648 videos, 202150 comments      Progress: 270/648 videos, 208155 comments      Progress: 280/648 videos, 224000 comments      Progress: 290/648 videos, 231104 comments      Progress: 300/648 videos, 240475 comments      Progress: 310/648 videos, 256058 comments      Progress: 320/648 videos, 270895 comments      Progress: 330/648 videos, 282183 comments      Progress: 340/648 videos, 289587 comments      Progress: 350/648 videos, 296704 comments      Progress: 360/648 videos, 311687 comments      Progress: 370/648 videos, 319952 comments      Progress: 380/648 videos, 336042 comments      Progress: 390/648 videos, 347623 comments      Progress: 400/648 videos, 356295 comments      Progress: 410/648 videos, 365995 comments      Progress: 420/648 videos, 380045 comments      Progress: 430/648 videos, 389486 comments      Progress: 440/648 videos, 397717 comments      Progress: 450/648 videos, 413247 comments      Progress: 460/648 videos, 431490 comments      Progress: 470/648 videos, 446325 comments      Progress: 480/648 videos, 456836 comments      Progress: 490/648 videos, 471712 comments      Progress: 500/648 videos, 489556 comments      Progress: 510/648 videos, 499017 comments      Progress: 520/648 videos, 514040 comments      Progress: 530/648 videos, 528970 comments      Progress: 540/648 videos, 544325 comments      Progress: 550/648 videos, 557302 comments      Progress: 560/648 videos, 578502 comments      Progress: 570/648 videos, 588549 comments      Progress: 580/648 videos, 604116 comments      Progress: 590/648 videos, 617577 comments      Progress: 600/648 videos, 633373 comments      Progress: 610/648 videos, 648773 comments      Progress: 620/648 videos, 656567 comments      Progress: 630/648 videos, 675674 comments      Progress: 640/648 videos, 686313 comments      Progress: 648/648 videos, 693189 comments      Progress: 648/648 videos, 693189 comments (COMPLETE)                    
+    Quota used: 116 units
+
+[2/6764] Vvox
+    URL: https://www.youtube.com/channel/UCCcUMVaNi_17chpBOCtXjtw
+    ✓ Channel: WebSalute / Vvox Broadcasting Platform
+    Subscribers: 4460
+      Collecting ALL videos from channel...
+      Videos collected: 50 (page 1)      Videos collected: 100 (page 2)      Videos collected: 150 (page 3)      Videos collected: 200 (page 4)      Videos collected: 250 (page 5)      Videos collected: 300 (page 6)      Videos collected: 350 (page 7)      Videos collected: 400 (page 8)      Videos collected: 450 (page 9)      Videos collected: 500 (page 10)      Videos collected: 550 (page 11)      Videos collected: 600 (page 12)      Videos collected: 650 (page 13)      Videos collected: 700 (page 14)      Videos collected: 750 (page 15)      Videos collected: 800 (page 16)      Videos collected: 850 (page 17)      Videos collected: 900 (page 18)      Videos collected: 950 (page 19)      Videos collected: 1000 (page 20)      Videos collected: 1050 (page 21)      Videos collected: 1100 (page 22)      Videos collected: 1150 (page 23)      Videos collected: 1200 (page 24)      Videos collected: 1250 (page 25)      Videos collected: 1300 (page 26)      Videos collected: 1350 (page 27)      Videos collected: 1400 (page 28)      Videos collected: 1450 (page 29)      Videos collected: 1500 (page 30)      Videos collected: 1550 (page 31)      Videos collected: 1600 (page 32)      Videos collected: 1650 (page 33)      Videos collected: 1700 (page 34)      Videos collected: 1750 (page 35)      Videos collected: 1800 (page 36)      Videos collected: 1850 (page 37)      Videos collected: 1900 (page 38)      Videos collected: 1950 (page 39)      Videos collected: 2000 (page 40)      Videos collected: 2050 (page 41)      Videos collected: 2100 (page 42)      Videos collected: 2150 (page 43)      Videos collected: 2200 (page 44)      Videos collected: 2250 (page 45)      Videos collected: 2300 (page 46)      Videos collected: 2350 (page 47)      Videos collected: 2400 (page 48)      Videos collected: 2450 (page 49)      Videos collected: 2500 (page 50)      Videos collected: 2550 (page 51)      Videos collected: 2600 (page 52)      Videos collected: 2650 (page 53)      Videos collected: 2700 (page 54)      Videos collected: 2750 (page 55)      Videos collected: 2800 (page 56)      Videos collected: 2850 (page 57)      Videos collected: 2900 (page 58)      Videos collected: 2950 (page 59)      Videos collected: 3000 (page 60)      Videos collected: 3050 (page 61)      Videos collected: 3100 (page 62)      Videos collected: 3150 (page 63)      Videos collected: 3200 (page 64)      Videos collected: 3250 (page 65)      Videos collected: 3300 (page 66)      Videos collected: 3312 (page 67)      Videos collected: 3312 (COMPLETE)                    
+    Collecting comments from 3312 videos...
+      Progress: 10/3312 videos, 2 comments      Progress: 20/3312 videos, 2 comments      Progress: 30/3312 videos, 2 comments      Progress: 40/3312 videos, 2 comments      Progress: 50/3312 videos, 2 comments      Progress: 60/3312 videos, 2 comments      Progress: 70/3312 videos, 3 comments      Progress: 80/3312 videos, 3 comments      Progress: 90/3312 videos, 3 comments      Progress: 100/3312 videos, 3 comments      Progress: 110/3312 videos, 3 comments      Progress: 120/3312 videos, 3 comments      Progress: 130/3312 videos, 3 comments      Progress: 140/3312 videos, 4 comments      Progress: 150/3312 videos, 4 comments      Progress: 160/3312 videos, 4 comments      Progress: 170/3312 videos, 4 comments      Progress: 180/3312 videos, 4 comments      Progress: 190/3312 videos, 4 comments      Progress: 200/3312 videos, 5 comments      Progress: 210/3312 videos, 6 comments      Progress: 220/3312 videos, 6 comments      Progress: 230/3312 videos, 6 comments      Progress: 240/3312 videos, 6 comments      Progress: 250/3312 videos, 6 comments      Progress: 260/3312 videos, 8 comments      Progress: 270/3312 videos, 9 comments      Progress: 280/3312 videos, 9 comments      Progress: 290/3312 videos, 10 comments      Progress: 300/3312 videos, 12 comments      Progress: 310/3312 videos, 15 comments      Progress: 320/3312 videos, 21 comments      Progress: 330/3312 videos, 22 comments      Progress: 340/3312 videos, 27 comments      Progress: 350/3312 videos, 27 comments      Progress: 360/3312 videos, 27 comments      Progress: 370/3312 videos, 27 comments      Progress: 380/3312 videos, 30 comments      Progress: 390/3312 videos, 33 comments      Progress: 400/3312 videos, 33 comments      Progress: 410/3312 videos, 33 comments      Progress: 420/3312 videos, 33 comments      Progress: 430/3312 videos, 33 comments      Progress: 440/3312 videos, 33 comments      Progress: 450/3312 videos, 36 comments      Progress: 460/3312 videos, 38 comments      Progress: 470/3312 videos, 39 comments      Progress: 480/3312 videos, 40 comments      Progress: 490/3312 videos, 54 comments      Progress: 500/3312 videos, 54 comments      Progress: 510/3312 videos, 54 comments      Progress: 520/3312 videos, 58 comments      Progress: 530/3312 videos, 58 comments      Progress: 540/3312 videos, 58 comments      Progress: 550/3312 videos, 61 comments      Progress: 560/3312 videos, 65 comments      Progress: 570/3312 videos, 65 comments      Progress: 580/3312 videos, 84 comments      Progress: 590/3312 videos, 84 comments      Progress: 600/3312 videos, 98 comments      Progress: 610/3312 videos, 99 comments      Progress: 620/3312 videos, 100 comments      Progress: 630/3312 videos, 102 comments      Progress: 640/3312 videos, 102 comments      Progress: 650/3312 videos, 110 comments      Progress: 660/3312 videos, 112 comments      Progress: 670/3312 videos, 112 comments      Progress: 680/3312 videos, 113 comments      Progress: 690/3312 videos, 114 comments      Progress: 700/3312 videos, 119 comments      Progress: 710/3312 videos, 119 comments      Progress: 720/3312 videos, 119 comments      Progress: 730/3312 videos, 124 comments      Progress: 740/3312 videos, 125 comments      Progress: 750/3312 videos, 126 comments      Progress: 760/3312 videos, 130 comments      Progress: 770/3312 videos, 135 comments      Progress: 780/3312 videos, 139 comments      Progress: 790/3312 videos, 146 comments      Progress: 800/3312 videos, 169 comments      Progress: 810/3312 videos, 170 comments      Progress: 820/3312 videos, 191 comments      Progress: 830/3312 videos, 199 comments      Progress: 840/3312 videos, 199 comments      Progress: 850/3312 videos, 226 comments      Progress: 860/3312 videos, 234 comments      Progress: 870/3312 videos, 236 comments      Progress: 880/3312 videos, 247 comments      Progress: 890/3312 videos, 247 comments      Progress: 900/3312 videos, 247 comments      Progress: 910/3312 videos, 258 comments      Progress: 920/3312 videos, 259 comments      Progress: 930/3312 videos, 259 comments      Progress: 940/3312 videos, 264 comments      Progress: 950/3312 videos, 266 comments      Progress: 960/3312 videos, 269 comments      Progress: 970/3312 videos, 269 comments      Progress: 980/3312 videos, 282 comments      Progress: 990/3312 videos, 285 comments      Progress: 1000/3312 videos, 288 comments      Progress: 1010/3312 videos, 295 comments      Progress: 1020/3312 videos, 295 comments      Progress: 1030/3312 videos, 303 comments      Progress: 1040/3312 videos, 305 comments      Progress: 1050/3312 videos, 309 comments      Progress: 1060/3312 videos, 311 comments      Progress: 1070/3312 videos, 311 comments      Progress: 1080/3312 videos, 311 comments      Progress: 1090/3312 videos, 315 comments      Progress: 1100/3312 videos, 316 comments      Progress: 1110/3312 videos, 323 comments      Progress: 1120/3312 videos, 323 comments      Progress: 1130/3312 videos, 324 comments      Progress: 1140/3312 videos, 327 comments      Progress: 1150/3312 videos, 330 comments      Progress: 1160/3312 videos, 333 comments      Progress: 1170/3312 videos, 333 comments      Progress: 1180/3312 videos, 335 comments      Progress: 1190/3312 videos, 337 comments      Progress: 1200/3312 videos, 337 comments      Progress: 1210/3312 videos, 342 comments      Progress: 1220/3312 videos, 342 comments      Progress: 1230/3312 videos, 357 comments      Progress: 1240/3312 videos, 358 comments      Progress: 1250/3312 videos, 358 comments      Progress: 1260/3312 videos, 359 comments      Progress: 1270/3312 videos, 359 comments      Progress: 1280/3312 videos, 366 comments      Progress: 1290/3312 videos, 367 comments      Progress: 1300/3312 videos, 384 comments      Progress: 1310/3312 videos, 385 comments      Progress: 1320/3312 videos, 387 comments      Progress: 1330/3312 videos, 387 comments      Progress: 1340/3312 videos, 395 comments      Progress: 1350/3312 videos, 395 comments      Progress: 1360/3312 videos, 397 comments      Progress: 1370/3312 videos, 397 comments      Progress: 1380/3312 videos, 398 comments      Progress: 1390/3312 videos, 409 comments      Progress: 1400/3312 videos, 410 comments      Progress: 1410/3312 videos, 421 comments      Progress: 1420/3312 videos, 425 comments      Progress: 1430/3312 videos, 432 comments      Progress: 1440/3312 videos, 432 comments      Progress: 1450/3312 videos, 448 comments      Progress: 1460/3312 videos, 449 comments      Progress: 1470/3312 videos, 449 comments      Progress: 1480/3312 videos, 451 comments      Progress: 1490/3312 videos, 452 comments      Progress: 1500/3312 videos, 455 comments      Progress: 1510/3312 videos, 455 comments      Progress: 1520/3312 videos, 455 comments      Progress: 1530/3312 videos, 455 comments      Progress: 1540/3312 videos, 460 comments      Progress: 1550/3312 videos, 463 comments      Progress: 1560/3312 videos, 463 comments      Progress: 1570/3312 videos, 464 comments      Progress: 1580/3312 videos, 466 comments      Progress: 1590/3312 videos, 468 comments      Progress: 1600/3312 videos, 471 comments      Progress: 1610/3312 videos, 471 comments      Progress: 1620/3312 videos, 471 comments      Progress: 1630/3312 videos, 471 comments      Progress: 1640/3312 videos, 471 comments      Progress: 1650/3312 videos, 472 comments      Progress: 1660/3312 videos, 473 comments      Progress: 1670/3312 videos, 473 comments      Progress: 1680/3312 videos, 475 comments      Progress: 1690/3312 videos, 475 comments      Progress: 1700/3312 videos, 475 comments      Progress: 1710/3312 videos, 475 comments      Progress: 1720/3312 videos, 479 comments      Progress: 1730/3312 videos, 479 comments      Progress: 1740/3312 videos, 479 comments      Progress: 1750/3312 videos, 479 comments      Progress: 1760/3312 videos, 481 comments      Progress: 1770/3312 videos, 481 comments      Progress: 1780/3312 videos, 482 comments      Progress: 1790/3312 videos, 485 comments      Progress: 1800/3312 videos, 486 comments      Progress: 1810/3312 videos, 486 comments      Progress: 1820/3312 videos, 486 comments      Progress: 1830/3312 videos, 486 comments      Progress: 1840/3312 videos, 489 comments      Progress: 1850/3312 videos, 489 comments      Progress: 1860/3312 videos, 491 comments      Progress: 1870/3312 videos, 492 comments      Progress: 1880/3312 videos, 494 comments      Progress: 1890/3312 videos, 494 comments      Progress: 1900/3312 videos, 499 comments      Progress: 1910/3312 videos, 501 comments      Progress: 1920/3312 videos, 502 comments      Progress: 1930/3312 videos, 503 comments      Progress: 1940/3312 videos, 503 comments      Progress: 1950/3312 videos, 506 comments      Progress: 1960/3312 videos, 507 comments      Progress: 1970/3312 videos, 510 comments      Progress: 1980/3312 videos, 510 comments      Progress: 1990/3312 videos, 519 comments      Progress: 2000/3312 videos, 530 comments      Progress: 2010/3312 videos, 531 comments      Progress: 2020/3312 videos, 531 comments      Progress: 2030/3312 videos, 533 comments      Progress: 2040/3312 videos, 534 comments      Progress: 2050/3312 videos, 535 comments      Progress: 2060/3312 videos, 545 comments      Progress: 2070/3312 videos, 545 comments      Progress: 2080/3312 videos, 545 comments      Progress: 2090/3312 videos, 546 comments      Progress: 2100/3312 videos, 547 comments      Progress: 2110/3312 videos, 547 comments      Progress: 2120/3312 videos, 556 comments      Progress: 2130/3312 videos, 560 comments      Progress: 2140/3312 videos, 560 comments      Progress: 2150/3312 videos, 560 comments      Progress: 2160/3312 videos, 560 comments      Progress: 2170/3312 videos, 560 comments      Progress: 2180/3312 videos, 560 comments      Progress: 2190/3312 videos, 562 comments      Progress: 2200/3312 videos, 563 comments      Progress: 2210/3312 videos, 564 comments      Progress: 2220/3312 videos, 567 comments      Progress: 2230/3312 videos, 567 comments      Progress: 2240/3312 videos, 600 comments      Progress: 2250/3312 videos, 602 comments      Progress: 2260/3312 videos, 602 comments      Progress: 2270/3312 videos, 602 comments      Progress: 2280/3312 videos, 605 comments      Progress: 2290/3312 videos, 605 comments      Progress: 2300/3312 videos, 605 comments      Progress: 2310/3312 videos, 606 comments      Progress: 2320/3312 videos, 607 comments      Progress: 2330/3312 videos, 613 comments      Progress: 2340/3312 videos, 616 comments      Progress: 2350/3312 videos, 618 comments      Progress: 2360/3312 videos, 618 comments      Progress: 2370/3312 videos, 618 comments      Progress: 2380/3312 videos, 628 comments      Progress: 2390/3312 videos, 630 comments      Progress: 2400/3312 videos, 630 comments      Progress: 2410/3312 videos, 630 comments      Progress: 2420/3312 videos, 675 comments      Progress: 2430/3312 videos, 676 comments      Progress: 2440/3312 videos, 677 comments      Progress: 2450/3312 videos, 677 comments      Progress: 2460/3312 videos, 692 comments      Progress: 2470/3312 videos, 692 comments      Progress: 2480/3312 videos, 692 comments      Progress: 2490/3312 videos, 694 comments      Progress: 2500/3312 videos, 698 comments      Progress: 2510/3312 videos, 699 comments      Progress: 2520/3312 videos, 699 comments      Progress: 2530/3312 videos, 702 comments      Progress: 2540/3312 videos, 709 comments      Progress: 2550/3312 videos, 711 comments      Progress: 2560/3312 videos, 712 comments      Progress: 2570/3312 videos, 716 comments      Progress: 2580/3312 videos, 718 comments      Progress: 2590/3312 videos, 718 comments      Progress: 2600/3312 videos, 719 comments      Progress: 2610/3312 videos, 719 comments      Progress: 2620/3312 videos, 721 comments      Progress: 2630/3312 videos, 725 comments      Progress: 2640/3312 videos, 729 comments      Progress: 2650/3312 videos, 729 comments      Progress: 2660/3312 videos, 734 comments      Progress: 2670/3312 videos, 734 comments      Progress: 2680/3312 videos, 736 comments      Progress: 2690/3312 videos, 736 comments      Progress: 2700/3312 videos, 738 comments      Progress: 2710/3312 videos, 740 comments      Progress: 2720/3312 videos, 740 comments      Progress: 2730/3312 videos, 741 comments      Progress: 2740/3312 videos, 741 comments      Progress: 2750/3312 videos, 743 comments      Progress: 2760/3312 videos, 754 comments      Progress: 2770/3312 videos, 754 comments      Progress: 2780/3312 videos, 757 comments      Progress: 2790/3312 videos, 757 comments      Progress: 2800/3312 videos, 757 comments      Progress: 2810/3312 videos, 759 comments      Progress: 2820/3312 videos, 762 comments      Progress: 2830/3312 videos, 762 comments      Progress: 2840/3312 videos, 767 comments      Progress: 2850/3312 videos, 770 comments      Progress: 2860/3312 videos, 770 comments      Progress: 2870/3312 videos, 770 comments      Progress: 2880/3312 videos, 770 comments      Progress: 2890/3312 videos, 770 comments      Progress: 2900/3312 videos, 784 comments      Progress: 2910/3312 videos, 786 comments      Progress: 2920/3312 videos, 788 comments      Progress: 2930/3312 videos, 788 comments      Progress: 2940/3312 videos, 788 comments      Progress: 2950/3312 videos, 790 comments      Progress: 2960/3312 videos, 790 comments      Progress: 2970/3312 videos, 790 comments      Progress: 2980/3312 videos, 810 comments      Progress: 2990/3312 videos, 812 comments      Progress: 3000/3312 videos, 833 comments      Progress: 3010/3312 videos, 834 comments      Progress: 3020/3312 videos, 844 comments      Progress: 3030/3312 videos, 847 comments      Progress: 3040/3312 videos, 861 comments      Progress: 3050/3312 videos, 862 comments      Progress: 3060/3312 videos, 864 comments      Progress: 3070/3312 videos, 865 comments      Progress: 3080/3312 videos, 866 comments      Progress: 3090/3312 videos, 867 comments      Progress: 3100/3312 videos, 870 comments      Progress: 3110/3312 videos, 870 comments      Progress: 3120/3312 videos, 870 comments      Progress: 3130/3312 videos, 870 comments      Progress: 3140/3312 videos, 870 comments      Progress: 3150/3312 videos, 870 comments      Progress: 3160/3312 videos, 870 comments      Progress: 3170/3312 videos, 873 comments      Progress: 3180/3312 videos, 873 comments      Progress: 3190/3312 videos, 874 comments      Progress: 3200/3312 videos, 880 comments      Progress: 3210/3312 videos, 884 comments      Progress: 3220/3312 videos, 884 comments      Progress: 3230/3312 videos, 891 comments      Progress: 3240/3312 videos, 894 comments      Progress: 3250/3312 videos, 896 comments      Progress: 3260/3312 videos, 905 comments      Progress: 3270/3312 videos, 905 comments      Progress: 3280/3312 videos, 905 comments      Progress: 3290/3312 videos, 906 comments      Progress: 3300/3312 videos, 906 comments      Progress: 3310/3312 videos, 906 comments      Progress: 3312/3312 videos, 906 comments      Progress: 3312/3312 videos, 906 comments (COMPLETE)                    
+    Quota used: 185 units
+
+[3/6764] Agen Press
+    URL: https://www.youtube.com/channel/UCuuK7GO7Xz5dIoPCEIn83yw
+    ✓ Channel: Agenpress Agenzia Giornalistica
+    Subscribers: 30
+      Collecting ALL videos from channel...
+      Videos collected: 50 (page 1)      Videos collected: 100 (page 2)      Videos collected: 127 (page 3)      Videos collected: 127 (COMPLETE)                    
+    Collecting comments from 127 videos...
+      Progress: 10/127 videos, 0 comments      Progress: 20/127 videos, 0 comments      Progress: 30/127 videos, 0 comments      Progress: 40/127 videos, 0 comments      Progress: 50/127 videos, 3 comments      Progress: 60/127 videos, 3 comments      Progress: 70/127 videos, 3 comments      Progress: 80/127 videos, 3 comments      Progress: 90/127 videos, 3 comments      Progress: 100/127 videos, 4 comments      Progress: 110/127 videos, 4 comments      Progress: 120/127 videos, 4 comments      Progress: 127/127 videos, 4 comments      Progress: 127/127 videos, 4 comments (COMPLETE)                    
+    Quota used: 190 units
+
+[4/6764] Hannoversche Allgemeine
+    URL: https://www.youtube.com/channel/UClpLYLT-sClR669PadMYUxw
+    ✓ Channel: Hannoversche Allgemeine Zeitung / HAZ
+    Subscribers: 1010
+      Collecting ALL videos from channel...
+      Videos collected: 50 (page 1)      Videos collected: 100 (page 2)      Videos collected: 150 (page 3)      Videos collected: 200 (page 4)      Videos collected: 250 (page 5)      Videos collected: 300 (page 6)      Videos collected: 350 (page 7)      Videos collected: 400 (page 8)      Videos collected: 405 (page 9)      Videos collected: 405 (COMPLETE)                    
+    Collecting comments from 405 videos...
+      Progress: 10/405 videos, 14 comments      Progress: 20/405 videos, 41 comments      Progress: 30/405 videos, 43 comments      Progress: 40/405 videos, 43 comments      Progress: 50/405 videos, 45 comments      Progress: 60/405 videos, 51 comments      Progress: 70/405 videos, 58 comments      Progress: 80/405 videos, 60 comments      Progress: 90/405 videos, 67 comments      Progress: 100/405 videos, 72 comments      Progress: 110/405 videos, 82 comments      Progress: 120/405 videos, 85 comments      Progress: 130/405 videos, 87 comments      Progress: 140/405 videos, 94 comments      Progress: 150/405 videos, 96 comments      Progress: 160/405 videos, 99 comments      Progress: 170/405 videos, 99 comments      Progress: 180/405 videos, 100 comments      Progress: 190/405 videos, 101 comments      Progress: 200/405 videos, 107 comments      Progress: 210/405 videos, 109 comments      Progress: 220/405 videos, 110 comments      Progress: 230/405 videos, 118 comments      Progress: 240/405 videos, 119 comments      Progress: 250/405 videos, 123 comments      Progress: 260/405 videos, 141 comments      Progress: 270/405 videos, 142 comments      Progress: 280/405 videos, 142 comments      Progress: 290/405 videos, 145 comments      Progress: 300/405 videos, 169 comments      Progress: 310/405 videos, 171 comments      Progress: 320/405 videos, 187 comments      Progress: 330/405 videos, 196 comments      Progress: 340/405 videos, 223 comments      Progress: 350/405 videos, 232 comments      Progress: 360/405 videos, 240 comments      Progress: 370/405 videos, 257 comments      Progress: 380/405 videos, 258 comments      Progress: 390/405 videos, 259 comments      Progress: 400/405 videos, 262 comments      Progress: 405/405 videos, 262 comments      Progress: 405/405 videos, 262 comments (COMPLETE)                    
+    Quota used: 201 units
+
+[5/6764] Sol
+    URL: https://www.youtube.com/channel/UCckcKSv3gOMP09DKERmXPVA
+    ✓ Channel: SOL.DE
+    Subscribers: 924
+      Collecting ALL videos from channel...
+      Videos collected: 50 (page 1)      Videos collected: 100 (page 2)      Videos collected: 150 (page 3)      Videos collected: 200 (page 4)      Videos collected: 250 (page 5)      Videos collected: 292 (page 6)      Videos collected: 292 (COMPLETE)                    
+    Collecting comments from 292 videos...
+      Progress: 10/292 videos, 37 comments      Progress: 20/292 videos, 373 comments      Progress: 30/292 videos, 396 comments      Progress: 40/292 videos, 413 comments      Progress: 50/292 videos, 417 comments      Progress: 60/292 videos, 417 comments      Progress: 70/292 videos, 418 comments      Progress: 80/292 videos, 419 comments      Progress: 90/292 videos, 420 comments      Progress: 100/292 videos, 420 comments      Progress: 110/292 videos, 420 comments      Progress: 120/292 videos, 420 comments      Progress: 130/292 videos, 420 comments      Progress: 140/292 videos, 420 comments      Progress: 150/292 videos, 421 comments      Progress: 160/292 videos, 421 comments      Progress: 170/292 videos, 422 comments      Progress: 180/292 videos, 425 comments      Progress: 190/292 videos, 426 comments      Progress: 200/292 videos, 426 comments      Progress: 210/292 videos, 427 comments      Progress: 220/292 videos, 428 comments      Progress: 230/292 videos, 429 comments      Progress: 240/292 videos, 429 comments      Progress: 250/292 videos, 429 comments      Progress: 260/292 videos, 429 comments      Progress: 270/292 videos, 432 comments      Progress: 280/292 videos, 435 comments      Progress: 290/292 videos, 436 comments      Progress: 292/292 videos, 436 comments      Progress: 292/292 videos, 436 comments (COMPLETE)                    
+    Quota used: 209 units
+
+[6/6764] Esslinger Zeitung 
+    URL: https://www.youtube.com/channel/UCc9PRjtHScthDFHlX3Otv0w/videos
+    ✓ Channel: ES-TV
+    Subscribers: 4420
+      Collecting ALL videos from channel...
+      Videos collected: 50 (page 1)      Videos collected: 100 (page 2)      Videos collected: 150 (page 3)      Videos collected: 200 (page 4)      Videos collected: 250 (page 5)      Videos collected: 300 (page 6)      Videos collected: 350 (page 7)      Videos collected: 400 (page 8)      Videos collected: 450 (page 9)      Videos collected: 500 (page 10)      Videos collected: 550 (page 11)      Videos collected: 600 (page 12)      Videos collected: 650 (page 13)      Videos collected: 700 (page 14)      Videos collected: 750 (page 15)      Videos collected: 800 (page 16)      Videos collected: 850 (page 17)      Videos collected: 900 (page 18)      Videos collected: 950 (page 19)      Videos collected: 1000 (page 20)      Videos collected: 1050 (page 21)      Videos collected: 1100 (page 22)      Videos collected: 1150 (page 23)      Videos collected: 1200 (page 24)      Videos collected: 1250 (page 25)      Videos collected: 1300 (page 26)      Videos collected: 1350 (page 27)      Videos collected: 1400 (page 28)      Videos collected: 1450 (page 29)      Videos collected: 1500 (page 30)      Videos collected: 1550 (page 31)      Videos collected: 1600 (page 32)      Videos collected: 1650 (page 33)      Videos collected: 1700 (page 34)      Videos collected: 1750 (page 35)      Videos collected: 1799 (page 36)      Videos collected: 1799 (COMPLETE)                    
+    Collecting comments from 1799 videos...
+      Progress: 10/1799 videos, 0 comments      Progress: 20/1799 videos, 4 comments      Progress: 30/1799 videos, 8 comments      Progress: 40/1799 videos, 9 comments      Progress: 50/1799 videos, 10 comments      Progress: 60/1799 videos, 12 comments      Progress: 70/1799 videos, 14 comments      Progress: 80/1799 videos, 14 comments      Progress: 90/1799 videos, 18 comments      Progress: 100/1799 videos, 21 comments      Progress: 110/1799 videos, 25 comments      Progress: 120/1799 videos, 32 comments      Progress: 130/1799 videos, 37 comments      Progress: 140/1799 videos, 39 comments      Progress: 150/1799 videos, 42 comments      Progress: 160/1799 videos, 44 comments      Progress: 170/1799 videos, 46 comments      Progress: 180/1799 videos, 48 comments      Progress: 190/1799 videos, 102 comments      Progress: 200/1799 videos, 124 comments      Progress: 210/1799 videos, 129 comments      Progress: 220/1799 videos, 136 comments      Progress: 230/1799 videos, 140 comments      Progress: 240/1799 videos, 140 comments      Progress: 250/1799 videos, 143 comments      Progress: 260/1799 videos, 147 comments      Progress: 270/1799 videos, 150 comments      Progress: 280/1799 videos, 158 comments      Progress: 290/1799 videos, 165 comments      Progress: 300/1799 videos, 173 comments      Progress: 310/1799 videos, 179 comments      Progress: 320/1799 videos, 180 comments      Progress: 330/1799 videos, 186 comments      Progress: 340/1799 videos, 189 comments      Progress: 350/1799 videos, 190 comments      Progress: 360/1799 videos, 201 comments      Progress: 370/1799 videos, 201 comments      Progress: 380/1799 videos, 203 comments      Progress: 390/1799 videos, 204 comments      Progress: 400/1799 videos, 217 comments      Progress: 410/1799 videos, 219 comments      Progress: 420/1799 videos, 224 comments      Progress: 430/1799 videos, 230 comments      Progress: 440/1799 videos, 233 comments      Progress: 450/1799 videos, 235 comments      Progress: 460/1799 videos, 244 comments      Progress: 470/1799 videos, 253 comments      Progress: 480/1799 videos, 256 comments      Progress: 490/1799 videos, 267 comments      Progress: 500/1799 videos, 275 comments      Progress: 510/1799 videos, 289 comments      Progress: 520/1799 videos, 296 comments      Progress: 530/1799 videos, 304 comments      Progress: 540/1799 videos, 311 comments      Progress: 550/1799 videos, 316 comments      Progress: 560/1799 videos, 328 comments      Progress: 570/1799 videos, 333 comments      Progress: 580/1799 videos, 337 comments      Progress: 590/1799 videos, 345 comments      Progress: 600/1799 videos, 349 comments      Progress: 610/1799 videos, 361 comments      Progress: 620/1799 videos, 369 comments      Progress: 630/1799 videos, 380 comments      Progress: 640/1799 videos, 394 comments      Progress: 650/1799 videos, 397 comments      Progress: 660/1799 videos, 407 comments      Progress: 670/1799 videos, 415 comments      Progress: 680/1799 videos, 422 comments      Progress: 690/1799 videos, 426 comments      Progress: 700/1799 videos, 430 comments      Progress: 710/1799 videos, 433 comments      Progress: 720/1799 videos, 442 comments      Progress: 730/1799 videos, 449 comments      Progress: 740/1799 videos, 467 comments      Progress: 750/1799 videos, 491 comments      Progress: 760/1799 videos, 504 comments      Progress: 770/1799 videos, 523 comments      Progress: 780/1799 videos, 544 comments      Progress: 790/1799 videos, 556 comments      Progress: 800/1799 videos, 559 comments      Progress: 810/1799 videos, 564 comments      Progress: 820/1799 videos, 607 comments      Progress: 830/1799 videos, 663 comments      Progress: 840/1799 videos, 669 comments      Progress: 850/1799 videos, 672 comments      Progress: 860/1799 videos, 681 comments      Progress: 870/1799 videos, 715 comments      Progress: 880/1799 videos, 715 comments      Progress: 890/1799 videos, 715 comments      Progress: 900/1799 videos, 715 comments      Progress: 910/1799 videos, 715 comments      Progress: 920/1799 videos, 715 comments      Progress: 930/1799 videos, 715 comments      Progress: 940/1799 videos, 715 comments      Progress: 950/1799 videos, 715 comments      Progress: 960/1799 videos, 715 comments      Progress: 970/1799 videos, 715 comments      Progress: 980/1799 videos, 715 comments      Progress: 990/1799 videos, 715 comments      Progress: 1000/1799 videos, 715 comments      Progress: 1010/1799 videos, 715 comments      Progress: 1020/1799 videos, 720 comments      Progress: 1030/1799 videos, 723 comments      Progress: 1040/1799 videos, 723 comments      Progress: 1050/1799 videos, 724 comments      Progress: 1060/1799 videos, 724 comments      Progress: 1070/1799 videos, 724 comments      Progress: 1080/1799 videos, 724 comments      Progress: 1090/1799 videos, 724 comments      Progress: 1100/1799 videos, 724 comments      Progress: 1110/1799 videos, 724 comments      Progress: 1120/1799 videos, 724 comments      Progress: 1130/1799 videos, 724 comments      Progress: 1140/1799 videos, 727 comments      Progress: 1150/1799 videos, 741 comments      Progress: 1160/1799 videos, 771 comments      Progress: 1170/1799 videos, 785 comments      Progress: 1180/1799 videos, 789 comments      Progress: 1190/1799 videos, 801 comments      Progress: 1200/1799 videos, 807 comments      Progress: 1210/1799 videos, 814 comments      Progress: 1220/1799 videos, 820 comments      Progress: 1230/1799 videos, 946 comments      Progress: 1240/1799 videos, 948 comments      Progress: 1250/1799 videos, 949 comments      Progress: 1260/1799 videos, 956 comments      Progress: 1270/1799 videos, 969 comments      Progress: 1280/1799 videos, 970 comments      Progress: 1290/1799 videos, 975 comments      Progress: 1300/1799 videos, 977 comments      Progress: 1310/1799 videos, 980 comments      Progress: 1320/1799 videos, 995 comments      Progress: 1330/1799 videos, 1011 comments      Progress: 1340/1799 videos, 1015 comments      Progress: 1350/1799 videos, 1019 comments      Progress: 1360/1799 videos, 1026 comments      Progress: 1370/1799 videos, 1026 comments      Progress: 1380/1799 videos, 1026 comments      Progress: 1390/1799 videos, 1027 comments      Progress: 1400/1799 videos, 1034 comments      Progress: 1410/1799 videos, 1039 comments      Progress: 1420/1799 videos, 1043 comments      Progress: 1430/1799 videos, 1045 comments      Progress: 1440/1799 videos, 1050 comments      Progress: 1450/1799 videos, 1055 comments      Progress: 1460/1799 videos, 1055 comments      Progress: 1470/1799 videos, 1061 comments      Progress: 1480/1799 videos, 1063 comments      Progress: 1490/1799 videos, 1068 comments      Progress: 1500/1799 videos, 1068 comments      Progress: 1510/1799 videos, 1072 comments      Progress: 1520/1799 videos, 1073 comments      Progress: 1530/1799 videos, 1086 comments      Progress: 1540/1799 videos, 1095 comments      Progress: 1550/1799 videos, 1105 comments      Progress: 1560/1799 videos, 1106 comments      Progress: 1570/1799 videos, 1117 comments      Progress: 1580/1799 videos, 1120 comments      Progress: 1590/1799 videos, 1130 comments      Progress: 1600/1799 videos, 1137 comments      Progress: 1610/1799 videos, 1139 comments      Progress: 1620/1799 videos, 1142 comments      Progress: 1630/1799 videos, 1143 comments      Progress: 1640/1799 videos, 1175 comments      Progress: 1650/1799 videos, 1187 comments      Progress: 1660/1799 videos, 1188 comments      Progress: 1670/1799 videos, 1196 comments      Progress: 1680/1799 videos, 1203 comments      Progress: 1690/1799 videos, 1219 comments      Progress: 1700/1799 videos, 1230 comments      Progress: 1710/1799 videos, 1239 comments      Progress: 1720/1799 videos, 1242 comments      Progress: 1730/1799 videos, 1246 comments      Progress: 1740/1799 videos, 1252 comments      Progress: 1750/1799 videos, 1252 comments      Progress: 1760/1799 videos, 1258 comments      Progress: 1770/1799 videos, 1258 comments      Progress: 1780/1799 videos, 1259 comments      Progress: 1790/1799 videos, 1260 comments      Progress: 1799/1799 videos, 1260 comments      Progress: 1799/1799 videos, 1260 comments (COMPLETE)                    
+    Quota used: 247 units
+
+[7/6764] Rhein-Zeitung
+    URL: https://www.youtube.com/channel/UCiICWO8zyQ54iS-LIEVuNMw
+    ✓ Channel: Rhein-Zeitung
+    Subscribers: 9970
+      Collecting ALL videos from channel...
+      Videos collected: 50 (page 1)      Videos collected: 100 (page 2)      Videos collected: 150 (page 3)      Videos collected: 200 (page 4)      Videos collected: 250 (page 5)      Videos collected: 300 (page 6)      Videos collected: 350 (page 7)      Videos collected: 400 (page 8)      Videos collected: 450 (page 9)      Videos collected: 500 (page 10)      Videos collected: 550 (page 11)      Videos collected: 600 (page 12)      Videos collected: 650 (page 13)      Videos collected: 700 (page 14)      Videos collected: 750 (page 15)      Videos collected: 800 (page 16)      Videos collected: 850 (page 17)      Videos collected: 900 (page 18)      Videos collected: 950 (page 19)      Videos collected: 1000 (page 20)      Videos collected: 1050 (page 21)      Videos collected: 1100 (page 22)      Videos collected: 1150 (page 23)      Videos collected: 1200 (page 24)      Videos collected: 1250 (page 25)      Videos collected: 1300 (page 26)      Videos collected: 1350 (page 27)      Videos collected: 1400 (page 28)      Videos collected: 1450 (page 29)      Videos collected: 1500 (page 30)      Videos collected: 1550 (page 31)      Videos collected: 1600 (page 32)      Videos collected: 1650 (page 33)      Videos collected: 1700 (page 34)      Videos collected: 1750 (page 35)      Videos collected: 1800 (page 36)      Videos collected: 1850 (page 37)      Videos collected: 1900 (page 38)      Videos collected: 1950 (page 39)      Videos collected: 2000 (page 40)      Videos collected: 2050 (page 41)      Videos collected: 2054 (page 42)      Videos collected: 2054 (COMPLETE)                    
+    Collecting comments from 2054 videos...
+      Progress: 10/2054 videos, 6 comments      Progress: 20/2054 videos, 7 comments      Progress: 30/2054 videos, 14 comments      Progress: 40/2054 videos, 25 comments      Progress: 50/2054 videos, 27 comments      Progress: 60/2054 videos, 39 comments      Progress: 70/2054 videos, 97 comments      Progress: 80/2054 videos, 165 comments      Progress: 90/2054 videos, 173 comments      Progress: 100/2054 videos, 184 comments      Progress: 110/2054 videos, 191 comments      Progress: 120/2054 videos, 197 comments      Progress: 130/2054 videos, 260 comments      Progress: 140/2054 videos, 263 comments      Progress: 150/2054 videos, 265 comments      Progress: 160/2054 videos, 272 comments      Progress: 170/2054 videos, 275 comments      Progress: 180/2054 videos, 283 comments      Progress: 190/2054 videos, 285 comments      Progress: 200/2054 videos, 285 comments      Progress: 210/2054 videos, 285 comments      Progress: 220/2054 videos, 285 comments      Progress: 230/2054 videos, 285 comments      Progress: 240/2054 videos, 285 comments      Progress: 250/2054 videos, 285 comments      Progress: 260/2054 videos, 285 comments      Progress: 270/2054 videos, 285 comments      Progress: 280/2054 videos, 285 comments      Progress: 290/2054 videos, 285 comments      Progress: 300/2054 videos, 285 comments      Progress: 310/2054 videos, 285 comments      Progress: 320/2054 videos, 285 comments      Progress: 330/2054 videos, 285 comments      Progress: 340/2054 videos, 285 comments      Progress: 350/2054 videos, 285 comments      Progress: 360/2054 videos, 285 comments      Progress: 370/2054 videos, 285 comments      Progress: 380/2054 videos, 285 comments      Progress: 390/2054 videos, 285 comments      Progress: 400/2054 videos, 285 comments      Progress: 410/2054 videos, 285 comments      Progress: 420/2054 videos, 285 comments      Progress: 430/2054 videos, 285 comments      Progress: 440/2054 videos, 285 comments      Progress: 450/2054 videos, 285 comments      Progress: 460/2054 videos, 285 comments      Progress: 470/2054 videos, 285 comments      Progress: 480/2054 videos, 285 comments      Progress: 490/2054 videos, 285 comments      Progress: 500/2054 videos, 285 comments      Progress: 510/2054 videos, 285 comments      Progress: 520/2054 videos, 285 comments      Progress: 530/2054 videos, 285 comments      Progress: 540/2054 videos, 285 comments      Progress: 550/2054 videos, 285 comments      Progress: 560/2054 videos, 285 comments      Progress: 570/2054 videos, 285 comments      Progress: 580/2054 videos, 285 comments      Progress: 590/2054 videos, 285 comments      Progress: 600/2054 videos, 285 comments      Progress: 610/2054 videos, 285 comments      Progress: 620/2054 videos, 285 comments      Progress: 630/2054 videos, 285 comments      Progress: 640/2054 videos, 285 comments      Progress: 650/2054 videos, 285 comments      Progress: 660/2054 videos, 285 comments      Progress: 670/2054 videos, 285 comments      Progress: 680/2054 videos, 285 comments      Progress: 690/2054 videos, 285 comments      Progress: 700/2054 videos, 285 comments      Progress: 710/2054 videos, 285 comments      Progress: 720/2054 videos, 285 comments      Progress: 730/2054 videos, 311 comments      Progress: 740/2054 videos, 311 comments      Progress: 750/2054 videos, 311 comments      Progress: 760/2054 videos, 311 comments      Progress: 770/2054 videos, 311 comments      Progress: 780/2054 videos, 311 comments      Progress: 790/2054 videos, 311 comments      Progress: 800/2054 videos, 311 comments      Progress: 810/2054 videos, 312 comments      Progress: 820/2054 videos, 312 comments      Progress: 830/2054 videos, 312 comments      Progress: 840/2054 videos, 312 comments      Progress: 850/2054 videos, 312 comments      Progress: 860/2054 videos, 312 comments      Progress: 870/2054 videos, 315 comments      Progress: 880/2054 videos, 324 comments      Progress: 890/2054 videos, 330 comments      Progress: 900/2054 videos, 338 comments      Progress: 910/2054 videos, 345 comments      Progress: 920/2054 videos, 353 comments      Progress: 930/2054 videos, 398 comments      Progress: 940/2054 videos, 401 comments      Progress: 950/2054 videos, 403 comments      Progress: 960/2054 videos, 408 comments      Progress: 970/2054 videos, 410 comments      Progress: 980/2054 videos, 454 comments      Progress: 990/2054 videos, 456 comments      Progress: 1000/2054 videos, 466 comments      Progress: 1010/2054 videos, 471 comments      Progress: 1020/2054 videos, 486 comments      Progress: 1030/2054 videos, 489 comments      Progress: 1040/2054 videos, 498 comments      Progress: 1050/2054 videos, 513 comments      Progress: 1060/2054 videos, 546 comments      Progress: 1070/2054 videos, 551 comments      Progress: 1080/2054 videos, 552 comments      Progress: 1090/2054 videos, 586 comments      Progress: 1100/2054 videos, 590 comments      Progress: 1110/2054 videos, 596 comments      Progress: 1120/2054 videos, 604 comments      Progress: 1130/2054 videos, 612 comments      Progress: 1140/2054 videos, 636 comments      Progress: 1150/2054 videos, 668 comments      Progress: 1160/2054 videos, 683 comments      Progress: 1170/2054 videos, 721 comments      Progress: 1180/2054 videos, 725 comments      Progress: 1190/2054 videos, 726 comments      Progress: 1200/2054 videos, 727 comments      Progress: 1210/2054 videos, 743 comments      Progress: 1220/2054 videos, 778 comments      Progress: 1230/2054 videos, 783 comments      Progress: 1240/2054 videos, 792 comments      Progress: 1250/2054 videos, 801 comments      Progress: 1260/2054 videos, 808 comments      Progress: 1270/2054 videos, 812 comments      Progress: 1280/2054 videos, 819 comments      Progress: 1290/2054 videos, 846 comments      Progress: 1300/2054 videos, 857 comments      Progress: 1310/2054 videos, 867 comments      Progress: 1320/2054 videos, 867 comments      Progress: 1330/2054 videos, 868 comments      Progress: 1340/2054 videos, 871 comments      Progress: 1350/2054 videos, 937 comments      Progress: 1360/2054 videos, 957 comments      Progress: 1370/2054 videos, 977 comments      Progress: 1380/2054 videos, 978 comments      Progress: 1390/2054 videos, 987 comments      Progress: 1400/2054 videos, 1014 comments      Progress: 1410/2054 videos, 1026 comments      Progress: 1420/2054 videos, 1036 comments      Progress: 1430/2054 videos, 1048 comments      Progress: 1440/2054 videos, 1053 comments      Progress: 1450/2054 videos, 1069 comments      Progress: 1460/2054 videos, 1073 comments      Progress: 1470/2054 videos, 1073 comments      Progress: 1480/2054 videos, 1086 comments      Progress: 1490/2054 videos, 1096 comments      Progress: 1500/2054 videos, 1100 comments      Progress: 1510/2054 videos, 1104 comments      Progress: 1520/2054 videos, 1107 comments      Progress: 1530/2054 videos, 1125 comments      Progress: 1540/2054 videos, 1162 comments      Progress: 1550/2054 videos, 1165 comments      Progress: 1560/2054 videos, 1167 comments      Progress: 1570/2054 videos, 1179 comments      Progress: 1580/2054 videos, 1188 comments      Progress: 1590/2054 videos, 1194 comments      Progress: 1600/2054 videos, 1195 comments      Progress: 1610/2054 videos, 1196 comments      Progress: 1620/2054 videos, 1215 comments      Progress: 1630/2054 videos, 1227 comments      Progress: 1640/2054 videos, 1271 comments      Progress: 1650/2054 videos, 1285 comments      Progress: 1660/2054 videos, 1292 comments      Progress: 1670/2054 videos, 1297 comments      Progress: 1680/2054 videos, 1298 comments      Progress: 1690/2054 videos, 1331 comments      Progress: 1700/2054 videos, 1336 comments      Progress: 1710/2054 videos, 1340 comments      Progress: 1720/2054 videos, 1368 comments      Progress: 1730/2054 videos, 1400 comments      Progress: 1740/2054 videos, 1413 comments      Progress: 1750/2054 videos, 1414 comments      Progress: 1760/2054 videos, 1460 comments      Progress: 1770/2054 videos, 1471 comments      Progress: 1780/2054 videos, 1484 comments      Progress: 1790/2054 videos, 2239 comments      Progress: 1800/2054 videos, 2263 comments      Progress: 1810/2054 videos, 2279 comments      Progress: 1820/2054 videos, 2282 comments      Progress: 1830/2054 videos, 2288 comments      Progress: 1840/2054 videos, 2313 comments      Progress: 1850/2054 videos, 2315 comments      Progress: 1860/2054 videos, 2320 comments      Progress: 1870/2054 videos, 2340 comments      Progress: 1880/2054 videos, 2351 comments      Progress: 1890/2054 videos, 2353 comments      Progress: 1900/2054 videos, 2377 comments      Progress: 1910/2054 videos, 2438 comments      Progress: 1920/2054 videos, 2443 comments      Progress: 1930/2054 videos, 2449 comments      Progress: 1940/2054 videos, 2453 comments      Progress: 1950/2054 videos, 2455 comments      Progress: 1960/2054 videos, 2460 comments      Progress: 1970/2054 videos, 2460 comments      Progress: 1980/2054 videos, 2467 comments      Progress: 1990/2054 videos, 2508 comments      Progress: 2000/2054 videos, 2524 comments      Progress: 2010/2054 videos, 3982 comments      Progress: 2020/2054 videos, 3984 comments      Progress: 2030/2054 videos, 3984 comments      Progress: 2040/2054 videos, 3984 comments      Progress: 2050/2054 videos, 3984 comments      Progress: 2054/2054 videos, 3984 comments      Progress: 2054/2054 videos, 3984 comments (COMPLETE)                    
+    Quota used: 291 units
+
+[8/6764] Report24
+    URL: https://www.youtube.com/channel/UC6x5NWJ_aYfrZrlVD9Dh3jg
+    ✗ Could not retrieve channel info (deleted/private/suspended)
+
+[9/6764] National Geographic Italia
+    URL: https://www.youtube.com/channel/UCvXSSoQm3NOwYlPYy8qdGnA
+    ✗ Could not retrieve channel info (deleted/private/suspended)
+
+[10/6764] La Montagne
+    URL: https://www.youtube.com/channel/UCPtoD96ccH6TNad0-OAtLzA
+    ✓ Channel: Journal La Montagne
+    Subscribers: 46000
+      Collecting ALL videos from channel...
+    ⚠ No videos found
+
+    ✓ Checkpoint saved (every 10 channels)
+
+[11/6764] Wetzlarer Neue Zeitung
+    URL: https://www.youtube.com/channel/UCbOBaXZF7R8ZRD9U72b-SxQ
+    ✗ Could not retrieve channel info (deleted/private/suspended)
+
+[12/6764] Siegener Zeitung
+    URL: https://www.youtube.com/channel/UCg18_2cdqaVOzKjXW8E1XKQ
+    ✗ Could not retrieve channel info (deleted/private/suspended)
+
+[13/6764] Allgemeine Zeitung
+    URL: https://www.youtube.com/channel/UCe0mXHG3fu1IthMM7wni4Fg
+    ✗ Could not retrieve channel info (deleted/private/suspended)
+
+[14/6764] Neue Presse
+    URL: https://www.youtube.com/channel/UCda6XRtwwQk1hboA3Qztawg
+    ✗ Could not retrieve channel info (deleted/private/suspended)
+
+[15/6764] Darmstädter Echo
+    URL: https://www.youtube.com/channel/UC5OIA7iOLi58uHoDwt5rHag
+    ✗ Could not retrieve channel info (deleted/private/suspended)
+
+⚠ Stopping: 5 consecutive failures
+   This usually means we've hit a batch of deleted/invalid channels
+   Consider checking your sources.csv for data quality issues
+
+================================================================================
+COLLECTION COMPLETE
+================================================================================
+Sources loaded: 6764
+Channels attempted: 15
+Channels successful: 8
+Channels failed: 7
+Sources skipped: 6749
+Videos collected: 8,637
+Comments collected: 700,041
+Total quota used: 291 units
+Success rate: 53.3%
+

@@ -1,0 +1,70 @@
+# YouTube Monitoring Pipeline Configuration
+
+# API Configuration
+api:
+  youtube_api_key: "AIzaSyDiRozT3wXfWJb2-SvaecrbikOpTMAFTCk"
+  max_retries: 3
+  retry_delay: 2  # seconds
+  request_timeout: 30  # seconds
+
+# Data Collection Settings
+collection:
+  # Maximum number of videos to fetch per channel (None for all)
+  max_videos_per_channel: 50
+  
+  # Maximum number of comments per video (None for all available)
+  max_comments_per_video: 100
+  
+  # Order for videos: date, rating, relevance, title, videoCount, viewCount
+  video_order: "date"
+  
+  # Order for comments: time, relevance
+  comment_order: "time"
+  
+  # Collect captions/transcripts
+  collect_captions: true
+  
+  # Caption languages to prioritize (in order)
+  caption_languages: ["en", "it", "de", "fr"]
+  
+  # Date range for video collection (YYYY-MM-DD format, null for no limit)
+  start_date: null  # e.g., "2024-01-01"
+  end_date: null    # e.g., "2024-12-31"
+
+# Database Settings
+database:
+  type: "sqlite"  # sqlite or postgresql
+  sqlite_path: "data/youtube_monitoring.db"
+  
+  # For PostgreSQL (if type is postgresql)
+  # postgres_host: "localhost"
+  # postgres_port: 5432
+  # postgres_database: "youtube_monitoring"
+  # postgres_user: "your_user"
+  # postgres_password: "your_password"
+
+# Logging Settings
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  log_to_file: true
+  log_file: "logs/pipeline.log"
+  log_rotation: "1 day"
+  max_log_size: "10 MB"
+
+# Rate Limiting (to respect API quotas)
+rate_limiting:
+  enabled: true
+  # Estimated daily quota (default is 10,000 units)
+  daily_quota: 10000
+  # Buffer to leave unused (safety margin)
+  quota_buffer: 1000
+  
+# Output Settings
+output:
+  save_raw_json: true
+  raw_json_path: "data/raw"
+  
+  save_to_csv: true
+  csv_path: "data/processed"
+  
+  save_to_database: true

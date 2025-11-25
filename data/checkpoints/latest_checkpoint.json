@@ -1,0 +1,30 @@
+{
+  "channel_index": 10,
+  "last_source": {
+    "youtube_url": "https://www.youtube.com/channel/UCPtoD96ccH6TNad0-OAtLzA",
+    "domain": "lamontagne.fr",
+    "brand_name": "La Montagne",
+    "country": "ALL",
+    "language": "en",
+    "rating": "T",
+    "score": 75.0,
+    "orientation": NaN,
+    "type_of_content": "Wire Services",
+    "topics": "Local News",
+    "owner": "Groupe Centre France",
+    "type_of_owner": "Private Company"
+  },
+  "stats": {
+    "channels_attempted": 10,
+    "channels_success": 8,
+    "channels_failed": 2,
+    "videos_collected": 8637,
+    "comments_collected": 700041,
+    "quota_used": 291,
+    "start_time": "2025-11-20T13:36:45.062653",
+    "consecutive_failures": 0,
+    "sources_loaded": 6764,
+    "sources_skipped": 0
+  },
+  "timestamp": "2025-11-21T19:25:34.194146"
+}

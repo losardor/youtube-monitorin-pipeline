@@ -1,0 +1,35 @@
+# YouTube Monitoring Pipeline Requirements
+
+# YouTube API
+google-api-python-client>=2.100.0
+google-auth>=2.23.0
+google-auth-oauthlib>=1.1.0
+google-auth-httplib2>=0.1.1
+
+# Data handling
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Configuration
+pyyaml>=6.0
+
+# Date/time handling
+isodate>=0.6.1
+python-dateutil>=2.8.2
+
+# Database
+# For PostgreSQL support (optional)
+# psycopg2-binary>=2.9.0
+
+# Logging
+# colorlog>=6.7.0  # Optional: for colored console logs
+
+# Testing (optional)
+# pytest>=7.4.0
+# pytest-cov>=4.1.0
+
+# Data export (included with pandas but explicit)
+openpyxl>=3.1.0  # For Excel export if needed
+
+# Data viewing
+tabulate>=0.9.0  # For pretty table output in view_data.py
