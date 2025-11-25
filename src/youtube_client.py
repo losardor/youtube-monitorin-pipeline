@@ -16,31 +16,39 @@ logger = logging.getLogger(__name__)
 class YouTubeAPIClient:
     """Wrapper for YouTube Data API v3"""
     
-    def __init__(self, api_key: str, max_retries: int = 3, retry_delay: int = 2):
+    def __init__(self, api_key: str, max_retries: int = 3, retry_delay: int = 2,
+                 initial_quota: int = 0, db=None, run_id: int = None):
         """
         Initialize YouTube API client
-        
+
         Args:
             api_key: YouTube Data API key
             max_retries: Maximum number of retries for failed requests
             retry_delay: Delay between retries in seconds
+            initial_quota: Starting quota value (for resuming)
+            db: Database instance for quota tracking
+            run_id: Collection run ID for quota tracking
         """
         self.api_key = api_key
         self.max_retries = max_retries
         self.retry_delay = retry_delay
         self.youtube = build('youtube', 'v3', developerKey=api_key)
-        self.quota_usage = 0
-        
-        logger.info("YouTube API client initialized")
+        self.quota_usage = 0  # Session quota
+        self.quota_cumulative = initial_quota  # Cumulative quota
+        self.db = db
+        self.run_id = run_id
+
+        logger.info(f"YouTube API client initialized with cumulative quota: {initial_quota}")
     
-    def _make_request(self, request_func, quota_cost: int = 1) -> Any:
+    def _make_request(self, request_func, quota_cost: int = 1, api_method: str = None) -> Any:
         """
         Make API request with retry logic
-        
+
         Args:
             request_func: Function that executes the API request
             quota_cost: Estimated quota cost of this request
-            
+            api_method: Name of API method for tracking
+
         Returns:
             API response
         """
@@ -48,7 +56,13 @@ class YouTubeAPIClient:
             try:
                 response = request_func()
                 self.quota_usage += quota_cost
-                logger.debug(f"API request successful. Quota used: {self.quota_usage}")
+                self.quota_cumulative += quota_cost
+
+                # Track quota in database if available
+                if self.db and self.run_id and api_method:
+                    self.db.track_quota_usage(self.run_id, api_method, quota_cost)
+
+                logger.debug(f"API request successful. Session quota: {self.quota_usage}, Cumulative: {self.quota_cumulative}")
                 return response
             except HttpError as e:
                 if e.resp.status in [403, 429]:  # Quota exceeded or rate limit
@@ -116,7 +130,7 @@ class YouTubeAPIClient:
                 part='snippet,statistics,contentDetails',
                 forUsername=username
             )
-            response = self._make_request(lambda: request.execute(), quota_cost=1)
+            response = self._make_request(lambda: request.execute(), quota_cost=1, api_method='channels.list_forUsername')
             
             if response and response.get('items'):
                 return response['items'][0]
@@ -127,7 +141,7 @@ class YouTubeAPIClient:
                     part='snippet,statistics,contentDetails',
                     forHandle=username
                 )
-                response = self._make_request(lambda: request.execute(), quota_cost=1)
+                response = self._make_request(lambda: request.execute(), quota_cost=1, api_method='channels.list_forHandle')
                 
                 if response and response.get('items'):
                     return response['items'][0]
@@ -139,7 +153,7 @@ class YouTubeAPIClient:
                 type='channel',
                 maxResults=1
             )
-            response = self._make_request(lambda: request.execute(), quota_cost=100)
+            response = self._make_request(lambda: request.execute(), quota_cost=100, api_method='search.list')
             
             if response and response.get('items'):
                 channel_id = response['items'][0]['id']['channelId']
@@ -171,7 +185,7 @@ class YouTubeAPIClient:
                 part='snippet,statistics,contentDetails,brandingSettings',
                 id=channel_id
             )
-            response = self._make_request(lambda: request.execute(), quota_cost=1)
+            response = self._make_request(lambda: request.execute(), quota_cost=1, api_method='channels.list')
             
             if response and response.get('items'):
                 return response['items'][0]
@@ -222,7 +236,7 @@ class YouTubeAPIClient:
                     request_params['pageToken'] = next_page_token
                 
                 request = self.youtube.playlistItems().list(**request_params)
-                response = self._make_request(lambda: request.execute(), quota_cost=1)
+                response = self._make_request(lambda: request.execute(), quota_cost=1, api_method='playlistItems.list')
                 
                 if not response:
                     break
@@ -278,7 +292,7 @@ class YouTubeAPIClient:
                     part='snippet,statistics,contentDetails,topicDetails,status',
                     id=','.join(batch)
                 )
-                response = self._make_request(lambda: request.execute(), quota_cost=1)
+                response = self._make_request(lambda: request.execute(), quota_cost=1, api_method='videos.list')
                 
                 if response:
                     all_videos.extend(response.get('items', []))
@@ -322,7 +336,7 @@ class YouTubeAPIClient:
                 
                 try:
                     request = self.youtube.commentThreads().list(**request_params)
-                    response = self._make_request(lambda: request.execute(), quota_cost=1)
+                    response = self._make_request(lambda: request.execute(), quota_cost=1, api_method='commentThreads.list')
                     
                     if not response:
                         break
@@ -399,7 +413,7 @@ class YouTubeAPIClient:
                 part='snippet',
                 videoId=video_id
             )
-            response = self._make_request(lambda: request.execute(), quota_cost=50)
+            response = self._make_request(lambda: request.execute(), quota_cost=50, api_method='captions.list')
             
             if response:
                 captions = response.get('items', [])
@@ -421,8 +435,13 @@ class YouTubeAPIClient:
     def get_quota_usage(self) -> int:
         """Get current session quota usage"""
         return self.quota_usage
-    
+
+    def get_quota_cumulative(self) -> int:
+        """Get cumulative quota usage across all sessions"""
+        return self.quota_cumulative
+
     def reset_quota_counter(self):
         """Reset quota usage counter (call at start of new day)"""
         self.quota_usage = 0
+        self.quota_cumulative = 0
         logger.info("Quota counter reset")

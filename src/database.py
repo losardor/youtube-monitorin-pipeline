@@ -142,8 +142,33 @@ class Database:
                     videos_collected INTEGER,
                     comments_collected INTEGER,
                     quota_used INTEGER,
+                    quota_cumulative INTEGER DEFAULT 0,  -- Total quota including resumed sessions
                     status TEXT,
                     error_message TEXT
+                )
+            """)
+
+            # Add quota_cumulative column if it doesn't exist (for existing databases)
+            self.cursor.execute("""
+                PRAGMA table_info(collection_runs)
+            """)
+            columns = [col[1] for col in self.cursor.fetchall()]
+            if 'quota_cumulative' not in columns:
+                self.cursor.execute("""
+                    ALTER TABLE collection_runs
+                    ADD COLUMN quota_cumulative INTEGER DEFAULT 0
+                """)
+
+            # Quota tracking table for detailed API call tracking
+            self.cursor.execute("""
+                CREATE TABLE IF NOT EXISTS quota_tracking (
+                    track_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    run_id INTEGER,
+                    timestamp TEXT,
+                    api_method TEXT,
+                    quota_cost INTEGER,
+                    details TEXT,
+                    FOREIGN KEY (run_id) REFERENCES collection_runs (run_id)
                 )
             """)
             
@@ -423,12 +448,16 @@ class Database:
     def end_collection_run(self, run_id: int, stats: Dict):
         """
         Mark collection run as complete and save stats
-        
+
         Args:
             run_id: Collection run ID
             stats: Dictionary with collection statistics
         """
         try:
+            # Handle both session quota and cumulative quota
+            session_quota = stats.get('quota_used', 0)
+            cumulative_quota = stats.get('quota_cumulative', session_quota)
+
             self.cursor.execute("""
                 UPDATE collection_runs SET
                     end_time = ?,
@@ -436,6 +465,7 @@ class Database:
                     videos_collected = ?,
                     comments_collected = ?,
                     quota_used = ?,
+                    quota_cumulative = ?,
                     status = ?,
                     error_message = ?
                 WHERE run_id = ?
@@ -444,15 +474,16 @@ class Database:
                 stats.get('channels_processed', 0),
                 stats.get('videos_collected', 0),
                 stats.get('comments_collected', 0),
-                stats.get('quota_used', 0),
+                session_quota,
+                cumulative_quota,
                 stats.get('status', 'completed'),
                 stats.get('error_message'),
                 run_id
             ))
-            
+
             self.conn.commit()
-            logger.info(f"Collection run {run_id} completed")
-            
+            logger.info(f"Collection run {run_id} completed with quota: {session_quota} (cumulative: {cumulative_quota})")
+
         except Exception as e:
             logger.error(f"Error ending collection run: {e}")
     
@@ -520,6 +551,73 @@ class Database:
             logger.error(f"Error exporting to CSV: {e}")
             return False
     
+    def track_quota_usage(self, run_id: int, api_method: str, quota_cost: int, details: str = None):
+        """
+        Track individual API quota usage
+
+        Args:
+            run_id: Collection run ID
+            api_method: Name of API method called
+            quota_cost: Quota units consumed
+            details: Optional details about the call
+        """
+        try:
+            self.cursor.execute("""
+                INSERT INTO quota_tracking (run_id, timestamp, api_method, quota_cost, details)
+                VALUES (?, ?, ?, ?, ?)
+            """, (run_id, datetime.utcnow().isoformat(), api_method, quota_cost, details))
+
+            self.conn.commit()
+
+        except Exception as e:
+            logger.error(f"Error tracking quota usage: {e}")
+
+    def get_last_quota_cumulative(self) -> int:
+        """
+        Get the cumulative quota from the most recent collection run
+
+        Returns:
+            Cumulative quota used so far, or 0 if no previous runs
+        """
+        try:
+            self.cursor.execute("""
+                SELECT quota_cumulative
+                FROM collection_runs
+                WHERE status IN ('completed', 'running')
+                ORDER BY run_id DESC
+                LIMIT 1
+            """)
+
+            result = self.cursor.fetchone()
+            if result and result[0] is not None:
+                return result[0]
+            return 0
+
+        except Exception as e:
+            logger.error(f"Error getting last cumulative quota: {e}")
+            return 0
+
+    def update_run_quota(self, run_id: int, session_quota: int, cumulative_quota: int):
+        """
+        Update quota values for a running collection
+
+        Args:
+            run_id: Collection run ID
+            session_quota: Quota used in current session
+            cumulative_quota: Total cumulative quota
+        """
+        try:
+            self.cursor.execute("""
+                UPDATE collection_runs
+                SET quota_used = ?, quota_cumulative = ?
+                WHERE run_id = ?
+            """, (session_quota, cumulative_quota, run_id))
+
+            self.conn.commit()
+
+        except Exception as e:
+            logger.error(f"Error updating run quota: {e}")
+
     def close(self):
         """Close database connection"""
         if self.conn:

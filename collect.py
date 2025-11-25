@@ -33,15 +33,23 @@ class ComprehensiveCollector:
             log_file=log_config.get('log_file')
         )
         
-        # Initialize components
+        # Initialize database first
+        db_path = self.config['database']['sqlite_path']
+        self.db = Database(db_path=db_path)
+
+        # Get cumulative quota from previous runs
+        initial_quota = self.db.get_last_quota_cumulative()
+
+        # Initialize components with quota tracking
+        self.run_id = None  # Will be set when collection starts
         self.youtube_client = YouTubeAPIClient(
             api_key=self.config['api']['youtube_api_key'],
             max_retries=self.config['api']['max_retries'],
-            retry_delay=self.config['api']['retry_delay']
+            retry_delay=self.config['api']['retry_delay'],
+            initial_quota=initial_quota,
+            db=self.db,
+            run_id=self.run_id
         )
-        
-        db_path = self.config['database']['sqlite_path']
-        self.db = Database(db_path=db_path)
         
         # Collection settings
         self.collection_config = self.config.get('collection', {})
@@ -75,22 +83,28 @@ class ComprehensiveCollector:
     
     def check_quota_available(self):
         """Check if we have quota remaining before processing"""
-        current_quota = self.youtube_client.get_quota_usage()
-        
+        # Use cumulative quota for checking limits
+        current_quota = self.youtube_client.get_quota_cumulative()
+
         if current_quota >= (self.daily_quota - self.quota_buffer):
             return False, current_quota
-        
+
         return True, current_quota
     
     def save_checkpoint(self, channel_index, source):
         """Save progress checkpoint"""
+        # Update stats with current quota
+        self.stats['quota_used'] = self.youtube_client.get_quota_usage()
+        self.stats['quota_cumulative'] = self.youtube_client.get_quota_cumulative()
+
         checkpoint = {
             'channel_index': channel_index,
             'last_source': source,
             'stats': self.stats,
-            'timestamp': datetime.now().isoformat()
+            'timestamp': datetime.now().isoformat(),
+            'quota_cumulative': self.stats.get('quota_cumulative', 0)
         }
-        
+
         checkpoint_file = self.checkpoint_dir / 'latest_checkpoint.json'
         with open(checkpoint_file, 'w') as f:
             json.dump(checkpoint, f, indent=2)
@@ -134,7 +148,9 @@ class ComprehensiveCollector:
                 if next_page_token:
                     request_params['pageToken'] = next_page_token
                 
-                response = self.youtube_client.youtube.playlistItems().list(**request_params).execute()
+                # Use the youtube client's _make_request to track quota
+                request = self.youtube_client.youtube.playlistItems().list(**request_params)
+                response = self.youtube_client._make_request(lambda: request.execute(), quota_cost=1, api_method='playlistItems.list')
                 
                 page_items = response.get('items', [])
                 video_ids = [item['contentDetails']['videoId'] for item in page_items]
@@ -188,7 +204,9 @@ class ComprehensiveCollector:
                 if next_page_token:
                     request_params['pageToken'] = next_page_token
                 
-                response = self.youtube_client.youtube.commentThreads().list(**request_params).execute()
+                # Use the youtube client's _make_request to track quota
+                request = self.youtube_client.youtube.commentThreads().list(**request_params)
+                response = self.youtube_client._make_request(lambda: request.execute(), quota_cost=1, api_method='commentThreads.list')
                 
                 for item in response.get('items', []):
                     # Top-level comment
@@ -308,9 +326,10 @@ class ComprehensiveCollector:
             print(f"      Progress: {len(videos)}/{len(videos)} videos, {video_comments} comments (COMPLETE)" + " " * 20)
             self.stats['comments_collected'] += video_comments
             
-            # Update quota
+            # Update quota - track both session and cumulative
             self.stats['quota_used'] = self.youtube_client.get_quota_usage()
-            print(f"    Quota used: {self.stats['quota_used']:,} units")
+            self.stats['quota_cumulative'] = self.youtube_client.get_quota_cumulative()
+            print(f"    Session quota: {self.stats['quota_used']:,} | Cumulative: {self.stats['quota_cumulative']:,} units")
             
             self.stats['channels_success'] += 1
             self.stats['consecutive_failures'] = 0  # Reset on success
@@ -358,6 +377,13 @@ class ComprehensiveCollector:
                 self.stats.update(saved_stats)
                 # IMPORTANT: Reset consecutive_failures on resume to give fresh start
                 self.stats['consecutive_failures'] = 0
+
+                # Restore cumulative quota from checkpoint
+                checkpoint_quota = checkpoint.get('quota_cumulative', 0)
+                if checkpoint_quota > 0:
+                    self.youtube_client.quota_cumulative = checkpoint_quota
+                    print(f"✓ Restored cumulative quota: {checkpoint_quota:,} units")
+
                 print(f"✓ Restored stats: {self.stats['channels_attempted']} attempted, {self.stats['channels_success']} successful")
                 print(f"✓ Reset consecutive failures counter")
         
@@ -386,6 +412,9 @@ class ComprehensiveCollector:
         
         # Start database run
         run_id = self.db.start_collection_run()
+        self.run_id = run_id
+        # Update the YouTube client with the run ID for quota tracking
+        self.youtube_client.run_id = run_id
         
         # Track which sources we're actually processing
         channels_to_process = len(sources)
@@ -459,6 +488,10 @@ class ComprehensiveCollector:
                 print(f"Success rate: {success_rate:.1f}%")
             print()
             
+            # Update final quota
+            self.stats['quota_used'] = self.youtube_client.get_quota_usage()
+            self.stats['quota_cumulative'] = self.youtube_client.get_quota_cumulative()
+
             # Prepare database stats (use attempted, not sources_loaded)
             db_stats = {
                 'channels_processed': self.stats['channels_attempted'],  # Actually attempted
@@ -467,6 +500,7 @@ class ComprehensiveCollector:
                 'videos_collected': self.stats['videos_collected'],
                 'comments_collected': self.stats['comments_collected'],
                 'quota_used': self.stats['quota_used'],
+                'quota_cumulative': self.stats['quota_cumulative'],
                 'status': 'completed'
             }
             
@@ -485,6 +519,10 @@ class ComprehensiveCollector:
             self.save_checkpoint(idx if 'idx' in locals() else start_from, 
                                source if 'source' in locals() else {})
             
+            # Update final quota
+            self.stats['quota_used'] = self.youtube_client.get_quota_usage()
+            self.stats['quota_cumulative'] = self.youtube_client.get_quota_cumulative()
+
             db_stats = {
                 'channels_processed': self.stats['channels_attempted'],
                 'channels_success': self.stats['channels_success'],
@@ -492,6 +530,7 @@ class ComprehensiveCollector:
                 'videos_collected': self.stats['videos_collected'],
                 'comments_collected': self.stats['comments_collected'],
                 'quota_used': self.stats['quota_used'],
+                'quota_cumulative': self.stats['quota_cumulative'],
                 'status': 'interrupted'
             }
             self.db.end_collection_run(run_id, db_stats)
@@ -502,6 +541,10 @@ class ComprehensiveCollector:
             import traceback
             traceback.print_exc()
             
+            # Update final quota
+            self.stats['quota_used'] = self.youtube_client.get_quota_usage()
+            self.stats['quota_cumulative'] = self.youtube_client.get_quota_cumulative()
+
             db_stats = {
                 'channels_processed': self.stats['channels_attempted'],
                 'channels_success': self.stats['channels_success'],
@@ -509,6 +552,7 @@ class ComprehensiveCollector:
                 'videos_collected': self.stats['videos_collected'],
                 'comments_collected': self.stats['comments_collected'],
                 'quota_used': self.stats['quota_used'],
+                'quota_cumulative': self.stats['quota_cumulative'],
                 'status': 'failed',
                 'error': str(e)
             }
