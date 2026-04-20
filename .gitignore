@@ -74,3 +74,7 @@ Thumbs.db
 data/sources_backup_*.csv
 validation_progress.json.bak_*
 .claude/settings.local.json
+
+# Derived sources splits (regenerated on demand)
+data/sources_cheap.csv
+data/sources_risky.csv
