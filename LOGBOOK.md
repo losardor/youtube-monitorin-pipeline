@@ -40,10 +40,21 @@
 - **Remaining**: 964 URLs (need Run #3 tomorrow)
 - **Note**: Run #1 success rate was artificially low due to quota exhaustion marking channels as "failed"
 
-### Validation Run #3 (pending - needs quota reset)
-- **Remaining**: 964 URLs
-- **Estimated quota**: ~10,000 units (should complete in one run)
-- **Status**: Waiting for quota reset...
+### Validation Run #3a (2026-04-20, cheap batch only)
+- **Split strategy**: Pre-filtered `sources.csv` into cheap (`/channel/UC...` + `/@handle`) and risky (`/c/`, `/user/`, bare names) buckets. Under the confirmed 10K/day ceiling, running the 1,013 remaining unfiltered risked burning quota on the ~137 fallback-risk URLs before clearing the cheap bulk.
+- **Starting point**: Resuming from 2,294 validated (post-reconcile state)
+- **URLs validated this run**: 876 (all cheap)
+- **Success rate**: 96.2% (843 success, 33 failed)
+- **Quota used**: 1,399 units (14% of 10K ceiling — massive headroom)
+- **Avg quota per URL**: 1.60 units
+- **Failures**: All 33 are `"Channel not found (deleted/private/suspended)"` — same pattern as Runs #1–#2, genuine dead channels. **Zero `cost=0` failures** → no 403-swallow contamination.
+- **Status**: Complete. 2,294 → 3,170 validated. 137 risky URLs remain.
+
+### Validation Run #3b (pending - risky batch, 137 URLs)
+- **Remaining**: 137 URLs (93 `/c/`, 42 `/user/`, 2 bare names)
+- **Risk**: Some may trigger search fallback (100 units/URL). Worst case 13,700 units — over 10K.
+- **Plan**: If 1M quota approval has landed, run unfiltered. If still on 10K/day, cap at `--limit 95` (worst case 9,500 units, safely under ceiling).
+- **Status**: Waiting for midnight-PT quota reset (2026-04-21).
 
 ---
 
