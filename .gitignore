@@ -69,3 +69,8 @@ Thumbs.db
 *.bak
 *.swp
 *~
+
+# Backup and local-only artifacts
+data/sources_backup_*.csv
+validation_progress.json.bak_*
+.claude/settings.local.json
