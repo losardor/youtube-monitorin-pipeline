@@ -104,3 +104,15 @@ The 2,294 number is the truth: 2,393 Dec-15 entries − 110 duplicates (pre/post
 - **Expected**: 1,013 API lookups. Shape breakdown: 854 `/channel/UC...` (1 unit each), 93 `/c/`, 42 `/user/`, 22 `/@`, 2 bare/other.
 - **Worst-case quota**: ~16,554 units (well under 1M daily).
 - **Still TBD before run**: decide on run #4 abort; decide on DB 31-vs-73 discrepancy.
+
+---
+
+## Known bugs
+
+### `youtube_client.get_channel_info` swallows quota 403 as "not found"
+
+When the YouTube API returns a `quotaExceeded` 403, the client currently catches the error and returns `None`, which the validator records as a resolution failure ("Channel not found"). This contaminated the tail of Dec 15's Run #2: the last ~137 entries with `cost=0` + `"Channel not found"` are likely valid channels, not invalid ones.
+
+After the 1M quota is approved (or on any day with spare quota), re-validate any URL in `validation_progress.json` matching the pattern `cost=0 AND status=failed AND reason="Channel not found"`.
+
+Client fix: catch the 403 explicitly, raise `QuotaExceededError`, stop cleanly. Out of scope for Run #3.
