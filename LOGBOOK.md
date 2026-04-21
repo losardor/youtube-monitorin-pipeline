@@ -60,12 +60,49 @@
 - **Failures**: 1 `"Channel not found (deleted/private/suspended)"`. Zero `cost=0` failures → no 403-swallow contamination.
 - **Status**: Partial. 3,170 → 3,265 validated. 42 risky URLs remain (all `/c/` or `/user/` that were beyond the --limit 95 cap).
 
-### Validation Run #3c (closing pass, same-day)
-- **Remaining**: 42 URLs
-- **Budget available today**: ~5,462 units (10,000 − 4,538 spent)
-- **Worst case**: 42 × 100 = 4,200 units, safely under remaining budget.
-- **Plan**: `--resume --sources data/sources_risky.csv` (no --limit needed — only 42 pending, worst case fits).
-- **Status**: In progress.
+### Validation Run #3c (2026-04-21, closing pass)
+- **URLs validated this run**: 42
+- **Success rate**: 95.2% (40 success, 2 failed)
+- **Quota used**: 2,464 units (avg 58.67/URL — 24 of 42 hit 100-unit search fallback, 57% rate)
+- **Failures**: Both `"Channel not found"`. Zero `cost=0` failures.
+- **Status**: Complete. 3,265 → **3,307 validated (100%)**.
+
+### Day 2026-04-21 combined (Runs #3b + #3c)
+- **Total URLs validated today**: 137
+- **Total quota used today**: 7,002 units (70% of 10K ceiling)
+- **Remaining quota today**: ~2,998 units (unused)
+
+---
+
+## Validation Phase — CLOSED (2026-04-21)
+
+| | Count |
+|---|---|
+| Total unique URLs in `sources.csv` | 3,307 |
+| **Validated** | **3,307 (100%)** |
+| Pending | 0 |
+| Cumulative success | 2,252 (68.1%) |
+| Cumulative failed | 1,055 (31.9%) |
+
+### Contamination caveat
+~137 entries from Dec 15 Run #2's tail are recorded as `"Channel not found"` with `cost=0` — these are the 403-swallow artifacts (see Known bugs). The true failed count excluding that contamination is ~918 (27.8%). The 137 contaminated entries should be re-validated after the 1M quota increase lands (or on any day with spare budget). Filter: `cost=0 AND success=false AND validated_at LIKE '2025-12-15T15:%'`.
+
+### Runs summary
+| Run | Date | URLs | Success | Quota | Notes |
+|---|---|---|---|---|---|
+| #1 | 2025-12-11 | 1,343 | 529 | 10,001 | Quota exhausted mid-run. |
+| #2 | 2025-12-15 | 1,050 | 772 | 10,054 | Tail ~137 URLs contaminated by 403-swallow. |
+| corrected | 2025-12-23 | 70 | 69 | ~69 | URL-correction re-validation (separate script). |
+| #3a | 2026-04-20 | 876 | 843 | 1,399 | Cheap batch (`/channel/UC` + `/@`). 96.2% success. |
+| #3b | 2026-04-21 | 95 | 94 | 4,538 | Risky batch partial (cap 95). 98.9% success. |
+| #3c | 2026-04-21 | 42 | 40 | 2,464 | Risky closing pass. 95.2% success. |
+
+### Next phase
+- **Main collection** (videos + comments + captions via `collect.py`) can now proceed against the 2,252 validated successful channels.
+- **Pre-flight before collection:**
+  - Re-validate the 137 Dec 15 contaminated entries once quota allows (raises the true success count).
+  - Reconcile the 31-vs-73 DB channel discrepancy (TBD from 2026-04-20 reconciliation entry — some Nov 25 test-collection channels are in DB but may not be in `sources.csv` validated set).
+  - Confirm 1M quota approval status before kicking a multi-day `collect.py` run.
 
 ---
 
