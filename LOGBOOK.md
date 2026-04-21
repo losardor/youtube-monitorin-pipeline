@@ -98,10 +98,11 @@
 | #3c | 2026-04-21 | 42 | 40 | 2,464 | Risky closing pass. 95.2% success. |
 
 ### Next phase
-- **Main collection** (videos + comments + captions via `collect.py`) can now proceed against the 2,252 validated successful channels.
+- **Main collection** (videos + comments + captions via `collect.py`) can now proceed against the **2,867 validated successful channels** (updated after 2026-04-21 bug-recovery pass).
 - **Pre-flight before collection:**
-  - Re-validate the 137 Dec 15 contaminated entries once quota allows (raises the true success count).
+  - ~~Re-validate the 137 Dec 15 contaminated entries once quota allows~~ → **Cheap portion done 2026-04-21 (Run #3d, see below): 615 of 647 recovered.** 286 expensive (`/c/`, `/user/`) entries still contaminated; blocked on 1M quota approval.
   - ~~Reconcile the 31-vs-73 DB channel discrepancy~~ → **Resolved 2026-04-21, see below.**
+  - **Fix `get_channel_info` 403-swallow bug** before running `collect.py` — otherwise main collection risks the same contamination on any quota-exhaustion day.
   - Confirm 1M quota approval status before kicking a multi-day `collect.py` run.
 
 ---
@@ -125,6 +126,56 @@ The 2 DB-only channels were collected Nov 19 from `sources.csv` URLs that — af
 
 ### Verdict
 **(a) LOGBOOK "73" was aspirational/wrong.** No channels were dropped. No orphans. No action required — the DB is consistent with what actually completed on Nov 19.
+
+---
+
+## 2026-04-21: Validation Run #3d — Bug-contaminated recovery (cheap bucket)
+
+Post-validation bug-recovery pass. Targets: entries in `validation_progress.json` where the 403-swallow bug in `get_channel_info` silently converted quota-exceeded errors into `quota_cost=0 + success=False + error="Channel not found"`. Scope limited to cheap URL types (`/channel/UC`, `/@handle`) on Dec 11 and Dec 15 (the two days where the main validator exhausted quota mid-run). Expensive buckets (`/c/`, `/user/`) deferred pending 1M quota approval.
+
+### Tooling
+New script: `scripts/revalidate_contaminated.py`. Key properties:
+- **Bypasses the buggy `get_channel_info`** — calls `YouTubeAPIClient._make_request` directly, which correctly re-raises HttpError 403 on quota exhaustion.
+- **Defense-in-depth**: aborts if three consecutive `(quota_cost=0, success=False)` responses occur mid-run, which would indicate the underlying client still has a swallow path.
+- **Audit trail**: every updated entry retains its pre-revalidation state under a `revalidation_history` array, tagged with `superseded_by`.
+- **Atomic writes**: tmp + fsync + rename, every 25 entries. Backup file created before any mutation.
+
+### Run in two parts (first attempt hit a script bug)
+
+**Part 1:** processed 478 entries, then crashed on a truncated channel ID (`UCmgnsaQIK1IR808Ebde-ss`, 23 chars) that tripped an over-strict length assertion in the script. 475 entries durably written via checkpoint-every-25; entries 476–478 lost. Script patched to pass unknown IDs through to the API (which returns `items=[]` at 1 unit) rather than crashing.
+
+**Part 2:** re-ran the remaining 172 cleanly.
+
+### Combined results
+
+| Metric | Value |
+|---|---|
+| Target selected | 647 (456 Dec 11 + 191 Dec 15) |
+| Attempted | 647 |
+| **Recovered** (previously "not found", now success=True) | **615** |
+| Still failed (confirmed deleted/private/suspended) | 32 |
+| Quota used | **647 units** (avg 1.00/URL, matches estimate exactly) |
+| Elapsed | ~5 min total |
+
+95.1% of contaminated cheap entries were actually real channels — they were victims of the bug, not genuine failures.
+
+### Spot-check (5 random recovered entries, seed=42)
+All passed:
+- Channel IDs all proper UC + 24 chars
+- Channel titles match source brand (e.g., `Braunschweiger Zeitung` ↔ `Braunschweiger-Zeitung.de`, `The Irish Post` ↔ `The Irish Post`)
+- Reasonable subscriber / video counts
+- `revalidation_history` preserved with `superseded_by` tag
+
+### Cumulative validation (after Run #3d)
+
+| Metric | Pre-#3d | Post-#3d |
+|---|---|---|
+| Validated | 3,307 | 3,307 |
+| Success | 2,252 (68.1%) | **2,867 (86.7%)** |
+| Failed | 1,055 (31.9%) | **440 (13.3%)** |
+
+### Still-contaminated (deferred)
+286 entries remain with the bug signature — all `/c/` (161) and `/user/` (125) URL forms. Worst-case re-validation cost: 28,600 units → over 10K ceiling. Blocked until the 1M quota approval lands.
 
 ---
 
@@ -197,3 +248,8 @@ When the YouTube API returns a `quotaExceeded` 403, the client currently catches
 After the 1M quota is approved (or on any day with spare quota), re-validate any URL in `validation_progress.json` matching the pattern `cost=0 AND status=failed AND reason="Channel not found"`.
 
 Client fix: catch the 403 explicitly, raise `QuotaExceededError`, stop cleanly. Out of scope for Run #3.
+
+**Update 2026-04-21 — Partial mitigation applied via Run #3d.** The cheap bucket (/channel/UC, /@handle) has been re-validated using `scripts/revalidate_contaminated.py`, which bypasses the bug by calling `_make_request` directly. 647 contaminated entries re-queried; 615 recovered to success, 32 confirmed failed. The underlying bug in `src/youtube_client.py:196-198` (blanket `except Exception` in `get_channel_info`) is still present. **Still outstanding:**
+- **Code fix** to `get_channel_info`: let quota 403 propagate as `HttpError` (or a named subclass) instead of returning `None`.
+- **Remaining contamination**: 286 entries with `/c/` (161) and `/user/` (125) forms — worst-case 28,600 units to re-validate, blocked until 1M quota approval.
+- Any future main-collection run (`collect.py`) still uses the buggy `get_channel_info` and is at risk of silent data loss if it hits quota exhaustion.
