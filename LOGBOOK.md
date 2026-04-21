@@ -101,8 +101,30 @@
 - **Main collection** (videos + comments + captions via `collect.py`) can now proceed against the 2,252 validated successful channels.
 - **Pre-flight before collection:**
   - Re-validate the 137 Dec 15 contaminated entries once quota allows (raises the true success count).
-  - Reconcile the 31-vs-73 DB channel discrepancy (TBD from 2026-04-20 reconciliation entry — some Nov 25 test-collection channels are in DB but may not be in `sources.csv` validated set).
+  - ~~Reconcile the 31-vs-73 DB channel discrepancy~~ → **Resolved 2026-04-21, see below.**
   - Confirm 1M quota approval status before kicking a multi-day `collect.py` run.
+
+---
+
+## 2026-04-21: Resolved 31-vs-73 DB channel mismatch
+
+**The "73" was never unique channels** — it was the sum of `channels_processed` across the 4 completed Nov 19 test runs (3 + 20 + 50 + 3 = **76**), likely rounded/misremembered as 73 in earlier LOGBOOK notes. That column counts *attempts*, including duplicates (same channel referenced from multiple source rows) and possibly re-queries. The `channels` table PRIMARY KEY on `channel_id` collapses these to **31 unique channels** actually stored.
+
+### Evidence
+
+| Check | Result |
+|---|---|
+| `channels` table row count | 31 |
+| Sum `channels_processed` (completed runs) | 76 |
+| Distinct `channel_id` in `videos` | 30 |
+| Orphan videos (channel_id not in channels) | 0 |
+| DB channels also in `validation_progress.json` | 29 / 31 |
+| DB channels NOT in validation results | 2 (WDR Doku `UCUuab1dctZzN5ZmRmQnTzkg`, parismatch `UCaBU6qj0GRLDnykr44r26Tg`) |
+
+The 2 DB-only channels were collected Nov 19 from `sources.csv` URLs that — after the Dec 23 URL cleanup pass — either resolve differently or fail to resolve. Both are legit YouTube IDs with content. Non-critical: the Nov 19 data is intact, just not linked to current validation entries.
+
+### Verdict
+**(a) LOGBOOK "73" was aspirational/wrong.** No channels were dropped. No orphans. No action required — the DB is consistent with what actually completed on Nov 19.
 
 ---
 
