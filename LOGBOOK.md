@@ -50,11 +50,22 @@
 - **Failures**: All 33 are `"Channel not found (deleted/private/suspended)"` — same pattern as Runs #1–#2, genuine dead channels. **Zero `cost=0` failures** → no 403-swallow contamination.
 - **Status**: Complete. 2,294 → 3,170 validated. 137 risky URLs remain.
 
-### Validation Run #3b (pending - risky batch, 137 URLs)
-- **Remaining**: 137 URLs (93 `/c/`, 42 `/user/`, 2 bare names)
-- **Risk**: Some may trigger search fallback (100 units/URL). Worst case 13,700 units — over 10K.
-- **Plan**: If 1M quota approval has landed, run unfiltered. If still on 10K/day, cap at `--limit 95` (worst case 9,500 units, safely under ceiling).
-- **Status**: Waiting for midnight-PT quota reset (2026-04-21).
+### Validation Run #3b (2026-04-21, risky batch partial — cap 95)
+- **Split strategy**: Still on 10K/day ceiling (1M request pending). Capped at `--limit 95` to keep worst case (95 × 100 = 9,500) under 10K.
+- **URLs validated this run**: 95
+- **Success rate**: 98.9% (94 success, 1 failed)
+- **Quota used**: 4,538 units (45% of 10K ceiling)
+- **Avg quota per URL**: 47.77 units
+- **Cost distribution**: 51 URLs resolved at 1 unit (handle/username direct hit), 44 URLs hit search fallback at ≥100 units — 46% fallback rate, consistent with Dec 11/15 profile.
+- **Failures**: 1 `"Channel not found (deleted/private/suspended)"`. Zero `cost=0` failures → no 403-swallow contamination.
+- **Status**: Partial. 3,170 → 3,265 validated. 42 risky URLs remain (all `/c/` or `/user/` that were beyond the --limit 95 cap).
+
+### Validation Run #3c (closing pass, same-day)
+- **Remaining**: 42 URLs
+- **Budget available today**: ~5,462 units (10,000 − 4,538 spent)
+- **Worst case**: 42 × 100 = 4,200 units, safely under remaining budget.
+- **Plan**: `--resume --sources data/sources_risky.csv` (no --limit needed — only 42 pending, worst case fits).
+- **Status**: In progress.
 
 ---
 
