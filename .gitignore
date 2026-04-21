@@ -78,3 +78,6 @@ validation_progress.json.bak_*
 # Derived sources splits (regenerated on demand)
 data/sources_cheap.csv
 data/sources_risky.csv
+
+# Submission artefacts (PDFs generated from source .md files)
+YouTube_News_Monitoring_Pipeline_Design_Doc.pdf

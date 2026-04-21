@@ -1,5 +1,17 @@
 # YouTube Monitoring Pipeline - Logbook
 
+## Current Status (as of 2026-04-21)
+
+**Current phase:** Post-validation hold, validation phase closed.
+
+- **Validated URLs:** 3,307 / 3,307 (100%)
+- **Confirmed channels:** 2,867 (86.7% success rate after Run #3d recovery pass)
+- **Deferred:** 286 expensive bug-contaminated entries (`/c/`, `/user/`) — re-validation blocked on 1M quota approval
+- **Main collection:** blocked on 1M quota approval (request submitted 2026-04-20, response pending)
+- **DB channel mismatch (31 vs 73):** investigated in Task 1 on 2026-04-21 — resolution: "73" was never unique channels; it matched the sum of `channels_processed` attempts across completed Nov 19 runs. See the 2026-04-21 resolution entry below.
+
+---
+
 ## 2024-12-11: URL Cleanup and Validation
 
 ### URL Fixes Applied to sources.csv
@@ -253,3 +265,7 @@ Client fix: catch the 403 explicitly, raise `QuotaExceededError`, stop cleanly. 
 - **Code fix** to `get_channel_info`: let quota 403 propagate as `HttpError` (or a named subclass) instead of returning `None`.
 - **Remaining contamination**: 286 entries with `/c/` (161) and `/user/` (125) forms — worst-case 28,600 units to re-validate, blocked until 1M quota approval.
 - Any future main-collection run (`collect.py`) still uses the buggy `get_channel_info` and is at risk of silent data loss if it hits quota exhaustion.
+
+### Truncated channel ID in `validation_progress.json`
+
+During Run #3d (2026-04-21), `revalidate_contaminated.py` crashed on a 23-character channel ID (`UCmgnsaQIK1IR808Ebde-ss` — valid YouTube channel IDs are 24 chars: `UC` + 22). Script was patched to tolerate and re-ran cleanly. Root cause not investigated — some earlier validation path wrote a malformed ID into `validation_progress.json`. Low priority; flagged in case it resurfaces during main collection (`collect.py` may pass channel IDs to API calls assuming them well-formed).
