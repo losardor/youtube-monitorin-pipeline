@@ -238,6 +238,7 @@ class Database:
             # upgrades in place and a new one is a no-op.
             self._add_missing_columns('channels', {
                 'tier': 'INTEGER DEFAULT 0',
+                'tier_reason': 'TEXT',
                 'wd_item': 'TEXT',
                 'wd_class': 'TEXT',
                 'uploads_playlist': 'TEXT',
@@ -414,13 +415,14 @@ class Database:
                     topic_categories, keywords, branding_keywords,
                     first_collected_at, last_updated_at,
                     source_domain, source_rating, source_orientation,
-                    tier, wd_item, wd_class, uploads_playlist, status,
-                    last_checked, alt_of
+                    tier, tier_reason, wd_item, wd_class, uploads_playlist,
+                    status, last_checked, alt_of
                 ) VALUES (
                     ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                     COALESCE((SELECT first_collected_at FROM channels WHERE channel_id = ?), ?),
                     ?, ?, ?, ?,
                     COALESCE((SELECT tier FROM channels WHERE channel_id = ?), 0),
+                    (SELECT tier_reason FROM channels WHERE channel_id = ?),
                     (SELECT wd_item  FROM channels WHERE channel_id = ?),
                     (SELECT wd_class FROM channels WHERE channel_id = ?),
                     COALESCE(?, (SELECT uploads_playlist FROM channels WHERE channel_id = ?)),
@@ -448,6 +450,7 @@ class Database:
                 source_metadata.get('rating'),
                 source_metadata.get('orientation'),
                 channel_id,                       # tier
+                channel_id,                       # tier_reason
                 channel_id,                       # wd_item
                 channel_id,                       # wd_class
                 uploads_playlist, channel_id,     # uploads_playlist COALESCE

@@ -787,12 +787,35 @@ def test_migration_idempotent_on_a_copy_of_the_real_database(tmp_path):
     con.close()
 
     assert migrate(["--db", str(copy)]) == 0
+
+    # The invariant is coverage, not a global row count: channel_snapshots also
+    # holds observations from other sources (the validation-phase backfill, and
+    # later every daily pass), so counting the whole table would not measure
+    # what this migration did. What must hold is that every timestamped record
+    # has a snapshot *at its own timestamp*.
     con = sqlite3.connect(str(copy))
+    missing_channels = con.execute("""
+        SELECT COUNT(*) FROM channels c
+         WHERE COALESCE(c.first_collected_at, c.last_updated_at) IS NOT NULL
+           AND NOT EXISTS (
+             SELECT 1 FROM channel_snapshots s
+              WHERE s.channel_id = c.channel_id
+                AND s.observed_at = COALESCE(c.first_collected_at, c.last_updated_at))
+    """).fetchone()[0]
+    missing_videos = con.execute("""
+        SELECT COUNT(*) FROM videos v
+         WHERE v.collected_at IS NOT NULL
+           AND NOT EXISTS (
+             SELECT 1 FROM video_snapshots s
+              WHERE s.video_id = v.video_id AND s.observed_at = v.collected_at)
+    """).fetchone()[0]
+    assert (missing_channels, missing_videos) == (0, 0)
     first = (con.execute("SELECT COUNT(*) FROM channel_snapshots").fetchone()[0],
              con.execute("SELECT COUNT(*) FROM video_snapshots").fetchone()[0])
     con.close()
-    assert first == (n_channels, n_videos)
+    assert first[0] >= n_channels and first[1] >= n_videos
 
+    # Idempotent: a second run adds nothing.
     assert migrate(["--db", str(copy)]) == 0
     con = sqlite3.connect(str(copy))
     second = (con.execute("SELECT COUNT(*) FROM channel_snapshots").fetchone()[0],
@@ -972,3 +995,90 @@ def test_load_frame_is_idempotent(tmp_path):
     assert con.execute("SELECT COUNT(*) FROM channels WHERE tier = 0"
                        ).fetchone()[0] == 2
     con.close()
+
+
+# ---------------------------------------------------------------------------
+# tiering rule (phase 2)
+# ---------------------------------------------------------------------------
+
+def _rec(**kw):
+    base = {'channel_id': 'UCx', 'resolved': True, 'has_videos': True,
+            'topic': False, 'title': False, 'topics': [], 'label': 'Seed'}
+    base.update(kw)
+    return base
+
+
+def _wiki(name):
+    return f"https://en.wikipedia.org/wiki/{name}"
+
+
+def test_topic_check_drops_news_and_keeps_the_three_that_occur():
+    from scripts.tier_frame import topic_ok, TOPIC_SUFFIXES
+
+    # News was in the brief but never occurs in the data, so it is not a check.
+    assert 'News' not in TOPIC_SUFFIXES
+    assert topic_ok([_wiki('Society')])
+    assert topic_ok([_wiki('Politics')])
+    assert topic_ok([_wiki('Business')])
+    assert not topic_ok([_wiki('Sport')])
+    assert not topic_ok([])
+
+
+def test_admitting_check_is_recorded_precisely():
+    from scripts.assign_tiers import admits
+
+    assert admits(_rec(topic=True, topics=[_wiki('Society')])) == 'topic'
+    assert admits(_rec(topic=True, title=True,
+                       topics=[_wiki('Politics')])) == 'topic+title'
+    assert admits(_rec(title=True)) == 'title_only'
+    assert admits(_rec()) is None
+    assert admits(_rec(topic=True, resolved=False)) is None
+    assert admits(_rec(topic=True, has_videos=False)) is None
+
+
+def test_title_only_is_refused_for_gaming_and_music_but_not_sport():
+    from scripts.assign_tiers import admits
+
+    # A gaming site riding a name match is not a news outlet.
+    assert admits(_rec(title=True, topics=[_wiki('Video_game_culture')])) is None
+    assert admits(_rec(title=True, topics=[_wiki('Pop_music')])) is None
+
+    # A local newspaper tagged Sport is: that is what its video output is, and
+    # excluding Sport would drop exactly the frame-gap the study looks for.
+    assert admits(_rec(title=True, topics=[_wiki('Sport')])) == 'title_only'
+    assert admits(_rec(title=True,
+                       topics=[_wiki('Baseball'), _wiki('American_football')])
+                  ) == 'title_only'
+
+    # A topic match wins regardless of a gaming tag alongside it.
+    assert admits(_rec(topic=True, title=True,
+                       topics=[_wiki('Politics'), _wiki('Action_game')])
+                  ) == 'topic+title'
+
+
+def test_title_match_folds_case_and_diacritics():
+    from scripts.tier_frame import title_ok
+
+    assert title_ok('Naftemporiki', 'NAFTEMPORIKI')
+    assert title_ok('La Provence', 'Là Provençe')
+    # Stopwords alone must not make a match.
+    assert not title_ok('The Daily News', 'The News Channel')
+    assert not title_ok('', 'Anything')
+
+
+def test_tier_reason_survives_insert_or_replace(tmp_path):
+    """Gate 2 demotes strata by UPDATE, so the reason must not be wiped."""
+    db = Database(db_path=str(tmp_path / "t.db"))
+    con = db.conn
+    db.insert_channel({'id': 'UCkeep', 'snippet': {'title': 'First'},
+                       'statistics': {'subscriberCount': '10'}})
+    con.execute("UPDATE channels SET tier = 1, tier_reason = 'title_only' "
+                "WHERE channel_id = 'UCkeep'")
+    con.commit()
+
+    db.insert_channel({'id': 'UCkeep', 'snippet': {'title': 'Second'},
+                       'statistics': {'subscriberCount': '20'}})
+    row = con.execute("SELECT tier, tier_reason, channel_title FROM channels "
+                      "WHERE channel_id = 'UCkeep'").fetchone()
+    assert row == (1, 'title_only', 'Second')
+    db.close()
