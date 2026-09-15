@@ -1,0 +1,66 @@
+# Daily monitoring run (daily.py). Distinct from config.yaml and
+# config_comprehensive.yaml, which drive the collect.py backfill.
+#
+# No API key here. daily.py reads YOUTUBE_API_KEY from the environment, which
+# deploy/run_daily.sh sources from .env (mode 600). This file is committed;
+# the key is not.
+#
+# quota.share_* are fractions of the day's *remaining* allowance at the moment
+# the stage starts, so a stage that underspends leaves the rest to the ones
+# after it.
+
+database:
+  sqlite_path: data/youtube_monitoring.db
+
+lock:
+  # Must match the flock target in deploy/run_daily.sh and the crontab entry
+  # for collect.py, or the daily run and a backfill will not contend.
+  path: data/.ytmon.lock
+
+api:
+  max_retries: 3
+  retry_delay: 2
+
+quota:
+  # Standard allowance is 10,000 units/day per Cloud project, resetting at
+  # midnight US/Pacific. Budget below the real ceiling so ad-hoc queries do not
+  # get locked out. Raise once the 1M increase is approved (LOGBOOK: request
+  # submitted 2026-04-20).
+  daily_budget: 9000
+  share_channels: 0.05      # channels.list: 50 channels per unit
+  share_discovery: 0.15     # uploads playlists: 50 videos per unit
+  share_videos: 0.15        # videos.list: 50 videos per unit
+  share_comments: 0.65      # commentThreads.list: 100 comments per unit
+
+schedule:
+  channel_refresh_days: 1       # re-snapshot subscriber/view counts this often
+  upload_lookback_days: 7       # ignore uploads older than this during discovery
+  video_restat_days: 1          # re-snapshot video statistics this often
+  video_tracking_days: 30       # keep re-snapshotting videos this young
+
+  # Per tier: how long to keep re-polling a video's comments. Tier 0 is the
+  # validated NewsGuard frame and gets the longest window.
+  comment_tracking_days:
+    0: 30
+    1: 14
+    2: 7
+
+limits:
+  max_upload_pages_per_channel: 2    # 2 pages = up to 100 recent uploads
+  stop_after_known_videos: 10        # stop paging once the tail is already stored
+  max_reply_pages_per_comment: 2
+  fetch_full_replies: true           # false = keep only inline replies per thread
+  comment_order: time                # 'time' for a census; 'relevance' mirrors
+                                     # what a viewer sees (not exhaustive)
+  recomment_growth_ratio: 1.10       # re-poll when the count grew >10%
+
+  # Per tier: comment pages per video, 100 comments per page. Tier 0 gets a
+  # deep pull, tier 2 a shallow sample.
+  max_comment_pages_per_video:
+    0: 50
+    1: 10
+    2: 3
+
+logging:
+  level: INFO
+  file: logs/pipeline.log

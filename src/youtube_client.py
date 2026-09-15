@@ -596,6 +596,53 @@ class YouTubeAPIClient:
             logger.error(f"Unexpected error getting captions for video {video_id}: {e}")
             return []
     
+    # ---- batch endpoints used by the daily pipeline ----------------------
+    # One call per endpoint, no partial-result swallowing: these raise the
+    # taxonomy so the stage can decide whether to stop or skip an item.
+
+    def channels_by_id(self, ids: List[str],
+                       part: str = 'snippet,statistics,contentDetails,topicDetails,status') -> Dict:
+        """channels.list for up to 50 ids. 1 unit for the whole batch."""
+        if len(ids) > 50:
+            raise ValueError("channels.list accepts at most 50 ids per call")
+        request = self.youtube.channels().list(part=part, id=','.join(ids), maxResults=50)
+        return self._call(lambda: request.execute(), endpoint='channels',
+                          api_method='channels.list')
+
+    def videos_by_id(self, ids: List[str],
+                     part: str = 'snippet,statistics,contentDetails,topicDetails,status') -> Dict:
+        """videos.list for up to 50 ids. 1 unit for the whole batch."""
+        if len(ids) > 50:
+            raise ValueError("videos.list accepts at most 50 ids per call")
+        request = self.youtube.videos().list(part=part, id=','.join(ids), maxResults=50)
+        return self._call(lambda: request.execute(), endpoint='videos',
+                          api_method='videos.list')
+
+    def playlist_items(self, playlist_id: str, page_token: str = None) -> Dict:
+        """One page of a playlist, 50 items, 1 unit. The discovery path."""
+        request = self.youtube.playlistItems().list(
+            part='contentDetails,status', playlistId=playlist_id,
+            maxResults=50, pageToken=page_token)
+        return self._call(lambda: request.execute(), endpoint='playlistItems',
+                          api_method='playlistItems.list')
+
+    def comment_threads(self, video_id: str, page_token: str = None,
+                        order: str = 'time') -> Dict:
+        """One page of comment threads, 100 items, 1 unit."""
+        request = self.youtube.commentThreads().list(
+            part='snippet,replies', videoId=video_id, maxResults=100,
+            order=order, textFormat='plainText', pageToken=page_token)
+        return self._call(lambda: request.execute(), endpoint='commentThreads',
+                          api_method='commentThreads.list')
+
+    def comment_replies(self, parent_id: str, page_token: str = None) -> Dict:
+        """One page of replies to a comment, 100 items, 1 unit."""
+        request = self.youtube.comments().list(
+            part='snippet', parentId=parent_id, maxResults=100,
+            textFormat='plainText', pageToken=page_token)
+        return self._call(lambda: request.execute(), endpoint='comments',
+                          api_method='comments.list')
+
     def get_quota_usage(self) -> int:
         """Get current session quota usage"""
         return self.quota_usage
