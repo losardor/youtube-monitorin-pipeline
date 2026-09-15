@@ -85,15 +85,3 @@ data/sources_risky.csv
 
 # Submission artefacts (PDFs generated from source .md files)
 YouTube_News_Monitoring_Pipeline_Design_Doc.pdf
-
-# News-creator demand anchor pipeline (M1 + M2)
-cache/
-data/raw/reuters_dnr_2025*.pdf
-data/raw/reuters_dnr_2025*.txt
-data/raw/pew/
-data/anchor_table.csv
-data/monitored_sources.csv
-data/excluded.csv
-data/review_queue.csv
-reports/resolution_summary.md
-reports/m2_summary.md
