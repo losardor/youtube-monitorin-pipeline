@@ -286,6 +286,42 @@ entire tracked tree for `AIza`-prefixed keys returns nothing. **No key rotation 
 needed.** `config/config_daily.yaml`, added this phase, carries no key at all:
 `daily.py` requires `YOUTUBE_API_KEY` from the environment.
 
+### Commit boundaries for data provenance (added 2026-09-15)
+
+Two commits on `feat/daily-monitor` are provenance boundaries. Any dataset built
+from code before them carries the corresponding defect; anything built after does
+not. Both are recorded here so a future reader can date a database file against
+them rather than guess.
+
+**`bfbeda4` (1.2) — the truncation boundary.** Before this commit, the client
+could silently truncate video and comment collection on quota exhaustion and
+record the result as complete:
+
+- `get_channel_videos` and `get_video_details` caught the quota failure and
+  returned the *partial* list they had accumulated, so the caller recorded the
+  channel as fully collected when it was not.
+- `get_video_comments` treated any HTTP 403 as `commentsDisabled`, `quotaExceeded`
+  included, so a quota-exhausted video was written as having comments turned off.
+
+A channel or video collected before `bfbeda4` on a day that hit the quota ceiling
+may therefore hold an undercount presented as a complete count, and a video may be
+marked comments-disabled when it is not. **Every production backfill from now on
+runs on code after `bfbeda4`.** The 31 channels and 5,255 videos already in the
+database were collected 2025-11-19, before the boundary; the Nov 19 runs did not
+report quota exhaustion (185, 274, 723 units against a 10,000 ceiling), so they are
+very unlikely to be affected, but they are on the wrong side of it.
+
+**`eab26e1` (1.1) — the column-preservation boundary.** Before this commit,
+`INSERT OR REPLACE` in `insert_channel` and `insert_video` deleted the old row and
+did not restore the daily-pipeline columns, so any re-insert reset `tier` to its
+default, dropped `uploads_playlist`, and discarded `comment_cursor`,
+`comment_pages_fetched` and `comments_state`. In practice this means a backfill
+re-touching a channel would have silently undone phase 2's tiering and restarted
+comment harvesting for that video from page one. No data was collected between the
+columns being added and the preservation being added -- both are in the same
+commit -- so this boundary is a statement about the pattern, not about existing
+rows.
+
 ### Bugs found and fixed while porting
 
 1. **The 403 swallow was in five places, not one.** `get_channel_info` and
