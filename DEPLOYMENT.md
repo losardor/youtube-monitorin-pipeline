@@ -149,10 +149,37 @@ du -h data/youtube_monitoring.db
 Consider setting up:
 
 1. **Auto-resume on failure**:
+
+The backfill and the daily monitoring run write the same SQLite file. WAL mode
+allows only one writer at a time, so both take the same advisory lock on
+`data/.ytmon.lock` — `flock(1)` here and `fcntl.flock` inside the Python. The
+paths must match or the two will not contend.
+
 ```bash
 # Add to crontab
-*/30 * * * * cd /path/to/youtube-monitorin-pipeline && source venv/bin/activate && python collect.py --sources data/sources.csv --resume >> logs/cron.log 2>&1
+# Backfill: hourly, during the day only, never overlapping the 09:17 daily slot.
+# flock -n exits immediately (status 1) if the daily run holds the lock, rather
+# than queueing a multi-hour job behind it.
+17 10-23 * * * cd /path/to/youtube-monitorin-pipeline && flock -n data/.ytmon.lock ./venv/bin/python collect.py --sources data/sources.csv --resume >> logs/cron.log 2>&1
 ```
+
+The old entry was `*/30 * * * *` with no lock. Two problems it had: every other
+invocation could collide with the 09:17 daily run and corrupt nothing but lose
+one of the two runs' work, and a half-hour cadence started a new backfill while
+the previous one was still going. Both are fixed by the lock plus the hourly,
+daytime-only window.
+
+The daily monitoring run owns the 09:17 slot (see
+`docs/operations/ytmon_daily_run.md`, phase 3):
+
+```cron
+CRON_TZ=Europe/Rome
+17 9 * * *   /path/to/youtube-monitorin-pipeline/deploy/run_daily.sh
+```
+
+Quota resets at midnight US/Pacific, which is 09:00 in Rome under both DST
+regimes. The daily run holds the lock for minutes; the backfill window opens an
+hour later.
 
 2. **Daily statistics report**:
 ```bash

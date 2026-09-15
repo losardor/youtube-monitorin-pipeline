@@ -52,31 +52,33 @@ def advisory_lock(path: str = DEFAULT_LOCK_PATH, blocking: bool = False):
     fd = os.open(str(lock_path), os.O_RDWR | os.O_CREAT, 0o644)
     flags = fcntl.LOCK_EX if blocking else fcntl.LOCK_EX | fcntl.LOCK_NB
 
+    # Acquisition is separate from the held region: on failure the descriptor
+    # is closed exactly once here. Folding this into the try/finally below
+    # would close it twice and the resulting EBADF would mask LockUnavailable.
     try:
-        try:
-            fcntl.flock(fd, flags)
-        except OSError as e:
-            if e.errno in (errno.EACCES, errno.EAGAIN):
-                os.close(fd)
-                raise LockUnavailable(
-                    f"{lock_path} is held by another process "
-                    f"(a backfill is probably running)"
-                ) from e
-            os.close(fd)
-            raise
+        fcntl.flock(fd, flags)
+    except OSError as e:
+        os.close(fd)
+        if e.errno in (errno.EACCES, errno.EAGAIN, errno.EWOULDBLOCK):
+            raise LockUnavailable(
+                f"{lock_path} is held by another process "
+                f"(a backfill is probably running)"
+            ) from e
+        raise
 
-        # Recorded for humans reading the file during an incident; the lock
-        # itself is the flock, not the contents.
-        try:
-            os.ftruncate(fd, 0)
-            os.write(fd, f"{os.getpid()}\n".encode())
-            os.fsync(fd)
-        except OSError:
-            pass
+    # Recorded for humans reading the file during an incident; the lock
+    # itself is the flock, not the contents.
+    try:
+        os.ftruncate(fd, 0)
+        os.write(fd, f"{os.getpid()}\n".encode())
+        os.fsync(fd)
+    except OSError:
+        pass
 
-        logger.debug(f"acquired lock {lock_path} (pid {os.getpid()})")
+    logger.debug(f"acquired lock {lock_path} (pid {os.getpid()})")
+
+    try:
         yield fd
-
     finally:
         try:
             fcntl.flock(fd, fcntl.LOCK_UN)
