@@ -12,6 +12,7 @@ and adapted to this repo's schema and tier handling.
 
 from __future__ import annotations
 
+import csv
 import json
 import sqlite3
 import subprocess
@@ -772,8 +773,17 @@ def test_migration_idempotent_on_a_copy_of_the_real_database(tmp_path):
     shutil.copy("data/youtube_monitoring.db", copy)
 
     con = sqlite3.connect(str(copy))
-    n_channels = con.execute("SELECT COUNT(*) FROM channels").fetchone()[0]
-    n_videos = con.execute("SELECT COUNT(*) FROM videos").fetchone()[0]
+    # Only records carrying a collection timestamp can be backfilled. Channels
+    # loaded from the validated frame have none until the first channels stage
+    # observes them, so they are correctly skipped rather than given a
+    # fabricated observed_at.
+    n_channels = con.execute(
+        "SELECT COUNT(*) FROM channels "
+        "WHERE COALESCE(first_collected_at, last_updated_at) IS NOT NULL"
+    ).fetchone()[0]
+    n_videos = con.execute(
+        "SELECT COUNT(*) FROM videos WHERE collected_at IS NOT NULL"
+    ).fetchone()[0]
     con.close()
 
     assert migrate(["--db", str(copy)]) == 0
@@ -840,3 +850,125 @@ def test_insert_replace_preserves_daily_pipeline_columns(tmp_path):
         "SELECT COUNT(*) FROM channel_snapshots WHERE channel_id = ?",
         (CH[0],)).fetchone()[0] == 2
     db.close()
+
+
+# ---------------------------------------------------------------------------
+# frame loading (2.0)
+# ---------------------------------------------------------------------------
+
+def _write_frame_fixtures(tmp_path):
+    """A validation file and a sources CSV shaped like the real ones."""
+    validation = tmp_path / "validation.json"
+    sources = tmp_path / "sources.csv"
+
+    validation.write_text(json.dumps({
+        "validated": ["u1", "u2", "u3", "u4"],
+        "results": [
+            # two URLs resolving to the same channel: one row must survive
+            {"url": "https://www.youtube.com/@alpha", "success": True,
+             "channel_id": "UCalpha", "validated_at": "2025-12-11T10:00:00"},
+            {"url": "https://www.youtube.com/c/alpha-alt", "success": True,
+             "channel_id": "UCalpha", "validated_at": "2026-04-20T10:00:00"},
+            {"url": "https://www.youtube.com/@beta", "success": True,
+             "channel_id": "UCbeta", "validated_at": "2025-12-11T11:00:00"},
+            # failures are not part of the frame
+            {"url": "https://www.youtube.com/@gone", "success": False,
+             "channel_id": None, "validated_at": "2025-12-11T12:00:00"},
+        ]}))
+
+    with open(sources, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["Domain", "Rating", "Orientation", "Youtube"])
+        w.writeheader()
+        w.writerow({"Domain": "alpha.example", "Rating": "T",
+                    "Orientation": "Left", "Youtube": "https://www.youtube.com/@alpha"})
+        w.writerow({"Domain": "beta.example", "Rating": "N",
+                    "Orientation": "Right", "Youtube": "https://www.youtube.com/@beta"})
+    return validation, sources
+
+
+def test_load_frame_collapses_duplicates_and_carries_metadata(tmp_path):
+    from scripts.load_frame import main as load
+
+    validation, sources = _write_frame_fixtures(tmp_path)
+    db_path = tmp_path / "frame.db"
+    Database(db_path=str(db_path)).close()
+
+    assert load(["--db", str(db_path), "--validation", str(validation),
+                 "--sources", str(sources)]) == 0
+
+    con = sqlite3.connect(str(db_path))
+    con.row_factory = sqlite3.Row
+    assert con.execute("SELECT COUNT(*) FROM channels").fetchone()[0] == 2
+
+    alpha = con.execute(
+        "SELECT * FROM channels WHERE channel_id = 'UCalpha'").fetchone()
+    assert alpha["tier"] == 0
+    assert alpha["source_domain"] == "alpha.example"
+    assert alpha["source_rating"] == "T"
+    assert alpha["source_orientation"] == "Left"
+    # earliest validation wins, deterministically
+    assert alpha["status"] is None and alpha["last_checked"] is None
+    # no statistics without a snapshot to back them
+    assert alpha["subscriber_count"] is None
+    con.close()
+
+
+def test_load_frame_preserves_already_collected_channels(tmp_path):
+    """The 29 November rows must keep statistics, snapshots and timestamps."""
+    from scripts.load_frame import main as load
+
+    validation, sources = _write_frame_fixtures(tmp_path)
+    db_path = tmp_path / "frame.db"
+    db = Database(db_path=str(db_path))
+
+    # A channel already collected, and one collected but not in the frame.
+    db.insert_channel({"id": "UCalpha", "snippet": {"title": "Alpha News"},
+                       "statistics": {"subscriberCount": "5000",
+                                      "viewCount": "90", "videoCount": "7"}})
+    db.insert_channel({"id": "UCstray", "snippet": {"title": "Stray"},
+                       "statistics": {"subscriberCount": "12"}})
+    db.close()
+
+    load(["--db", str(db_path), "--validation", str(validation),
+          "--sources", str(sources)])
+
+    con = sqlite3.connect(str(db_path))
+    con.row_factory = sqlite3.Row
+    alpha = con.execute(
+        "SELECT * FROM channels WHERE channel_id = 'UCalpha'").fetchone()
+    assert alpha["subscriber_count"] == 5000        # statistics untouched
+    assert alpha["channel_title"] == "Alpha News"   # title untouched
+    assert alpha["tier"] == 0                       # tier filled in
+    assert alpha["source_rating"] == "T"
+    assert con.execute(
+        "SELECT COUNT(*) FROM channel_snapshots WHERE channel_id = 'UCalpha'"
+    ).fetchone()[0] == 1                            # snapshot survives
+
+    # In the database, not in the frame: recorded, never collected, not deleted.
+    stray = con.execute(
+        "SELECT * FROM channels WHERE channel_id = 'UCstray'").fetchone()
+    assert stray["tier"] == 3
+    assert stray["subscriber_count"] == 12
+    con.close()
+
+
+def test_load_frame_is_idempotent(tmp_path):
+    from scripts.load_frame import main as load
+
+    validation, sources = _write_frame_fixtures(tmp_path)
+    db_path = tmp_path / "frame.db"
+    Database(db_path=str(db_path)).close()
+
+    args = ["--db", str(db_path), "--validation", str(validation),
+            "--sources", str(sources)]
+    load(args)
+    con = sqlite3.connect(str(db_path))
+    first = con.execute("SELECT COUNT(*) FROM channels").fetchone()[0]
+    con.close()
+
+    load(args)
+    con = sqlite3.connect(str(db_path))
+    assert con.execute("SELECT COUNT(*) FROM channels").fetchone()[0] == first
+    assert con.execute("SELECT COUNT(*) FROM channels WHERE tier = 0"
+                       ).fetchone()[0] == 2
+    con.close()
