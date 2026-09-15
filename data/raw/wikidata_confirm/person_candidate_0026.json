@@ -1,0 +1,695 @@
+{
+ "_requested": [
+  "UCzZpgppwC_XQMe8lFiI77-Q",
+  "UCz_LKCKWs6Bf7hPCrUa_VtQ",
+  "UCzc_wqrGNHpyEy-1cCYm0WQ",
+  "UCzhJ6J7AAbIsizNbrtLdyRA",
+  "UCzjjWIcocZkVBHj5QSCM1JQ",
+  "UCzkvLqQUufTMYDERNXiKnFA",
+  "UCzpZ-vq_wJYOVkwNtqF2D_A",
+  "UCzqRwR7Ew0Wx8H674FSKpOg",
+  "UCzsgS9-QpkKjdJytHo-FfYQ",
+  "UCzxdGoNthGC-EII5eJKJZwA",
+  "UCzytW9FifdLdBI0lXMSFjFw",
+  "UCzz6z566lJPtjqKOPUmHZKQ"
+ ],
+ "_fetched_at": "2026-09-15T16:07:42.527337+00:00",
+ "kind": "youtube#channelListResponse",
+ "etag": "6urJTWEJK-BroSfmrm2B734lu5A",
+ "pageInfo": {
+  "totalResults": 11,
+  "resultsPerPage": 50
+ },
+ "items": [
+  {
+   "kind": "youtube#channel",
+   "etag": "it9yim9RwlEJPuN8csMni_pbJP0",
+   "id": "UCz_LKCKWs6Bf7hPCrUa_VtQ",
+   "snippet": {
+    "title": "Dick DeBartolo",
+    "description": "Reviews of gadgets,  often strange gadgets arrive on YouTube often, via Dick DeBartolo, The Giz Wiz on ABC's World News Now, and  co-host of The Giz Wiz Show with OMGChad. Dick also appears appears on The Tech Guy with Leo Laporte every week. That's on the TWiT network, This Week in Tech. Dick is also MAD Magazine's Maddest Writer with something in every issue of MAD for the past 50+ years.",
+    "customUrl": "@dickdetv",
+    "publishedAt": "2007-01-23T02:19:38Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lhMbVTqcJ859vNmN05_o4nDOUN4yFRzm65nDdP3Zki_-FY=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lhMbVTqcJ859vNmN05_o4nDOUN4yFRzm65nDdP3Zki_-FY=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lhMbVTqcJ859vNmN05_o4nDOUN4yFRzm65nDdP3Zki_-FY=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Dick DeBartolo",
+     "description": "Reviews of gadgets,  often strange gadgets arrive on YouTube often, via Dick DeBartolo, The Giz Wiz on ABC's World News Now, and  co-host of The Giz Wiz Show with OMGChad. Dick also appears appears on The Tech Guy with Leo Laporte every week. That's on the TWiT network, This Week in Tech. Dick is also MAD Magazine's Maddest Writer with something in every issue of MAD for the past 50+ years."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUz_LKCKWs6Bf7hPCrUa_VtQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "2996252",
+    "subscriberCount": "4710",
+    "hiddenSubscriberCount": false,
+    "videoCount": "629"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/03glg",
+     "/m/019_rr",
+     "/m/07c1v"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Hobby",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)",
+     "https://en.wikipedia.org/wiki/Technology"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "lep138GGycCMMt9WEcATyOqf54A",
+   "id": "UCzjjWIcocZkVBHj5QSCM1JQ",
+   "snippet": {
+    "title": "Thanos Dimadis",
+    "description": "Thanos Dimadis is an author, a communications strategist, and a former journalist who worked as a foreign correspondent from Washington, D.C., and New York. He is the author of two books (DimadisBook.com). Thanos is a distinguished recipient of the Knight Bagehot Fellowship of Columbia Journalism School and a distinguished recipient of a scholarship from the Alexander Onassis Foundation. Thanos holds four master degrees; Political Management (George Washington University), Media (City University of London), Political Science (National and Kapodistrian University of Athens.), and European Law and Policy (Panteion University of Social and Political Sciences of Athens,) where he also received his B.A. in journalism. He also completed the Executive Education Program, Leadership in the 21st Century, from Harvard Kennedy School. He currently serves as a board member of the Harvard Kennedy School Alumni Association of New York.\n",
+    "customUrl": "@thanosdimadis",
+    "publishedAt": "2011-12-19T01:07:41Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mPvqjVdCipEuskN91jrFGnpXkEguiVhOv2DshB1AhSUtE=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mPvqjVdCipEuskN91jrFGnpXkEguiVhOv2DshB1AhSUtE=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mPvqjVdCipEuskN91jrFGnpXkEguiVhOv2DshB1AhSUtE=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Thanos Dimadis",
+     "description": "Thanos Dimadis is an author, a communications strategist, and a former journalist who worked as a foreign correspondent from Washington, D.C., and New York. He is the author of two books (DimadisBook.com). Thanos is a distinguished recipient of the Knight Bagehot Fellowship of Columbia Journalism School and a distinguished recipient of a scholarship from the Alexander Onassis Foundation. Thanos holds four master degrees; Political Management (George Washington University), Media (City University of London), Political Science (National and Kapodistrian University of Athens.), and European Law and Policy (Panteion University of Social and Political Sciences of Athens,) where he also received his B.A. in journalism. He also completed the Executive Education Program, Leadership in the 21st Century, from Harvard Kennedy School. He currently serves as a board member of the Harvard Kennedy School Alumni Association of New York.\n"
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUzjjWIcocZkVBHj5QSCM1JQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "566512",
+    "subscriberCount": "758",
+    "hiddenSubscriberCount": false,
+    "videoCount": "168"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/0f2f9",
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Television_program",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "6jfOUKJB4OOcaXgsc6U4tG2Q1j8",
+   "id": "UCzpZ-vq_wJYOVkwNtqF2D_A",
+   "snippet": {
+    "title": "\u6e21\u8fba\u5e83\u660e\u306e\u300c\u3084\u3089\u307e\u3044\u304b! \u30d3\u30b8\u30cb\u30e5\u30fc\u30b9\u300d",
+    "description": "",
+    "customUrl": "@yaramaika_bisinews",
+    "publishedAt": "2013-05-13T09:45:30Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/rSkoc9lwOEqXPru1Xxh2TlGJ5Oq0ZT_EWM9WO9Dik29KX6ny9CUvBLDaLrC6Q06ltL9OKs5z=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/rSkoc9lwOEqXPru1Xxh2TlGJ5Oq0ZT_EWM9WO9Dik29KX6ny9CUvBLDaLrC6Q06ltL9OKs5z=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/rSkoc9lwOEqXPru1Xxh2TlGJ5Oq0ZT_EWM9WO9Dik29KX6ny9CUvBLDaLrC6Q06ltL9OKs5z=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u6e21\u8fba\u5e83\u660e\u306e\u300c\u3084\u3089\u307e\u3044\u304b! \u30d3\u30b8\u30cb\u30e5\u30fc\u30b9\u300d",
+     "description": ""
+    },
+    "country": "JP"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUzpZ-vq_wJYOVkwNtqF2D_A"
+    }
+   },
+   "statistics": {
+    "viewCount": "27278",
+    "subscriberCount": "321",
+    "hiddenSubscriberCount": false,
+    "videoCount": "37"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "UAXKEOSztETXF13Sr9U_s7JR51k",
+   "id": "UCzxdGoNthGC-EII5eJKJZwA",
+   "snippet": {
+    "title": "Fira Jalilova",
+    "description": "25 illik Radio v\u0259 Televiziya t\u0259cr\u00fcb\u0259si olan, s\u0259list diksiyas\u0131, i\u015find\u0259 m\u0259suliyy\u0259ti il\u0259 f\u0259rql\u0259n\u0259n,  pe\u015f\u0259kar jurnalist Firuz\u0259 C\u0259lilovan\u0131n r\u0259smi Youtube  kanal\u0131. Kanalda apar\u0131c\u0131n\u0131n maraql\u0131 videolar\u0131, m\u00fc\u0259llifi oldu\u011fu layih\u0259l\u0259r, TV proqramlar\u0131 v\u0259 dig\u0259r maraql\u0131, \u0259yl\u0259nc\u0259li, maarifl\u0259ndirici  videolar payla\u015f\u0131l\u0131r.\n\nKanal\u0131m\u0131zda yay\u0131mlanan b\u00fct\u00fcn materiallar\u0131n m\u00fc\u0259llif h\u00fcquqlar\u0131 qorunur.\nKanal\u0131m\u0131zdan g\u00f6t\u00fcr\u00fcl\u0259n v\u0259 ya \"Fira Jalilova\" m\u0259hsulu olan videolar\u0131 payla\u015fan kanallar \u015fikay\u0259t olunacaqd\u0131r.\n\n\u018fm\u0259kda\u015fl\u0131q \u00fc\u00e7\u00fcn m\u00fcraci\u0259t ed\u0259 bil\u0259rsiniz:\nhttps://www.instagram.com/fira_jalilova\nhttps://www.facebook.com/firuza.jalilova\n",
+    "customUrl": "@fira_jalilova",
+    "publishedAt": "2016-10-19T13:24:14Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/5MYeagVgMm4XIpF0JxptgjKCW9f2AxAq8DZlc0fPW9N4yFCbMJXjtdcx7TRZ_cTiFwPNovY5bg=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/5MYeagVgMm4XIpF0JxptgjKCW9f2AxAq8DZlc0fPW9N4yFCbMJXjtdcx7TRZ_cTiFwPNovY5bg=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/5MYeagVgMm4XIpF0JxptgjKCW9f2AxAq8DZlc0fPW9N4yFCbMJXjtdcx7TRZ_cTiFwPNovY5bg=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Fira Jalilova",
+     "description": "25 illik Radio v\u0259 Televiziya t\u0259cr\u00fcb\u0259si olan, s\u0259list diksiyas\u0131, i\u015find\u0259 m\u0259suliyy\u0259ti il\u0259 f\u0259rql\u0259n\u0259n,  pe\u015f\u0259kar jurnalist Firuz\u0259 C\u0259lilovan\u0131n r\u0259smi Youtube  kanal\u0131. Kanalda apar\u0131c\u0131n\u0131n maraql\u0131 videolar\u0131, m\u00fc\u0259llifi oldu\u011fu layih\u0259l\u0259r, TV proqramlar\u0131 v\u0259 dig\u0259r maraql\u0131, \u0259yl\u0259nc\u0259li, maarifl\u0259ndirici  videolar payla\u015f\u0131l\u0131r.\n\nKanal\u0131m\u0131zda yay\u0131mlanan b\u00fct\u00fcn materiallar\u0131n m\u00fc\u0259llif h\u00fcquqlar\u0131 qorunur.\nKanal\u0131m\u0131zdan g\u00f6t\u00fcr\u00fcl\u0259n v\u0259 ya \"Fira Jalilova\" m\u0259hsulu olan videolar\u0131 payla\u015fan kanallar \u015fikay\u0259t olunacaqd\u0131r.\n\n\u018fm\u0259kda\u015fl\u0131q \u00fc\u00e7\u00fcn m\u00fcraci\u0259t ed\u0259 bil\u0259rsiniz:\nhttps://www.instagram.com/fira_jalilova\nhttps://www.facebook.com/firuza.jalilova\n"
+    },
+    "country": "AZ"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUzxdGoNthGC-EII5eJKJZwA"
+    }
+   },
+   "statistics": {
+    "viewCount": "31119464",
+    "subscriberCount": "91300",
+    "hiddenSubscriberCount": false,
+    "videoCount": "3922"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "vUTkO5ciroi14x8o6qjwoutU0LI",
+   "id": "UCzZpgppwC_XQMe8lFiI77-Q",
+   "snippet": {
+    "title": "John Doyle",
+    "description": "\"The John Doyle Show\" tells the truth about America to Americans. Cutting through the noise of a million half-witted commentators jockeying for clicks, this show is about joining the fight to restore a country that has been betrayed by its own leaders and reminding those who still love America to dream big again.\n",
+    "customUrl": "@johndoyle",
+    "publishedAt": "2018-10-10T16:23:36Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/6iXhvQjYU6w9LLKFj-2_fSWmn5DK-0Zb8NL5Ng1kQ9RvobVxRdft_0NgMo-Crv9LsB358wKg=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/6iXhvQjYU6w9LLKFj-2_fSWmn5DK-0Zb8NL5Ng1kQ9RvobVxRdft_0NgMo-Crv9LsB358wKg=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/6iXhvQjYU6w9LLKFj-2_fSWmn5DK-0Zb8NL5Ng1kQ9RvobVxRdft_0NgMo-Crv9LsB358wKg=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "John Doyle",
+     "description": "\"The John Doyle Show\" tells the truth about America to Americans. Cutting through the noise of a million half-witted commentators jockeying for clicks, this show is about joining the fight to restore a country that has been betrayed by its own leaders and reminding those who still love America to dream big again.\n"
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUzZpgppwC_XQMe8lFiI77-Q"
+    }
+   },
+   "statistics": {
+    "viewCount": "42441378",
+    "subscriberCount": "368000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "537"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "Fx7oCkOaSdjR4u-w7u1DRW5cJYU",
+   "id": "UCzytW9FifdLdBI0lXMSFjFw",
+   "snippet": {
+    "title": "Daniil Orain",
+    "description": "Making videos...",
+    "customUrl": "@daniilorain",
+    "publishedAt": "2018-03-23T17:16:58Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/D_hMe-GBTgSsVsPQkJ2cmSPQyFoxxg95z29phnNo34yjqvTP38RkYHipHGylx3-f0F40CPqF=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/D_hMe-GBTgSsVsPQkJ2cmSPQyFoxxg95z29phnNo34yjqvTP38RkYHipHGylx3-f0F40CPqF=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/D_hMe-GBTgSsVsPQkJ2cmSPQyFoxxg95z29phnNo34yjqvTP38RkYHipHGylx3-f0F40CPqF=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Daniil Orain",
+     "description": "Making videos..."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUzytW9FifdLdBI0lXMSFjFw"
+    }
+   },
+   "statistics": {
+    "viewCount": "58412",
+    "subscriberCount": "21300",
+    "hiddenSubscriberCount": false,
+    "videoCount": "33"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "l1xOI00uwyyMuoOjanE4lcajylQ",
+   "id": "UCzsgS9-QpkKjdJytHo-FfYQ",
+   "snippet": {
+    "title": "Mrsunrise091",
+    "description": "",
+    "customUrl": "@mrsunrise091",
+    "publishedAt": "2009-11-26T06:48:15Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lv-HMIw5afTZdQs6Vdq_rylSV-YDxxITllXlpD51c=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lv-HMIw5afTZdQs6Vdq_rylSV-YDxxITllXlpD51c=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lv-HMIw5afTZdQs6Vdq_rylSV-YDxxITllXlpD51c=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Mrsunrise091",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUzsgS9-QpkKjdJytHo-FfYQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "18485",
+    "subscriberCount": "18",
+    "hiddenSubscriberCount": false,
+    "videoCount": "17"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02jjt",
+     "/m/0f2f9",
+     "/m/04rlf"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Entertainment",
+     "https://en.wikipedia.org/wiki/Television_program",
+     "https://en.wikipedia.org/wiki/Music"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "cvObZELN8vPQzevOT0R2sGdx974",
+   "id": "UCzz6z566lJPtjqKOPUmHZKQ",
+   "snippet": {
+    "title": "Stephen M. Miller",
+    "description": "Videos about the Bible and Christianity by award-winning, best-selling Christian author Stephen M. Miller",
+    "customUrl": "@stephenmillerthewriter",
+    "publishedAt": "2010-12-21T21:14:46Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/nx_ML-K6BBDHoV-a38YtGT4I6akRvkSnAdU4j9aPKBidbw9Te6ooCnB6QHhcv_14QRpW1tGsCw=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/nx_ML-K6BBDHoV-a38YtGT4I6akRvkSnAdU4j9aPKBidbw9Te6ooCnB6QHhcv_14QRpW1tGsCw=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/nx_ML-K6BBDHoV-a38YtGT4I6akRvkSnAdU4j9aPKBidbw9Te6ooCnB6QHhcv_14QRpW1tGsCw=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Stephen M. Miller",
+     "description": "Videos about the Bible and Christianity by award-winning, best-selling Christian author Stephen M. Miller"
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUzz6z566lJPtjqKOPUmHZKQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "3914054",
+    "subscriberCount": "39000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "156"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02mscn",
+     "/m/06bvp",
+     "/m/04rlf",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Christian_music",
+     "https://en.wikipedia.org/wiki/Religion",
+     "https://en.wikipedia.org/wiki/Music",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "ThxO2sm3cuzaJsLVH2VOxWDDGZs",
+   "id": "UCzqRwR7Ew0Wx8H674FSKpOg",
+   "snippet": {
+    "title": "mick boskamp",
+    "description": "",
+    "customUrl": "@themicksmedia",
+    "publishedAt": "2011-08-10T15:33:43Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kOF9A2HUi7A8OB_0lCCBQoVLs8U66YJZwQeqxrsBbl214=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kOF9A2HUi7A8OB_0lCCBQoVLs8U66YJZwQeqxrsBbl214=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kOF9A2HUi7A8OB_0lCCBQoVLs8U66YJZwQeqxrsBbl214=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "mick boskamp",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUzqRwR7Ew0Wx8H674FSKpOg"
+    }
+   },
+   "statistics": {
+    "viewCount": "278125",
+    "subscriberCount": "441",
+    "hiddenSubscriberCount": false,
+    "videoCount": "94"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02lkt",
+     "/m/04rlf"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Electronic_music",
+     "https://en.wikipedia.org/wiki/Music"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "CM8SHQNpfNFYnw--Pn9dgmxTZkM",
+   "id": "UCzc_wqrGNHpyEy-1cCYm0WQ",
+   "snippet": {
+    "title": "\u96d9\u8a9e\u4e3b\u64ad\u674e\u5b9b\u5112Gladys Lee",
+    "description": "\u570b\u969b\u8a18\u8005\u6703\u3001\u6703\u8b70\u5178\u79ae \u4e2d\u82f1\u96d9\u8a9e\u4e3b\u6301\u4eba\n\u4f01\u696d\u5167\u8a13\u3001\u9ad8\u968e\u4e3b\u7ba1\u6f14\u8aaa\u6559\u7df4\n\u9910\u98f2\u7f8e\u98df Food Media\n\u524d\u4e09\u7acb\u3001\u53f0\u8996\u65b0\u805e\u4e3b\u64ad\n\u570b\u969b\u65b0\u805e\u7bc0\u76ee\u4e3b\u6301\u4eba\n",
+    "customUrl": "@gladyslee5359",
+    "publishedAt": "2011-10-19T23:49:29Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nnT0FoIl8PHsOONDG937ojZfmFZRDrMKsGPfE61dvGVO6i=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nnT0FoIl8PHsOONDG937ojZfmFZRDrMKsGPfE61dvGVO6i=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nnT0FoIl8PHsOONDG937ojZfmFZRDrMKsGPfE61dvGVO6i=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "defaultLanguage": "zh-TW",
+    "localized": {
+     "title": "\u96d9\u8a9e\u4e3b\u64ad\u674e\u5b9b\u5112Gladys Lee",
+     "description": "\u570b\u969b\u8a18\u8005\u6703\u3001\u6703\u8b70\u5178\u79ae \u4e2d\u82f1\u96d9\u8a9e\u4e3b\u6301\u4eba\n\u4f01\u696d\u5167\u8a13\u3001\u9ad8\u968e\u4e3b\u7ba1\u6f14\u8aaa\u6559\u7df4\n\u9910\u98f2\u7f8e\u98df Food Media\n\u524d\u4e09\u7acb\u3001\u53f0\u8996\u65b0\u805e\u4e3b\u64ad\n\u570b\u969b\u65b0\u805e\u7bc0\u76ee\u4e3b\u6301\u4eba\n"
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUzc_wqrGNHpyEy-1cCYm0WQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "42197",
+    "subscriberCount": "309",
+    "hiddenSubscriberCount": false,
+    "videoCount": "26"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02wbm",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Food",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "ub_4MFAhXK14_cuRiQHKOfVsh3U",
+   "id": "UCzkvLqQUufTMYDERNXiKnFA",
+   "snippet": {
+    "title": "COREY \u201cTHE DOCTOR FOR THE PEOPLE\u201d HEBERT, MD",
+    "description": "THE OFFICIAL YOU TUBE CHANNEL FOR DR.COREY HEBERT \"THE DOCTOR FOR THE PEOPLE\" & \"THE ANGRIEST DOCTOR IN AMERICA\"\n\nDr. Corey H\u00e9bert is one of the most illustrious physicians practicing medicine in the United States today practicing both Pediatrics and Emergency Medicine. He is a Professor at both LSU Health Sciences Center and Tulane University Medical Center as well as a national award-winning medical broadcast journalist, working as on-air Chief Medical Editor for the NBC television affiliate in New Orleans, Louisiana and the Gulf Coast for over a decade. He is a frequent on-air contributor to the \u201cDr. Oz Show\u201d and  a fan favorite on MSNBC where he is an on-air contributor. Dr.  H\u00e9bert  he  is a current contributor to the Discovery Channel\u2019s \u201cHow Stuff Works\u201d television show and has made hundreds of appearances on national television networks and outlets such as CNN, CBS, National Geographic, the Meredith Vieira Show, Good Morning America and the Today Show.",
+    "customUrl": "@drcoreyhebert",
+    "publishedAt": "2011-10-02T18:16:08Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nm5bIwQ3z7PkukDXRuAhPc6n99LosCzFT637AzMBPf_A=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nm5bIwQ3z7PkukDXRuAhPc6n99LosCzFT637AzMBPf_A=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nm5bIwQ3z7PkukDXRuAhPc6n99LosCzFT637AzMBPf_A=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "COREY \u201cTHE DOCTOR FOR THE PEOPLE\u201d HEBERT, MD",
+     "description": "THE OFFICIAL YOU TUBE CHANNEL FOR DR.COREY HEBERT \"THE DOCTOR FOR THE PEOPLE\" & \"THE ANGRIEST DOCTOR IN AMERICA\"\n\nDr. Corey H\u00e9bert is one of the most illustrious physicians practicing medicine in the United States today practicing both Pediatrics and Emergency Medicine. He is a Professor at both LSU Health Sciences Center and Tulane University Medical Center as well as a national award-winning medical broadcast journalist, working as on-air Chief Medical Editor for the NBC television affiliate in New Orleans, Louisiana and the Gulf Coast for over a decade. He is a frequent on-air contributor to the \u201cDr. Oz Show\u201d and  a fan favorite on MSNBC where he is an on-air contributor. Dr.  H\u00e9bert  he  is a current contributor to the Discovery Channel\u2019s \u201cHow Stuff Works\u201d television show and has made hundreds of appearances on national television networks and outlets such as CNN, CBS, National Geographic, the Meredith Vieira Show, Good Morning America and the Today Show."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUzkvLqQUufTMYDERNXiKnFA"
+    }
+   },
+   "statistics": {
+    "viewCount": "109155",
+    "subscriberCount": "3130",
+    "hiddenSubscriberCount": false,
+    "videoCount": "51"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/01k8wb",
+     "/m/0kt51",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Knowledge",
+     "https://en.wikipedia.org/wiki/Health",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  }
+ ]
+}

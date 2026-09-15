@@ -1,0 +1,2799 @@
+{
+ "_requested": [
+  "UCnNKgenNv634bgH9WTojQwA",
+  "UCnObndfdVhZMCYEfOxdUnxA",
+  "UCnOwKuWgYeUOtbriYrEqLtQ",
+  "UCnQ3znGoKAybm2LrvDukWfQ",
+  "UCnSyMD9pu4AU7rJu0diGCNA",
+  "UCnUc4pBjv-4c86UVoo3CEdA",
+  "UCnVf4BZXc-_q4WSHyDMzxrA",
+  "UCncDlrpG9HFqBLHF7xJwx5A",
+  "UCnetEdV8EwzGn36f3pq50ZA",
+  "UCnk8TbzVUZ6beuenLH3UHSg",
+  "UCnmuqa1vX2ktbUBJ-Efz0Ww",
+  "UCnnuGRuYWW_PWLoZujKisBg",
+  "UCnpjF5ks8AyKBJnLn1lfLmg",
+  "UCnq0zNFkSa8YFc3f1-7Q3mg",
+  "UCnqjw_8zU9z0kAwdQ5iAyHQ",
+  "UCnrSmy1MRRGU2LSrlgGTikQ",
+  "UCnyxY2BpDbbFpx3J9qwd4rg",
+  "UCo0mGT5-45aVyPkpn_guNtA",
+  "UCo2ufm5B36Vl693GWQAqe8A",
+  "UCoAf_IAZKhnUb0AajE5VSyA",
+  "UCoG_WtEGHB_H96-T4LyPhsw",
+  "UCoHjGuDUDowAJOf1jN9Y3qw",
+  "UCoMQbtcPuPk-yW0BxpevEIg",
+  "UCoNYj9OFHZn3ACmmeRCPwbA",
+  "UCoO28dF7ebUqqsdI4xtQ1uw",
+  "UCoPFfs-pI3Kso2Ol5hMDR6g",
+  "UCoQBJMzcwmXrRSHBFAlTsIw",
+  "UCoTREVo1yJwXXDY0TbTA4EQ",
+  "UCoYiLP9wH8Hz71LvEerJANg",
+  "UCoZiSARglIJZlcIck90U-Ow",
+  "UCo_QfGG3FlWVh3Z0AoxuwBA",
+  "UCoecqVX0a4Ut6KZqmoLJbKQ",
+  "UCogX-wvzkIzwOEZFTLTPUuw",
+  "UCoiydSu2BG9axZmoY8zpQrg",
+  "UCojJNXcer3yKj9Q-RWOFZuw",
+  "UCok45CxM0NucPe1UgUZm2FQ",
+  "UCok9Z8Fq6TOvULXUIeVf4Kg",
+  "UCol-2SVcy88WW5pAAGJ_O4Q",
+  "UConF7EQiw1TV-_9nMYy8lgw",
+  "UCorshkhu8upUY3NXgQdWRqA",
+  "UCotkNLf_Y3jfbLWuSFUCSBQ",
+  "UCovFGCl1Ff26xqtua8mnL5A",
+  "UCow8oFES_sFLjw5lEm9uGmQ",
+  "UCowYpWyOJf600yX_HuOZtqA",
+  "UCp-nh5Fe_YD4baFpypQApyA",
+  "UCp-x1BqSzW0Z_-Xh6xiBA2A",
+  "UCp0QL7nx51TjoxqyX-G538g",
+  "UCp0alK_INpAnPcHSAftprTw",
+  "UCp2f7tGJGN6R9Muxipem8Nw",
+  "UCp536rDj5ugflp2q-7ZkWbQ"
+ ],
+ "_fetched_at": "2026-09-15T16:07:33.526160+00:00",
+ "kind": "youtube#channelListResponse",
+ "etag": "Y3ZmUx7Ed6N_oOLB62wAC5d4dL8",
+ "pageInfo": {
+  "totalResults": 46,
+  "resultsPerPage": 50
+ },
+ "items": [
+  {
+   "kind": "youtube#channel",
+   "etag": "m23qNfKmvB8SReEx5o0dp-ASSrM",
+   "id": "UCnmuqa1vX2ktbUBJ-Efz0Ww",
+   "snippet": {
+    "title": "Abbeville Meridional @ VermilionToday",
+    "description": "",
+    "customUrl": "@abbevillemeridionalvermili338",
+    "publishedAt": "2014-06-24T19:12:30Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nwpf0Q5mKcVWU5dMv2dC-c-ZCaGzhXdW1WtYmivuIGMQ=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nwpf0Q5mKcVWU5dMv2dC-c-ZCaGzhXdW1WtYmivuIGMQ=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nwpf0Q5mKcVWU5dMv2dC-c-ZCaGzhXdW1WtYmivuIGMQ=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Abbeville Meridional @ VermilionToday",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnmuqa1vX2ktbUBJ-Efz0Ww"
+    }
+   },
+   "statistics": {
+    "viewCount": "5002",
+    "subscriberCount": "20",
+    "hiddenSubscriberCount": false,
+    "videoCount": "2"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "Avm4ZlJk8OSr-1ZIDx8QKUDp6ns",
+   "id": "UCnOwKuWgYeUOtbriYrEqLtQ",
+   "snippet": {
+    "title": "\u041c\u043e\u0441\u043a\u043e\u0432\u0441\u043a\u0438\u0439 \u041a\u043e\u043c\u0441\u043e\u043c\u043e\u043b\u0435\u0446 (\u041c\u041a)",
+    "description": "\u041e\u0444\u0438\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0439 \u043a\u0430\u043d\u0430\u043b \u0418\u0414 \"\u041c\u043e\u0441\u043a\u043e\u0432\u0441\u043a\u0438\u0439 \u041a\u043e\u043c\u0441\u043e\u043c\u043e\u043b\u0435\u0446\". \u0412\u0441\u0435 \u0432\u0438\u0434\u0435\u043e \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e \u043d\u0430 \u043d\u0430\u0448\u0435\u043c \u043a\u0430\u043d\u0430\u043b\u0435 \u041c\u041a \u0422\u0412.",
+    "customUrl": "@\u043c\u043e\u0441\u043a\u043e\u0432\u0441\u043a\u0438\u0438\u043a\u043e\u043c\u0441\u043e\u043c\u043e\u043b\u0435\u0446-\u044f7\u0441",
+    "publishedAt": "2009-10-23T06:42:42Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mn_7-aVPXZlfmw-e8g-S2Qkr2GBYKfct4eQ6Jd2kFPxA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mn_7-aVPXZlfmw-e8g-S2Qkr2GBYKfct4eQ6Jd2kFPxA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mn_7-aVPXZlfmw-e8g-S2Qkr2GBYKfct4eQ6Jd2kFPxA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u041c\u043e\u0441\u043a\u043e\u0432\u0441\u043a\u0438\u0439 \u041a\u043e\u043c\u0441\u043e\u043c\u043e\u043b\u0435\u0446 (\u041c\u041a)",
+     "description": "\u041e\u0444\u0438\u0446\u0438\u0430\u043b\u044c\u043d\u044b\u0439 \u043a\u0430\u043d\u0430\u043b \u0418\u0414 \"\u041c\u043e\u0441\u043a\u043e\u0432\u0441\u043a\u0438\u0439 \u041a\u043e\u043c\u0441\u043e\u043c\u043e\u043b\u0435\u0446\". \u0412\u0441\u0435 \u0432\u0438\u0434\u0435\u043e \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e \u043d\u0430 \u043d\u0430\u0448\u0435\u043c \u043a\u0430\u043d\u0430\u043b\u0435 \u041c\u041a \u0422\u0412."
+    },
+    "country": "RU"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnOwKuWgYeUOtbriYrEqLtQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "8960",
+    "subscriberCount": "27",
+    "hiddenSubscriberCount": false,
+    "videoCount": "5"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/03glg",
+     "/m/019_rr",
+     "/m/02jjt"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Hobby",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)",
+     "https://en.wikipedia.org/wiki/Entertainment"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "sFwj09ULMm-S3R0JudtT2jDsXyg",
+   "id": "UCo2ufm5B36Vl693GWQAqe8A",
+   "snippet": {
+    "title": "vois biz",
+    "description": "vois\uff08\u30f4\u30a9\u30a4\u30b9\uff09\u306e\u30d3\u30b8\u30cd\u30b9\u30cb\u30e5\u30fc\u30b9",
+    "customUrl": "@voisbiz",
+    "publishedAt": "2024-10-25T08:39:54.223355Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/b674ytb9mYY1bDfsqBXWtkphKY9RiUjv9OyLVHbp3oee0kEdW_KAO-ga4UIW1EQvGCfJ-9sE=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/b674ytb9mYY1bDfsqBXWtkphKY9RiUjv9OyLVHbp3oee0kEdW_KAO-ga4UIW1EQvGCfJ-9sE=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/b674ytb9mYY1bDfsqBXWtkphKY9RiUjv9OyLVHbp3oee0kEdW_KAO-ga4UIW1EQvGCfJ-9sE=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "vois biz",
+     "description": "vois\uff08\u30f4\u30a9\u30a4\u30b9\uff09\u306e\u30d3\u30b8\u30cd\u30b9\u30cb\u30e5\u30fc\u30b9"
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUo2ufm5B36Vl693GWQAqe8A"
+    }
+   },
+   "statistics": {
+    "viewCount": "2758",
+    "subscriberCount": "19",
+    "hiddenSubscriberCount": false,
+    "videoCount": "11"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/g/120y8l81",
+     "/m/05qt0",
+     "/m/01k8wb"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Business",
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Knowledge"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "ytANGKL_VaXvwY4eC5g5a5ngvR0",
+   "id": "UCnObndfdVhZMCYEfOxdUnxA",
+   "snippet": {
+    "title": "theINDcom",
+    "description": "News. Culture. Commentary.\nProviding a forum for thinking, educated, involved readers who care deeply about Acadiana's future and help shape the community's vision for it.",
+    "customUrl": "@theindcom",
+    "publishedAt": "2007-03-21T03:27:34Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lxKPFNMf7f4e8LNzXCLm_LYr-fw2oO1J6ltYCFdfN81k4=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lxKPFNMf7f4e8LNzXCLm_LYr-fw2oO1J6ltYCFdfN81k4=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lxKPFNMf7f4e8LNzXCLm_LYr-fw2oO1J6ltYCFdfN81k4=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "theINDcom",
+     "description": "News. Culture. Commentary.\nProviding a forum for thinking, educated, involved readers who care deeply about Acadiana's future and help shape the community's vision for it."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnObndfdVhZMCYEfOxdUnxA"
+    }
+   },
+   "statistics": {
+    "viewCount": "127894",
+    "subscriberCount": "62",
+    "hiddenSubscriberCount": false,
+    "videoCount": "125"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/019_rr",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "h2swchcgeTvqEvO7mhWjMvZu-wM",
+   "id": "UCoNYj9OFHZn3ACmmeRCPwbA",
+   "snippet": {
+    "title": "\u4e09\u7acb\u8ca1\u7d93iNEWS",
+    "description": "\u3010\u4e09\u7acb iNEWS \u8ca1\u7d93\u53f0\u3011\u53f0\u80a1\u3001\u570b\u969b\u80a1\u5e02\u3001\u6295\u8cc7\u7406\u8ca1\u6df1\u5ea6\u5206\u6790 \ud83d\udcc8 \ud83d\udcb0 CH48.CH88 iNEWS \u5b98\u65b9\u983b\u9053\uff0c\u63d0\u4f9b\u60a8\u6700\u5373\u6642\u7684\u53f0\u80a1\u76e4\u52e2\u5206\u6790\u3001\u7f8e\u80a1\u8da8\u52e2\u3001\u52a0\u5bc6\u8ca8\u5e63\u8207\u5168\u7403\u8ca1\u7d93\u65b0\u805e\u3002 \ud83d\udca5 \u6295\u8cc7\u5927\u5c0f\u4e8b\u3001\u7406\u8ca1\u5168\u653b\u7565\u90fd\u5728\u9019\u88e1\uff01\u8ddf\u4e0a\u4e16\u754c\u8108\u52d5\uff0c\u5f9e\u65b0\u805e\u4e2d\u5b78\u6703\u8070\u660e\u6295\u8cc7\uff0c\u4e00\u8d77\u8b8a\u8070\u660e\u8b8a\u6709\u9322\uff01\n\u6709\u7dda\u96fb\u8996\u8acb\u641c\u5c0bCH48.CH88 iNEWS\u8ca1\u7d93\u53f0\n\n#\u4e09\u7acb\u8ca1\u7d93iNEWS #\u738b\u5fd7\u90c1 #\u8ca1\u7d93 #\u53f0\u80a1 #\u7f8e\u80a1 #\u80a1\u5e02\u5206\u6790 #\u6295\u8cc7\u7406\u8ca1 #\u7406\u8ca1\u5168\u653b\u7565 #Catch\u5927\u9322\u6f6e #\u5927\u4e16\u754c #iNEWS\n\ud83d\udca5 \u638c\u63e1\u4e16\u754c\u8108\u52d5\u3001\u7406\u8ca1\u5927\u5c0f\u4e8b\uff0c\u4e00\u8d77\u8b8a\u8070\u660e\u8b8a\u6709\u9322 \ud83d\udcb0\u2728\n\n\ud83d\udc47\ud83d\udc47\ud83d\udc47 \u597d\u5eb7\u9023\u7d50\u901a\u901a\u5e6b\u4f60\u6574\u7406\u597d\u56c9 \ud83d\udc47\ud83d\udc47\ud83d\udc47\n\n\ud83c\udf7f **\u4e09\u7acb\u8ca1\u7d93iNEWS\uff5c\u6700\u6b63\u65b0\u805e\u76f4\u64ad**\uff08\u60f3\u77e5\u9053\u6700\u65b0\u7b2c\u4e00\u624b\u7684\u4e8b\uff0c\u5c31\u9ede\u9019\uff01\uff09\n\ud83d\udc49 https://www.youtube.com/watch?v=pF507BLtbqU\n\n\ud83d\udcca **\u738b\u5fd7\u90c1\uff5cCatch\u5927\u9322\u6f6e \u638c\u63e1\u8da8\u52e2 \u64c1\u62b1\u8ca1\u5bcc**\uff08\u7406\u8ca1\u65b0\u624b\u4e5f\u80fd\u4e00\u770b\u5c31\u4e0a\u624b\ud83d\udcb5\uff09\n\ud83d\udc49 https://www.youtube.com/@Catch\u5927\u9322\u6f6e\n\n\ud83c\udfe0 **\u5ed6\u5a55\u59a4\uff5c\u597d\u5b85\u6572\u6572\u9580**\uff0d\u5e36\u4f60\u7528\u6545\u4e8b\u770b\u623f\u5b50 \ud83c\udfe1\n\ud83d\udc49 youtube.com/@\u597d\u5b85\u6572\u6572\u9580\n\n\ud83c\udf0d **\u738b\u5fd7\u90c1plus\uff5c\u570b\u969bx\u7406\u8ca1\u5168\u653b\u7565**\n\ud83d\udc49https://www.youtube.com/@\u738b\u5fd7\u90c1Plus\n\n\ud83d\udcf1 **\u4e0b\u8f09\u4e09\u7acb\u65b0\u805e\u7db2APP**\uff08\u65b0\u805e\u3001\u7bc0\u76ee\u901a\u901a\u4e0d\u6f0f\u63a5\uff01\uff09\n\ud83d\udc49 hthttps://acts.setn.com/event/2024newsapp/\n\n\ud83c\udf10 **\u4e09\u7acb\u65b0\u805e\u7db2\u5b98\u7db2**\n\ud83d\udc49 https://www.setn.com/\n\n\ud83e\uddd1\u200d\ud83d\udcbb **\u60f3\u52a0\u5165\u6211\u5011\u4e00\u8d77\u505a\u6700\u6709\u6df1\u5ea6\u7684\u653f\u8ad6\u55ce\uff1f**\n\ud83c\udf89 \u71b1\u8840\u5925\u4f34\u5feb\u770b\u8077\u7f3a \u27a4https://www.104.com.tw/job/8rrov?jobsource=google\n\n\ud83d\udcf2 **\u52a0\u5165\u4e09\u7acbiNEWS Line@\u5b98\u65b9\u5e33\u865f**\n\u91cd\u8981\u65b0\u805e\u4e0d\u6f0f\u770b\uff01\u7cbe\u5f69\u7bc0\u76ee\u96a8\u9ede\u96a8\u770b\n\ud83d\udc49 https://lin.ee/mFQTXvz\n\n",
+    "customUrl": "@\u4e09\u7acb\u8ca1\u7d93inews",
+    "publishedAt": "2012-12-12T15:29:14Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/gUb2DwHKe4ejBHK1YQJ8ZUOcOUCSHYobbrpGtTTvlLhBL38CBV089YcYJCyjQvUJTMb2svrLe6Q=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/gUb2DwHKe4ejBHK1YQJ8ZUOcOUCSHYobbrpGtTTvlLhBL38CBV089YcYJCyjQvUJTMb2svrLe6Q=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/gUb2DwHKe4ejBHK1YQJ8ZUOcOUCSHYobbrpGtTTvlLhBL38CBV089YcYJCyjQvUJTMb2svrLe6Q=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "defaultLanguage": "zh-TW",
+    "localized": {
+     "title": "\u4e09\u7acb\u8ca1\u7d93iNEWS",
+     "description": "\u3010\u4e09\u7acb iNEWS \u8ca1\u7d93\u53f0\u3011\u53f0\u80a1\u3001\u570b\u969b\u80a1\u5e02\u3001\u6295\u8cc7\u7406\u8ca1\u6df1\u5ea6\u5206\u6790 \ud83d\udcc8 \ud83d\udcb0 CH48.CH88 iNEWS \u5b98\u65b9\u983b\u9053\uff0c\u63d0\u4f9b\u60a8\u6700\u5373\u6642\u7684\u53f0\u80a1\u76e4\u52e2\u5206\u6790\u3001\u7f8e\u80a1\u8da8\u52e2\u3001\u52a0\u5bc6\u8ca8\u5e63\u8207\u5168\u7403\u8ca1\u7d93\u65b0\u805e\u3002 \ud83d\udca5 \u6295\u8cc7\u5927\u5c0f\u4e8b\u3001\u7406\u8ca1\u5168\u653b\u7565\u90fd\u5728\u9019\u88e1\uff01\u8ddf\u4e0a\u4e16\u754c\u8108\u52d5\uff0c\u5f9e\u65b0\u805e\u4e2d\u5b78\u6703\u8070\u660e\u6295\u8cc7\uff0c\u4e00\u8d77\u8b8a\u8070\u660e\u8b8a\u6709\u9322\uff01\n\u6709\u7dda\u96fb\u8996\u8acb\u641c\u5c0bCH48.CH88 iNEWS\u8ca1\u7d93\u53f0\n\n#\u4e09\u7acb\u8ca1\u7d93iNEWS #\u738b\u5fd7\u90c1 #\u8ca1\u7d93 #\u53f0\u80a1 #\u7f8e\u80a1 #\u80a1\u5e02\u5206\u6790 #\u6295\u8cc7\u7406\u8ca1 #\u7406\u8ca1\u5168\u653b\u7565 #Catch\u5927\u9322\u6f6e #\u5927\u4e16\u754c #iNEWS\n\ud83d\udca5 \u638c\u63e1\u4e16\u754c\u8108\u52d5\u3001\u7406\u8ca1\u5927\u5c0f\u4e8b\uff0c\u4e00\u8d77\u8b8a\u8070\u660e\u8b8a\u6709\u9322 \ud83d\udcb0\u2728\n\n\ud83d\udc47\ud83d\udc47\ud83d\udc47 \u597d\u5eb7\u9023\u7d50\u901a\u901a\u5e6b\u4f60\u6574\u7406\u597d\u56c9 \ud83d\udc47\ud83d\udc47\ud83d\udc47\n\n\ud83c\udf7f **\u4e09\u7acb\u8ca1\u7d93iNEWS\uff5c\u6700\u6b63\u65b0\u805e\u76f4\u64ad**\uff08\u60f3\u77e5\u9053\u6700\u65b0\u7b2c\u4e00\u624b\u7684\u4e8b\uff0c\u5c31\u9ede\u9019\uff01\uff09\n\ud83d\udc49 https://www.youtube.com/watch?v=pF507BLtbqU\n\n\ud83d\udcca **\u738b\u5fd7\u90c1\uff5cCatch\u5927\u9322\u6f6e \u638c\u63e1\u8da8\u52e2 \u64c1\u62b1\u8ca1\u5bcc**\uff08\u7406\u8ca1\u65b0\u624b\u4e5f\u80fd\u4e00\u770b\u5c31\u4e0a\u624b\ud83d\udcb5\uff09\n\ud83d\udc49 https://www.youtube.com/@Catch\u5927\u9322\u6f6e\n\n\ud83c\udfe0 **\u5ed6\u5a55\u59a4\uff5c\u597d\u5b85\u6572\u6572\u9580**\uff0d\u5e36\u4f60\u7528\u6545\u4e8b\u770b\u623f\u5b50 \ud83c\udfe1\n\ud83d\udc49 youtube.com/@\u597d\u5b85\u6572\u6572\u9580\n\n\ud83c\udf0d **\u738b\u5fd7\u90c1plus\uff5c\u570b\u969bx\u7406\u8ca1\u5168\u653b\u7565**\n\ud83d\udc49https://www.youtube.com/@\u738b\u5fd7\u90c1Plus\n\n\ud83d\udcf1 **\u4e0b\u8f09\u4e09\u7acb\u65b0\u805e\u7db2APP**\uff08\u65b0\u805e\u3001\u7bc0\u76ee\u901a\u901a\u4e0d\u6f0f\u63a5\uff01\uff09\n\ud83d\udc49 hthttps://acts.setn.com/event/2024newsapp/\n\n\ud83c\udf10 **\u4e09\u7acb\u65b0\u805e\u7db2\u5b98\u7db2**\n\ud83d\udc49 https://www.setn.com/\n\n\ud83e\uddd1\u200d\ud83d\udcbb **\u60f3\u52a0\u5165\u6211\u5011\u4e00\u8d77\u505a\u6700\u6709\u6df1\u5ea6\u7684\u653f\u8ad6\u55ce\uff1f**\n\ud83c\udf89 \u71b1\u8840\u5925\u4f34\u5feb\u770b\u8077\u7f3a \u27a4https://www.104.com.tw/job/8rrov?jobsource=google\n\n\ud83d\udcf2 **\u52a0\u5165\u4e09\u7acbiNEWS Line@\u5b98\u65b9\u5e33\u865f**\n\u91cd\u8981\u65b0\u805e\u4e0d\u6f0f\u770b\uff01\u7cbe\u5f69\u7bc0\u76ee\u96a8\u9ede\u96a8\u770b\n\ud83d\udc49 https://lin.ee/mFQTXvz\n\n"
+    },
+    "country": "TW"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoNYj9OFHZn3ACmmeRCPwbA"
+    }
+   },
+   "statistics": {
+    "viewCount": "2432545589",
+    "subscriberCount": "1450000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "180722"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "Fk37Zc72nSx5tTTXCzIyRQHm4wM",
+   "id": "UConF7EQiw1TV-_9nMYy8lgw",
+   "snippet": {
+    "title": "\u05d5\u05d5\u05d0\u05dc\u05d4",
+    "description": "\u05d5\u05d5\u05d0\u05dc\u05d4 \u05d0\u05ea\u05e8 \u05d4\u05d7\u05d3\u05e9\u05d5\u05ea \u05d4\u05e4\u05d5\u05e4\u05d5\u05dc\u05e8\u05d9 \u05d1\u05d9\u05e9\u05e8\u05d0\u05dc.\n\u05e2\u05d3\u05db\u05d5\u05e0\u05d9\u05dd, \u05d3\u05d9\u05d5\u05d5\u05d7\u05d9\u05dd \u05d5\u05e4\u05e8\u05e9\u05e0\u05d5\u05d9\u05d5\u05ea \u05d1\u05e2\u05e9\u05e8\u05d5\u05ea \u05e2\u05e8\u05d5\u05e6\u05d9 \u05ea\u05d5\u05db\u05df: \u05d7\u05d3\u05e9\u05d5\u05ea, \u05e1\u05e4\u05d5\u05e8\u05d8, \u05de\u05d1\u05d6\u05e7\u05d9\u05dd, \u05e1\u05dc\u05d1\u05e1, \u05ea\u05e8\u05d1\u05d5\u05ea, \u05d0\u05d5\u05db\u05dc, \u05db\u05dc\u05db\u05dc\u05d4, \u05d1\u05e8\u05d9\u05d0\u05d5\u05ea, \u05d0\u05d5\u05e4\u05e0\u05d4 \u05d5\u05e2\u05d5\u05d3.\n\u05d1\u05d5\u05d0\u05d5 \u05dc\u05e2\u05e7\u05d5\u05d1 \u05d0\u05d7\u05e8\u05d9\u05e0\u05d5 \u05d1\u05db\u05dc \u05d4\u05e8\u05e9\u05ea\u05d5\u05ea \u05d4\u05d7\u05d1\u05e8\u05ea\u05d9\u05d5\u05ea:\nhttps://www.facebook.com/wallanews\nhttps://www.instagram.com/wallanews/\nhttps://twitter.com/WallaNews\nhttps://www.tiktok.com/@walla.news\n",
+    "customUrl": "@walla",
+    "publishedAt": "2015-02-19T08:13:07Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/42eOYIyB4NJqGjC5N-g4k4T3_OD8L-_LAIHXaSNy8AbRQiZqlgWvs8nD1-9_ulSYRALEUMjoTw=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/42eOYIyB4NJqGjC5N-g4k4T3_OD8L-_LAIHXaSNy8AbRQiZqlgWvs8nD1-9_ulSYRALEUMjoTw=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/42eOYIyB4NJqGjC5N-g4k4T3_OD8L-_LAIHXaSNy8AbRQiZqlgWvs8nD1-9_ulSYRALEUMjoTw=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u05d5\u05d5\u05d0\u05dc\u05d4",
+     "description": "\u05d5\u05d5\u05d0\u05dc\u05d4 \u05d0\u05ea\u05e8 \u05d4\u05d7\u05d3\u05e9\u05d5\u05ea \u05d4\u05e4\u05d5\u05e4\u05d5\u05dc\u05e8\u05d9 \u05d1\u05d9\u05e9\u05e8\u05d0\u05dc.\n\u05e2\u05d3\u05db\u05d5\u05e0\u05d9\u05dd, \u05d3\u05d9\u05d5\u05d5\u05d7\u05d9\u05dd \u05d5\u05e4\u05e8\u05e9\u05e0\u05d5\u05d9\u05d5\u05ea \u05d1\u05e2\u05e9\u05e8\u05d5\u05ea \u05e2\u05e8\u05d5\u05e6\u05d9 \u05ea\u05d5\u05db\u05df: \u05d7\u05d3\u05e9\u05d5\u05ea, \u05e1\u05e4\u05d5\u05e8\u05d8, \u05de\u05d1\u05d6\u05e7\u05d9\u05dd, \u05e1\u05dc\u05d1\u05e1, \u05ea\u05e8\u05d1\u05d5\u05ea, \u05d0\u05d5\u05db\u05dc, \u05db\u05dc\u05db\u05dc\u05d4, \u05d1\u05e8\u05d9\u05d0\u05d5\u05ea, \u05d0\u05d5\u05e4\u05e0\u05d4 \u05d5\u05e2\u05d5\u05d3.\n\u05d1\u05d5\u05d0\u05d5 \u05dc\u05e2\u05e7\u05d5\u05d1 \u05d0\u05d7\u05e8\u05d9\u05e0\u05d5 \u05d1\u05db\u05dc \u05d4\u05e8\u05e9\u05ea\u05d5\u05ea \u05d4\u05d7\u05d1\u05e8\u05ea\u05d9\u05d5\u05ea:\nhttps://www.facebook.com/wallanews\nhttps://www.instagram.com/wallanews/\nhttps://twitter.com/WallaNews\nhttps://www.tiktok.com/@walla.news\n"
+    },
+    "country": "IL"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUonF7EQiw1TV-_9nMYy8lgw"
+    }
+   },
+   "statistics": {
+    "viewCount": "6133697",
+    "subscriberCount": "6740",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1430"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/06ntj",
+     "/m/02jjt",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Sport",
+     "https://en.wikipedia.org/wiki/Entertainment",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "5yY1AS4xZ8fTiF-4i9wefDKpAT0",
+   "id": "UCnSyMD9pu4AU7rJu0diGCNA",
+   "snippet": {
+    "title": "TheDailyBeacon",
+    "description": "The Daily Beacon is the independent, student-run news organization serving the University of Tennessee, Knoxville.\n\nOur mission is to inform, engage and tell the stories that matter most to the Volunteer community through compelling visual storytelling.\n\n\ud83d\udcf0 Website: https://www.utdailybeacon.com\n\nFollow us:\n\u2022 Instagram: @utkdailybeacon\n\u2022 X: @utkdailybeacon\n\u2022 TikTok: @utkdailybeacon\n\nSubscribe for new videos throughout the academic year.\n",
+    "customUrl": "@utkdailybeacon",
+    "publishedAt": "2012-03-23T20:29:01Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/sZ4Onuxtm3h69VgSSyj4MNTyzhqfRgcbycyVQLjBlZzmsLYaXeUOkiFJIHOmydjBB7S4b1f3=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/sZ4Onuxtm3h69VgSSyj4MNTyzhqfRgcbycyVQLjBlZzmsLYaXeUOkiFJIHOmydjBB7S4b1f3=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/sZ4Onuxtm3h69VgSSyj4MNTyzhqfRgcbycyVQLjBlZzmsLYaXeUOkiFJIHOmydjBB7S4b1f3=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "TheDailyBeacon",
+     "description": "The Daily Beacon is the independent, student-run news organization serving the University of Tennessee, Knoxville.\n\nOur mission is to inform, engage and tell the stories that matter most to the Volunteer community through compelling visual storytelling.\n\n\ud83d\udcf0 Website: https://www.utdailybeacon.com\n\nFollow us:\n\u2022 Instagram: @utkdailybeacon\n\u2022 X: @utkdailybeacon\n\u2022 TikTok: @utkdailybeacon\n\nSubscribe for new videos throughout the academic year.\n"
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnSyMD9pu4AU7rJu0diGCNA"
+    }
+   },
+   "statistics": {
+    "viewCount": "374956",
+    "subscriberCount": "941",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1415"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02vx4",
+     "/m/06ntj",
+     "/m/0jm_"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Association_football",
+     "https://en.wikipedia.org/wiki/Sport",
+     "https://en.wikipedia.org/wiki/American_football"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "9lmy7TR-XSWchlFOioRukJL5Zvc",
+   "id": "UCoHjGuDUDowAJOf1jN9Y3qw",
+   "snippet": {
+    "title": "FilGoal",
+    "description": "Welcome to FilGoal's official YouTube channel.",
+    "customUrl": "@filgoalmedia",
+    "publishedAt": "2012-12-15T23:25:52Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kFzkydc3kwAJ8isDcctwJ9aS8V-KaNkGlAUua1EVQdmg=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kFzkydc3kwAJ8isDcctwJ9aS8V-KaNkGlAUua1EVQdmg=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kFzkydc3kwAJ8isDcctwJ9aS8V-KaNkGlAUua1EVQdmg=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "FilGoal",
+     "description": "Welcome to FilGoal's official YouTube channel."
+    },
+    "country": "EG"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoHjGuDUDowAJOf1jN9Y3qw"
+    }
+   },
+   "statistics": {
+    "viewCount": "71328207",
+    "subscriberCount": "507000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "5566"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02vx4",
+     "/m/06ntj"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Association_football",
+     "https://en.wikipedia.org/wiki/Sport"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "37H8urFf3_zi8PeSEYCZzKFIuFQ",
+   "id": "UCnq0zNFkSa8YFc3f1-7Q3mg",
+   "snippet": {
+    "title": "\u6e38\u7814\u793eYYSTV",
+    "description": "\u6e38\u7814\u793e\u662f\u4e00\u4e2a\u6cdb\u6e38\u620f\u65b0\u5a92\u4f53\uff0c\u4f1a\u4e0d\u5b9a\u65f6\u66f4\u65b0\u4e00\u4e9b\u6709\u610f\u601d\u7684\u5185\u5bb9\uff0c\u57fa\u672c\u90fd\u662f\u6e38\u620f\u76f8\u5173\u3002\u65e0\u8bba\u4f60\u662f\u6e38\u620f\u6b7b\u5fe0\uff0c\u8fd8\u662f\u8f7b\u5ea6\u7684\u4f11\u95f2\u73a9\u5bb6\uff0c\u5728\u8fd9\u91cc\u90fd\u80fd\u627e\u5230\u611f\u5174\u8da3\u7684\u4e1c\u897f\u3002",
+    "customUrl": "@yystv",
+    "publishedAt": "2018-01-09T09:34:43Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_n_KeTRyOel1rKmBlNFpzPlB2NMZCAtPMqzHYSr7nWpQkc=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_n_KeTRyOel1rKmBlNFpzPlB2NMZCAtPMqzHYSr7nWpQkc=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_n_KeTRyOel1rKmBlNFpzPlB2NMZCAtPMqzHYSr7nWpQkc=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u6e38\u7814\u793eYYSTV",
+     "description": "\u6e38\u7814\u793e\u662f\u4e00\u4e2a\u6cdb\u6e38\u620f\u65b0\u5a92\u4f53\uff0c\u4f1a\u4e0d\u5b9a\u65f6\u66f4\u65b0\u4e00\u4e9b\u6709\u610f\u601d\u7684\u5185\u5bb9\uff0c\u57fa\u672c\u90fd\u662f\u6e38\u620f\u76f8\u5173\u3002\u65e0\u8bba\u4f60\u662f\u6e38\u620f\u6b7b\u5fe0\uff0c\u8fd8\u662f\u8f7b\u5ea6\u7684\u4f11\u95f2\u73a9\u5bb6\uff0c\u5728\u8fd9\u91cc\u90fd\u80fd\u627e\u5230\u611f\u5174\u8da3\u7684\u4e1c\u897f\u3002"
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnq0zNFkSa8YFc3f1-7Q3mg"
+    }
+   },
+   "statistics": {
+    "viewCount": "20840217",
+    "subscriberCount": "90400",
+    "hiddenSubscriberCount": false,
+    "videoCount": "433"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02ntfj",
+     "/m/0403l3g",
+     "/m/0bzvm2",
+     "/m/025zzc"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Action-adventure_game",
+     "https://en.wikipedia.org/wiki/Role-playing_video_game",
+     "https://en.wikipedia.org/wiki/Video_game_culture",
+     "https://en.wikipedia.org/wiki/Action_game"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "pdqOcUQ20fWmPqHXCr39ZAjhwJ4",
+   "id": "UCoAf_IAZKhnUb0AajE5VSyA",
+   "snippet": {
+    "title": "PassionTimes hk",
+    "description": "\u71b1\u8840\u88fd\u9020\uff0c\u6700\u5f37\u983b\u9053\uff01\n\n\u71b1\u8840\u6642\u5831 Passiontimes.hk\uff0c\u662f\u4e00\u500b\u7d9c\u5408\u5a1b\u6a02\u8cc7\u8a0a\u5e73\u53f0\uff0c\u7d50\u5408\u65b0\u805e\u3001\u7bc0\u76ee\u3001\u6f2b\u756b\u3001\u5c0f\u8aaa\u3001\u97f3\u6a02\u3001\u5287\u96c6\u3001\u821e\u53f0\u88fd\u4f5c\u3001\u7db2\u8cfc\u5e73\u53f0\uff0c\u8c50\u5bcc\u5167\u5bb9\uff0c\u7cbe\u5f69\u653e\u9001\uff01\n\n\u71b1\u8840\u6642\u5831\u65bc2012\u5e7411\u670811\u65e5\u6210\u7acb\uff0c\u6700\u521d\u53ea\u6709\u6578\u500b\u7bc0\u76ee\uff0c\u4f46\u73fe\u6642\uff0c\u71b1\u8840\u6642\u5831\u514d\u8cbb\u53f0\u5df2\u767c\u5c55\u6210\u5168\u5929\u501924\u5c0f\u6642\u64ad\u653e\uff0c\u96a8\u6642\u96a8\u5730\uff0c\u90fd\u6709\u6211\u5011\u7684\u7bc0\u76ee\u966a\u4f4f\u4f60\u3002 \n\n\u53e6\u5916\uff0c\u6211\u5011\u65bc2018\u5e74\u63a8\u51faPassionPrime\u6703\u54e1\u5236\u5ea6\uff0c\u6210\u7acb\u71b1\u8840\u6536\u8cbb\u53f0\u5c08\u5340\uff0c\u4ed8\u8cbb\u6703\u54e1\u9664\u53ef\u96a8\u6642\u91cd\u6eab\u514d\u8cbb\u53f0\u6240\u6709\u7bc0\u76ee\uff0c\u9084\u53ef\u7368\u5bb6\u6536\u770b\u6536\u8cbb\u53f0\u7bc0\u76ee\uff0c\u4ee5\u53ca\u6211\u5011\u81ea\u5bb6\u5275\u4f5c\u7684\u6f2b\u756b\u3001\u5c0f\u8aaa\u3001\u5287\u96c6\u3001\u821e\u53f0\u88fd\u4f5c\uff01 \n\nPassionPrime \u8a02\u8cfc\uff1ahttps://passiontimes.hk/prime/ \n\n\u6211\u5011\u9084\u6709\u81ea\u5df1\u7684\u7db2\u8cfc\u5e73\u53f0\u2014\u2014\u597d\u4eba\u7d93\u6fdf\uff0c\u63d0\u4f9b\u5404\u985e\u578b\u7522\u54c1\u53ca\u670d\u52d9\uff0c\u5f9e\u65e5\u5e38\u98df\u54c1\u98f2\u54c1\uff0c\u5230\u8ab2\u7a0b\u3001\u670d\u98fe\u3001\u96fb\u5b50\u7522\u54c1\u7b49\u7b49\uff0c\u66f4\u6709\u81ea\u5bb6\u71b1\u8840\u7522\u54c1\uff0c\u5305\u7f85\u842c\u6709\uff0c\u4efb\u541b\u9078\u8cfc\uff01\u6b61\u8fce\u5404\u5546\u6236\u806f\u7d61\u5408\u4f5c\uff01 \n\n\u71b1\u8840\u6642\u5831\u7db2\u4e0a\u5546\u5e97\uff1ahttps://store.passiontimes.hk/ \n\n\u5f9e\u6700\u521d\u4e00\u500b\u7d14\u7cb9\u7684\u7db2\u53f0\uff0c\u767c\u5c55\u6210\u4eca\u65e5\u7684\u7d9c\u5408\u5a1b\u6a02\u8cc7\u8a0a\u5e73\u53f0\uff0c\u904e\u7a0b\u6b8a\u4e0d\u5bb9\u6613\uff0c\u4f46\u6211\u5011\u5805\u6301\u4e0d\u61c8\uff0c\u514b\u52e4\u5c0f\u7269\uff0c\u8a93\u8981\u505a\u5230\u771f\u6b63\u7684\u6700\u5f37\u983b\u9053\uff01\n\n",
+    "customUrl": "@passiontimeshk2012",
+    "publishedAt": "2012-11-13T07:49:51Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_ldga_p8GvKkXk21YHczUlb3k5ZUGIyPPwSzm1e6bFOLVMY=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_ldga_p8GvKkXk21YHczUlb3k5ZUGIyPPwSzm1e6bFOLVMY=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_ldga_p8GvKkXk21YHczUlb3k5ZUGIyPPwSzm1e6bFOLVMY=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "PassionTimes hk",
+     "description": "\u71b1\u8840\u88fd\u9020\uff0c\u6700\u5f37\u983b\u9053\uff01\n\n\u71b1\u8840\u6642\u5831 Passiontimes.hk\uff0c\u662f\u4e00\u500b\u7d9c\u5408\u5a1b\u6a02\u8cc7\u8a0a\u5e73\u53f0\uff0c\u7d50\u5408\u65b0\u805e\u3001\u7bc0\u76ee\u3001\u6f2b\u756b\u3001\u5c0f\u8aaa\u3001\u97f3\u6a02\u3001\u5287\u96c6\u3001\u821e\u53f0\u88fd\u4f5c\u3001\u7db2\u8cfc\u5e73\u53f0\uff0c\u8c50\u5bcc\u5167\u5bb9\uff0c\u7cbe\u5f69\u653e\u9001\uff01\n\n\u71b1\u8840\u6642\u5831\u65bc2012\u5e7411\u670811\u65e5\u6210\u7acb\uff0c\u6700\u521d\u53ea\u6709\u6578\u500b\u7bc0\u76ee\uff0c\u4f46\u73fe\u6642\uff0c\u71b1\u8840\u6642\u5831\u514d\u8cbb\u53f0\u5df2\u767c\u5c55\u6210\u5168\u5929\u501924\u5c0f\u6642\u64ad\u653e\uff0c\u96a8\u6642\u96a8\u5730\uff0c\u90fd\u6709\u6211\u5011\u7684\u7bc0\u76ee\u966a\u4f4f\u4f60\u3002 \n\n\u53e6\u5916\uff0c\u6211\u5011\u65bc2018\u5e74\u63a8\u51faPassionPrime\u6703\u54e1\u5236\u5ea6\uff0c\u6210\u7acb\u71b1\u8840\u6536\u8cbb\u53f0\u5c08\u5340\uff0c\u4ed8\u8cbb\u6703\u54e1\u9664\u53ef\u96a8\u6642\u91cd\u6eab\u514d\u8cbb\u53f0\u6240\u6709\u7bc0\u76ee\uff0c\u9084\u53ef\u7368\u5bb6\u6536\u770b\u6536\u8cbb\u53f0\u7bc0\u76ee\uff0c\u4ee5\u53ca\u6211\u5011\u81ea\u5bb6\u5275\u4f5c\u7684\u6f2b\u756b\u3001\u5c0f\u8aaa\u3001\u5287\u96c6\u3001\u821e\u53f0\u88fd\u4f5c\uff01 \n\nPassionPrime \u8a02\u8cfc\uff1ahttps://passiontimes.hk/prime/ \n\n\u6211\u5011\u9084\u6709\u81ea\u5df1\u7684\u7db2\u8cfc\u5e73\u53f0\u2014\u2014\u597d\u4eba\u7d93\u6fdf\uff0c\u63d0\u4f9b\u5404\u985e\u578b\u7522\u54c1\u53ca\u670d\u52d9\uff0c\u5f9e\u65e5\u5e38\u98df\u54c1\u98f2\u54c1\uff0c\u5230\u8ab2\u7a0b\u3001\u670d\u98fe\u3001\u96fb\u5b50\u7522\u54c1\u7b49\u7b49\uff0c\u66f4\u6709\u81ea\u5bb6\u71b1\u8840\u7522\u54c1\uff0c\u5305\u7f85\u842c\u6709\uff0c\u4efb\u541b\u9078\u8cfc\uff01\u6b61\u8fce\u5404\u5546\u6236\u806f\u7d61\u5408\u4f5c\uff01 \n\n\u71b1\u8840\u6642\u5831\u7db2\u4e0a\u5546\u5e97\uff1ahttps://store.passiontimes.hk/ \n\n\u5f9e\u6700\u521d\u4e00\u500b\u7d14\u7cb9\u7684\u7db2\u53f0\uff0c\u767c\u5c55\u6210\u4eca\u65e5\u7684\u7d9c\u5408\u5a1b\u6a02\u8cc7\u8a0a\u5e73\u53f0\uff0c\u904e\u7a0b\u6b8a\u4e0d\u5bb9\u6613\uff0c\u4f46\u6211\u5011\u5805\u6301\u4e0d\u61c8\uff0c\u514b\u52e4\u5c0f\u7269\uff0c\u8a93\u8981\u505a\u5230\u771f\u6b63\u7684\u6700\u5f37\u983b\u9053\uff01\n\n"
+    },
+    "country": "HK"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoAf_IAZKhnUb0AajE5VSyA"
+    }
+   },
+   "statistics": {
+    "viewCount": "25032438",
+    "subscriberCount": "44800",
+    "hiddenSubscriberCount": false,
+    "videoCount": "24092"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "oCFjWUSmpTL-7EixKnIiRcdlkqs",
+   "id": "UCovFGCl1Ff26xqtua8mnL5A",
+   "snippet": {
+    "title": "i-bejar",
+    "description": "Noticias de B\u00e9jar y comarca (Salamanca)",
+    "customUrl": "@ibejar",
+    "publishedAt": "2007-06-12T18:48:50Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/x8zFQ3IKREwvfBGdAHdABHjk_TDOTKATYsDSvIBIbuy4A3xApbag_KjZ42l8C1iGLhqUhKfj=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/x8zFQ3IKREwvfBGdAHdABHjk_TDOTKATYsDSvIBIbuy4A3xApbag_KjZ42l8C1iGLhqUhKfj=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/x8zFQ3IKREwvfBGdAHdABHjk_TDOTKATYsDSvIBIbuy4A3xApbag_KjZ42l8C1iGLhqUhKfj=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "i-bejar",
+     "description": "Noticias de B\u00e9jar y comarca (Salamanca)"
+    },
+    "country": "ES"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUovFGCl1Ff26xqtua8mnL5A"
+    }
+   },
+   "statistics": {
+    "viewCount": "133547",
+    "subscriberCount": "110",
+    "hiddenSubscriberCount": false,
+    "videoCount": "112"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "av9TXmhydpm5KIh8A8fSD73OM1A",
+   "id": "UCok45CxM0NucPe1UgUZm2FQ",
+   "snippet": {
+    "title": "VGTimes",
+    "description": "Media about games, gaming industry, popular culture, cinema, technology and internet trends. ",
+    "customUrl": "@vgtimes.official",
+    "publishedAt": "2011-03-29T18:26:29Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/E5e0OpL4BCnaAXB3pwwo97D1r63LLl6iIwVEXFP03eSne9H5An3cs2mQdT4D4BsCXcNczbbVxQ=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/E5e0OpL4BCnaAXB3pwwo97D1r63LLl6iIwVEXFP03eSne9H5An3cs2mQdT4D4BsCXcNczbbVxQ=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/E5e0OpL4BCnaAXB3pwwo97D1r63LLl6iIwVEXFP03eSne9H5An3cs2mQdT4D4BsCXcNczbbVxQ=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "defaultLanguage": "ru",
+    "localized": {
+     "title": "VGTimes",
+     "description": "Media about games, gaming industry, popular culture, cinema, technology and internet trends. "
+    },
+    "country": "SI"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUok45CxM0NucPe1UgUZm2FQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "5733121",
+    "subscriberCount": "20600",
+    "hiddenSubscriberCount": false,
+    "videoCount": "262"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/025zzc",
+     "/m/0403l3g",
+     "/m/0bzvm2",
+     "/m/02ntfj",
+     "/m/03hf_rm"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Action_game",
+     "https://en.wikipedia.org/wiki/Role-playing_video_game",
+     "https://en.wikipedia.org/wiki/Video_game_culture",
+     "https://en.wikipedia.org/wiki/Action-adventure_game",
+     "https://en.wikipedia.org/wiki/Strategy_video_game"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "Iac6t7kzOLuGURhODJBy7l_NQw8",
+   "id": "UCnk8TbzVUZ6beuenLH3UHSg",
+   "snippet": {
+    "title": "The Union Democrat",
+    "description": "",
+    "customUrl": "@theuniondemocrat5841",
+    "publishedAt": "2014-10-29T17:38:22Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kLNvnvUyG7P8-GvuFgnZMjxaAPkr4spFXjlmYfkZyu8Q=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kLNvnvUyG7P8-GvuFgnZMjxaAPkr4spFXjlmYfkZyu8Q=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kLNvnvUyG7P8-GvuFgnZMjxaAPkr4spFXjlmYfkZyu8Q=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "The Union Democrat",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnk8TbzVUZ6beuenLH3UHSg"
+    }
+   },
+   "statistics": {
+    "viewCount": "86826",
+    "subscriberCount": "113",
+    "hiddenSubscriberCount": false,
+    "videoCount": "122"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "1zQZO2aveF7neOK2pUcGCoLgvOE",
+   "id": "UCoecqVX0a4Ut6KZqmoLJbKQ",
+   "snippet": {
+    "title": "Sanjhi Khabar TV",
+    "description": "",
+    "customUrl": "@sanjhikhabartv9215",
+    "publishedAt": "2016-12-30T09:51:30Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/-v7L_eTliaqpeywG8byGGgIDnb7SLvmtGxUlVIwyXK8QWsRE6-36OkVuImwh-wVLFwPu7Q9YN_U=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/-v7L_eTliaqpeywG8byGGgIDnb7SLvmtGxUlVIwyXK8QWsRE6-36OkVuImwh-wVLFwPu7Q9YN_U=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/-v7L_eTliaqpeywG8byGGgIDnb7SLvmtGxUlVIwyXK8QWsRE6-36OkVuImwh-wVLFwPu7Q9YN_U=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Sanjhi Khabar TV",
+     "description": ""
+    },
+    "country": "IN"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoecqVX0a4Ut6KZqmoLJbKQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "426443",
+    "subscriberCount": "4410",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1047"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "LdEEuvXL7Xl-2b8XsqnVuahPlSU",
+   "id": "UCoQBJMzcwmXrRSHBFAlTsIw",
+   "snippet": {
+    "title": "FNN\u30d7\u30e9\u30a4\u30e0\u30aa\u30f3\u30e9\u30a4\u30f3",
+    "description": "\u30d5\u30b8\u30c6\u30ec\u30d3\u7cfb\u521728\u5c40\u306e\u30c7\u30b8\u30bf\u30eb\u30cb\u30e5\u30fc\u30b9\u30e1\u30c7\u30a3\u30a2\u300cFNN\u30d7\u30e9\u30a4\u30e0\u30aa\u30f3\u30e9\u30a4\u30f3\u300d\u306eYouTube\u30c1\u30e3\u30f3\u30cd\u30eb\u3067\u3059\u3002\n\u56fd\u5185\u5916\u306e\u53d6\u6750\u7db2\u3092\u751f\u304b\u3057\u3001\u653f\u6cbb\u30fb\u7d4c\u6e08\u30fb\u793e\u4f1a\u30fb\u56fd\u969b\u30fb\u30b9\u30dd\u30fc\u30c4\u30fb\u30a8\u30f3\u30bf\u30e1\u306a\u3069\u3001\u69d8\u3005\u306a\u5206\u91ce\u306e\u30cb\u30e5\u30fc\u30b9\u3092\u304a\u5c4a\u3051\u3057\u307e\u3059\u3002\n\n\u3088\u308d\u3057\u3051\u308c\u3070\u30c1\u30e3\u30f3\u30cd\u30eb\u767b\u9332\u3092\u304a\u9858\u3044\u3044\u305f\u3057\u307e\u3059\u3002\n\nhttps://www.fnn.jp/",
+    "customUrl": "@fnnnewsch",
+    "publishedAt": "2011-11-12T12:41:39Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/Px5pCuwMApeQ8kh4WcKshvsWi2ZRbhkRRaX5O9SE1pgyLNEQBirHPzz-FeGJ8PtMTtZb4OSlneg=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/Px5pCuwMApeQ8kh4WcKshvsWi2ZRbhkRRaX5O9SE1pgyLNEQBirHPzz-FeGJ8PtMTtZb4OSlneg=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/Px5pCuwMApeQ8kh4WcKshvsWi2ZRbhkRRaX5O9SE1pgyLNEQBirHPzz-FeGJ8PtMTtZb4OSlneg=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "FNN\u30d7\u30e9\u30a4\u30e0\u30aa\u30f3\u30e9\u30a4\u30f3",
+     "description": "\u30d5\u30b8\u30c6\u30ec\u30d3\u7cfb\u521728\u5c40\u306e\u30c7\u30b8\u30bf\u30eb\u30cb\u30e5\u30fc\u30b9\u30e1\u30c7\u30a3\u30a2\u300cFNN\u30d7\u30e9\u30a4\u30e0\u30aa\u30f3\u30e9\u30a4\u30f3\u300d\u306eYouTube\u30c1\u30e3\u30f3\u30cd\u30eb\u3067\u3059\u3002\n\u56fd\u5185\u5916\u306e\u53d6\u6750\u7db2\u3092\u751f\u304b\u3057\u3001\u653f\u6cbb\u30fb\u7d4c\u6e08\u30fb\u793e\u4f1a\u30fb\u56fd\u969b\u30fb\u30b9\u30dd\u30fc\u30c4\u30fb\u30a8\u30f3\u30bf\u30e1\u306a\u3069\u3001\u69d8\u3005\u306a\u5206\u91ce\u306e\u30cb\u30e5\u30fc\u30b9\u3092\u304a\u5c4a\u3051\u3057\u307e\u3059\u3002\n\n\u3088\u308d\u3057\u3051\u308c\u3070\u30c1\u30e3\u30f3\u30cd\u30eb\u767b\u9332\u3092\u304a\u9858\u3044\u3044\u305f\u3057\u307e\u3059\u3002\n\nhttps://www.fnn.jp/"
+    },
+    "country": "JP"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoQBJMzcwmXrRSHBFAlTsIw"
+    }
+   },
+   "statistics": {
+    "viewCount": "379570938",
+    "subscriberCount": "2350000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "2929"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "U_8NKfQtOzsxYLz8mYqyqTkV06Y",
+   "id": "UCo_QfGG3FlWVh3Z0AoxuwBA",
+   "snippet": {
+    "title": "The Japan Times",
+    "description": "Video presentations from The Japan Times, the country's most widely read English-language newspaper.",
+    "customUrl": "@thejapantimes",
+    "publishedAt": "2007-03-07T08:35:28Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nnNiJysS2wrl5wzHVfAjVsdAHI9LwUQHINK4f-DAg6Ijc=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nnNiJysS2wrl5wzHVfAjVsdAHI9LwUQHINK4f-DAg6Ijc=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nnNiJysS2wrl5wzHVfAjVsdAHI9LwUQHINK4f-DAg6Ijc=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "The Japan Times",
+     "description": "Video presentations from The Japan Times, the country's most widely read English-language newspaper."
+    },
+    "country": "JP"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUo_QfGG3FlWVh3Z0AoxuwBA"
+    }
+   },
+   "statistics": {
+    "viewCount": "31779892",
+    "subscriberCount": "66000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1908"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "nffdoGk647Ad6HxH3lFr6K6omXg",
+   "id": "UCnetEdV8EwzGn36f3pq50ZA",
+   "snippet": {
+    "title": "Samakal News",
+    "description": "The Daily Samakal is one of the most-read Bangla newspapers in Bangladesh. It launched its journey on May 31 in 2005 and since the outset it is very popular to the readers for its enriched contents and unique presentation.\nThe newspaper has gained huge appreciation from the readers for its objectivity and professionalism in the last 15 years. In every day, Samakal tries to fulfill readers' thirsts for information publishing in-depth and investigative stories.\nOn the other hand, Samakal E-paper, https://epaper.samakal.com, provides the experience & flavour of print newspaper on online to its valued readers.\nThe online portal of Daily Samakal, www.samakal.com, was opened to public on March 26 in 2013. Now it is reliable news hub for millions of visitors.\nAccording to Google Analytics, more than 20,00,000 unique users view 2,00,00,000 pages on an average per month from around the world.\nSamakal is published by Times Media Limited.\n",
+    "customUrl": "@samakalnews",
+    "publishedAt": "2021-12-21T11:44:47.659846Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/VDcW-0tRM0Flwb3H7WgRJ9U-XqrmEkOfzWTCxBj0p3fEtmL79EX_I5cCevNpfNYkJoc-EWem=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/VDcW-0tRM0Flwb3H7WgRJ9U-XqrmEkOfzWTCxBj0p3fEtmL79EX_I5cCevNpfNYkJoc-EWem=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/VDcW-0tRM0Flwb3H7WgRJ9U-XqrmEkOfzWTCxBj0p3fEtmL79EX_I5cCevNpfNYkJoc-EWem=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Samakal News",
+     "description": "The Daily Samakal is one of the most-read Bangla newspapers in Bangladesh. It launched its journey on May 31 in 2005 and since the outset it is very popular to the readers for its enriched contents and unique presentation.\nThe newspaper has gained huge appreciation from the readers for its objectivity and professionalism in the last 15 years. In every day, Samakal tries to fulfill readers' thirsts for information publishing in-depth and investigative stories.\nOn the other hand, Samakal E-paper, https://epaper.samakal.com, provides the experience & flavour of print newspaper on online to its valued readers.\nThe online portal of Daily Samakal, www.samakal.com, was opened to public on March 26 in 2013. Now it is reliable news hub for millions of visitors.\nAccording to Google Analytics, more than 20,00,000 unique users view 2,00,00,000 pages on an average per month from around the world.\nSamakal is published by Times Media Limited.\n"
+    },
+    "country": "BD"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnetEdV8EwzGn36f3pq50ZA"
+    }
+   },
+   "statistics": {
+    "viewCount": "936406437",
+    "subscriberCount": "2460000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "45385"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "cJ8i6QZi0XD34Fymw54_R8-8JmQ",
+   "id": "UCnpjF5ks8AyKBJnLn1lfLmg",
+   "snippet": {
+    "title": "ZavalaCounty Sentinel",
+    "description": "Local news means the world to us.\nSince 1911\n\n8303743465\n\nzcsentinel@gmail.com",
+    "customUrl": "@zavalacountysentinel6523",
+    "publishedAt": "2012-06-27T15:32:28Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nMiznkUo-IVghst0v-SsvA0v7T-uKMadYZA8e98QFyGu8=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nMiznkUo-IVghst0v-SsvA0v7T-uKMadYZA8e98QFyGu8=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nMiznkUo-IVghst0v-SsvA0v7T-uKMadYZA8e98QFyGu8=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "ZavalaCounty Sentinel",
+     "description": "Local news means the world to us.\nSince 1911\n\n8303743465\n\nzcsentinel@gmail.com"
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnpjF5ks8AyKBJnLn1lfLmg"
+    }
+   },
+   "statistics": {
+    "viewCount": "6849",
+    "subscriberCount": "56",
+    "hiddenSubscriberCount": false,
+    "videoCount": "5"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/03glg",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Hobby",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "cRvK2y1qrtgWIttZ6VqipwyjRH8",
+   "id": "UCnyxY2BpDbbFpx3J9qwd4rg",
+   "snippet": {
+    "title": "\u30a2\u30af\u30bb\u30b9\u30b8\u30e3\u30fc\u30ca\u30ebch",
+    "description": "\u300c\u5642\u306e\u771f\u76f8\u300d\u306e\u610f\u5fd7\u3092\u7d99\u3050\u30bf\u30d6\u30fc\u7121\u3057\u6709\u6599WEB\u30de\u30ac\u30b8\u30f3\u300c\u30a2\u30af\u30bb\u30b9\u30b8\u30e3\u30fc\u30ca\u30eb\u300dYouTube\u3002\n\u4e0a\u5834\u4f01\u696d\u3001\u653f\u6cbb\u5bb6\u3001\u66b4\u529b\u56e3\u3001\u82b8\u80fd\u754c\u3001\u30b9\u30dd\u30fc\u30c4\u754c\u304b\u3089\u53cd\u539f\u767a\u307e\u3067\u5e45\u5e83\u304f\u30cd\u30bf\u3092\u65e5\u3005\u914d\u4fe1\u4e2d\u3002\n\n\u300c\u30a2\u30af\u30bb\u30b9\u30b8\u30e3\u30fc\u30ca\u30eb\u300d\u7de8\u96c6\u9577\u5c71\u5ca1\u4fca\u4ecb\n\u65e5\u672c\u30a2\u30e0\u30a6\u30a7\u30a4\u306e\u5e97\u982d\u516c\u958b\u3092\u6b62\u3081\u3055\u305b\u3001\u6b66\u5bcc\u58eb\u4f1a\u9577\u3092\u902e\u6355\u3055\u305b\u81ea\u5b85\u653e\u706b\u3082\u4f53\u9a13\u30021959\u5e74\u751f\u3002\u9ad8\u77e5\u770c\u51fa\u8eab\n\u795e\u5948\u5ddd\u5927\u5b66\u6cd5\u5b66\u90e8\u5352\u696d\u3000\u300c\u5642\u306e\u771f\u76f8\u300d\u300c\u8ca1\u754c\u5c55\u671b\u300d\u300c\u9031\u520a\u5927\u8846\u300d\u306a\u3069\u3092\u4e2d\u5fc3\u306b\u8a18\u4e8b\u57f7\u7b46\n\u4e3b\u306a\u8457\u66f8\n\u26ab\ufe0e\u8ab0\u3082\u66f8\u304b\u306a\u304b\u3063\u305f\u30a2\u30e0\u30a6\u30a7\u30a4\uff08\u3042\u3063\u3077\u308b\u51fa\u7248\u793e\uff09\n\u26ab\ufe0e\u30a2\u30e0\u30a6\u30a7\u30a4\u5546\u6cd5\u3092\u544a\u767a\u3059\u308b\u3000\uff08\u3042\u3063\u3077\u308b\u51fa\u7248\u793e\uff09\n\u26ab\ufe0e\u9280\u30d0\u30a8\u3000\u5b9f\u9332\u6b66\u5bcc\u58eb\u76d7\u8074\u4e8b\u4ef6\uff08\u5275\u51fa\u7248\uff09\n\u26ab\ufe0e\u798f\u5cf6\u7b2c\u4e00\u539f\u767a\u6f5c\u5165\u8a18\u3000\uff08\u53cc\u8449\u793e\uff09\n\n\u30a2\u30af\u30bb\u30b9\u30b8\u30e3\u30fc\u30ca\u30eb\n https://access-journal.jp\n\u3012160-0022 \u6771\u4eac\u90fd\u65b0\u5bbf\u533a\u65b0\u5bbf7-10-8\n\n\u5c71\u5ca1\u4fca\u4ecb\u7de8\u96c6\u9577\uff38\n https://mobile.twitter.com/yama03024\n",
+    "customUrl": "@ch4818",
+    "publishedAt": "2022-05-13T02:02:18.129514Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/I-BoShyBUtwK89rudQeGUXy8jxLDc1ZKl3sFZYoySuk2r16l8qIMpYcxBPXcrH0-ZQkl9sGi=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/I-BoShyBUtwK89rudQeGUXy8jxLDc1ZKl3sFZYoySuk2r16l8qIMpYcxBPXcrH0-ZQkl9sGi=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/I-BoShyBUtwK89rudQeGUXy8jxLDc1ZKl3sFZYoySuk2r16l8qIMpYcxBPXcrH0-ZQkl9sGi=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u30a2\u30af\u30bb\u30b9\u30b8\u30e3\u30fc\u30ca\u30ebch",
+     "description": "\u300c\u5642\u306e\u771f\u76f8\u300d\u306e\u610f\u5fd7\u3092\u7d99\u3050\u30bf\u30d6\u30fc\u7121\u3057\u6709\u6599WEB\u30de\u30ac\u30b8\u30f3\u300c\u30a2\u30af\u30bb\u30b9\u30b8\u30e3\u30fc\u30ca\u30eb\u300dYouTube\u3002\n\u4e0a\u5834\u4f01\u696d\u3001\u653f\u6cbb\u5bb6\u3001\u66b4\u529b\u56e3\u3001\u82b8\u80fd\u754c\u3001\u30b9\u30dd\u30fc\u30c4\u754c\u304b\u3089\u53cd\u539f\u767a\u307e\u3067\u5e45\u5e83\u304f\u30cd\u30bf\u3092\u65e5\u3005\u914d\u4fe1\u4e2d\u3002\n\n\u300c\u30a2\u30af\u30bb\u30b9\u30b8\u30e3\u30fc\u30ca\u30eb\u300d\u7de8\u96c6\u9577\u5c71\u5ca1\u4fca\u4ecb\n\u65e5\u672c\u30a2\u30e0\u30a6\u30a7\u30a4\u306e\u5e97\u982d\u516c\u958b\u3092\u6b62\u3081\u3055\u305b\u3001\u6b66\u5bcc\u58eb\u4f1a\u9577\u3092\u902e\u6355\u3055\u305b\u81ea\u5b85\u653e\u706b\u3082\u4f53\u9a13\u30021959\u5e74\u751f\u3002\u9ad8\u77e5\u770c\u51fa\u8eab\n\u795e\u5948\u5ddd\u5927\u5b66\u6cd5\u5b66\u90e8\u5352\u696d\u3000\u300c\u5642\u306e\u771f\u76f8\u300d\u300c\u8ca1\u754c\u5c55\u671b\u300d\u300c\u9031\u520a\u5927\u8846\u300d\u306a\u3069\u3092\u4e2d\u5fc3\u306b\u8a18\u4e8b\u57f7\u7b46\n\u4e3b\u306a\u8457\u66f8\n\u26ab\ufe0e\u8ab0\u3082\u66f8\u304b\u306a\u304b\u3063\u305f\u30a2\u30e0\u30a6\u30a7\u30a4\uff08\u3042\u3063\u3077\u308b\u51fa\u7248\u793e\uff09\n\u26ab\ufe0e\u30a2\u30e0\u30a6\u30a7\u30a4\u5546\u6cd5\u3092\u544a\u767a\u3059\u308b\u3000\uff08\u3042\u3063\u3077\u308b\u51fa\u7248\u793e\uff09\n\u26ab\ufe0e\u9280\u30d0\u30a8\u3000\u5b9f\u9332\u6b66\u5bcc\u58eb\u76d7\u8074\u4e8b\u4ef6\uff08\u5275\u51fa\u7248\uff09\n\u26ab\ufe0e\u798f\u5cf6\u7b2c\u4e00\u539f\u767a\u6f5c\u5165\u8a18\u3000\uff08\u53cc\u8449\u793e\uff09\n\n\u30a2\u30af\u30bb\u30b9\u30b8\u30e3\u30fc\u30ca\u30eb\n https://access-journal.jp\n\u3012160-0022 \u6771\u4eac\u90fd\u65b0\u5bbf\u533a\u65b0\u5bbf7-10-8\n\n\u5c71\u5ca1\u4fca\u4ecb\u7de8\u96c6\u9577\uff38\n https://mobile.twitter.com/yama03024\n"
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnyxY2BpDbbFpx3J9qwd4rg"
+    }
+   },
+   "statistics": {
+    "viewCount": "2358057",
+    "subscriberCount": "15500",
+    "hiddenSubscriberCount": false,
+    "videoCount": "458"
+   },
+   "topicDetails": {},
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "7ohuZ_qDBR71gFVU7UD5dwh9ysE",
+   "id": "UCnrSmy1MRRGU2LSrlgGTikQ",
+   "snippet": {
+    "title": "Loudoun Times-Mirror",
+    "description": "",
+    "customUrl": "@loudountimes-mirror2591",
+    "publishedAt": "2014-11-07T19:06:09Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m6rQE_mgJs1RmVARYZGdF8IbfcWPzg80_3hB46sRkfVt4=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m6rQE_mgJs1RmVARYZGdF8IbfcWPzg80_3hB46sRkfVt4=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m6rQE_mgJs1RmVARYZGdF8IbfcWPzg80_3hB46sRkfVt4=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Loudoun Times-Mirror",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnrSmy1MRRGU2LSrlgGTikQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "11311",
+    "subscriberCount": "197",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1"
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "DwSVyoDIF-3JE-3HdnmigABarmA",
+   "id": "UCoZiSARglIJZlcIck90U-Ow",
+   "snippet": {
+    "title": "The Livingston Parish News",
+    "description": "The Livingston Parish News is the official journal of Livingston Parish. The office is located in Denham Springs, Louisiana. While out covering community events, Livingston Parish News staffers often take videos. Subscribe to our channel to see the latest clips.\n\nThe Livingston Parish News, founded in 1898, has a long and distinguished record of service to the people and communities of Livingston Parish, Louisiana. Published twice weekly -- Sunday and Thursday -- The News serves as Official Journal for the Livingston Parish President, the Livingston Parish Council, The Livingston Parish School Board, the City of Denham Springs, the City of Walker, the Town of Livingston, the Village of Albany, the Town of Springfield, the Village of French Settlement, the Village of Port Vincent, the Village of Killian, and other special government districts in Livingston Parish.",
+    "customUrl": "@livingstonparishnews",
+    "publishedAt": "2014-02-03T18:03:10Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nrN3rUpvrOQpeIKEm_5uqWyVcocJUHX01uZHIQHeETsEI=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nrN3rUpvrOQpeIKEm_5uqWyVcocJUHX01uZHIQHeETsEI=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nrN3rUpvrOQpeIKEm_5uqWyVcocJUHX01uZHIQHeETsEI=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "The Livingston Parish News",
+     "description": "The Livingston Parish News is the official journal of Livingston Parish. The office is located in Denham Springs, Louisiana. While out covering community events, Livingston Parish News staffers often take videos. Subscribe to our channel to see the latest clips.\n\nThe Livingston Parish News, founded in 1898, has a long and distinguished record of service to the people and communities of Livingston Parish, Louisiana. Published twice weekly -- Sunday and Thursday -- The News serves as Official Journal for the Livingston Parish President, the Livingston Parish Council, The Livingston Parish School Board, the City of Denham Springs, the City of Walker, the Town of Livingston, the Village of Albany, the Town of Springfield, the Village of French Settlement, the Village of Port Vincent, the Village of Killian, and other special government districts in Livingston Parish."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoZiSARglIJZlcIck90U-Ow"
+    }
+   },
+   "statistics": {
+    "viewCount": "554181",
+    "subscriberCount": "1140",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1602"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/06ntj"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Sport"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "wk9t4Pdh5Aegz_wfXmcgCN_9Lzs",
+   "id": "UCp0QL7nx51TjoxqyX-G538g",
+   "snippet": {
+    "title": "Tri-County News (central Minnesota)",
+    "description": "",
+    "customUrl": "@tri-countynewscentralminne460",
+    "publishedAt": "2014-10-23T05:02:22Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_k7AoBsm93BLcHw5wuJbjDprC4iFY8ZhIheCAPWL9k=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_k7AoBsm93BLcHw5wuJbjDprC4iFY8ZhIheCAPWL9k=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_k7AoBsm93BLcHw5wuJbjDprC4iFY8ZhIheCAPWL9k=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Tri-County News (central Minnesota)",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUp0QL7nx51TjoxqyX-G538g"
+    }
+   },
+   "statistics": {
+    "viewCount": "4599",
+    "subscriberCount": "6",
+    "hiddenSubscriberCount": false,
+    "videoCount": "52"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "gwb1-Qpqt-bnK9wDZqhrO_B0SYs",
+   "id": "UCp0alK_INpAnPcHSAftprTw",
+   "snippet": {
+    "title": "Kotaku UK",
+    "description": "See games differently. The UK version of Kotaku, the gamer's guide.\n\nKotaku UK is about three things: original reporting, gaming culture, and humour. It's about seeing games differently, and we cover games differently, too.",
+    "customUrl": "@kotakuuk",
+    "publishedAt": "2014-04-10T16:01:18Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m1n6_ftcipJ7AGbsDrbPeloVdA86y1OoXSQSsZmvcM-A=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m1n6_ftcipJ7AGbsDrbPeloVdA86y1OoXSQSsZmvcM-A=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m1n6_ftcipJ7AGbsDrbPeloVdA86y1OoXSQSsZmvcM-A=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Kotaku UK",
+     "description": "See games differently. The UK version of Kotaku, the gamer's guide.\n\nKotaku UK is about three things: original reporting, gaming culture, and humour. It's about seeing games differently, and we cover games differently, too."
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUp0alK_INpAnPcHSAftprTw"
+    }
+   },
+   "statistics": {
+    "viewCount": "1305495",
+    "subscriberCount": "2110",
+    "hiddenSubscriberCount": false,
+    "videoCount": "140"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02ntfj",
+     "/m/025zzc",
+     "/m/0bzvm2",
+     "/m/0403l3g"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Action-adventure_game",
+     "https://en.wikipedia.org/wiki/Action_game",
+     "https://en.wikipedia.org/wiki/Video_game_culture",
+     "https://en.wikipedia.org/wiki/Role-playing_video_game"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "-oMhWVNvfAblo1Nvt_BXyATRTvI",
+   "id": "UCok9Z8Fq6TOvULXUIeVf4Kg",
+   "snippet": {
+    "title": "classicalmusicgr",
+    "description": "Classical Music in Greece. News, reviews and thoughts.\n\n",
+    "customUrl": "@classicalmusicgreece",
+    "publishedAt": "2024-10-12T15:08:58.055149Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/KtSZwvHiMYxAQYFITePbzcxeUoGBOliL5nlIStyhqoHk-uw3gKXVB6awE5TXMZ7rBFwp2FfvJA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/KtSZwvHiMYxAQYFITePbzcxeUoGBOliL5nlIStyhqoHk-uw3gKXVB6awE5TXMZ7rBFwp2FfvJA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/KtSZwvHiMYxAQYFITePbzcxeUoGBOliL5nlIStyhqoHk-uw3gKXVB6awE5TXMZ7rBFwp2FfvJA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "classicalmusicgr",
+     "description": "Classical Music in Greece. News, reviews and thoughts.\n\n"
+    },
+    "country": "GR"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUok9Z8Fq6TOvULXUIeVf4Kg"
+    }
+   },
+   "statistics": {
+    "viewCount": "0",
+    "subscriberCount": "7",
+    "hiddenSubscriberCount": false,
+    "videoCount": "0"
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "0s3EW1U0RrV1SZHRv5ue0UnuqQo",
+   "id": "UCotkNLf_Y3jfbLWuSFUCSBQ",
+   "snippet": {
+    "title": "B\u00e1o Ti\u1ec1n Phong News",
+    "description": "K\u00eanh Youtube ch\u00ednh th\u1ee9c c\u1ee7a B\u00e1o Ti\u1ec1n Phong - Ti\u1ec1n Phong News: C\u1eadp nh\u1eadt tin t\u1ee9c th\u1eddi s\u1ef1 trong n\u01b0\u1edbc v\u00e0 qu\u1ed1c t\u1ebf, nh\u1eb1m cung c\u1ea5p th\u00f4ng tin c\u00f3 \u00edch, ch\u00ednh x\u00e1c cho ng\u01b0\u1eddi xem. Qua \u0111\u00f3 g\u00f3p ph\u1ea7n n\u00e2ng cao ch\u1ea5t l\u01b0\u1ee3ng \u0111\u1eddi s\u1ed1ng c\u1ee7a c\u1ed9ng \u0111\u1ed3ng.\n\n\u272e\u272e\u272e \u0110\u0102NG K\u00dd K\u00caNH \u272e\u272e\u272e\n\u2714 Ti\u1ec1n Phong News: https://bit.ly/DangKyTienPhongNews\n\n\u272e\u272e\u272e TH\u00d4NG TIN K\u00caNH \u272e\u272e\u272e\n\u2714 Website ch\u00ednh th\u1ee9c: https://tienphong.vn/\n\u2714 T\u1ed5ng Bi\u00ean t\u1eadp: PH\u00d9NG C\u00d4NG S\u01af\u1edeNG\n\u2714 T\u00f2a so\u1ea1n: 15 H\u1ed3 Xu\u00e2n H\u01b0\u01a1ng, H\u00e0 N\u1ed9i\n\u2714 \u0110i\u1ec7n tho\u1ea1i: 024.39431250\n\u2714 Email: online@baotienphong.com.vn\n\u2714 Hotline: 0865.015.015 - 0977.456.112\n\u00a9 B\u1ea3n quy\u1ec1n thu\u1ed9c b\u00e1o \u0111i\u1ec7n t\u1eed Ti\u1ec1n Phong\n\n#baotienphongnews #baotienphong #tienphongnews #news #tintuc #tienphong \n",
+    "customUrl": "@baotienphongnews",
+    "publishedAt": "2017-01-04T11:57:53Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/DOzZmwibXwssQ5f8zSl17fiw1jGoUE7AW4cW0Q4ysYyh3uB26fZPlpbuWsXU-wF1If26Kpv3=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/DOzZmwibXwssQ5f8zSl17fiw1jGoUE7AW4cW0Q4ysYyh3uB26fZPlpbuWsXU-wF1If26Kpv3=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/DOzZmwibXwssQ5f8zSl17fiw1jGoUE7AW4cW0Q4ysYyh3uB26fZPlpbuWsXU-wF1If26Kpv3=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "defaultLanguage": "vi",
+    "localized": {
+     "title": "B\u00e1o Ti\u1ec1n Phong News",
+     "description": "K\u00eanh Youtube ch\u00ednh th\u1ee9c c\u1ee7a B\u00e1o Ti\u1ec1n Phong - Ti\u1ec1n Phong News: C\u1eadp nh\u1eadt tin t\u1ee9c th\u1eddi s\u1ef1 trong n\u01b0\u1edbc v\u00e0 qu\u1ed1c t\u1ebf, nh\u1eb1m cung c\u1ea5p th\u00f4ng tin c\u00f3 \u00edch, ch\u00ednh x\u00e1c cho ng\u01b0\u1eddi xem. Qua \u0111\u00f3 g\u00f3p ph\u1ea7n n\u00e2ng cao ch\u1ea5t l\u01b0\u1ee3ng \u0111\u1eddi s\u1ed1ng c\u1ee7a c\u1ed9ng \u0111\u1ed3ng.\n\n\u272e\u272e\u272e \u0110\u0102NG K\u00dd K\u00caNH \u272e\u272e\u272e\n\u2714 Ti\u1ec1n Phong News: https://bit.ly/DangKyTienPhongNews\n\n\u272e\u272e\u272e TH\u00d4NG TIN K\u00caNH \u272e\u272e\u272e\n\u2714 Website ch\u00ednh th\u1ee9c: https://tienphong.vn/\n\u2714 T\u1ed5ng Bi\u00ean t\u1eadp: PH\u00d9NG C\u00d4NG S\u01af\u1edeNG\n\u2714 T\u00f2a so\u1ea1n: 15 H\u1ed3 Xu\u00e2n H\u01b0\u01a1ng, H\u00e0 N\u1ed9i\n\u2714 \u0110i\u1ec7n tho\u1ea1i: 024.39431250\n\u2714 Email: online@baotienphong.com.vn\n\u2714 Hotline: 0865.015.015 - 0977.456.112\n\u00a9 B\u1ea3n quy\u1ec1n thu\u1ed9c b\u00e1o \u0111i\u1ec7n t\u1eed Ti\u1ec1n Phong\n\n#baotienphongnews #baotienphong #tienphongnews #news #tintuc #tienphong \n"
+    },
+    "country": "VN"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUotkNLf_Y3jfbLWuSFUCSBQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "195510017",
+    "subscriberCount": "1170000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "24505"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "1sEYho6fZXIIIuix_YUiEN-6vY4",
+   "id": "UCoPFfs-pI3Kso2Ol5hMDR6g",
+   "snippet": {
+    "title": "\u30d9\u30fc\u30b9\u30dc\u30fc\u30eb\u30ad\u30f3\u30b0",
+    "description": "\u56fd\u5185\u6700\u5927\u7d1a\u306e\u91ce\u7403\u60c5\u5831\u7dcf\u5408\u30b5\u30a4\u30c8\u300c\u30d9\u30fc\u30b9\u30dc\u30fc\u30eb\u30ad\u30f3\u30b0\u300d\u306e\u7de8\u96c6\u90e8\u54e1\u304c\u304a\u5c4a\u3051\u3059\u308bYouTube\u516c\u5f0f\u30c1\u30e3\u30f3\u30cd\u30eb\u3067\u3059\u3002\n\n\u73fe\u5f79\u9078\u624b\u30fb\u76e3\u7763\u3084OB\u9078\u624b\u3001\u91ce\u7403\u696d\u754c\u3067\u50cd\u304f\u4eba\u3092\u30b2\u30b9\u30c8\u306b\u62db\u3044\u305f\u308a\u3001\u30af\u30a4\u30ba\u5927\u4f1a\u3001\u30b2\u30fc\u30e0\u3001\u30c8\u30fc\u30af\u3001\u3068\u304d\u306b\u306f\u7de8\u96c6\u90e8\u304c\u69d8\u3005\u306a\u4f01\u753b\u306b\u6311\u6226\u3002\n\n\u4f55\u304c\u8d77\u3053\u308b\u304b\u306f\u914d\u4fe1\u3092\u898b\u3066\u306e\u304a\u697d\u3057\u307f\uff01\u300c\u91ce\u7403\u3092\u697d\u3057\u3080\uff01\u300d\u3092\u5408\u8a00\u8449\u306b\u3042\u3089\u3086\u308b\u89d2\u5ea6\u304b\u3089\u3001\u91ce\u7403\u3092\u63a2\u6c42\u3059\u308b\u300e\u30d9\u30fc\u30b9\u30dc\u30fc\u30eb\u30ad\u30f3\u30b0\u300f\u3092\u3088\u308d\u3057\u304f\u304a\u9858\u3044\u3044\u305f\u3057\u307e\u3059\u3002\n\n\n[Web-Site] https://baseballking.jp\n[Twitter] https://twitter.com/BaseballkingJP\n[LINE] https://line.me/R/ti/p/%40oa-baseballking\n\n[\u304a\u554f\u3044\u5408\u308f\u305b\u30d5\u30a9\u30fc\u30e0] https://baseballking.jp/contact",
+    "customUrl": "@baseballkingjp",
+    "publishedAt": "2017-08-09T06:12:46Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mzY-B9HOsltNOx4QPer-Zq9UYgs2rtYs0TuU4TwgbRyA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mzY-B9HOsltNOx4QPer-Zq9UYgs2rtYs0TuU4TwgbRyA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mzY-B9HOsltNOx4QPer-Zq9UYgs2rtYs0TuU4TwgbRyA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u30d9\u30fc\u30b9\u30dc\u30fc\u30eb\u30ad\u30f3\u30b0",
+     "description": "\u56fd\u5185\u6700\u5927\u7d1a\u306e\u91ce\u7403\u60c5\u5831\u7dcf\u5408\u30b5\u30a4\u30c8\u300c\u30d9\u30fc\u30b9\u30dc\u30fc\u30eb\u30ad\u30f3\u30b0\u300d\u306e\u7de8\u96c6\u90e8\u54e1\u304c\u304a\u5c4a\u3051\u3059\u308bYouTube\u516c\u5f0f\u30c1\u30e3\u30f3\u30cd\u30eb\u3067\u3059\u3002\n\n\u73fe\u5f79\u9078\u624b\u30fb\u76e3\u7763\u3084OB\u9078\u624b\u3001\u91ce\u7403\u696d\u754c\u3067\u50cd\u304f\u4eba\u3092\u30b2\u30b9\u30c8\u306b\u62db\u3044\u305f\u308a\u3001\u30af\u30a4\u30ba\u5927\u4f1a\u3001\u30b2\u30fc\u30e0\u3001\u30c8\u30fc\u30af\u3001\u3068\u304d\u306b\u306f\u7de8\u96c6\u90e8\u304c\u69d8\u3005\u306a\u4f01\u753b\u306b\u6311\u6226\u3002\n\n\u4f55\u304c\u8d77\u3053\u308b\u304b\u306f\u914d\u4fe1\u3092\u898b\u3066\u306e\u304a\u697d\u3057\u307f\uff01\u300c\u91ce\u7403\u3092\u697d\u3057\u3080\uff01\u300d\u3092\u5408\u8a00\u8449\u306b\u3042\u3089\u3086\u308b\u89d2\u5ea6\u304b\u3089\u3001\u91ce\u7403\u3092\u63a2\u6c42\u3059\u308b\u300e\u30d9\u30fc\u30b9\u30dc\u30fc\u30eb\u30ad\u30f3\u30b0\u300f\u3092\u3088\u308d\u3057\u304f\u304a\u9858\u3044\u3044\u305f\u3057\u307e\u3059\u3002\n\n\n[Web-Site] https://baseballking.jp\n[Twitter] https://twitter.com/BaseballkingJP\n[LINE] https://line.me/R/ti/p/%40oa-baseballking\n\n[\u304a\u554f\u3044\u5408\u308f\u305b\u30d5\u30a9\u30fc\u30e0] https://baseballking.jp/contact"
+    },
+    "country": "JP"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoPFfs-pI3Kso2Ol5hMDR6g"
+    }
+   },
+   "statistics": {
+    "viewCount": "6691860",
+    "subscriberCount": "30900",
+    "hiddenSubscriberCount": false,
+    "videoCount": "358"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/018jz",
+     "/m/06ntj"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Baseball",
+     "https://en.wikipedia.org/wiki/Sport"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "oi-70MD3D_OKWsLAJ0KsgYZEuhc",
+   "id": "UCoTREVo1yJwXXDY0TbTA4EQ",
+   "snippet": {
+    "title": "kora plus",
+    "description": "\u0642\u0646\u0627\u0629 \u0631\u064a\u0627\u0636\u064a\u0629 \u062a\u0642\u062f\u0645 \u0628\u062b \u0645\u0628\u0627\u0634\u0631 \u0644\u0645\u0628\u0627\u0631\u064a\u0627\u062a \u0627\u0644\u062f\u0648\u0631\u064a \u0648\u0643\u0623\u0633 \u0645\u0635\u0631.. \u0648\u0645\u062a\u0627\u0628\u0639\u0629 \u0627\u0644\u0623\u062e\u0628\u0627\u0631 \u0627\u0644\u062d\u0635\u0631\u064a\u0629.. \u0648\u0628\u0631\u0627\u0645\u062c \u0645\u062a\u0646\u0648\u0639\u0629 ",
+    "customUrl": "@koraplusegy",
+    "publishedAt": "2016-09-13T18:03:27Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/0fmWE4-1NcMTyJ5PKXn1Fs_-5PmMxFlnc2iSPuU-JuNAgMXFUvEMiCqhJwBfQnEiyiImGilfTxA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/0fmWE4-1NcMTyJ5PKXn1Fs_-5PmMxFlnc2iSPuU-JuNAgMXFUvEMiCqhJwBfQnEiyiImGilfTxA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/0fmWE4-1NcMTyJ5PKXn1Fs_-5PmMxFlnc2iSPuU-JuNAgMXFUvEMiCqhJwBfQnEiyiImGilfTxA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "kora plus",
+     "description": "\u0642\u0646\u0627\u0629 \u0631\u064a\u0627\u0636\u064a\u0629 \u062a\u0642\u062f\u0645 \u0628\u062b \u0645\u0628\u0627\u0634\u0631 \u0644\u0645\u0628\u0627\u0631\u064a\u0627\u062a \u0627\u0644\u062f\u0648\u0631\u064a \u0648\u0643\u0623\u0633 \u0645\u0635\u0631.. \u0648\u0645\u062a\u0627\u0628\u0639\u0629 \u0627\u0644\u0623\u062e\u0628\u0627\u0631 \u0627\u0644\u062d\u0635\u0631\u064a\u0629.. \u0648\u0628\u0631\u0627\u0645\u062c \u0645\u062a\u0646\u0648\u0639\u0629 "
+    },
+    "country": "EG"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoTREVo1yJwXXDY0TbTA4EQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "991032919",
+    "subscriberCount": "2720000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "36035"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/06ntj",
+     "/m/02vx4"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Sport",
+     "https://en.wikipedia.org/wiki/Association_football"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "D1SiOXFjyhkj8syaCfT9ZrLpou0",
+   "id": "UCp-x1BqSzW0Z_-Xh6xiBA2A",
+   "snippet": {
+    "title": "Marysville Journal-Tribune",
+    "description": "For the past 165 years, the Marysville Journal-Tribune has remained Union County's longest running and award-winning source of daily news.\nThe Marysville Journal-Tribune is Union County, Ohio's ONLY daily newspaper. Its services fall within the Ohio Associated Press Division I category of daily newspapers, serving more than 16,000 readers. It remains Union County's official newspaper of historic record. \nThe Marysville Journal-Tribune is the oldest newspaper establishment in the city, dating back to 1849. The Gaumer-Behrens family has owned the newspaper since 1904. \nThe newspaper's website, www.MarysvilleJT.com, was awarded the \"Best Website In The State Award\" by the Associated Press. Our journalists have the distinction of winning dozens of combined Ohio AP writing awards over the years. \nFor more information about how to subscribe to the J-T, or our convenient online e-Edition app, contact our offices at (937) 642-NEWS.",
+    "customUrl": "@marysvillejournal-tribune3595",
+    "publishedAt": "2014-07-24T14:59:29Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_k68jCSPO8O7ns5wFzaKneuYEasVPoCCbh7QJsnQ6Qz2w=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_k68jCSPO8O7ns5wFzaKneuYEasVPoCCbh7QJsnQ6Qz2w=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_k68jCSPO8O7ns5wFzaKneuYEasVPoCCbh7QJsnQ6Qz2w=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Marysville Journal-Tribune",
+     "description": "For the past 165 years, the Marysville Journal-Tribune has remained Union County's longest running and award-winning source of daily news.\nThe Marysville Journal-Tribune is Union County, Ohio's ONLY daily newspaper. Its services fall within the Ohio Associated Press Division I category of daily newspapers, serving more than 16,000 readers. It remains Union County's official newspaper of historic record. \nThe Marysville Journal-Tribune is the oldest newspaper establishment in the city, dating back to 1849. The Gaumer-Behrens family has owned the newspaper since 1904. \nThe newspaper's website, www.MarysvilleJT.com, was awarded the \"Best Website In The State Award\" by the Associated Press. Our journalists have the distinction of winning dozens of combined Ohio AP writing awards over the years. \nFor more information about how to subscribe to the J-T, or our convenient online e-Edition app, contact our offices at (937) 642-NEWS."
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUp-x1BqSzW0Z_-Xh6xiBA2A"
+    }
+   },
+   "statistics": {
+    "viewCount": "308495",
+    "subscriberCount": "567",
+    "hiddenSubscriberCount": false,
+    "videoCount": "61"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/06ntj"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Sport"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "PvtWxhTIsnj4_RrvGnQFZ8jRk3o",
+   "id": "UCnNKgenNv634bgH9WTojQwA",
+   "snippet": {
+    "title": "\u202b\u05d0\u05ea\u05e8 \u05d1\u05d7\u05d3\u05e8\u05d9 \u05d7\u05e8\u05d3\u05d9\u05dd (\u202abhol\u202c\u200f)\u202c\u200e",
+    "description": "\u05d1\u05d7\u05d3\u05e8\u05d9 \u05d7\u05e8\u05d3\u05d9\u05dd \u05d4\u05d9\u05e0\u05d5 \u05db\u05dc\u05d9 \u05d4\u05ea\u05e7\u05e9\u05d5\u05e8\u05ea \u05d4\u05d7\u05e8\u05d3\u05d9 \u05d4\u05d2\u05d3\u05d5\u05dc \u05d1\u05d0\u05e8\u05e5 \u05d5\u05d1\u05e2\u05d5\u05dc\u05dd, \u05d4\u05de\u05d5\u05e4\u05e2\u05dc \u05e2\"\u05d9 \u05de\u05e2\u05e8\u05db\u05ea \u05e2\u05d9\u05ea\u05d5\u05e0\u05d0\u05d9\u05ea \u05de\u05e7\u05e6\u05d5\u05e2\u05d9\u05ea",
+    "customUrl": "@\u05d0\u05ea\u05e8\u05d1\u05d7\u05d3\u05e8\u05d9\u05d7\u05e8\u05d3\u05d9\u05dd",
+    "publishedAt": "2016-05-29T06:41:33Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kzDQGyD4-xasJDYyZ_WQudGgua1Az2GTXQUzlyYRyS7g=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kzDQGyD4-xasJDYyZ_WQudGgua1Az2GTXQUzlyYRyS7g=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kzDQGyD4-xasJDYyZ_WQudGgua1Az2GTXQUzlyYRyS7g=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u202b\u05d0\u05ea\u05e8 \u05d1\u05d7\u05d3\u05e8\u05d9 \u05d7\u05e8\u05d3\u05d9\u05dd (\u202abhol\u202c\u200f)\u202c\u200e",
+     "description": "\u05d1\u05d7\u05d3\u05e8\u05d9 \u05d7\u05e8\u05d3\u05d9\u05dd \u05d4\u05d9\u05e0\u05d5 \u05db\u05dc\u05d9 \u05d4\u05ea\u05e7\u05e9\u05d5\u05e8\u05ea \u05d4\u05d7\u05e8\u05d3\u05d9 \u05d4\u05d2\u05d3\u05d5\u05dc \u05d1\u05d0\u05e8\u05e5 \u05d5\u05d1\u05e2\u05d5\u05dc\u05dd, \u05d4\u05de\u05d5\u05e4\u05e2\u05dc \u05e2\"\u05d9 \u05de\u05e2\u05e8\u05db\u05ea \u05e2\u05d9\u05ea\u05d5\u05e0\u05d0\u05d9\u05ea \u05de\u05e7\u05e6\u05d5\u05e2\u05d9\u05ea"
+    },
+    "country": "IL"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnNKgenNv634bgH9WTojQwA"
+    }
+   },
+   "statistics": {
+    "viewCount": "799719",
+    "subscriberCount": "1500",
+    "hiddenSubscriberCount": false,
+    "videoCount": "229"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/06bvp"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Religion"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "HGmBuwzYOn_G93aTapypp6GEglo",
+   "id": "UCnVf4BZXc-_q4WSHyDMzxrA",
+   "snippet": {
+    "title": "Spelinsikten",
+    "description": "Spelinsikten \u00e4r en oberoende nyhetsredaktion som bevakar spelbranschen - reglering, vadslagningsmarknader, operat\u00f6rsstrategi och tekniken som f\u00f6r\u00e4ndrar hur m\u00e4nniskor spelar.",
+    "customUrl": "@spelinsikten",
+    "publishedAt": "2026-08-06T15:55:15.050627Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/zt4tap2dt-eMg0-s7ib99rjQzHj8VkYty83buIHwopACCckNjdHpKBPIJLmXCmWTafxkdymYgQ0=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/zt4tap2dt-eMg0-s7ib99rjQzHj8VkYty83buIHwopACCckNjdHpKBPIJLmXCmWTafxkdymYgQ0=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/zt4tap2dt-eMg0-s7ib99rjQzHj8VkYty83buIHwopACCckNjdHpKBPIJLmXCmWTafxkdymYgQ0=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Spelinsikten",
+     "description": "Spelinsikten \u00e4r en oberoende nyhetsredaktion som bevakar spelbranschen - reglering, vadslagningsmarknader, operat\u00f6rsstrategi och tekniken som f\u00f6r\u00e4ndrar hur m\u00e4nniskor spelar."
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnVf4BZXc-_q4WSHyDMzxrA"
+    }
+   },
+   "statistics": {
+    "viewCount": "1",
+    "subscriberCount": "0",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1"
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "PjqnV_mtOndlfJH9cP2FGt4YShk",
+   "id": "UCojJNXcer3yKj9Q-RWOFZuw",
+   "snippet": {
+    "title": "VRT",
+    "description": "Kanaal van VRT: publieke omroep van de Vlaamse Gemeenschap  http://www.vrt.be/\nWil je meer filmpjes uit ons archief bekijken. Ga naar onze tijdlijn: https://www.vrt.be/nl/aanbod/historiek/tijdlijn/",
+    "customUrl": "@vrt1043be",
+    "publishedAt": "2014-05-09T12:32:33Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/sNTUBY91EAp-hUV-bA1UjOyn_RPPMBOTR_VBVqDLNppYMCH0atGaLjEuCOftxdvHWAlpugR8FQ=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/sNTUBY91EAp-hUV-bA1UjOyn_RPPMBOTR_VBVqDLNppYMCH0atGaLjEuCOftxdvHWAlpugR8FQ=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/sNTUBY91EAp-hUV-bA1UjOyn_RPPMBOTR_VBVqDLNppYMCH0atGaLjEuCOftxdvHWAlpugR8FQ=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "VRT",
+     "description": "Kanaal van VRT: publieke omroep van de Vlaamse Gemeenschap  http://www.vrt.be/\nWil je meer filmpjes uit ons archief bekijken. Ga naar onze tijdlijn: https://www.vrt.be/nl/aanbod/historiek/tijdlijn/"
+    },
+    "country": "BE"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUojJNXcer3yKj9Q-RWOFZuw"
+    }
+   },
+   "statistics": {
+    "viewCount": "5273255",
+    "subscriberCount": "9730",
+    "hiddenSubscriberCount": false,
+    "videoCount": "957"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/0f2f9",
+     "/m/098wr",
+     "/m/02jjt"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Television_program",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Entertainment"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "QUgmWalWvIgjmRSiXZZwkC3P0xA",
+   "id": "UCp536rDj5ugflp2q-7ZkWbQ",
+   "snippet": {
+    "title": "Masked Rider Publishing, Inc.",
+    "description": "",
+    "customUrl": "@maskedriderpublishinginc.9580",
+    "publishedAt": "2015-03-05T16:52:48Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ckYvBtrU6YV57A6UrB7EIJRknsT9SDKkU3lSp6bVbkZZ-YlUPKBj-KAA1OJVrX6qj7sU7rTO=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ckYvBtrU6YV57A6UrB7EIJRknsT9SDKkU3lSp6bVbkZZ-YlUPKBj-KAA1OJVrX6qj7sU7rTO=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ckYvBtrU6YV57A6UrB7EIJRknsT9SDKkU3lSp6bVbkZZ-YlUPKBj-KAA1OJVrX6qj7sU7rTO=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Masked Rider Publishing, Inc.",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUp536rDj5ugflp2q-7ZkWbQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "67112",
+    "subscriberCount": "165",
+    "hiddenSubscriberCount": false,
+    "videoCount": "124"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/019_rr",
+     "/m/06ntj"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)",
+     "https://en.wikipedia.org/wiki/Sport"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "Czz8lZsMz498tvRrQPvmxt392Aw",
+   "id": "UCnUc4pBjv-4c86UVoo3CEdA",
+   "snippet": {
+    "title": "Voix du Jura",
+    "description": "La cha\u00eene Youtube Voix du Jura vous pr\u00e9sente les reportages des journalistes de l'hebdomadaire du Jura. Reportages, interviews, actualit\u00e9s, l'info du Jura en vid\u00e9os.",
+    "customUrl": "@voixdujura5094",
+    "publishedAt": "2013-03-22T09:34:10Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kpzLz-6-GJq4q87vHRJt8n5Wa0NFR3X61jiyAJgjmb9w=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kpzLz-6-GJq4q87vHRJt8n5Wa0NFR3X61jiyAJgjmb9w=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kpzLz-6-GJq4q87vHRJt8n5Wa0NFR3X61jiyAJgjmb9w=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Voix du Jura",
+     "description": "La cha\u00eene Youtube Voix du Jura vous pr\u00e9sente les reportages des journalistes de l'hebdomadaire du Jura. Reportages, interviews, actualit\u00e9s, l'info du Jura en vid\u00e9os."
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnUc4pBjv-4c86UVoo3CEdA"
+    }
+   },
+   "statistics": {
+    "viewCount": "339240",
+    "subscriberCount": "437",
+    "hiddenSubscriberCount": false,
+    "videoCount": "472"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "b7qkab0LgZFrQPE1njtD7e1w78w",
+   "id": "UCoMQbtcPuPk-yW0BxpevEIg",
+   "snippet": {
+    "title": "iNPUT",
+    "description": "Teknologi, elbiler og forbrugerelektronik. Vi formidler p\u00e5 tv\u00e6rs af tekst og video.\n",
+    "customUrl": "@inputmagdk",
+    "publishedAt": "2014-01-19T16:04:55Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/rouTwcZCSM6Isu4mngYMFvkLtm9tN_ivkRaSxfIrZEuMGseVuuNuPRMRzeHtdiYaWEoGHMBy=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/rouTwcZCSM6Isu4mngYMFvkLtm9tN_ivkRaSxfIrZEuMGseVuuNuPRMRzeHtdiYaWEoGHMBy=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/rouTwcZCSM6Isu4mngYMFvkLtm9tN_ivkRaSxfIrZEuMGseVuuNuPRMRzeHtdiYaWEoGHMBy=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "iNPUT",
+     "description": "Teknologi, elbiler og forbrugerelektronik. Vi formidler p\u00e5 tv\u00e6rs af tekst og video.\n"
+    },
+    "country": "DK"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoMQbtcPuPk-yW0BxpevEIg"
+    }
+   },
+   "statistics": {
+    "viewCount": "672927",
+    "subscriberCount": "3160",
+    "hiddenSubscriberCount": false,
+    "videoCount": "250"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/07c1v",
+     "/m/07yv9",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Technology",
+     "https://en.wikipedia.org/wiki/Vehicle",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "wxnz3EoZmQ4Zj_nEjNzTZzz35j8",
+   "id": "UCnnuGRuYWW_PWLoZujKisBg",
+   "snippet": {
+    "title": "Peninsula Gateway",
+    "description": "",
+    "customUrl": "@peninsulagateway218",
+    "publishedAt": "2015-07-10T21:16:43Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kAmxCbp0FPnV-sBlKgQYT1FFM2mKiljp0Y3YGFlbtHTA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kAmxCbp0FPnV-sBlKgQYT1FFM2mKiljp0Y3YGFlbtHTA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kAmxCbp0FPnV-sBlKgQYT1FFM2mKiljp0Y3YGFlbtHTA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Peninsula Gateway",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnnuGRuYWW_PWLoZujKisBg"
+    }
+   },
+   "statistics": {
+    "viewCount": "19252",
+    "subscriberCount": "30",
+    "hiddenSubscriberCount": false,
+    "videoCount": "53"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/06ntj",
+     "/m/019_rr",
+     "/m/03glg"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Sport",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)",
+     "https://en.wikipedia.org/wiki/Hobby"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "xCT49UJrOZObJy4e-dyr_9_mITo",
+   "id": "UCow8oFES_sFLjw5lEm9uGmQ",
+   "snippet": {
+    "title": "\u0421\u042d \u0425\u043e\u043a\u043a\u0435\u0439\u043d\u044b\u0439",
+    "description": "\u041a\u0430\u043d\u0430\u043b \u043b\u0443\u0447\u0448\u0438\u0445 \u0445\u043e\u043a\u043a\u0435\u0439\u043d\u044b\u0445 \u0436\u0443\u0440\u043d\u0430\u043b\u0438\u0441\u0442\u043e\u0432 \u0420\u043e\u0441\u0441\u0438\u0438\nhttps://www.sport-express.ru/hockey/\n\n\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f \u0432 \u043f\u0435\u0440\u0435\u0447\u043d\u0435 \u0420\u041a\u041d:\nhttps://knd.gov.ru/license?id=675aebc32d90d3244c996e72&registryType=bloggersPermission\n",
+    "customUrl": "@sportexpress",
+    "publishedAt": "2007-06-07T18:16:09Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/VPfEQDAjJpeLPB-0v1-rR3oRFwK7xZZqDEGEmZDpyqSqTzmzFrdAAzKuJRNiY_AHeP9cdcu1zw=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/VPfEQDAjJpeLPB-0v1-rR3oRFwK7xZZqDEGEmZDpyqSqTzmzFrdAAzKuJRNiY_AHeP9cdcu1zw=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/VPfEQDAjJpeLPB-0v1-rR3oRFwK7xZZqDEGEmZDpyqSqTzmzFrdAAzKuJRNiY_AHeP9cdcu1zw=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u0421\u042d \u0425\u043e\u043a\u043a\u0435\u0439\u043d\u044b\u0439",
+     "description": "\u041a\u0430\u043d\u0430\u043b \u043b\u0443\u0447\u0448\u0438\u0445 \u0445\u043e\u043a\u043a\u0435\u0439\u043d\u044b\u0445 \u0436\u0443\u0440\u043d\u0430\u043b\u0438\u0441\u0442\u043e\u0432 \u0420\u043e\u0441\u0441\u0438\u0438\nhttps://www.sport-express.ru/hockey/\n\n\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f \u0432 \u043f\u0435\u0440\u0435\u0447\u043d\u0435 \u0420\u041a\u041d:\nhttps://knd.gov.ru/license?id=675aebc32d90d3244c996e72&registryType=bloggersPermission\n"
+    },
+    "country": "RU"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUow8oFES_sFLjw5lEm9uGmQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "165197019",
+    "subscriberCount": "233000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "9248"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/03tmr",
+     "/m/06ntj"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Ice_hockey",
+     "https://en.wikipedia.org/wiki/Sport"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "I7LWvoPqe2Pv7XLOYC6XWQw4Bzs",
+   "id": "UCoYiLP9wH8Hz71LvEerJANg",
+   "snippet": {
+    "title": "El Defensor Chieftain",
+    "description": "",
+    "customUrl": "@eldefensorchieftain7776",
+    "publishedAt": "2015-10-21T19:29:48Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_l4ElMBH6tmqPy7HW3CMBfoC0thVxopgMQzMhmHH8M=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_l4ElMBH6tmqPy7HW3CMBfoC0thVxopgMQzMhmHH8M=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_l4ElMBH6tmqPy7HW3CMBfoC0thVxopgMQzMhmHH8M=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "El Defensor Chieftain",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoYiLP9wH8Hz71LvEerJANg"
+    }
+   },
+   "statistics": {
+    "viewCount": "381",
+    "subscriberCount": "6",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1"
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "KWcnYk10TdhR1wMMWcKbQKHKGrw",
+   "id": "UCoiydSu2BG9axZmoY8zpQrg",
+   "snippet": {
+    "title": "\ucc44\ub110M",
+    "description": "\uba38\ub2c8\ud22c\ub370\uc774 \uacf5\uc2dd \uc720\ud29c\ube0c '\ucc44\ub110M'\uc5d0\uc11c \ub871\ub9ac\ub4dc \uad6d\uc81c\uc2dc\uc0ac\ubb38\uc608\uc9c0 \u2018\ud30c\ub3c4(PADO)\u2019, \u2018'\ud130\uce58\ub2e4\uc6b4 the300' \ub4f1 \uba38\ub2c8\ud22c\ub370\uc774\uc5d0\uc11c\ub9cc \ub9cc\ub0a0 \uc218 \uc788\ub294 \ud1b5\ucc30\uc774 \ub2f4\uae34 \ucf58\ud150\uce20\ub97c \uc601\uc0c1\uc73c\ub85c \uc120\ubcf4\uc785\ub2c8\ub2e4. \uc815\uce58, \uad6d\uc81c, \uc2dc\uc0ac, \uacfc\ud559, \ubc95\ub960, \uacbd\uc81c, \uc7ac\ud14c\ud06c \ub4f1  \ub2e4\uc591\ud55c \uc138\uc0c1\uc758 \uc774\uc288\ub97c \uc804\ud574\ub4dc\ub9bd\ub2c8\ub2e4. \n\n*\uc81c\ubcf4 \ubc0f \ube44\uc988\ub2c8\uc2a4 \ubb38\uc758 : mttv@mt.co.kr\n\n\u00a9 (\uc8fc)\uba38\ub2c8\ud22c\ub370\uc774  COPYRIGHT MONEYTODAY ALL RIGHTS RESERVED\n",
+    "customUrl": "@moneytoday",
+    "publishedAt": "2013-06-25T09:39:46Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/nVw5-ytUe5QXuE45ZhfCVZ-xNRytbs4wPEJ77RiRyLX23L-UiPZwQIRbmvNFZAfahSYaIXm05g=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/nVw5-ytUe5QXuE45ZhfCVZ-xNRytbs4wPEJ77RiRyLX23L-UiPZwQIRbmvNFZAfahSYaIXm05g=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/nVw5-ytUe5QXuE45ZhfCVZ-xNRytbs4wPEJ77RiRyLX23L-UiPZwQIRbmvNFZAfahSYaIXm05g=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\ucc44\ub110M",
+     "description": "\uba38\ub2c8\ud22c\ub370\uc774 \uacf5\uc2dd \uc720\ud29c\ube0c '\ucc44\ub110M'\uc5d0\uc11c \ub871\ub9ac\ub4dc \uad6d\uc81c\uc2dc\uc0ac\ubb38\uc608\uc9c0 \u2018\ud30c\ub3c4(PADO)\u2019, \u2018'\ud130\uce58\ub2e4\uc6b4 the300' \ub4f1 \uba38\ub2c8\ud22c\ub370\uc774\uc5d0\uc11c\ub9cc \ub9cc\ub0a0 \uc218 \uc788\ub294 \ud1b5\ucc30\uc774 \ub2f4\uae34 \ucf58\ud150\uce20\ub97c \uc601\uc0c1\uc73c\ub85c \uc120\ubcf4\uc785\ub2c8\ub2e4. \uc815\uce58, \uad6d\uc81c, \uc2dc\uc0ac, \uacfc\ud559, \ubc95\ub960, \uacbd\uc81c, \uc7ac\ud14c\ud06c \ub4f1  \ub2e4\uc591\ud55c \uc138\uc0c1\uc758 \uc774\uc288\ub97c \uc804\ud574\ub4dc\ub9bd\ub2c8\ub2e4. \n\n*\uc81c\ubcf4 \ubc0f \ube44\uc988\ub2c8\uc2a4 \ubb38\uc758 : mttv@mt.co.kr\n\n\u00a9 (\uc8fc)\uba38\ub2c8\ud22c\ub370\uc774  COPYRIGHT MONEYTODAY ALL RIGHTS RESERVED\n"
+    },
+    "country": "KR"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoiydSu2BG9axZmoY8zpQrg"
+    }
+   },
+   "statistics": {
+    "viewCount": "89485135",
+    "subscriberCount": "44300",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1807"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "fa0R6y_cZL6na4X4UT0TpqOakyo",
+   "id": "UCp-nh5Fe_YD4baFpypQApyA",
+   "snippet": {
+    "title": "\u041a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u0438\u0439 \u0423\u0437\u0435\u043b",
+    "description": "\u041d\u0410\u0421\u0422\u041e\u042f\u0429\u0418\u0419 \u041c\u0410\u0422\u0415\u0420\u0418\u0410\u041b (\u0418\u041d\u0424\u041e\u0420\u041c\u0410\u0426\u0418\u042f) \u041f\u0420\u041e\u0418\u0417\u0412\u0415\u0414\u0415\u041d \u0418 \u0420\u0410\u0421\u041f\u0420\u041e\u0421\u0422\u0420\u0410\u041d\u0415\u041d \u0418\u041d\u041e\u0421\u0422\u0420\u0410\u041d\u041d\u042b\u041c \u0410\u0413\u0415\u041d\u0422\u041e\u041c \u041e\u041e\u041e \"\u041c\u0415\u041c\u041e\", \u041b\u0418\u0411\u041e \u041a\u0410\u0421\u0410\u0415\u0422\u0421\u042f \u0414\u0415\u042f\u0422\u0415\u041b\u042c\u041d\u041e\u0421\u0422\u0418 \u0418\u041d\u041e\u0421\u0422\u0420\u0410\u041d\u041d\u041e\u0413\u041e \u0410\u0413\u0415\u041d\u0422\u0410 \u041e\u041e\u041e \"\u041c\u0415\u041c\u041e\". 18+\n\n\u0417\u0430\u044f\u0432\u043b\u0435\u043d\u0438\u0435 \u043d\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044e \u0432 \u0420\u041a\u041d \u2116 \u202d5333842959\u202c\n\n\u0421\u0435\u0432\u0435\u0440\u043d\u044b\u0439 \u0438 \u042e\u0436\u043d\u044b\u0439 \u041a\u0430\u0432\u043a\u0430\u0437, \u0427\u0435\u0447\u043d\u044f \u0438 \u0414\u0430\u0433\u0435\u0441\u0442\u0430\u043d, \u041a\u0443\u0431\u0430\u043d\u044c \u0438 \u0421\u0442\u0430\u0432\u0440\u043e\u043f\u043e\u043b\u044c\u0435, \u0420\u043e\u0441\u0442\u043e\u0432 \u0438 \u0412\u043e\u043b\u0433\u043e\u0433\u0440\u0430\u0434. \u041f\u043e\u043b\u0438\u0442\u0438\u043a\u0430, \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430, \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0430 \u0438 \u0441\u043f\u043e\u0440\u0442 \u2014 \u0441 \u043a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u0438\u043c \u0430\u043a\u0446\u0435\u043d\u0442\u043e\u043c. \u041f\u0440\u0435\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 \u0430\u043a\u0442\u0438\u0432\u0438\u0441\u0442\u043e\u0432, \u043f\u0440\u043e\u0442\u0435\u0441\u0442\u044b \u0448\u0430\u0445\u0442\u0435\u0440\u043e\u0432 \u0438 \u0434\u0430\u043b\u044c\u043d\u043e\u0431\u043e\u0439\u0449\u0438\u043a\u043e\u0432, \u043f\u043e\u0445\u0438\u0449\u0435\u043d\u0438\u044f \u0438 \u0432\u043d\u0435\u0441\u0443\u0434\u0435\u0431\u043d\u044b\u0435 \u0440\u0430\u0441\u043f\u0440\u0430\u0432\u044b \u0432 \u0414\u0430\u0433\u0435\u0441\u0442\u0430\u043d\u0435 \u0438 \u0427\u0435\u0447\u043d\u0435, \u2014 \u043d\u043e\u0432\u043e\u0441\u0442\u0438, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0432\u044b \u043d\u0435 \u0443\u0432\u0438\u0434\u0438\u0442\u0435 \u043d\u0430 \u0442\u0435\u043b\u0435\u0432\u0438\u0434\u0435\u043d\u0438\u0438. \u0415\u0441\u043b\u0438 \u0432\u0430\u0441 \u0438\u043d\u0442\u0435\u0440\u0435\u0441\u0443\u044e\u0442 \u0430\u0432\u0442\u043e\u0440\u0441\u043a\u0438\u0435 \u043e\u0431\u0437\u043e\u0440\u044b \u0438\u0437 \u0440\u0435\u0433\u0438\u043e\u043d\u043e\u0432 \u2014 \u0431\u0435\u0437 \u043e\u0444\u0438\u0446\u0438\u043e\u0437\u0430, \u043e\u0442 \u043f\u0435\u0440\u0432\u043e\u0433\u043e \u043b\u0438\u0446\u0430, \u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u0431\u043b\u043e\u0433\u0435\u0440\u043e\u0432 \"\u041a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u043e\u0433\u043e \u0443\u0437\u043b\u0430\". \u0415\u0441\u043b\u0438 \u0432\u044b \u0445\u043e\u0442\u0438\u0442\u0435 \u043f\u0440\u0435\u0434\u0430\u0442\u044c \u0433\u043b\u0430\u0441\u043d\u043e\u0441\u0442\u0438 \u0432\u0430\u0448\u0443 \u043f\u0440\u043e\u0431\u043b\u0435\u043c\u0443, \u0440\u0430\u0441\u0441\u043a\u0430\u0437\u0430\u0442\u044c \u043e \u0441\u0435\u0431\u0435 \u0438\u043b\u0438 \u043e \u0442\u043e\u043c, \u043a\u043e\u043c\u0443 \u043d\u0443\u0436\u043d\u0430 \u043f\u043e\u043c\u043e\u0449\u044c \u2014 \u043f\u0438\u0448\u0438\u0442\u0435 \u043d\u0430\u043c, \u043f\u0440\u0438\u0441\u044b\u043b\u0430\u0439\u0442\u0435 \u0444\u043e\u0442\u043e \u0438 \u0432\u0438\u0434\u0435\u043e \u0447\u0435\u0440\u0435\u0437 WhatsApp \u0438\u043b\u0438 Telegram +4915772317856. \u0415\u0441\u043b\u0438 \u0432\u0430\u043c \u043d\u0443\u0436\u043d\u0430 \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u0430\u044f \u044e\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043a\u0430\u044f \u043f\u043e\u043c\u043e\u0449\u044c, \u0432\u043e\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435\u0441\u044c \u044e\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043a\u0438\u043c \u0441\u0435\u0440\u0432\u0438\u0441\u043e\u043c \"\u041a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u043e\u0433\u043e \u0443\u0437\u043b\u0430\". \u0427\u0438\u0442\u0430\u0439\u0442\u0435 \"\u041a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u0438\u0439 \u0443\u0437\u0435\u043b\" \u0432 \u0441\u043e\u0446\u0441\u0435\u0442\u044f\u0445, \u0441\u043c\u043e\u0442\u0440\u0438\u0442\u0435 \u0438 \u043f\u043e\u0434\u043f\u0438\u0441\u044b\u0432\u0430\u0439\u0442\u0435\u0441\u044c \u043d\u0430 \u043d\u0430\u0448 \u043a\u0430\u043d\u0430\u043b \u0432 YouTube",
+    "customUrl": "@caucasianknot",
+    "publishedAt": "2007-11-24T21:17:16Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/M8UKVVh1OTQTAVfn2usVlSjaM5i76jTONti04cKkqVzpYqElinCZXjCgXJwgwSsbQSDSuNXSxA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/M8UKVVh1OTQTAVfn2usVlSjaM5i76jTONti04cKkqVzpYqElinCZXjCgXJwgwSsbQSDSuNXSxA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/M8UKVVh1OTQTAVfn2usVlSjaM5i76jTONti04cKkqVzpYqElinCZXjCgXJwgwSsbQSDSuNXSxA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u041a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u0438\u0439 \u0423\u0437\u0435\u043b",
+     "description": "\u041d\u0410\u0421\u0422\u041e\u042f\u0429\u0418\u0419 \u041c\u0410\u0422\u0415\u0420\u0418\u0410\u041b (\u0418\u041d\u0424\u041e\u0420\u041c\u0410\u0426\u0418\u042f) \u041f\u0420\u041e\u0418\u0417\u0412\u0415\u0414\u0415\u041d \u0418 \u0420\u0410\u0421\u041f\u0420\u041e\u0421\u0422\u0420\u0410\u041d\u0415\u041d \u0418\u041d\u041e\u0421\u0422\u0420\u0410\u041d\u041d\u042b\u041c \u0410\u0413\u0415\u041d\u0422\u041e\u041c \u041e\u041e\u041e \"\u041c\u0415\u041c\u041e\", \u041b\u0418\u0411\u041e \u041a\u0410\u0421\u0410\u0415\u0422\u0421\u042f \u0414\u0415\u042f\u0422\u0415\u041b\u042c\u041d\u041e\u0421\u0422\u0418 \u0418\u041d\u041e\u0421\u0422\u0420\u0410\u041d\u041d\u041e\u0413\u041e \u0410\u0413\u0415\u041d\u0422\u0410 \u041e\u041e\u041e \"\u041c\u0415\u041c\u041e\". 18+\n\n\u0417\u0430\u044f\u0432\u043b\u0435\u043d\u0438\u0435 \u043d\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044e \u0432 \u0420\u041a\u041d \u2116 \u202d5333842959\u202c\n\n\u0421\u0435\u0432\u0435\u0440\u043d\u044b\u0439 \u0438 \u042e\u0436\u043d\u044b\u0439 \u041a\u0430\u0432\u043a\u0430\u0437, \u0427\u0435\u0447\u043d\u044f \u0438 \u0414\u0430\u0433\u0435\u0441\u0442\u0430\u043d, \u041a\u0443\u0431\u0430\u043d\u044c \u0438 \u0421\u0442\u0430\u0432\u0440\u043e\u043f\u043e\u043b\u044c\u0435, \u0420\u043e\u0441\u0442\u043e\u0432 \u0438 \u0412\u043e\u043b\u0433\u043e\u0433\u0440\u0430\u0434. \u041f\u043e\u043b\u0438\u0442\u0438\u043a\u0430, \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430, \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u043a\u0430 \u0438 \u0441\u043f\u043e\u0440\u0442 \u2014 \u0441 \u043a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u0438\u043c \u0430\u043a\u0446\u0435\u043d\u0442\u043e\u043c. \u041f\u0440\u0435\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0435 \u0430\u043a\u0442\u0438\u0432\u0438\u0441\u0442\u043e\u0432, \u043f\u0440\u043e\u0442\u0435\u0441\u0442\u044b \u0448\u0430\u0445\u0442\u0435\u0440\u043e\u0432 \u0438 \u0434\u0430\u043b\u044c\u043d\u043e\u0431\u043e\u0439\u0449\u0438\u043a\u043e\u0432, \u043f\u043e\u0445\u0438\u0449\u0435\u043d\u0438\u044f \u0438 \u0432\u043d\u0435\u0441\u0443\u0434\u0435\u0431\u043d\u044b\u0435 \u0440\u0430\u0441\u043f\u0440\u0430\u0432\u044b \u0432 \u0414\u0430\u0433\u0435\u0441\u0442\u0430\u043d\u0435 \u0438 \u0427\u0435\u0447\u043d\u0435, \u2014 \u043d\u043e\u0432\u043e\u0441\u0442\u0438, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0432\u044b \u043d\u0435 \u0443\u0432\u0438\u0434\u0438\u0442\u0435 \u043d\u0430 \u0442\u0435\u043b\u0435\u0432\u0438\u0434\u0435\u043d\u0438\u0438. \u0415\u0441\u043b\u0438 \u0432\u0430\u0441 \u0438\u043d\u0442\u0435\u0440\u0435\u0441\u0443\u044e\u0442 \u0430\u0432\u0442\u043e\u0440\u0441\u043a\u0438\u0435 \u043e\u0431\u0437\u043e\u0440\u044b \u0438\u0437 \u0440\u0435\u0433\u0438\u043e\u043d\u043e\u0432 \u2014 \u0431\u0435\u0437 \u043e\u0444\u0438\u0446\u0438\u043e\u0437\u0430, \u043e\u0442 \u043f\u0435\u0440\u0432\u043e\u0433\u043e \u043b\u0438\u0446\u0430, \u0447\u0438\u0442\u0430\u0439\u0442\u0435 \u0431\u043b\u043e\u0433\u0435\u0440\u043e\u0432 \"\u041a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u043e\u0433\u043e \u0443\u0437\u043b\u0430\". \u0415\u0441\u043b\u0438 \u0432\u044b \u0445\u043e\u0442\u0438\u0442\u0435 \u043f\u0440\u0435\u0434\u0430\u0442\u044c \u0433\u043b\u0430\u0441\u043d\u043e\u0441\u0442\u0438 \u0432\u0430\u0448\u0443 \u043f\u0440\u043e\u0431\u043b\u0435\u043c\u0443, \u0440\u0430\u0441\u0441\u043a\u0430\u0437\u0430\u0442\u044c \u043e \u0441\u0435\u0431\u0435 \u0438\u043b\u0438 \u043e \u0442\u043e\u043c, \u043a\u043e\u043c\u0443 \u043d\u0443\u0436\u043d\u0430 \u043f\u043e\u043c\u043e\u0449\u044c \u2014 \u043f\u0438\u0448\u0438\u0442\u0435 \u043d\u0430\u043c, \u043f\u0440\u0438\u0441\u044b\u043b\u0430\u0439\u0442\u0435 \u0444\u043e\u0442\u043e \u0438 \u0432\u0438\u0434\u0435\u043e \u0447\u0435\u0440\u0435\u0437 WhatsApp \u0438\u043b\u0438 Telegram +4915772317856. \u0415\u0441\u043b\u0438 \u0432\u0430\u043c \u043d\u0443\u0436\u043d\u0430 \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u0430\u044f \u044e\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043a\u0430\u044f \u043f\u043e\u043c\u043e\u0449\u044c, \u0432\u043e\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435\u0441\u044c \u044e\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043a\u0438\u043c \u0441\u0435\u0440\u0432\u0438\u0441\u043e\u043c \"\u041a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u043e\u0433\u043e \u0443\u0437\u043b\u0430\". \u0427\u0438\u0442\u0430\u0439\u0442\u0435 \"\u041a\u0430\u0432\u043a\u0430\u0437\u0441\u043a\u0438\u0439 \u0443\u0437\u0435\u043b\" \u0432 \u0441\u043e\u0446\u0441\u0435\u0442\u044f\u0445, \u0441\u043c\u043e\u0442\u0440\u0438\u0442\u0435 \u0438 \u043f\u043e\u0434\u043f\u0438\u0441\u044b\u0432\u0430\u0439\u0442\u0435\u0441\u044c \u043d\u0430 \u043d\u0430\u0448 \u043a\u0430\u043d\u0430\u043b \u0432 YouTube"
+    },
+    "country": "GE"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUp-nh5Fe_YD4baFpypQApyA"
+    }
+   },
+   "statistics": {
+    "viewCount": "80134691",
+    "subscriberCount": "113000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "3648"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "5gg0jwZdffY6-FChPS_Cb1JKHNo",
+   "id": "UCp2f7tGJGN6R9Muxipem8Nw",
+   "snippet": {
+    "title": "\u5bf0\u5b87\u65b0\u805e \u983b\u9053",
+    "description": "\u5bf0\u5b87\u65b0\u805e\u53f0\u3001\u5bf0\u5b87\u65b0\u805e\u53f0\u7063\u53f0\u65bc\u4e2d\u83ef\u96fb\u4fe1MOD 501\u8207502\u983b\u9053\u3001\u5168\u53f0\u6709\u7dda\u7cfb\u7d71\u8207\u591a\u570b\u885b\u661f\u983b\u9053\u64ad\u51fa\u3002\u5e36\u53f0\u7063\u5230\u4e16\u754c\uff0c\u8b93\u3010\u5f9e\u53f0\u7063\u51fa\u767c\uff0e\u95dc\u6ce8\u4e9e\u6d32\uff0e\u653e\u773c\u5168\u7403\u3011\u7684\u7d93\u71df\u7406\u5ff5\uff0c\u4ee5\u670d\u52d9\u5168\u4e9e\u6d32\u83ef\u4eba\u70ba\u76ee\u6a19\uff0c\u96c6\u53f0\u7063\u548c\u5168\u4e9e\u6d32\u7d93\u8cbf\u751f\u6d3b\u3001\u6587\u5316\u5a1b\u6a02\u3001\u65c5\u904a\u4f11\u9592\u7b49\u8a0a\u606f\u65bc\u4e00\u9ad4\u3002\n\n\u3010\u5bf0\u5b87\u5168\u8996\u754c\u3011\u8b1d\u5fe0\u5cb3\n\u6bcf\u5468\u516d 21:00\u3001\u5468\u65e5 18:00 \u5bf0\u5b87\u65b0\u805e\u53f0YouTube\u983b\u9053\ud83d\udc49https://lihi3.me/j2PtY\n\u6bcf\u5468\u516d 22:00\u3001\u5468\u65e5 19:00 \u5bf0\u5b87\u5168\u8996\u754cYouTube\u983b\u9053\ud83d\udc49https://lihi3.me/49DEY\n\n\u3010\u74b0\u7403\u5927\u6230\u7dda\u3011\u8449\u601d\u654f\u3001\u8463\u89b2\u50d1\n\u6bcf\u5468\u4e00\u81f3\u5468\u4e94 21:00 \u5bf0\u5b87\u65b0\u805e\u53f0YouTube\u983b\u9053\ud83d\udc49https://lihi1.cc/UawUx\n\u6bcf\u5468\u4e00\u81f3\u5468\u4e94 22:00 \u5bf0\u5b87\u5168\u8996\u754cYouTube\u983b\u9053\ud83d\udc49https://lihi1.cc/qYfEh\n",
+    "customUrl": "@globalnewstw",
+    "publishedAt": "2015-04-08T07:24:25Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/rcKSZ9TOod8vM90qsaF8pV6e6Mrh_INiOfhzRlLXiyvzeOYGoJrL2fWWGH0pHu-N0_rRdCLPbg=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/rcKSZ9TOod8vM90qsaF8pV6e6Mrh_INiOfhzRlLXiyvzeOYGoJrL2fWWGH0pHu-N0_rRdCLPbg=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/rcKSZ9TOod8vM90qsaF8pV6e6Mrh_INiOfhzRlLXiyvzeOYGoJrL2fWWGH0pHu-N0_rRdCLPbg=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u5bf0\u5b87\u65b0\u805e \u983b\u9053",
+     "description": "\u5bf0\u5b87\u65b0\u805e\u53f0\u3001\u5bf0\u5b87\u65b0\u805e\u53f0\u7063\u53f0\u65bc\u4e2d\u83ef\u96fb\u4fe1MOD 501\u8207502\u983b\u9053\u3001\u5168\u53f0\u6709\u7dda\u7cfb\u7d71\u8207\u591a\u570b\u885b\u661f\u983b\u9053\u64ad\u51fa\u3002\u5e36\u53f0\u7063\u5230\u4e16\u754c\uff0c\u8b93\u3010\u5f9e\u53f0\u7063\u51fa\u767c\uff0e\u95dc\u6ce8\u4e9e\u6d32\uff0e\u653e\u773c\u5168\u7403\u3011\u7684\u7d93\u71df\u7406\u5ff5\uff0c\u4ee5\u670d\u52d9\u5168\u4e9e\u6d32\u83ef\u4eba\u70ba\u76ee\u6a19\uff0c\u96c6\u53f0\u7063\u548c\u5168\u4e9e\u6d32\u7d93\u8cbf\u751f\u6d3b\u3001\u6587\u5316\u5a1b\u6a02\u3001\u65c5\u904a\u4f11\u9592\u7b49\u8a0a\u606f\u65bc\u4e00\u9ad4\u3002\n\n\u3010\u5bf0\u5b87\u5168\u8996\u754c\u3011\u8b1d\u5fe0\u5cb3\n\u6bcf\u5468\u516d 21:00\u3001\u5468\u65e5 18:00 \u5bf0\u5b87\u65b0\u805e\u53f0YouTube\u983b\u9053\ud83d\udc49https://lihi3.me/j2PtY\n\u6bcf\u5468\u516d 22:00\u3001\u5468\u65e5 19:00 \u5bf0\u5b87\u5168\u8996\u754cYouTube\u983b\u9053\ud83d\udc49https://lihi3.me/49DEY\n\n\u3010\u74b0\u7403\u5927\u6230\u7dda\u3011\u8449\u601d\u654f\u3001\u8463\u89b2\u50d1\n\u6bcf\u5468\u4e00\u81f3\u5468\u4e94 21:00 \u5bf0\u5b87\u65b0\u805e\u53f0YouTube\u983b\u9053\ud83d\udc49https://lihi1.cc/UawUx\n\u6bcf\u5468\u4e00\u81f3\u5468\u4e94 22:00 \u5bf0\u5b87\u5168\u8996\u754cYouTube\u983b\u9053\ud83d\udc49https://lihi1.cc/qYfEh\n"
+    },
+    "country": "TW"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUp2f7tGJGN6R9Muxipem8Nw"
+    }
+   },
+   "statistics": {
+    "viewCount": "1558455994",
+    "subscriberCount": "1150000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "84868"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "c7AI-NUM_tU7kc3tf3e_TGvV0o8",
+   "id": "UCoO28dF7ebUqqsdI4xtQ1uw",
+   "snippet": {
+    "title": "\u041c\u043e\u044f \u041f\u043b\u0430\u043d\u0435\u0442\u0430",
+    "description": "\u00ab\u041c\u043e\u044f \u043f\u043b\u0430\u043d\u0435\u0442\u0430\u00bb \u2014 \u0440\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0439 \u043f\u043e\u0437\u043d\u0430\u0432\u0430\u0442\u0435\u043b\u044c\u043d\u044b\u0439 \u043a\u0430\u043d\u0430\u043b \u043e \u043f\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044f\u0445, \u043d\u0430\u0443\u043a\u0435, \u0438\u0441\u0442\u043e\u0440\u0438\u0438 \u0438 \u043b\u044e\u0434\u044f\u0445.\n\n\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f \u0432 \u043f\u0435\u0440\u0435\u0447\u043d\u0435 \u0432\u043b\u0430\u0434\u0435\u043b\u044c\u0446\u0435\u0432 \u0441\u0442\u0440\u0430\u043d\u0438\u0446 \u0432 \u0441\u043e\u0446\u0441\u0435\u0442\u044f\u0445: https://clck.ru/3Em47Z\n",
+    "customUrl": "@moyaplaneta",
+    "publishedAt": "2015-08-28T09:34:39Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/lq_RMsXjp1b9FsjrEjl_PlFYCeSEJXNVErjewt8LqnTAX8MkjHKKgvug-gqplfcYUwwkWGA1yA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/lq_RMsXjp1b9FsjrEjl_PlFYCeSEJXNVErjewt8LqnTAX8MkjHKKgvug-gqplfcYUwwkWGA1yA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/lq_RMsXjp1b9FsjrEjl_PlFYCeSEJXNVErjewt8LqnTAX8MkjHKKgvug-gqplfcYUwwkWGA1yA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u041c\u043e\u044f \u041f\u043b\u0430\u043d\u0435\u0442\u0430",
+     "description": "\u00ab\u041c\u043e\u044f \u043f\u043b\u0430\u043d\u0435\u0442\u0430\u00bb \u2014 \u0440\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0439 \u043f\u043e\u0437\u043d\u0430\u0432\u0430\u0442\u0435\u043b\u044c\u043d\u044b\u0439 \u043a\u0430\u043d\u0430\u043b \u043e \u043f\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044f\u0445, \u043d\u0430\u0443\u043a\u0435, \u0438\u0441\u0442\u043e\u0440\u0438\u0438 \u0438 \u043b\u044e\u0434\u044f\u0445.\n\n\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f \u0432 \u043f\u0435\u0440\u0435\u0447\u043d\u0435 \u0432\u043b\u0430\u0434\u0435\u043b\u044c\u0446\u0435\u0432 \u0441\u0442\u0440\u0430\u043d\u0438\u0446 \u0432 \u0441\u043e\u0446\u0441\u0435\u0442\u044f\u0445: https://clck.ru/3Em47Z\n"
+    },
+    "country": "RU"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoO28dF7ebUqqsdI4xtQ1uw"
+    }
+   },
+   "statistics": {
+    "viewCount": "75965957",
+    "subscriberCount": "672000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1246"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/068hy",
+     "/m/019_rr",
+     "/g/120yrv6h"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Pet",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)",
+     "https://en.wikipedia.org/wiki/Tourism"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "utP8ERLL6QDk1zJs-nKfA6vB95M",
+   "id": "UCncDlrpG9HFqBLHF7xJwx5A",
+   "snippet": {
+    "title": "\u0414\u0435\u0441\u043d\u044f\u043d\u0441\u044c\u043a\u0430 \u043f\u0440\u0430\u0432\u0434\u0430",
+    "description": "",
+    "customUrl": "@gazetadp",
+    "publishedAt": "2019-06-12T07:22:46Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/3h2CMZFIZ4sX1Y7nzY7uL5QpZ8i1UijYDvBpGNtSR1ZOHnsNFIplhIRPj6UgCyiimQ9ozd3TCQ=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/3h2CMZFIZ4sX1Y7nzY7uL5QpZ8i1UijYDvBpGNtSR1ZOHnsNFIplhIRPj6UgCyiimQ9ozd3TCQ=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/3h2CMZFIZ4sX1Y7nzY7uL5QpZ8i1UijYDvBpGNtSR1ZOHnsNFIplhIRPj6UgCyiimQ9ozd3TCQ=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u0414\u0435\u0441\u043d\u044f\u043d\u0441\u044c\u043a\u0430 \u043f\u0440\u0430\u0432\u0434\u0430",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUncDlrpG9HFqBLHF7xJwx5A"
+    }
+   },
+   "statistics": {
+    "viewCount": "18500",
+    "subscriberCount": "117",
+    "hiddenSubscriberCount": false,
+    "videoCount": "39"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "FiViQiznGTuiq9e5pSFf-9uU5hE",
+   "id": "UCoG_WtEGHB_H96-T4LyPhsw",
+   "snippet": {
+    "title": "Pella Chronicle",
+    "description": "",
+    "customUrl": "@pellachronicle3174",
+    "publishedAt": "2013-12-19T22:56:11Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lei7RdgaU6y3zKhsPBacm5Hcuw_M343cc6K7vHeRo=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lei7RdgaU6y3zKhsPBacm5Hcuw_M343cc6K7vHeRo=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lei7RdgaU6y3zKhsPBacm5Hcuw_M343cc6K7vHeRo=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Pella Chronicle",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUoG_WtEGHB_H96-T4LyPhsw"
+    }
+   },
+   "statistics": {
+    "viewCount": "638",
+    "subscriberCount": "3",
+    "hiddenSubscriberCount": false,
+    "videoCount": "8"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02mscn",
+     "/m/04rlf",
+     "/m/0ggq0m"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Christian_music",
+     "https://en.wikipedia.org/wiki/Music",
+     "https://en.wikipedia.org/wiki/Classical_music"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "wEp-MC7yH_gmYUMM3VwzA008zmc",
+   "id": "UCowYpWyOJf600yX_HuOZtqA",
+   "snippet": {
+    "title": "TechToday",
+    "description": "Canale di riferimento di XiaomiToday.it Tanti video e recensioni su prodotti Xiaomi e sui migliori prodotti dei brand Cinesi.\nPer informazioni e collaborazioni, scrivete a redazione@xiaomitoday.it\n",
+    "customUrl": "@ttoday-it",
+    "publishedAt": "2013-12-01T22:44:53Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mAcbASn08VkLX-3ZGvxmssTFxxhG-PAC3aSSQMPY17AnrG=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mAcbASn08VkLX-3ZGvxmssTFxxhG-PAC3aSSQMPY17AnrG=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mAcbASn08VkLX-3ZGvxmssTFxxhG-PAC3aSSQMPY17AnrG=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "TechToday",
+     "description": "Canale di riferimento di XiaomiToday.it Tanti video e recensioni su prodotti Xiaomi e sui migliori prodotti dei brand Cinesi.\nPer informazioni e collaborazioni, scrivete a redazione@xiaomitoday.it\n"
+    },
+    "country": "IT"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUowYpWyOJf600yX_HuOZtqA"
+    }
+   },
+   "statistics": {
+    "viewCount": "4616156",
+    "subscriberCount": "20200",
+    "hiddenSubscriberCount": false,
+    "videoCount": "767"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/07c1v",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Technology",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "JapF7fsGkCdo_FOBH2vpfBL_p5Y",
+   "id": "UCo0mGT5-45aVyPkpn_guNtA",
+   "snippet": {
+    "title": "Baltimore Post Examiner",
+    "description": "Baltimore Post-Examiner - one of the largest online news site not connected to a print product has a little bit of everything. Check us out at BaltimorePostExaminer.com",
+    "customUrl": "@baltimorepostexaminer2480",
+    "publishedAt": "2012-03-26T05:28:52Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lBe-1NoGh8eKsT_ur9PhgGNM6K63twqnco8wpnWe1fZO4=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lBe-1NoGh8eKsT_ur9PhgGNM6K63twqnco8wpnWe1fZO4=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lBe-1NoGh8eKsT_ur9PhgGNM6K63twqnco8wpnWe1fZO4=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Baltimore Post Examiner",
+     "description": "Baltimore Post-Examiner - one of the largest online news site not connected to a print product has a little bit of everything. Check us out at BaltimorePostExaminer.com"
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUo0mGT5-45aVyPkpn_guNtA"
+    }
+   },
+   "statistics": {
+    "viewCount": "81847",
+    "subscriberCount": "174",
+    "hiddenSubscriberCount": false,
+    "videoCount": "101"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "b1vxb9WX54ODXwmHWFt9PTQdk7A",
+   "id": "UCnQ3znGoKAybm2LrvDukWfQ",
+   "snippet": {
+    "title": "The Times of Hersican",
+    "description": "The Times of Hersican is a Global-Asia digital news and media platform founded on 18 June 2026 by Protik Barua.",
+    "customUrl": "@thetimesofhersican",
+    "publishedAt": "2026-07-07T06:20:51.757195Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/jnwMb73CZBlro6g4pd2dtV-nuAWevjQlCwg5ekUWv2tbyPeeA2j2HCB7bH__0haivZ74b5lciA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/jnwMb73CZBlro6g4pd2dtV-nuAWevjQlCwg5ekUWv2tbyPeeA2j2HCB7bH__0haivZ74b5lciA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/jnwMb73CZBlro6g4pd2dtV-nuAWevjQlCwg5ekUWv2tbyPeeA2j2HCB7bH__0haivZ74b5lciA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "The Times of Hersican",
+     "description": "The Times of Hersican is a Global-Asia digital news and media platform founded on 18 June 2026 by Protik Barua."
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUnQ3znGoKAybm2LrvDukWfQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "0",
+    "subscriberCount": "0",
+    "hiddenSubscriberCount": false,
+    "videoCount": "0"
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  }
+ ]
+}
