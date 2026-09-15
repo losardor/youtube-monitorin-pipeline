@@ -1,13 +1,15 @@
 # YouTube Monitoring Pipeline - Logbook
 
-## Current Status (as of 2026-04-21)
+## Current Status (as of 2026-09-15)
 
-**Current phase:** Post-validation hold, validation phase closed.
+**Current phase:** Phase 1 of the ytmon merge complete (Gate 1 passed, branch `feat/daily-monitor`). Phase 2 (Wikidata tiering) not started.
 
 - **Validated URLs:** 3,307 / 3,307 (100%)
 - **Confirmed channels:** 2,867 (86.7% success rate after Run #3d recovery pass)
 - **Deferred:** 286 expensive bug-contaminated entries (`/c/`, `/user/`) — re-validation blocked on 1M quota approval
 - **Main collection:** blocked on 1M quota approval (request submitted 2026-04-20, response pending)
+- **403-swallow bug:** **FIXED 2026-09-15** in phase 1.2 — was present in five methods, not one. See the 2026-09-15 entry.
+- **Validated frame location:** `data/validation/validation_progress.json` (2,867 successes, 2,856 distinct ids). Not yet loaded into the database, which still holds only the 31 Nov 2025 channels.
 - **DB channel mismatch (31 vs 73):** investigated in Task 1 on 2026-04-21 — resolution: "73" was never unique channels; it matched the sum of `channels_processed` attempts across completed Nov 19 runs. See the 2026-04-21 resolution entry below.
 
 ---
@@ -191,6 +193,169 @@ All passed:
 
 ---
 
+## 2026-09-15: Phase 1 — monitoring core ported (Gate 1 passed)
+
+Branch `feat/daily-monitor` off `production`, per `docs/briefs/CC_brief_ytmon_merge.md`.
+Ports the ytmon reference implementation in `external/ytmon/` into the pipeline:
+snapshot tables, a quota governor with a real error taxonomy, the four daily
+stages, and an advisory lock shared with the backfill.
+
+### Gate 1 result
+
+**`pytest -q`: 115 passed, 6 warnings in 9.98s.** (29 new in `tests/test_daily.py`.)
+
+**`view_data.py --stats`, before vs after `scripts/migrate_snapshots.py` on a copy of
+`data/youtube_monitoring.db`: identical, zero diff.**
+
+```
+Channels:          31            Channels:          31
+Videos:            5,255         Videos:            5,255
+Comments:          693,204       Comments:          693,204
+Total Views:       594,305,900   Total Views:       594,305,900
+Avg Views/Video:   113,244       Avg Views/Video:   113,244
+Unique Commenters: 271,863       Unique Commenters: 271,863
+```
+
+**`daily.py status` after migration** (the second gate check):
+
+```
+channel_snapshots            31 rows over 2 day(s)
+video_snapshots           5,255 rows over 2 day(s)
+```
+
+Second migration run inserts 0 and 0; both counts unchanged. The migration was
+run only on copies under the session scratchpad. The original
+`data/youtube_monitoring.db` has md5 `795bb9716410458888ff39355bde04a9` before
+and after — never opened for writing.
+
+### What changed
+
+| Sub-section | Commit | Substance |
+|---|---|---|
+| 1.1 | `eab26e1` | `channel_snapshots`, `video_snapshots`, `quota_ledger`, `run_log`; 7 new `channels` columns and 5 new `videos` columns via PRAGMA-guarded ALTER; `scripts/migrate_snapshots.py` |
+| 1.2 | `bfbeda4` | `src/quota.py`, `src/errors.py`, `_call` chokepoint, 403-swallow fix, four scripts deleted |
+| — | `c957f1d` | Liveness checks moved off `search.list` |
+| 1.3 | `07cd619` | `src/daily.py`, `daily.py` CLI, `config/config_daily.yaml`, `src/lock.py` |
+| 1.4 | `55aa4ff` | `collect.py` takes the lock; `DEPLOYMENT.md` crontab rewritten |
+| 1.5 | `2162a18` | `tests/test_daily.py`, two pre-existing test failures fixed, coverage omit |
+
+### Where the 2,867 validated channels actually live
+
+Asked before the gate, because phase 2 defines tier 0 as that set.
+
+**They are in `data/validation/validation_progress.json`, not in any database.**
+That file holds `{"validated": [...3307 urls...], "results": [...3307 objects...]}`,
+of which **2,867 have `success: true`**, resolving to **2,856 distinct `channel_id`
+values** (11 channels are referenced by two source rows each).
+
+`data/youtube_monitoring.db` holds only **31** channels — the Nov 19 2025 test runs.
+Overlap between the two: **29**. The 2 DB-only channels are the WDR Doku /
+parismatch pair already documented in the 2026-04-21 entry. `data/validation/
+validation_results.csv` is a stale pre-#3d export (2,252 successes) and must not
+be used as the frame.
+
+**Consequence for deployment:** the production database does not yet contain the
+validated frame. Before the daily run is useful, the 2,856 channel ids have to be
+loaded into `channels` (tier 0), and `scripts/migrate_snapshots.py` must be run
+against whichever file becomes the live database — running it against today's
+31-channel file backfills only those 31. Loading the frame is not in phase 1's
+scope; it is a prerequisite for phase 3 and overlaps phase 2.1.
+
+### Note on `quota_cumulative` — do not read it as measured
+
+The four deleted scripts (`check_quota_bug.py`, `migrate_quota_fix.py`,
+`test_quota_fix.py`, `verify_quota.py`) were chasing **a different bug** from the
+403 swallow: arithmetic under-reporting of quota in `collection_runs.quota_used`.
+
+That work is **superseded by `quota_ledger`**, which records actual charges per
+endpoint per Pacific billing day, written only on HTTP 200.
+
+**The `quota_cumulative` values on historical `collection_runs` rows are a
+back-estimate**, not a measurement. `migrate_quota_fix.py` reconstructed them from
+collected row counts as `max(reported, estimated)` where `estimated = channels*2 +
+(videos//50)*2 + (comments//100)`. They are left in place rather than rewritten,
+but nobody should later read them as observed spend. Actual spend from here on is
+`quota_ledger` only.
+
+### Secrets check
+
+`config/config.yaml` and `config/config_comprehensive.yaml` both contain live API
+keys. Both are **untracked and gitignored** (`.gitignore:52-53`), and neither
+appears anywhere in git history (`git log --all -- <path>` is empty). A scan of the
+entire tracked tree for `AIza`-prefixed keys returns nothing. **No key rotation is
+needed.** `config/config_daily.yaml`, added this phase, carries no key at all:
+`daily.py` requires `YOUTUBE_API_KEY` from the environment.
+
+### Bugs found and fixed while porting
+
+1. **The 403 swallow was in five places, not one.** `get_channel_info` and
+   `get_channel_by_username` are the two named in the brief. Also fixed:
+   `get_channel_videos` and `get_video_details` returned a *truncated list* on
+   quota failure, so the caller would record a partially collected channel as
+   complete; and `get_video_comments` treated **any** 403 as comments-disabled,
+   `quotaExceeded` included. The video/comment paths would have silently lost data
+   on any quota-exhaustion day of a `collect.py` run.
+
+2. **`INSERT OR REPLACE` would have wiped the new columns.** It deletes the old row,
+   so a backfill re-inserting a channel would have reset `tier` to 0 and dropped
+   `uploads_playlist`, and re-inserting a video would have discarded
+   `comment_cursor`, restarting comment harvesting from page one. Both
+   `insert_channel` and `insert_video` now carry those columns across explicitly.
+   Pinned by `test_insert_replace_preserves_daily_pipeline_columns`.
+
+3. **`src/lock.py` double-closed its file descriptor** on the contended path: the
+   error branch closed the fd and the `finally` closed it again, and the resulting
+   `EBADF` masked `LockUnavailable` with a misleading "Bad file descriptor". Found
+   by writing the contention test the brief asked for. Acquisition is now separate
+   from the held region.
+
+4. **`channels.first_collected_at` was in the DDL but never written** — NULL on all
+   31 rows, because `insert_channel` only ever set `last_updated_at`. Now populated,
+   and the migration reads `COALESCE(first_collected_at, last_updated_at)`.
+
+### Carried-over details
+
+- `run_log.calls` is **per stage**, not the session total. ytmon logged
+  `gov.session_calls` into every stage row, which is cumulative and overstates
+  every stage after the first. `Budget.calls` snapshots the counter at stage start.
+- Comment rows map to the existing `comments` schema (`author_name`, `text`). The
+  ytmon salted-hash privacy indirection is **not** ported: there is no such column
+  and 693,204 existing rows already store display names. Worth a separate decision
+  if the co-commenter layer wants pseudonymisation.
+- 61 videos with comments disabled keep `comment_count` NULL in both `videos` and
+  `video_snapshots`; `hidden_subscribers` is NULL on all 31 backfilled channel rows,
+  as no source column exists. Neither is coerced to 0.
+- `search.list` is now refused twice over on the daily path: `allow_search=False` on
+  the client, and the governor bans the `search` endpoint outright. The remaining
+  legitimate call sites are `src/resolve_youtube.py` (the anchor-pipeline matcher,
+  out of scope) and the `/c/` + `/user/` URL-resolution fallback in
+  `get_channel_by_username`, which is backfill-only.
+- The three liveness checks (`test_api_quick.py`, `test_api_simple.py`,
+  `test_comprehensive.py`) each spent **100 units per invocation** on a `search.list`
+  call to ask whether the key was valid. Now `channels.list(forHandle='@YouTube')`,
+  1 unit. Verified against the live API.
+
+### Not verifiable locally
+
+`flock(1)` does not exist on macOS, so the shell-side half of the lock contention
+(the cron wrapper's `flock -n` against the Python `fcntl.flock`) **could not be
+tested on this machine** — `command -v flock` returns nothing. The Python-to-Python
+contention is tested and passes (refused in 23 ms). Both take the same kernel lock
+on the same inode, so they will contend on Linux, but **this needs confirming on
+`infosphereVM` as part of Gate 3**, which already calls for a forced collision.
+
+### Open for phase 2 / 3
+
+- Load the 2,856 validated channel ids into `channels` as tier 0.
+- `channels.uploads_playlist` is empty until the first `resolve_channels` pass
+  (~60 units for the whole validated frame, 1 unit per 50 channels).
+- `deploy/run_daily.sh`, `deploy/healthcheck.sh`, `deploy/backup.sh` and
+  `docs/operations/ytmon_daily_run.md` are phase 3; `DEPLOYMENT.md` already
+  references the 09:17 slot they will implement.
+- `SERVER_MIGRATION_GUIDE.md` still needs its superseded-by notice (phase 3).
+
+---
+
 ## Notes
 
 ### Quota Costs (YouTube Data API v3)
@@ -253,13 +418,15 @@ The 2,294 number is the truth: 2,393 Dec-15 entries − 110 duplicates (pre/post
 
 ## Known bugs
 
-### `youtube_client.get_channel_info` swallows quota 403 as "not found"
+### `youtube_client.get_channel_info` swallows quota 403 as "not found" — FIXED 2026-09-15
 
 When the YouTube API returns a `quotaExceeded` 403, the client currently catches the error and returns `None`, which the validator records as a resolution failure ("Channel not found"). This contaminated the tail of Dec 15's Run #2: the last ~137 entries with `cost=0` + `"Channel not found"` are likely valid channels, not invalid ones.
 
 After the 1M quota is approved (or on any day with spare quota), re-validate any URL in `validation_progress.json` matching the pattern `cost=0 AND status=failed AND reason="Channel not found"`.
 
 Client fix: catch the 403 explicitly, raise `QuotaExceededError`, stop cleanly. Out of scope for Run #3.
+
+**RESOLVED 2026-09-15 (phase 1.2, commit `bfbeda4`).** Every API call now routes through `YouTubeAPIClient._call`, which raises `QuotaExhausted` on a 403 with reason `quotaExceeded`/`dailyLimitExceeded` and charges the ledger only on HTTP 200. The blanket `except Exception -> return None` is gone from `get_channel_info` and `get_channel_by_username`, and the same swallow was found and fixed in three further methods (`get_channel_videos`, `get_video_details`, `get_video_comments`). Regression test: `tests/test_daily.py::test_quota_403_raises_and_leaves_the_channel_row_untouched`. The 286 remaining contaminated `/c/` and `/user/` entries are still outstanding and still blocked on the 1M quota approval; `scripts/revalidate_contaminated.py` remains the tool for them.
 
 **Update 2026-04-21 — Partial mitigation applied via Run #3d.** The cheap bucket (/channel/UC, /@handle) has been re-validated using `scripts/revalidate_contaminated.py`, which bypasses the bug by calling `_make_request` directly. 647 contaminated entries re-queried; 615 recovered to success, 32 confirmed failed. The underlying bug in `src/youtube_client.py:196-198` (blanket `except Exception` in `get_channel_info`) is still present. **Still outstanding:**
 - **Code fix** to `get_channel_info`: let quota 403 propagate as `HttpError` (or a named subclass) instead of returning `None`.
