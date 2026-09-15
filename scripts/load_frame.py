@@ -9,6 +9,9 @@ was validated from, to carry source_domain / source_rating / source_orientation.
 
 Spends no quota. Nothing here calls the API: channel statistics and
 uploads_playlist arrive from the first `daily.py run --stages channels` pass.
+Statistics observed during the validation phase are loaded separately by
+scripts/backfill_validation_snapshots.py, so for most channels the daily pass
+is the *next* observation rather than the first.
 
 Existing rows are preserved. The 29 channels already collected in November 2025
 keep their statistics, their snapshots and their collection timestamps; this
@@ -107,8 +110,8 @@ def apply_frame(con: sqlite3.Connection, frame: dict, dry_run: bool = False) -> 
         return stats
 
     # New channels: identity and provenance only. Statistics stay NULL so that
-    # no latest-observed value exists without a matching snapshot row; the
-    # first channels stage writes observation one.
+    # no latest-observed value exists without a matching snapshot row. The
+    # series itself starts earlier, from the validation-phase observations.
     con.executemany("""
         INSERT INTO channels (
             channel_id, channel_url, source_domain, source_rating,

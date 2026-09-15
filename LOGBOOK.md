@@ -384,7 +384,11 @@ on the same inode, so they will contend on Linux, but **this needs confirming on
 
 - Load the 2,856 validated channel ids into `channels` as tier 0.
 - `channels.uploads_playlist` is empty until the first `resolve_channels` pass
-  (~60 units for the whole validated frame, 1 unit per 50 channels).
+  (~58 units for the whole validated frame, 1 unit per 50 channels). That pass
+  writes the *next* observation, not the first: the validation-phase statistics
+  (Dec 2025 - Apr 2026) are loaded into `channel_snapshots` in phase 2.0, so
+  the series already has an earlier point for 2,845 of the 2,856 tier-0
+  channels.
 - `deploy/run_daily.sh`, `deploy/healthcheck.sh`, `deploy/backup.sh` and
   `docs/operations/ytmon_daily_run.md` are phase 3; `DEPLOYMENT.md` already
   references the 09:17 slot they will implement.
