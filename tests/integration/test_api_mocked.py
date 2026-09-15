@@ -63,13 +63,20 @@ class TestYouTubeClientMocked:
         from googleapiclient.errors import HttpError
         from http.client import HTTPResponse
 
+        import json as _json
+
         mock_youtube = MagicMock()
         mock_build.return_value = mock_youtube
 
-        # Mock HTTP error
+        # Mock HTTP error. `reason` is set explicitly: it is an instance
+        # attribute of HTTPResponse, so Mock(spec=...) does not provide it and
+        # formatting the error raises AttributeError without it.
         mock_response = Mock(spec=HTTPResponse)
         mock_response.status = 500
-        error = HttpError(resp=mock_response, content=b'Server Error')
+        mock_response.reason = 'Internal Server Error'
+        error = HttpError(resp=mock_response, content=_json.dumps(
+            {'error': {'errors': [{'reason': 'backendError'}],
+                       'message': 'Server Error'}}).encode())
 
         # First two calls fail, third succeeds
         mock_youtube.channels().list().execute.side_effect = [
@@ -78,7 +85,7 @@ class TestYouTubeClientMocked:
             {'items': [{'id': 'UC_test', 'snippet': {'title': 'Test'}}]}
         ]
 
-        client = YouTubeAPIClient(api_key="test_key", max_retries=3, retry_delay=0.1)
+        client = YouTubeAPIClient(api_key="test_key", max_retries=3, retry_delay=0)
         result = client.get_channel_info("UC_test")
 
         assert result is not None
@@ -86,22 +93,30 @@ class TestYouTubeClientMocked:
 
     @patch('src.youtube_client.build')
     def test_quota_exceeded_error(self, mock_build):
-        """Test handling of quota exceeded error."""
+        """A quota 403 must reach the caller, never be returned as not-found."""
+        import json as _json
         from googleapiclient.errors import HttpError
         from http.client import HTTPResponse
+
+        from src.errors import QuotaExhausted
 
         mock_youtube = MagicMock()
         mock_build.return_value = mock_youtube
 
         mock_response = Mock(spec=HTTPResponse)
         mock_response.status = 403
-        error = HttpError(resp=mock_response, content=b'Quota Exceeded')
+        mock_response.reason = 'Forbidden'
+        error = HttpError(resp=mock_response, content=_json.dumps(
+            {'error': {'errors': [{'reason': 'quotaExceeded'}],
+                       'message': 'Quota Exceeded'}}).encode())
 
         mock_youtube.channels().list().execute.side_effect = error
 
         client = YouTubeAPIClient(api_key="test_key")
 
-        with pytest.raises(HttpError):
+        # Was HttpError; the client now raises the taxonomy so callers can
+        # tell "out of quota" apart from "no such channel".
+        with pytest.raises(QuotaExhausted):
             client.get_channel_info("UC_test")
 
 
