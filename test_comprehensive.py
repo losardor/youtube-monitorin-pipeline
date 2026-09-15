@@ -52,12 +52,12 @@ try:
     from googleapiclient.discovery import build
     youtube = build('youtube', 'v3', developerKey=api_key)
     
-    # Simple test search
-    request = youtube.search().list(part='snippet', q='news', type='channel', maxResults=1)
+    # Liveness check: channels.list by handle, 1 unit (was search.list, 100).
+    request = youtube.channels().list(part='snippet', forHandle='@YouTube')
     response = request.execute()
     
     if response.get('items'):
-        print(f"   ✓ API connection successful")
+        print(f"   ✓ API connection successful (cost: 1 unit)")
         print()
     else:
         print(f"   ⚠ API returned no results (but connection works)")

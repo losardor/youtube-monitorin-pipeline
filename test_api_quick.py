@@ -27,18 +27,18 @@ print(f"Key starts with: {api_key[:10]}...")
 try:
     youtube = build('youtube', 'v3', developerKey=api_key)
     
-    # Test with search
-    request = youtube.search().list(
+    # Liveness check via channels.list(forHandle=...): 1 unit.
+    # This used to be search.list, which costs 100 units -- 1% of a standard
+    # day's quota to answer "is the key valid".
+    request = youtube.channels().list(
         part='snippet',
-        q='news',
-        type='channel',
-        maxResults=1
+        forHandle='@YouTube'
     )
     
     response = request.execute()
     
     if response.get('items'):
-        print("✓ API connection successful!")
+        print("✓ API connection successful! (cost: 1 unit)")
         print(f"✓ API key is working properly!")
         print("\nYour API is ready. You can skip the full test and go directly to:")
         print("  python src/collector.py --sources data/sources.csv --max-channels 3")
