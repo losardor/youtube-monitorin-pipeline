@@ -15,8 +15,8 @@
 - [ ] Test API connection: `python test_api_quick.py`
 
 ### 3. Database Preparation
-- [ ] Database structure verified (run `check_quota_bug.py`)
-- [ ] `quota_cumulative` column exists in `collection_runs` table
+- [ ] Database structure verified (run `python daily.py status`)
+- [ ] `quota_ledger` table exists and records the current Pacific day
 - [ ] No data integrity issues (check with SQL queries)
 - [ ] Backup existing database if needed
 
@@ -171,11 +171,8 @@ grep youtube_api_key config/config_comprehensive.yaml
 
 #### Quota Tracking Issues
 ```bash
-# Verify database schema
-python check_quota_bug.py
-
-# Test quota fix
-python test_quota_fix.py
+# Verify database schema and today's quota spend
+python daily.py status
 ```
 
 #### Resume Issues
@@ -231,8 +228,9 @@ FROM channels
 JOIN videos USING(channel_id)
 LEFT JOIN comments USING(video_id);"
 
-# Verify quota accuracy
-python check_quota_bug.py
+# Verify quota accuracy (actual charges, per endpoint)
+sqlite3 data/youtube_monitoring.db \
+  "SELECT day, endpoint, calls, units FROM quota_ledger ORDER BY day DESC, units DESC;"
 ```
 
 ## 📝 Documentation
