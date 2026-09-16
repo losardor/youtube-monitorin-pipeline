@@ -1,0 +1,67 @@
+newsguard_domain,newsguard_brand,failed_url,failure_reason,wikidata_channel_id,wikidata_label,wd_item,match_method,already_in_db,tier_if_known,collected,recovery_cost_units
+it.sputniknews.com,Sputnik,https://www.youtube.com/channel/UC54O9VZSO2p05SjwaLDdJjA,Channel not found (deleted/private/suspended),UCE8LqmM9zkuzOgaYhakwTdw,Sputnik,Q18572033,brand_exact,yes,3,no,1
+wired.it,WIRED,https://www.youtube.com/c/wireditaliamagazine,Channel not found (deleted/private/suspended),UCftwRNsjfRo08xYE31tkiyw,Wired,Q520154,domain,yes,0,yes,1
+francais.rt.com,RT en français,https://www.youtube.com/channel/UCqEVwTnDzlzKOGYNFemqnYA,Channel not found (deleted/private/suspended),UCqEVwTnDzlzKOGYNFemqnYA,RT en français,Q19599559,brand_exact,yes,3,no,1
+komitid.fr,Komitid,https://www.youtube.com/channel/UCsSbVibHS3mi47TJ-odKcwA,Channel not found (deleted/private/suspended),UCwFSp0TgSm-p3FdKpLdRqJw,Komitid,Q54867850,domain,yes,3,no,1
+vaticannews.va,Vatican News,https://www.youtube.com/c/VaticanNewsIT,Channel not found (deleted/private/suspended),UC7E-LYc1wivk33iyt5bR5zQ,Vatican News,Q1034213,brand_exact,yes,1,yes,1
+latribune.fr,La Tribune,https://www.youtube.com/c/TVLaTribune,Channel not found (deleted/private/suspended),UC6WdZQhg1wkZJWCmnDiIeOQ,The Tribune,Q7770195,brand_exact,yes,0,yes,1
+ln-online.de,Lübecker Nachrichten,https://www.youtube.com/user/lnonlinede,Channel not found (deleted/private/suspended),UC611hae5Dsr8Q0sTq3vafOw,Lübecker Nachrichten,Q1880147,brand_exact,yes,3,no,1
+wiwo.de,WirtschaftsWoche,https://www.youtube.com/c/wirtschaftswoche,Channel not found (deleted/private/suspended),UC9Myw7U_bMdDpFL_-jkh3Dw,WirtschaftsWoche,Q540072,brand_exact,yes,1,yes,1
+latribune.ca,La Tribune,https://www.youtube.com/c/Cp24TorontoBreakingNews,Channel not found (deleted/private/suspended),UC6WdZQhg1wkZJWCmnDiIeOQ,The Tribune,Q7770195,brand_exact,yes,0,yes,1
+dailytelegraph.com.au,The Daily Telegraph,https://www.youtube.com/c/dailytelegraphAU,Channel not found (deleted/private/suspended),UCPgLNge0xqQHWM5B5EFH9Cg,The Daily Telegraph,Q192621,brand_exact,yes,0,yes,1
+abc.net.au,ABC,https://www.youtube.com/c/NewsOnABC,Channel not found (deleted/private/suspended),UCBi2mrWuNuyYy4gbM6fU18Q,ABC News,Q287171,brand_exact,yes,0,yes,1
+news.com.au,News.com.au,https://www.youtube.com/c/newscomauhq,Channel not found (deleted/private/suspended),UCdkoob1vjdQQp-yMGOv-9bw,News.Ro,Q98034432,domain,yes,2,yes,1
+theleader.com.au,The Leader,https://www.youtube.com/channel/UCCQUa-99__N6R0th6xrBTBA,Channel not found (deleted/private/suspended) [confirmed on revalidation],UCY46nxC-bWjGWsASsJUBGhw,Leader-News,Q56446609,brand_exact,yes,3,no,1
+ottawacitizen.com,Ottawa Citizen,https://www.youtube.com/c/ottawacitizen,Channel not found (deleted/private/suspended),UCYYSLCzDmmED5hnYcFmKimA,Ottawa Citizen,Q3357762,brand_exact,yes,1,yes,1
+dailyhive.com,Daily Hive,https://www.youtube.com/c/DailyHive,Channel not found (deleted/private/suspended),UCm3DfoFxJO0iKvVHAdpdOKg,Daily Hive,Q39087049,brand_exact,yes,3,no,1
+winnipegfreepress.com,Winnipeg Free Press,https://www.youtube.com/user/winnipegfreepress,Channel not found (deleted/private/suspended),UCSRRURbKlPf1HwPUhjmufTg,The Free Press,Q116769322,brand_subset,yes,1,yes,1
+thespec.com,The Hamilton Spectator,https://www.youtube.com/c/TheSpecvideo,Channel not found (deleted/private/suspended),UClYCOHIp9ocjKOhkj4-TMyw,The Hamilton Spectator,Q7738681,brand_exact,yes,1,yes,1
+nationalpost.com,National Post,https://www.youtube.com/c/nationalpostvideos,Channel not found (deleted/private/suspended),UC6V13T-dU0k5ixFo6lgOpHg,The National,Q18573802,brand_exact,yes,0,yes,1
+globalnews.ca,Global News,https://www.youtube.com/c/globalnews,Channel not found (deleted/private/suspended),UCO9SfFMUHEeMXt1EKIcN1oA,Global Times,Q970443,brand_exact,yes,1,yes,1
+ctvnews.ca,CTV News,https://www.youtube.com/c/CTVNews,Channel not found (deleted/private/suspended),UCi7Zk9baY1tvdlgxIML8MXg,CTV News,Q5014635,brand_exact,yes,1,yes,1
+financialpost.com,The Financial Post,https://www.youtube.com/user/thefinancialpost,Channel not found (deleted/private/suspended),UCoUxsWakJucWg46KW5RsvPw,Financial Times,Q183399,brand_exact,yes,0,yes,1
+dailyrecord.co.uk,Daily Record,https://www.youtube.com/user/scottishdailyrecord,Channel not found (deleted/private/suspended),UCYSbixMac85Y4vKyJAbV8JA,Times-Record,Q56236801,brand_exact,yes,2,yes,1
+asianlite.com,Asian Lite International,https://www.youtube.com/user/Asianliteglobal,Channel not found (deleted/private/suspended),UCtFQDgA8J8_iiwc5-KoAQlg,Asian News International,Q2613165,brand_subset,yes,0,yes,1
+thesun.co.uk,The Sun,https://www.youtube.com/c/thesun,Channel not found (deleted/private/suspended),UCIzXayRP7-P0ANpq-nD-h5g,The Sun,Q208875,brand_exact,yes,1,yes,1
+news.sky.com,Sky News,https://www.youtube.com/c/SkyNews,Channel not found (deleted/private/suspended),UCdkoob1vjdQQp-yMGOv-9bw,News.Ro,Q98034432,domain,yes,2,yes,1
+standard.co.uk,Evening Standard,https://www.youtube.com/c/LondonEveningStandard,Channel not found (deleted/private/suspended),UC7RQon_YwCnp_LbPtEwW65w,Evening Standard,Q666494,brand_exact,yes,1,yes,1
+bbc.co.uk,BBC,https://www.youtube.com/c/BBCNews,Channel not found (deleted/private/suspended),UC16niRr50-MSBwiO3YDb3RA,BBC News,Q1160945|Q4704926,brand_exact,yes,0,yes,1
+telegraph.co.uk,The Telegraph,https://www.youtube.com/c/telegraph,Channel not found (deleted/private/suspended),UCPgLNge0xqQHWM5B5EFH9Cg,The Daily Telegraph,Q192621,brand_exact,yes,0,yes,1
+dailystar.co.uk,The Daily Star,https://www.youtube.com/user/DailyStarOnline,Channel not found (deleted/private/suspended),UCpWvshQVx1d7BqCsPnVuNIw,The Star,Q3522843,brand_exact,yes,1,yes,1
+dailymail.co.uk,Daily Mail,https://www.youtube.com/c/dailymail,Channel not found (deleted/private/suspended),UC_F9B2-NjbbWevbhzY7_6Ag,Post & Mail,Q56236540,brand_exact,yes,3,no,1
+independent.co.uk,The Independent,https://www.youtube.com/c/theindependent,Channel not found (deleted/private/suspended),UCkXNyBuuvNUapt0PRK-6N2w,Independent,Q56236728,domain,yes,3,no,1
+newarab.com,The New Arab,https://www.youtube.com/c/TheNewArabEn,Channel not found (deleted/private/suspended),UCQ2BzTiRUbL3z4K22dTB5dg,The New Arab,Q20389499,brand_exact,yes,1,yes,1
+thecourier.co.uk,The Courier & Advertiser,https://www.youtube.com/c/TheCourierNews,Channel not found (deleted/private/suspended),UC6Yp0nkbJPZCBTCtWI3IV9g,Hermann Advertiser Courier,Q55667678,brand_subset,yes,3,no,1
+techradar.com,,https://www.youtube.com/c/techradar,Channel not found (deleted/private/suspended),UCAY_M9HyJb8oMKPV1utQQyA,TechRadar,Q611515,domain,yes,3,no,1
+sunderlandecho.com,Sunderland Echo,https://www.youtube.com/user/SunderlandEchoOnline,Channel not found (deleted/private/suspended),UCIMofPWzlkXfR3MiD5B91_g,Sunderland Echo,Q4118797,brand_exact,yes,3,no,1
+leaderlive.co.uk,The Leader,https://www.youtube.com/user/nwnmedia,Channel not found (deleted/private/suspended),UCY46nxC-bWjGWsASsJUBGhw,Leader-News,Q56446609,brand_exact,yes,3,no,1
+gaystarnews.com,Gay Star News,https://www.youtube.com/channel/UCF84AcvzViybFvmNsiA_gIw,Channel not found (deleted/private/suspended) [confirmed on revalidation],UCF84AcvzViybFvmNsiA_gIw,Gay Star News,Q5528640,brand_exact,yes,3,no,1
+forbes.com,,https://www.youtube.com/c/Forbes,Channel not found (deleted/private/suspended),UCmh7afBz-uWwOSSNTqUBAhg,Forbes,Q25161472,domain,yes,1,yes,1
+dailycaller.com,The Daily Caller,https://www.youtube.com/user/DailyCallerVideo,Channel not found (deleted/private/suspended),UCP4BdwPKyYnfRLjSNfGAPRA,The Daily Caller,Q7728625,brand_exact,yes,1,yes,1
+electronicintifada.net,The Electronic Intifada,https://www.youtube.com/user/electronicIntifada,Channel not found (deleted/private/suspended),UC9jY5IcAA99wX8MZQ9K9r-Q,The Electronic Intifada,Q2227214,brand_exact,yes,1,yes,1
+bnonews.com,BNO News,https://www.youtube.com/user/bnonews,Channel not found (deleted/private/suspended),UCOwAf0r6kIOj8783xDye2pQ,BNO News,Q975695,brand_exact,yes,1,yes,1
+aljazeera.com,Al Jazeera,https://www.youtube.com/c/aljazeeraenglish,Channel not found (deleted/private/suspended),UCNye-wNBqNL5ZzHSJj3l8Bg,aljazeera.com,Q4296040|Q4727585,domain,yes,1,yes,1
+theepochtimes.com,The Epoch Times,https://www.youtube.com/c/TheEpochTimesNews,Channel not found (deleted/private/suspended),UCVHupqFUgMkbzm9Ama7_8gA,Epoch,Q96306301,brand_exact,yes,1,yes,1
+huffpost.com,Huff Post,https://www.youtube.com/c/huffpost,Channel not found (deleted/private/suspended),UCZfsrIV68Oegr5bJgAMLBDA,HuffPost,Q18049522,domain,yes,1,yes,1
+space.com,,https://www.youtube.com/user/VideoFromSpace,Channel not found (deleted/private/suspended),UCVTomc35agH1SM6kCKzwW_g,space.com,Q3112835,domain,yes,1,yes,1
+westernjournal.com,The Western Journal,https://www.youtube.com/c/WesternJournal,Channel not found (deleted/private/suspended),UCa2gbBXGeGh-Pdtugdg_qcQ,The Western Journal,Q29096488,brand_exact,yes,1,yes,1
+thehill.com,The Hill,https://www.youtube.com/c/thehill,Channel not found (deleted/private/suspended),UCPWXiRWZ29zrxPFIQT7eHSA,The Hill,Q7739683,brand_exact,yes,1,yes,1
+sana.sy,Syrian Arab News Agency,https://www.youtube.com/user/syrianarabnewsagency,Channel not found (deleted/private/suspended),UCOdpeidso85hQh1fvxcVwjw,Syrian Arab News Agency,Q63392,brand_exact,yes,1,yes,1
+courthousenews.com,Courthouse News Service,https://www.youtube.com/@courthousenews5347,Channel not found (deleted/private/suspended),UCkjItKWXaynj7EPfQ-harrQ,Courthouse News Service,Q5178516,brand_exact,yes,1,yes,1
+fivethirtyeight.com,,https://www.youtube.com/channel/UCXKjhxsfFQUqlNVQzLVnpEA,Channel not found (deleted/private/suspended),UCXKjhxsfFQUqlNVQzLVnpEA,FiveThirtyEight,Q600669,domain,yes,3,no,1
+hindustantimes.com,The Hindustan Times,https://www.youtube.com/c/htdotcom,Channel not found (deleted/private/suspended),UCm7lHFkt2yB_WzL67aruVBQ,Hindustan Times,Q41595,brand_exact,yes,1,yes,1
+nv.ua,New Voice,https://www.youtube.com/@videoNVua,Channel not found (deleted/private/suspended),UCFRkqOONCkI5jJ3oYFzJjvA,The New Voice of Ukraine,Q20093911,brand_subset,yes,1,yes,1
+news.nayag.com,,https://www.youtube.com/c/NAYAGTV,Channel not found (deleted/private/suspended),UCdkoob1vjdQQp-yMGOv-9bw,News.Ro,Q98034432,domain,yes,2,yes,1
+nydailynews.com,New York Daily News,https://www.youtube.com/c/dailynews,Channel not found (deleted/private/suspended),UCqnbDFdCpuN8CMEg0VuEBqA,The New York Times,Q9684,brand_exact,yes,1,yes,1
+breitbart.com,Breitbart,https://www.youtube.com/channel/UCmgnsaQIK1IR808Ebde-ss,Channel not found (deleted/private/suspended) [confirmed on revalidation],UCmgnsaQIK1IR808Ebde-ssA,Breitbart News,Q4960434,brand_exact,yes,1,yes,1
+en.people.cn,People's Daily,https://www.youtube.com/user/PeoplesDailyonline,Channel not found (deleted/private/suspended),UC6VqhWxzlgWu0gw8itpWDQA,People's Voice,Q7165811,brand_subset,yes,2,yes,1
+rsbnetwork.com,Right Side Broadcasting Network,https://www.youtube.com/c/RightSideBroadcastingNetwork,Channel not found (deleted/private/suspended),UCHqC-yWZ1kri4YzwRSt6RGQ,Right Side Broadcasting Network,Q27629636,brand_exact,yes,1,yes,1
+reuters.com,,https://www.youtube.com/c/Reuters,Channel not found (deleted/private/suspended),UChqUTb7kYRX8-EiaN3XFrSQ,Reuters,Q130879,domain,yes,1,yes,1
+elamerican.com,El American,https://www.youtube.com/channel/UCk6tcGiLx61U0q0Px4tZPvw,Channel not found (deleted/private/suspended) [confirmed on revalidation],UCk6tcGiLx61U0q0Px4tZPvw,El American,Q100754558,brand_exact,yes,3,no,1
+voiceofeurope.com,Voice of Europe,https://www.youtube.com/channel/UChto_0xZP41Ld2w5vIbhEiA,Channel not found (deleted/private/suspended) [confirmed on revalidation],UCi87XRXDgTMwULWc2KWgUEg,Voice of Europe,Q125252667,brand_exact,yes,3,no,1
+nbcnews.com,NBC News,https://www.youtube.com/c/NBCNews,Channel not found (deleted/private/suspended),UCeY0bbntWzzVIaj2z3QigXg,NBC News,Q2877626,brand_exact,yes,1,yes,1
+shelbystar.com,The Star,https://www.youtube.com/channel/UCdJuL8qUkv_wSSH7uT5pWSg,Channel not found (deleted/private/suspended),UCpWvshQVx1d7BqCsPnVuNIw,The Star,Q3522843,brand_exact,yes,1,yes,1
+norwichbulletin.com,The Bulletin,https://www.youtube.com/channel/UCT_sVYfZBeqeDwmHnUqoPfg,Channel not found (deleted/private/suspended),UCcXWldkGVrfEUCJjKyvKgvQ,Post-Bulletin,Q7233471,brand_exact,yes,0,yes,1
+the-village.com.ua,The Village Ukraine,https://www.youtube.com/@thevillage5702,Channel not found (deleted/private/suspended),UChnN1D-OCyACuu1KDscKlwA,Village Ukraine,Q119361981,brand_exact,yes,1,yes,1
+vvdailypress.com,Daily Press,https://www.youtube.com/channel/UCbDhz3onZXGalUYuDn4dUMQ,Channel not found (deleted/private/suspended),UC4HkxN3-j-bQVd_1ZZKOqSA,The News-Press,Q7753897,brand_exact,yes,2,yes,1
+buzzfeednews.com,BuzzFeed News,https://www.youtube.com/channel/UCf4FYTsGFFcdc68AUPIU3RA,Channel not found (deleted/private/suspended),UCf4FYTsGFFcdc68AUPIU3RA,BuzzFeed News,Q55715275,brand_exact,yes,3,no,1

@@ -1187,10 +1187,65 @@ def test_excluded_tier_is_never_queued_for_videos_or_comments(tmp_path):
     assert 'vok' in pulled
 
 
-def test_shipped_config_excludes_tier_two(tmp_path):
-    """The committed daily config must not collect tier 2 until it passes."""
+def test_shipped_config_collects_the_gated_tiers(tmp_path):
+    """
+    The committed daily config collects tiers 0-2 and never tier 3.
+
+    Tier 2 was admitted once the rule-(a) tightening brought it to 8% false
+    positives on a 50-row redraw, under the 15% threshold. Tier 3 stays out
+    unconditionally, which is the part that must not regress.
+    """
     import yaml
     cfg = yaml.safe_load(open('config/config_daily.yaml'))
-    assert cfg['collect_tiers'] == [0, 1]
+    assert cfg['collect_tiers'] == [0, 1, 2]
     from src.daily import collect_tiers
-    assert 2 not in collect_tiers(cfg)
+    assert collect_tiers(cfg) == [0, 1, 2]
+    assert 3 not in collect_tiers(cfg)
+
+
+# ---------------------------------------------------------------------------
+# 2.4 alt_of
+# ---------------------------------------------------------------------------
+
+def _det(cid, title, videos):
+    return {'id': cid, 'snippet': {'title': title},
+            'statistics': {'videoCount': str(videos)}}
+
+
+def test_canonical_is_chosen_by_token_overlap_then_video_count():
+    from scripts.link_alt_channels import canonical_of
+
+    details = {
+        'UCa': _det('UCa', 'Le Monde Clips', 5),
+        'UCb': _det('UCb', 'Le Monde', 900),
+        'UCc': _det('UCc', 'Totally Unrelated', 99999),
+    }
+    # 'Le Monde' shares tokens with the label and is not the largest channel;
+    # overlap must beat raw video count.
+    assert canonical_of(['UCa', 'UCb', 'UCc'], details, 'Le Monde') == 'UCb'
+
+    # With overlap tied, video count decides.
+    tied = {'UCx': _det('UCx', 'Le Monde', 10), 'UCy': _det('UCy', 'Le Monde', 20)}
+    assert canonical_of(['UCx', 'UCy'], tied, 'Le Monde') == 'UCy'
+
+    # With both tied, the channel id keeps it deterministic.
+    same = {'UC1': _det('UC1', 'Same', 7), 'UC2': _det('UC2', 'Same', 7)}
+    assert canonical_of(['UC2', 'UC1'], same, 'Same') == 'UC1'
+
+
+def test_alternate_never_enters_tier_zero():
+    """
+    Tier 0 is the validated NewsGuard frame and nothing else.
+
+    Admitting an alternate to it on Wikidata provenance alone would redefine
+    the primary frame and silently break every count resting on it. A first
+    version of the alt pass did exactly that, moving 4 channels into tier 0.
+    """
+    from scripts.link_alt_channels import MIN_ALT_TIER
+
+    assert MIN_ALT_TIER == 1
+    # An alternate of a tier-0 canonical lands at tier 1: still collected,
+    # since collection covers tiers 0-1, but not part of the frame.
+    assert max(0, MIN_ALT_TIER) == 1
+    assert max(2, MIN_ALT_TIER) == 2      # never promotes a tier-2 alternate
+    assert max(3, MIN_ALT_TIER) == 3

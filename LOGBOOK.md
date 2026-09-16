@@ -2,10 +2,11 @@
 
 ## Current Status (as of 2026-09-16)
 
-**Current phase:** Phase 2 of the ytmon merge largely complete on `feat/daily-monitor`. Gate 2: tier 1 passes (0% FP after demotion), **tier 2 fails (20%, threshold 15%)** and needs 2.3 tightened and redrawn. Phase 3 (cluster deployment) not started.
+**Current phase:** Phases 1 and 2 of the ytmon merge **complete and merged to `production`** (tags `ytmon-merge-p1p2`, `ytmon-phase2-closed`). Phase 3 (cluster deployment) not started.
 
-- **Production database:** `data/youtube_monitoring.db` now holds the frame — 2,856 tier 0, 779 tier 1, 1,110 tier 2, 1,291 tier 3.
-- **Quota spent on tiering:** 2,505 units across 2026-09-15/16. All API responses archived; recomputable free.
+- **Production database:** `data/youtube_monitoring.db` — 2,856 tier 0, 788 tier 1, 668 tier 2, 1,724 tier 3 (6,036 rows). `collect_tiers: [0, 1, 2]`.
+- **Gate 2:** tier 1 0/25 = 0%; tier 2 4/50 = 8% on the redraw under rule (a), 4/63 = 6.3% pooled. Both pass.
+- **Quota spent on tiering:** 2,505 units across 2026-09-15/16. All API responses archived and backed up to `gdelt-server:/data/ytmon/backups/`; everything downstream recomputes free.
 
 - **Validated URLs:** 3,307 / 3,307 (100%)
 - **Confirmed channels:** 2,867 (86.7% success rate after Run #3d recovery pass)
@@ -396,6 +397,191 @@ on the same inode, so they will contend on Linux, but **this needs confirming on
   `docs/operations/ytmon_daily_run.md` are phase 3; `DEPLOYMENT.md` already
   references the 09:17 slot they will implement.
 - `SERVER_MIGRATION_GUIDE.md` still needs its superseded-by notice (phase 3).
+
+---
+
+## 2026-09-16: Phase 2 CLOSED
+
+Tier 2 admitted after tightening, alternates linked, coverage audited, frame
+exported. **No quota spent on any of this work** — every input is an archived
+API response or a free Wikidata query. Phase 2 total remains 2,505 units.
+
+### Final tier table
+
+| Tier | Rows | Composition | Collected |
+|---|---|---|---|
+| 0 | 2,856 | validated NewsGuard frame | yes |
+| 1 | 788 | Wikidata outlets, topic-confirmed and active (779) + alternates of tier-0/1 canonicals (9) | yes |
+| 2 | 668 | 319 individuals (Politics-confirmed) + 357 dormant topic-matched outlets, less alternates moved | yes |
+| 3 | 1,724 | recorded, never collected | no |
+| | **6,036** | | |
+
+`collect_tiers: [0, 1, 2]`. Tier 3 is excluded unconditionally in code, not
+merely by config.
+
+### The three Gate 2 rates
+
+| Stratum | Result |
+|---|---|
+| Tier 1, `topic` | **0/25 = 0%** (threshold 5%) — passes |
+| Tier 2, redraw under rule (a) | **4/50 = 8%** (threshold 15%) — passes |
+| Tier 2, pooled with the earlier in-scope rows | **4/63 = 6.3%** |
+
+The strata that failed were removed rather than argued with: tier-1
+`title_only` at 68% and tier-2 `title_only` at 96% both went to tier 3, 309
+outlet rows in total, tagged `:gate2_fp68`. Tier-2 individuals were tightened
+by rule (a), Politics topic required, moving 125 to tier 3 and keeping 319.
+
+Dormant topic-matched outlets stayed at tier 2 rather than being dropped:
+they passed at 0%, recency is a cost question rather than a precision one, and
+an outlet that resumes publishing is itself a finding.
+
+### 2.4 alternates
+
+101 Wikidata items map to more than one channel in the database; 126
+alternates linked via `alt_of`, 40 of them at tier 0-1 and so actually
+collected. The canonical is chosen by token overlap with the Wikidata label,
+then `videoCount`, then `channel_id` for determinism. Sitelink count is used
+nowhere — it is a fame proxy and the brief allows it only as a tie-breaker,
+which the first two criteria never needed.
+
+**A bug caught by the tier counts moving.** The first version let an alternate
+inherit its canonical's tier unconditionally, which promoted 4 channels *into
+tier 0*. Tier 0 is defined as the validated NewsGuard frame, so that quietly
+redefined the primary frame and would have invalidated every count already in
+this logbook. Alternates are now capped at tier 1. The 35 affected rows were
+repaired by recomputing their tier from the archives, and tier 0 was verified
+against `validation_progress.json` to match exactly — 2,856, with no
+difference in either direction. A test now pins the invariant.
+
+### 2.5 coverage audit
+
+`scripts/audit_frame_coverage.py` → `reports/`.
+
+**A. NewsGuard failures with a Wikidata channel: 66 of 440.** All 66 are
+already in the database through the Wikidata route, so none needs the 1-unit
+re-validation the list was meant to surface. **17 sit at tier 3** — held but
+never collected — and are the actionable half.
+
+**B. Frame gap: 772 of 788 tier-1 outlets are absent from NewsGuard**, led by
+the United States (93), India (32), Russia (26) and Ukraine (24), with 149
+carrying no country. This is the limitations-section finding: the sampling
+frame is NewsGuard's coverage, which is uneven by country and skews to outlets
+large enough to have been rated.
+
+Brand matching was tightened twice against its own output — a single shared
+token matched *L'Humanité* to *L'essentiel*; plain containment then matched
+*Press TV Français* to *The News-Press* and *Radio Gong 96.3* to *3 News*,
+because a one-token label swallows anything containing it. Equal token sets,
+or containment with two or more tokens, cut the list from 210 to 66. Both
+lists are candidates for review, not verified mappings: shared names survive
+any token matching (*La Tribune* / *The Tribune*), and `match_method` is
+recorded per row.
+
+### Country provenance
+
+Of 315 individuals at tier 1-2, 261 take the country from `snippet.country`,
+50 fall back to Wikidata `P27`, 4 remain unknown and are left NULL rather than
+guessed. Every fallback row carries `:country_from_citizenship` on its reason,
+so the Milei class of error — an Argentine politician with Italian citizenship
+filed under Italy — is greppable in the data rather than described in a
+comment.
+
+### `data/frame_tiers.csv`
+
+6,036 rows with the brief's columns plus `alt_of`. The `reason` column
+accumulates suffixes and reads as the decision history:
+`topic+title:politics`, `title_only:gate2_fp68`,
+`topic:stale:country_from_citizenship`. Labels prefer the channel's own title
+over the seed label, because 149 seed labels are bare QIDs; 6 rows have no
+usable label and are left empty rather than filled with an identifier
+pretending to be a name.
+
+### Out of scope, still open
+
+- Phase 3 in full: cluster deployment, `deploy/` scripts, cron, healthcheck,
+  backup rotation, the sizing re-derivation.
+- `SERVER_MIGRATION_GUIDE.md` still needs its superseded-by notice.
+- The 17 tier-3 promotion candidates from audit list A.
+- The 286 contaminated `/c/` and `/user/` validation URLs, still blocked on
+  the 1M quota approval.
+
+---
+
+## 2026-09-16: Tier 2 rule selection and redraw (branch `feat/tier2`, no quota)
+
+Gate 2 left tier 2 failing at 20% against a 15% threshold. This selects a
+tightening from the archived responses and redraws the hand check. **No quota
+spent** — every input is `data/raw/wikidata_confirm/` plus
+`data/wikidata_occupations.json`.
+
+### Scope
+
+Tier 2 holds 1,110 rows, but only **444 are individuals**, and rules (b) and
+(c) are occupation-based, so they only bite there. The other 666 are stale
+outlets (567) and the outlets demoted from tier 1 by Gate 2 (99); they are
+untouched by this.
+
+Of the 50 tier-2 rows hand-checked at Gate 2, **25 remain in scope** — the 25
+`title_only` rows were demoted to tier 3 and are no longer tier 2. Rates below
+are against those 25, and against the subset of them each rule keeps.
+
+### Rule comparison
+
+| Rule | Rows kept (of 444) | Checked rows kept | FP | FP rate |
+|---|---|---|---|---|
+| current (no tightening) | 444 | 25 | 5 | 20% |
+| **(a) Politics topic required** | **319** | 13 | 0 | **0%** |
+| (b) all-news occupations only | 303 | 17 | 3 | 18% |
+| (c) both | 224 | 9 | 0 | 0% |
+
+(a) and (c) are tied at 0%; (a) keeps 95 more rows, so the tie breaks to (a).
+(b) is 18 points clear of (a) and fails on its own, so it is not tied with
+anything. **Rule (a) selected.**
+
+The ranking denominators are small — 13, 17 and 9 rows — so this only orders
+the candidates. The redraw is what decides the gate, as intended.
+
+### Redraw under rule (a)
+
+50 rows drawn at random (seed 2026) from the 306 rule-(a) rows not already
+hand-checked, recorded with verdicts in `data/gate2_redraw.csv`.
+
+| | |
+|---|---|
+| n | 50 |
+| False positives | **4** |
+| **Rate** | **8%** |
+| Threshold | 15% |
+| **Result** | **PASSES** |
+
+Combined with the 13 rule-(a) rows checked earlier (0 false positives):
+**4/63 = 6.3%**.
+
+The four false positives are all Wikidata-classified journalists whose channel
+is something else:
+
+| Channel | Why |
+|---|---|
+| Myrka Dellanos Show | Emmy-winning broadcast journalist; the channel is faith and lifestyle |
+| potholer54 | former science journalist; debunks science misinformation |
+| Historia con Patricio Lons | history and hispanist advocacy |
+| АНДРІЙ ДАНІЛЕВИЧ | primarily a sports broadcaster |
+
+Three further rows were judged ok but are genuinely borderline and are flagged
+in the CSV: a Ukrainian talk-show host with heavy human-interest content, a
+Japanese conspiracy lecturer who calls himself a journalist (political
+content, so in scope for a polarization study, but not a journalist in any
+ordinary sense), and one channel with 320 subscribers and no description that
+could not be verified from the archive alone. Counting all three as false
+positives would give 7/50 = 14%, still under the threshold.
+
+### Status
+
+Rule (a) is selected and validated but **no tiers have been changed**; the
+tier-2 population is still the untightened 444 individuals, and
+`collect_tiers: [0, 1]` still excludes tier 2 from collection. Applying rule
+(a) would move 125 individuals from tier 2 to tier 3 and leave 319.
 
 ---
 
