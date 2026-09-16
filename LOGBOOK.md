@@ -399,6 +399,66 @@ on the same inode, so they will contend on Linux, but **this needs confirming on
 
 ---
 
+## 2026-09-16: Phases 1 and 2 merged to production; raw archives backed up
+
+### Merge and tag
+
+`feat/daily-monitor` merged into `production` as **`670bf86`**, with `--no-ff`
+so the two provenance boundaries keep their hashes and stay quotable:
+
+| Commit | Boundary |
+|---|---|
+| `bfbeda4` | before it, the client could truncate video and comment collection on quota exhaustion and record it as complete or comments-disabled |
+| `eab26e1` | before it, `INSERT OR REPLACE` reset `tier`, `uploads_playlist` and `comment_cursor` |
+
+Tagged **`ytmon-merge-p1p2`** (annotated, `b400599` → `670bf86`). Both pushed;
+`origin/production` and the local branch are identical, and the tag is
+confirmed present on the remote.
+
+The push initially failed twice, for reasons worth recording in case they
+recur: the SSH identity `donaldruggiero-losardo-csl` is not authorised on
+`losardor/youtube-monitorin-pipeline`, and the HTTPS fallback was rejected
+because the `gh` OAuth token lacked `workflow` scope while the push carried
+`033edee` (2026-04-20, pre-existing and unpushed since April), which adds
+`.github/workflows/tests.yml`.
+
+### Scope gating
+
+`config/config_daily.yaml` gains `collect_tiers: [0, 1]`. Tier 2 is excluded
+from collection until it passes Gate 2. All four stages are gated, not only
+the channels stage: `refresh_videos` and the comment queue would otherwise
+have kept re-stat'ing and re-polling tier-2 videos already in the table.
+Tier 3 is filtered out unconditionally, so no configuration can opt into
+collecting rows recorded never to be collected. `data/.ytmon.lock` is now
+gitignored.
+
+### Raw response archives backed up
+
+Both archives hold the API responses behind the phase 2 tiering — 2,447 quota
+units of spend. `wikidata_confirm` is tracked in git; `wikidata_recency` is
+gitignored and existed only on the workstation disk until this backup.
+
+| | |
+|---|---|
+| Tarball | `wikidata_raw_20260916.tar.gz` |
+| Destination | `gdelt-server:/data/ytmon/backups/` (`infosphereVM`, created this session) |
+| Size | 7.0 MB |
+| **md5 (both ends)** | **`5c16453b200b2abf5224b659f40cd3b7`** |
+| Contents | 2,451 entries — 73 `wikidata_confirm/*.json`, 2,376 `wikidata_recency/*.json` |
+
+Verified by comparing md5 locally and on the server, listing the archive
+remotely, and extracting it there.
+
+**Built with `COPYFILE_DISABLE=1`.** The first attempt used plain macOS `tar`,
+which bundled an AppleDouble `._` sidecar for every file: the md5 matched on
+both ends, but the archive held 4,898 `.json` entries instead of 2,449, half
+of them binary xattr stubs that are not JSON. A restore globbing `*.json`
+would have picked them up. The earlier tarball
+(`1b7bcdaf64559c7b88622d639d02070e`) was replaced in place and should not be
+used.
+
+---
+
 ## 2026-09-16: Phase 2 — Wikidata pool tiered (Gate 2: tier 1 passes, tier 2 fails)
 
 Branch `feat/daily-monitor`, continuing from phase 1. Loads the validated frame
