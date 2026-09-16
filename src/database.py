@@ -35,6 +35,13 @@ class Database:
             self.cursor = self.conn.cursor()
             # Enable foreign keys
             self.cursor.execute("PRAGMA foreign_keys = ON")
+            # WAL lets the daily run read while a backfill writes. Set here
+            # rather than in a caller so every process that opens the file
+            # gets the same journal mode (it is persistent, but a fresh file
+            # created by another entry point would otherwise start in DELETE).
+            self.cursor.execute("PRAGMA journal_mode = WAL")
+            self.cursor.execute("PRAGMA synchronous = NORMAL")
+            self.cursor.execute("PRAGMA busy_timeout = 30000")
             logger.info(f"Connected to database: {self.db_path}")
         except Exception as e:
             logger.error(f"Error connecting to database: {e}")
@@ -172,9 +179,84 @@ class Database:
                 )
             """)
             
+            # --- Longitudinal monitoring tables -------------------------------
+            # The YouTube Data API exposes only *current* statistics; there is
+            # no history endpoint. Longitudinal signal has to be manufactured by
+            # repeated observation, so these tables are append-only: every run
+            # adds a row keyed by (id, observed_at) and nothing is overwritten.
+            # The latest-observed columns on channels/videos stay as they are so
+            # view_data.py and existing SQL keep working.
+            self.cursor.execute("""
+                CREATE TABLE IF NOT EXISTS channel_snapshots (
+                    channel_id         TEXT NOT NULL,
+                    observed_at        TEXT NOT NULL,
+                    subscriber_count   INTEGER,
+                    hidden_subscribers INTEGER,
+                    view_count         INTEGER,
+                    video_count        INTEGER,
+                    PRIMARY KEY (channel_id, observed_at)
+                )
+            """)
+
+            self.cursor.execute("""
+                CREATE TABLE IF NOT EXISTS video_snapshots (
+                    video_id      TEXT NOT NULL,
+                    observed_at   TEXT NOT NULL,
+                    view_count    INTEGER,
+                    like_count    INTEGER,
+                    comment_count INTEGER,
+                    PRIMARY KEY (video_id, observed_at)
+                )
+            """)
+
+            # day is the Pacific-time billing day, because that is when the
+            # API's own quota counter resets.
+            self.cursor.execute("""
+                CREATE TABLE IF NOT EXISTS quota_ledger (
+                    day      TEXT NOT NULL,
+                    endpoint TEXT NOT NULL,
+                    calls    INTEGER,
+                    units    INTEGER,
+                    PRIMARY KEY (day, endpoint)
+                )
+            """)
+
+            self.cursor.execute("""
+                CREATE TABLE IF NOT EXISTS run_log (
+                    run_id      TEXT NOT NULL,
+                    stage       TEXT,
+                    started_at  TEXT,
+                    finished_at TEXT,
+                    calls       INTEGER,
+                    units_spent INTEGER,
+                    items       INTEGER,
+                    note        TEXT
+                )
+            """)
+
+            # Columns added to pre-existing tables. Guarded so an old database
+            # upgrades in place and a new one is a no-op.
+            self._add_missing_columns('channels', {
+                'tier': 'INTEGER DEFAULT 0',
+                'tier_reason': 'TEXT',
+                'wd_item': 'TEXT',
+                'wd_class': 'TEXT',
+                'uploads_playlist': 'TEXT',
+                'status': 'TEXT',
+                'last_checked': 'TEXT',
+                'alt_of': 'TEXT',
+            })
+            self._add_missing_columns('videos', {
+                'comments_state': 'TEXT',
+                'comment_pages_fetched': 'INTEGER DEFAULT 0',
+                'comment_cursor': 'TEXT',
+                'last_comment_count': 'INTEGER',
+                'last_stats_at': 'TEXT',
+            })
+
             # Create indexes for common queries
             self.cursor.execute("""
-                CREATE INDEX IF NOT EXISTS idx_videos_channel 
+                CREATE INDEX IF NOT EXISTS idx_videos_channel
                 ON videos(channel_id)
             """)
             
@@ -189,10 +271,30 @@ class Database:
             """)
             
             self.cursor.execute("""
-                CREATE INDEX IF NOT EXISTS idx_comments_published 
+                CREATE INDEX IF NOT EXISTS idx_comments_published
                 ON comments(published_at)
             """)
-            
+
+            self.cursor.execute("""
+                CREATE INDEX IF NOT EXISTS idx_csnap_time
+                ON channel_snapshots(observed_at)
+            """)
+
+            self.cursor.execute("""
+                CREATE INDEX IF NOT EXISTS idx_vsnap_time
+                ON video_snapshots(observed_at)
+            """)
+
+            self.cursor.execute("""
+                CREATE INDEX IF NOT EXISTS idx_channels_tier
+                ON channels(tier, status)
+            """)
+
+            self.cursor.execute("""
+                CREATE INDEX IF NOT EXISTS idx_videos_cstate
+                ON videos(comments_state, published_at)
+            """)
+
             self.conn.commit()
             logger.info("Database tables created/verified")
             
@@ -200,6 +302,78 @@ class Database:
             logger.error(f"Error creating tables: {e}")
             raise
     
+    def _add_missing_columns(self, table: str, columns: Dict[str, str]) -> List[str]:
+        """
+        Add columns to an existing table if they are not already present.
+
+        Args:
+            table: Table name
+            columns: Mapping of column name -> SQL type/default clause
+
+        Returns:
+            Names of the columns actually added
+        """
+        self.cursor.execute(f"PRAGMA table_info({table})")
+        existing = {col[1] for col in self.cursor.fetchall()}
+
+        added = []
+        for name, decl in columns.items():
+            if name not in existing:
+                self.cursor.execute(f"ALTER TABLE {table} ADD COLUMN {name} {decl}")
+                added.append(name)
+                logger.info(f"Added column {table}.{name}")
+        return added
+
+    def insert_channel_snapshot(self, channel_id: str, observed_at: str,
+                                subscriber_count: Optional[int] = None,
+                                hidden_subscribers: Optional[int] = None,
+                                view_count: Optional[int] = None,
+                                video_count: Optional[int] = None,
+                                commit: bool = True) -> bool:
+        """
+        Append one channel observation.
+
+        Uses INSERT OR IGNORE: (channel_id, observed_at) is the primary key, so
+        re-observing the same instant is a no-op rather than an overwrite. This
+        is what makes the table append-only and the migration idempotent.
+        """
+        try:
+            self.cursor.execute("""
+                INSERT OR IGNORE INTO channel_snapshots (
+                    channel_id, observed_at, subscriber_count,
+                    hidden_subscribers, view_count, video_count
+                ) VALUES (?, ?, ?, ?, ?, ?)
+            """, (channel_id, observed_at, subscriber_count,
+                  hidden_subscribers, view_count, video_count))
+            if commit:
+                self.conn.commit()
+            return True
+        except Exception as e:
+            logger.error(f"Error inserting channel snapshot for {channel_id}: {e}")
+            return False
+
+    def insert_video_snapshot(self, video_id: str, observed_at: str,
+                              view_count: Optional[int] = None,
+                              like_count: Optional[int] = None,
+                              comment_count: Optional[int] = None,
+                              commit: bool = True) -> bool:
+        """
+        Append one video observation. See insert_channel_snapshot for the
+        append-only / idempotence rationale.
+        """
+        try:
+            self.cursor.execute("""
+                INSERT OR IGNORE INTO video_snapshots (
+                    video_id, observed_at, view_count, like_count, comment_count
+                ) VALUES (?, ?, ?, ?, ?)
+            """, (video_id, observed_at, view_count, like_count, comment_count))
+            if commit:
+                self.conn.commit()
+            return True
+        except Exception as e:
+            logger.error(f"Error inserting video snapshot for {video_id}: {e}")
+            return False
+
     def insert_channel(self, channel_data: Dict) -> bool:
         """
         Insert or update channel data
@@ -216,35 +390,88 @@ class Database:
             branding = channel_data.get('brandingSettings', {}).get('channel', {})
             source_metadata = channel_data.get('source_metadata', {})
 
+            channel_id = channel_data['id']
+            observed_at = datetime.utcnow().isoformat()
+
+            subscriber_count = int(statistics['subscriberCount']) if statistics.get('subscriberCount') else None
+            video_count = int(statistics['videoCount']) if statistics.get('videoCount') else None
+            view_count = int(statistics['viewCount']) if statistics.get('viewCount') else None
+            hidden_subscribers = statistics.get('hiddenSubscriberCount')
+            if hidden_subscribers is not None:
+                hidden_subscribers = int(bool(hidden_subscribers))
+
+            uploads_playlist = (channel_data.get('contentDetails', {})
+                                            .get('relatedPlaylists', {})
+                                            .get('uploads'))
+
+            # INSERT OR REPLACE deletes the old row, so any column not named
+            # here would be reset to its default. Columns owned by the daily
+            # pipeline (tier, wd_*, status, ...) are carried forward explicitly
+            # via subselects; a backfill re-insert must not wipe them.
             self.cursor.execute("""
                 INSERT OR REPLACE INTO channels (
                     channel_id, channel_url, channel_title, description, custom_url,
                     published_at, country, subscriber_count, video_count, view_count,
-                    topic_categories, keywords, branding_keywords, last_updated_at,
-                    source_domain, source_rating, source_orientation
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    topic_categories, keywords, branding_keywords,
+                    first_collected_at, last_updated_at,
+                    source_domain, source_rating, source_orientation,
+                    tier, tier_reason, wd_item, wd_class, uploads_playlist,
+                    status, last_checked, alt_of
+                ) VALUES (
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    COALESCE((SELECT first_collected_at FROM channels WHERE channel_id = ?), ?),
+                    ?, ?, ?, ?,
+                    COALESCE((SELECT tier FROM channels WHERE channel_id = ?), 0),
+                    (SELECT tier_reason FROM channels WHERE channel_id = ?),
+                    (SELECT wd_item  FROM channels WHERE channel_id = ?),
+                    (SELECT wd_class FROM channels WHERE channel_id = ?),
+                    COALESCE(?, (SELECT uploads_playlist FROM channels WHERE channel_id = ?)),
+                    (SELECT status       FROM channels WHERE channel_id = ?),
+                    (SELECT last_checked FROM channels WHERE channel_id = ?),
+                    (SELECT alt_of       FROM channels WHERE channel_id = ?)
+                )
             """, (
-                channel_data['id'],
-                f"https://www.youtube.com/channel/{channel_data['id']}",
+                channel_id,
+                f"https://www.youtube.com/channel/{channel_id}",
                 snippet.get('title'),
                 snippet.get('description'),
                 snippet.get('customUrl'),
                 snippet.get('publishedAt'),
                 snippet.get('country'),
-                int(statistics.get('subscriberCount', 0)) if statistics.get('subscriberCount') else None,
-                int(statistics.get('videoCount', 0)) if statistics.get('videoCount') else None,
-                int(statistics.get('viewCount', 0)) if statistics.get('viewCount') else None,
+                subscriber_count,
+                video_count,
+                view_count,
                 json.dumps(channel_data.get('topicDetails', {}).get('topicCategories', [])),
                 branding.get('keywords'),
                 json.dumps(branding.get('keywords', '').split() if branding.get('keywords') else []),
-                datetime.utcnow().isoformat(),
+                channel_id, observed_at,          # first_collected_at COALESCE
+                observed_at,                      # last_updated_at
                 source_metadata.get('domain'),
                 source_metadata.get('rating'),
-                source_metadata.get('orientation')
+                source_metadata.get('orientation'),
+                channel_id,                       # tier
+                channel_id,                       # tier_reason
+                channel_id,                       # wd_item
+                channel_id,                       # wd_class
+                uploads_playlist, channel_id,     # uploads_playlist COALESCE
+                channel_id,                       # status
+                channel_id,                       # last_checked
+                channel_id,                       # alt_of
             ))
-            
+
+            # Every write to the latest-observed columns also appends an
+            # observation, so the series never has a gap the columns don't.
+            self.insert_channel_snapshot(
+                channel_id, observed_at,
+                subscriber_count=subscriber_count,
+                hidden_subscribers=hidden_subscribers,
+                view_count=view_count,
+                video_count=video_count,
+                commit=False,
+            )
+
             self.conn.commit()
-            logger.debug(f"Inserted/updated channel: {channel_data['id']}")
+            logger.debug(f"Inserted/updated channel: {channel_id}")
             return True
             
         except Exception as e:
@@ -278,16 +505,37 @@ class Database:
                 except:
                     pass
             
+            video_id = video_data['id']
+            observed_at = datetime.utcnow().isoformat()
+
+            view_count = int(statistics['viewCount']) if statistics.get('viewCount') else None
+            like_count = int(statistics['likeCount']) if statistics.get('likeCount') else None
+            # commentCount is absent when comments are disabled: that must stay
+            # NULL, not 0, or the series records a false zero.
+            comment_count = int(statistics['commentCount']) if statistics.get('commentCount') else None
+
+            # As in insert_channel: carry the daily pipeline's columns across
+            # the REPLACE, otherwise a backfill re-insert loses comment paging
+            # state and the harvester restarts the video from page one.
             self.cursor.execute("""
                 INSERT OR REPLACE INTO videos (
                     video_id, channel_id, title, description, published_at,
                     duration, duration_seconds, category_id, default_language,
                     default_audio_language, view_count, like_count, comment_count,
                     tags, topic_categories, made_for_kids, has_captions,
-                    thumbnail_url, collected_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    thumbnail_url, collected_at,
+                    comments_state, comment_pages_fetched, comment_cursor,
+                    last_comment_count, last_stats_at
+                ) VALUES (
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    (SELECT comments_state FROM videos WHERE video_id = ?),
+                    COALESCE((SELECT comment_pages_fetched FROM videos WHERE video_id = ?), 0),
+                    (SELECT comment_cursor     FROM videos WHERE video_id = ?),
+                    (SELECT last_comment_count FROM videos WHERE video_id = ?),
+                    ?
+                )
             """, (
-                video_data['id'],
+                video_id,
                 snippet.get('channelId'),
                 snippet.get('title'),
                 snippet.get('description'),
@@ -297,19 +545,32 @@ class Database:
                 snippet.get('categoryId'),
                 snippet.get('defaultLanguage'),
                 snippet.get('defaultAudioLanguage'),
-                int(statistics.get('viewCount', 0)) if statistics.get('viewCount') else None,
-                int(statistics.get('likeCount', 0)) if statistics.get('likeCount') else None,
-                int(statistics.get('commentCount', 0)) if statistics.get('commentCount') else None,
+                view_count,
+                like_count,
+                comment_count,
                 json.dumps(snippet.get('tags', [])),
                 json.dumps(video_data.get('topicDetails', {}).get('topicCategories', [])),
                 status.get('madeForKids'),
                 content_details.get('caption') == 'true',
                 snippet.get('thumbnails', {}).get('high', {}).get('url'),
-                datetime.utcnow().isoformat()
+                observed_at,
+                video_id,                 # comments_state
+                video_id,                 # comment_pages_fetched
+                video_id,                 # comment_cursor
+                video_id,                 # last_comment_count
+                observed_at,              # last_stats_at
             ))
-            
+
+            self.insert_video_snapshot(
+                video_id, observed_at,
+                view_count=view_count,
+                like_count=like_count,
+                comment_count=comment_count,
+                commit=False,
+            )
+
             self.conn.commit()
-            logger.debug(f"Inserted/updated video: {video_data['id']}")
+            logger.debug(f"Inserted/updated video: {video_id}")
             return True
             
         except Exception as e:

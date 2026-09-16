@@ -15,18 +15,17 @@ try:
     youtube = build('youtube', 'v3', developerKey=api_key)
     print("✓ YouTube client created successfully")
     
-    # Try a simple request - search for "python"
-    request = youtube.search().list(
+    # Simple request: channels.list by handle costs 1 unit, where the
+    # search.list this replaces cost 100.
+    request = youtube.channels().list(
         part='snippet',
-        q='python',
-        type='channel',
-        maxResults=1
+        forHandle='@YouTube'
     )
     
     response = request.execute()
     
     if response.get('items'):
-        print("✓ API request successful!")
+        print("✓ API request successful! (cost: 1 unit)")
         print(f"✓ Found channel: {response['items'][0]['snippet']['title']}")
     else:
         print("✗ API request returned no results")

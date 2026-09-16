@@ -1,0 +1,3144 @@
+{
+ "_requested": [
+  "UCNwUbsJ8HzvqwW_vA2vVOGw",
+  "UCO1lJlI3gjuOMrKppvPlDww",
+  "UCOmcA3f_RrH6b9NmcNa4tdg",
+  "UCP06SZMpEHKrx31UOr2SfqQ",
+  "UCP6HGa63sBC7-KHtkme-p-g",
+  "UCPPGpxW9qrE-UkJQ9EY7nOg",
+  "UCPY6gj8G7dqwPxg9KwHrj5Q",
+  "UCPgLNge0xqQHWM5B5EFH9Cg",
+  "UCQGqiGhMjc_p4lZEhSTb12g",
+  "UCQLRK5wiWGmzp4dnFt0arwA",
+  "UCQQ5t1A3aIvGFe1QVHIjwOg",
+  "UCQVhgOxzt5W1fZhOd0l2E6g",
+  "UCQaEL2cqvySMoNT7223LXrg",
+  "UCQd5LYcykaFeZtjDaP3bNSA",
+  "UCRG85wzvd1a9RJhbhwkGKeA",
+  "UCSKSlBrclINtzZjZjchSDFA",
+  "UCSq3p5NKEtyp5Rjd4ctiEbg",
+  "UCTJpOvxKtQU59WU6uHjlnBA",
+  "UCTo_GrhRsASw22tOpwXfEaQ",
+  "UCTrQ7HXWRRxr7OsOtodr2_w",
+  "UCUBWCthNWS-Zz-wCqs--Fwg",
+  "UCUQx9Ua3trdr-XiN2aB9KVQ",
+  "UCUgrUBKwSnXwQOBG4v3igMg",
+  "UCVG72F2Q5yCmLQfctNK6M2A",
+  "UCVS9tA3PI8Gard_LrTx0YsQ",
+  "UCVSNOxehfALut52NbkfRBaA",
+  "UCVykXnNvvMNLM6q0l7V4ivA",
+  "UCWckf0mR2VES5u5ErjuHgzg",
+  "UCWq564ONoREJprMNhewS6Sw",
+  "UCXJBRgiZRZvfilIGQ4wN5CQ",
+  "UCXXWh7wQAmi751M1X_ggQkA",
+  "UCXmbJzoDFpSkvodIoBHND8A",
+  "UCXwDLMDV86ldKoFVc_g8P0g",
+  "UCYUOdlg706siqd1fRsLtDSA",
+  "UCYZpcYxa-2fXWg-jNJOL8Ww",
+  "UCYpRDnhk5H8h16jpS84uqsA",
+  "UCYvQOj-t4u5-QKGB3AuoLjw",
+  "UCZj3_eWQ4f4oHm_x-wsxG7Q",
+  "UCaJBwb7XkojUOPbz_6uzPag",
+  "UCaWNn4aFJSqZW9FlN2YJP9g",
+  "UCaXkIU1QidjPwiAYu6GcHjg",
+  "UCaeO5vkdj5xOQHp4UmIN6dw",
+  "UCahujLjSL34EPNxtwKRi_vg",
+  "UCb0xB4NwoAANhxikOjw3Tnw",
+  "UCbKd8XD55dOp4f1v17odafw",
+  "UCbfSa4sFelkMsEHL1aUo2iw",
+  "UCbtCkaSP0s0RtqTNnNrN4Iw",
+  "UCcLK3j-XWdGBnt5bR9NJHaQ",
+  "UCcPcua2PF7hzik2TeOBx3uw",
+  "UCcXWldkGVrfEUCJjKyvKgvQ"
+ ],
+ "_fetched_at": "2026-09-15T16:07:27.561016+00:00",
+ "kind": "youtube#channelListResponse",
+ "etag": "ZUYQ68pZvG9JfTx-ui4pqESpxr0",
+ "pageInfo": {
+  "totalResults": 50,
+  "resultsPerPage": 50
+ },
+ "items": [
+  {
+   "kind": "youtube#channel",
+   "etag": "k_v0Hh66skoTkdsVduaUkfUQn0c",
+   "id": "UCZj3_eWQ4f4oHm_x-wsxG7Q",
+   "snippet": {
+    "title": "The Salt Lake Tribune",
+    "description": "Utah's essential nonprofit news source.",
+    "customUrl": "@sltrib",
+    "publishedAt": "2006-10-31T17:34:20Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/8pj8Zdc94hyd8F6gtESLdVUM3am1wUs6jfZa0f2MAaeg3SlutojAr9lk37soqVU9_CzQATEjZw=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/8pj8Zdc94hyd8F6gtESLdVUM3am1wUs6jfZa0f2MAaeg3SlutojAr9lk37soqVU9_CzQATEjZw=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/8pj8Zdc94hyd8F6gtESLdVUM3am1wUs6jfZa0f2MAaeg3SlutojAr9lk37soqVU9_CzQATEjZw=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "The Salt Lake Tribune",
+     "description": "Utah's essential nonprofit news source."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUZj3_eWQ4f4oHm_x-wsxG7Q"
+    }
+   },
+   "statistics": {
+    "viewCount": "91602557",
+    "subscriberCount": "85400",
+    "hiddenSubscriberCount": false,
+    "videoCount": "4573"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "Zp4JEhcBm1fDsX8Cdf1gyCK6jYQ",
+   "id": "UCPPGpxW9qrE-UkJQ9EY7nOg",
+   "snippet": {
+    "title": "HNA",
+    "description": "Videos der Tageszeitung HNA. Der regionale Schwerpunkt liegt auf Nordhessen und S\u00fcdniedersachsen, die Hauptredaktion befindet sich in Kassel.",
+    "customUrl": "@hnaonline",
+    "publishedAt": "2008-12-18T12:44:06Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m9w2vDebG0ve0Xd8yKvOo7nnVSazIq6WkEyFzzEHLFUVE=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m9w2vDebG0ve0Xd8yKvOo7nnVSazIq6WkEyFzzEHLFUVE=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m9w2vDebG0ve0Xd8yKvOo7nnVSazIq6WkEyFzzEHLFUVE=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "HNA",
+     "description": "Videos der Tageszeitung HNA. Der regionale Schwerpunkt liegt auf Nordhessen und S\u00fcdniedersachsen, die Hauptredaktion befindet sich in Kassel."
+    },
+    "country": "DE"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUPPGpxW9qrE-UkJQ9EY7nOg"
+    }
+   },
+   "statistics": {
+    "viewCount": "72063659",
+    "subscriberCount": "45700",
+    "hiddenSubscriberCount": false,
+    "videoCount": "8988"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/019_rr",
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "552y87s-_m85K4hhWXiuRv82fCE",
+   "id": "UCb0xB4NwoAANhxikOjw3Tnw",
+   "snippet": {
+    "title": "Le JDD",
+    "description": "\ud83d\udce2 Restez inform\u00e9 !\nChaque jour, nous analysons l'actualit\u00e9 pour vous offrir des perspectives uniques sur\nla politique, les enjeux sociaux et les tendances qui fa\u00e7onnent le monde\nd'aujourd'hui. \ud83c\udf0d\n\n\ud83d\udd14 Ne manquez rien : abonnez-vous et activez la cloche pour d\u00e9couvrir nos prochaines\nanalyses, interviews exclusives et reportages de terrain !\n\n\ud83d\udcf1 Suivez-nous aussi sur les r\u00e9seaux sociaux pour du contenu exclusif :\n\u25cf Twitter : https://x.com/leJDD\n\u25cf Instagram : https://www.instagram.com/le_jdd/?hl=fr\n\u25cf Facebook : https://www.facebook.com/leJDD\n\n\ud83d\udcac Vos commentaires font vivre le d\u00e9bat : Donnez votre avis dans les commentaires,\npartagez vos analyses et \u00e9changez avec notre communaut\u00e9. Ensemble, construisons une\nmeilleure compr\u00e9hension de notre soci\u00e9t\u00e9.\n",
+    "customUrl": "@le_jdd",
+    "publishedAt": "2008-01-04T17:39:28Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/gowSKvuxbi01oM0Juwi_QQpe0xSvEXdR5AG3B_-lhsQuhnkdzBvwDJGRTIcf9vuOJzgTVL2Y=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/gowSKvuxbi01oM0Juwi_QQpe0xSvEXdR5AG3B_-lhsQuhnkdzBvwDJGRTIcf9vuOJzgTVL2Y=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/gowSKvuxbi01oM0Juwi_QQpe0xSvEXdR5AG3B_-lhsQuhnkdzBvwDJGRTIcf9vuOJzgTVL2Y=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Le JDD",
+     "description": "\ud83d\udce2 Restez inform\u00e9 !\nChaque jour, nous analysons l'actualit\u00e9 pour vous offrir des perspectives uniques sur\nla politique, les enjeux sociaux et les tendances qui fa\u00e7onnent le monde\nd'aujourd'hui. \ud83c\udf0d\n\n\ud83d\udd14 Ne manquez rien : abonnez-vous et activez la cloche pour d\u00e9couvrir nos prochaines\nanalyses, interviews exclusives et reportages de terrain !\n\n\ud83d\udcf1 Suivez-nous aussi sur les r\u00e9seaux sociaux pour du contenu exclusif :\n\u25cf Twitter : https://x.com/leJDD\n\u25cf Instagram : https://www.instagram.com/le_jdd/?hl=fr\n\u25cf Facebook : https://www.facebook.com/leJDD\n\n\ud83d\udcac Vos commentaires font vivre le d\u00e9bat : Donnez votre avis dans les commentaires,\npartagez vos analyses et \u00e9changez avec notre communaut\u00e9. Ensemble, construisons une\nmeilleure compr\u00e9hension de notre soci\u00e9t\u00e9.\n"
+    },
+    "country": "FR"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUb0xB4NwoAANhxikOjw3Tnw"
+    }
+   },
+   "statistics": {
+    "viewCount": "7951384",
+    "subscriberCount": "8970",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1047"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "XrVLaaM0y7gx0Q9eGjtuGJ1rrWk",
+   "id": "UCPY6gj8G7dqwPxg9KwHrj5Q",
+   "snippet": {
+    "title": "\u0421\u0443\u0441\u043f\u0456\u043b\u044c\u043d\u0435 \u041d\u043e\u0432\u0438\u043d\u0438",
+    "description": "\u0421\u0443\u0441\u043f\u0456\u043b\u044c\u043d\u0435 \u041d\u043e\u0432\u0438\u043d\u0438 \u2013 YouTube-\u043a\u0430\u043d\u0430\u043b \u043f\u0440\u043e \u0443\u0441\u0456 \u043d\u043e\u0432\u0438\u043d\u0438 \u0423\u043a\u0440\u0430\u0457\u043d\u0438 \u0442\u0430 \u0441\u0432\u0456\u0442\u0443, \u0430 \u0442\u0430\u043a\u043e\u0436 \u2013 \u0435\u043a\u0441\u043a\u043b\u044e\u0437\u0438\u0432\u043d\u0456 \u0456\u043d\u0442\u0435\u0440\u0432'\u044e, \u0440\u0435\u043f\u043e\u0440\u0442\u0430\u0436\u0456, \u0440\u043e\u0437\u0441\u043b\u0456\u0434\u0443\u0432\u0430\u043d\u043d\u044f, \u043f\u0440\u044f\u043c\u0456 \u0442\u0440\u0430\u043d\u0441\u043b\u044f\u0446\u0456\u0457 \u0442\u0430 \u0441\u043f\u0435\u0446\u0435\u0444\u0456\u0440\u0438 \u0449\u043e\u0434\u043e \u0430\u043a\u0442\u0443\u0430\u043b\u044c\u043d\u0438\u0445 \u043f\u043e\u0434\u0456\u0439 \u043a\u0440\u0430\u0457\u043d\u0438.\n",
+    "customUrl": "@suspilnenews",
+    "publishedAt": "2014-05-14T16:18:06Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/Cpwo_vMuhaieha3uArKIhNVEtiE3Q6acEiHg53wqYVpzuXlRlUofixf2uviMl-ZxwNR4ynzSQfE=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/Cpwo_vMuhaieha3uArKIhNVEtiE3Q6acEiHg53wqYVpzuXlRlUofixf2uviMl-ZxwNR4ynzSQfE=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/Cpwo_vMuhaieha3uArKIhNVEtiE3Q6acEiHg53wqYVpzuXlRlUofixf2uviMl-ZxwNR4ynzSQfE=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "\u0421\u0443\u0441\u043f\u0456\u043b\u044c\u043d\u0435 \u041d\u043e\u0432\u0438\u043d\u0438",
+     "description": "\u0421\u0443\u0441\u043f\u0456\u043b\u044c\u043d\u0435 \u041d\u043e\u0432\u0438\u043d\u0438 \u2013 YouTube-\u043a\u0430\u043d\u0430\u043b \u043f\u0440\u043e \u0443\u0441\u0456 \u043d\u043e\u0432\u0438\u043d\u0438 \u0423\u043a\u0440\u0430\u0457\u043d\u0438 \u0442\u0430 \u0441\u0432\u0456\u0442\u0443, \u0430 \u0442\u0430\u043a\u043e\u0436 \u2013 \u0435\u043a\u0441\u043a\u043b\u044e\u0437\u0438\u0432\u043d\u0456 \u0456\u043d\u0442\u0435\u0440\u0432'\u044e, \u0440\u0435\u043f\u043e\u0440\u0442\u0430\u0436\u0456, \u0440\u043e\u0437\u0441\u043b\u0456\u0434\u0443\u0432\u0430\u043d\u043d\u044f, \u043f\u0440\u044f\u043c\u0456 \u0442\u0440\u0430\u043d\u0441\u043b\u044f\u0446\u0456\u0457 \u0442\u0430 \u0441\u043f\u0435\u0446\u0435\u0444\u0456\u0440\u0438 \u0449\u043e\u0434\u043e \u0430\u043a\u0442\u0443\u0430\u043b\u044c\u043d\u0438\u0445 \u043f\u043e\u0434\u0456\u0439 \u043a\u0440\u0430\u0457\u043d\u0438.\n"
+    },
+    "country": "UA"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUPY6gj8G7dqwPxg9KwHrj5Q"
+    }
+   },
+   "statistics": {
+    "viewCount": "1014502318",
+    "subscriberCount": "1150000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "54677"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "Xhv_yz-Tn1xeSVnKGLlSFkicuSQ",
+   "id": "UCTrQ7HXWRRxr7OsOtodr2_w",
+   "snippet": {
+    "title": "Channel 4 News",
+    "description": "News that's committed to challenging expectations with stories that reveal and inspire, innovatively produced - with just a touch of mischief.\n\nGot a story? C4Nstories@itn.co.uk \n",
+    "customUrl": "@channel4news",
+    "publishedAt": "2006-07-05T23:18:56Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mNdhtpAi0ZQmCqfkDSq6MQVdbfZe-c70nZ1qqdyQNzK3c=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mNdhtpAi0ZQmCqfkDSq6MQVdbfZe-c70nZ1qqdyQNzK3c=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mNdhtpAi0ZQmCqfkDSq6MQVdbfZe-c70nZ1qqdyQNzK3c=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Channel 4 News",
+     "description": "News that's committed to challenging expectations with stories that reveal and inspire, innovatively produced - with just a touch of mischief.\n\nGot a story? C4Nstories@itn.co.uk \n"
+    },
+    "country": "GB"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUTrQ7HXWRRxr7OsOtodr2_w"
+    }
+   },
+   "statistics": {
+    "viewCount": "2457321524",
+    "subscriberCount": "4240000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "26470"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "mtwdHWZMmZQbf2bJOPaSPHCXW84",
+   "id": "UCVSNOxehfALut52NbkfRBaA",
+   "snippet": {
+    "title": "Voice of America",
+    "description": "Voice of America (VOA) is the largest U.S. international broadcaster, providing news and information in more than 40 languages to an estimated weekly audience of 236.8 million people. VOA produces content for digital, television, and radio platforms. It is easily accessed via your mobile phone and on social media. It is also distributed by satellite, cable, FM and MW, and is carried on a network of approximately 3,000 affiliate stations. \n\nSince its creation in 1942, Voice of America has been committed to providing comprehensive coverage of the news and telling audiences the truth. Through World War II, the Cold War, the fight against global terrorism, and the struggle for freedom around the globe today, VOA exemplifies the principles of a free press.",
+    "customUrl": "@voanews",
+    "publishedAt": "2008-03-14T17:13:45Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/oIDHKvHqCOyUFJuA8whJ_oh_kdPAcX2HxK07XpPyWZSzeswsZWpvRbytl1y6CHiMcMnP-ZpCEw=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/oIDHKvHqCOyUFJuA8whJ_oh_kdPAcX2HxK07XpPyWZSzeswsZWpvRbytl1y6CHiMcMnP-ZpCEw=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/oIDHKvHqCOyUFJuA8whJ_oh_kdPAcX2HxK07XpPyWZSzeswsZWpvRbytl1y6CHiMcMnP-ZpCEw=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Voice of America",
+     "description": "Voice of America (VOA) is the largest U.S. international broadcaster, providing news and information in more than 40 languages to an estimated weekly audience of 236.8 million people. VOA produces content for digital, television, and radio platforms. It is easily accessed via your mobile phone and on social media. It is also distributed by satellite, cable, FM and MW, and is carried on a network of approximately 3,000 affiliate stations. \n\nSince its creation in 1942, Voice of America has been committed to providing comprehensive coverage of the news and telling audiences the truth. Through World War II, the Cold War, the fight against global terrorism, and the struggle for freedom around the globe today, VOA exemplifies the principles of a free press."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUVSNOxehfALut52NbkfRBaA"
+    }
+   },
+   "statistics": {
+    "viewCount": "1587414946",
+    "subscriberCount": "3780000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "51265"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "bsa_YyZ1a61o53NQZkqQuThKCg4",
+   "id": "UCXXWh7wQAmi751M1X_ggQkA",
+   "snippet": {
+    "title": "Adnkronos",
+    "description": "Notizie allo stato puro.\nDal 1963 la prima agenzia di stampa privata d'Italia.\n",
+    "customUrl": "@adnkronostv",
+    "publishedAt": "2009-04-08T13:29:42Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/4XAcZa2WMlbnAKzLJjzzBkOkNRxBXAIKLQjTt1s2VASg_U0c8PxFNPaRZFpKWhEGNhR0J65ylg=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/4XAcZa2WMlbnAKzLJjzzBkOkNRxBXAIKLQjTt1s2VASg_U0c8PxFNPaRZFpKWhEGNhR0J65ylg=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/4XAcZa2WMlbnAKzLJjzzBkOkNRxBXAIKLQjTt1s2VASg_U0c8PxFNPaRZFpKWhEGNhR0J65ylg=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Adnkronos",
+     "description": "Notizie allo stato puro.\nDal 1963 la prima agenzia di stampa privata d'Italia.\n"
+    },
+    "country": "IT"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUXXWh7wQAmi751M1X_ggQkA"
+    }
+   },
+   "statistics": {
+    "viewCount": "116141991",
+    "subscriberCount": "133000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "50314"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "8NhxqMRwtnE39xg-mI6jiWNFnUs",
+   "id": "UCXwDLMDV86ldKoFVc_g8P0g",
+   "snippet": {
+    "title": "BFMTV",
+    "description": "Toute l'actualit\u00e9 avec la cha\u00eene de la premi\u00e8re cha\u00eene d'information de France.",
+    "customUrl": "@bfmtv",
+    "publishedAt": "2006-09-18T23:23:40Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/l5yh1ebjlfahsfKc48zmOeqU-QGi3EMRN2hQPcK5wfTJ7MheP1fB3hId08940ANl_AK1RtHt=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/l5yh1ebjlfahsfKc48zmOeqU-QGi3EMRN2hQPcK5wfTJ7MheP1fB3hId08940ANl_AK1RtHt=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/l5yh1ebjlfahsfKc48zmOeqU-QGi3EMRN2hQPcK5wfTJ7MheP1fB3hId08940ANl_AK1RtHt=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "BFMTV",
+     "description": "Toute l'actualit\u00e9 avec la cha\u00eene de la premi\u00e8re cha\u00eene d'information de France."
+    },
+    "country": "FR"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUXwDLMDV86ldKoFVc_g8P0g"
+    }
+   },
+   "statistics": {
+    "viewCount": "1881864012",
+    "subscriberCount": "2680000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "83351"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "WzlSmAJIK9L5lWNtstBp3t3j_RM",
+   "id": "UCSq3p5NKEtyp5Rjd4ctiEbg",
+   "snippet": {
+    "title": "Task & Purpose",
+    "description": "Task & Purpose was founded in 2014 with a mission to inform, engage, entertain, and stand up for active-duty military members, veterans, and their families. The site quickly became one of the most trusted news and investigative journalism sources for the military, with its journalists reporting everywhere from the Pentagon to the White House and beyond. Videos are produced and hosted by Kyle Gunn.",
+    "customUrl": "@taskandpurpose",
+    "publishedAt": "2014-06-18T18:08:44Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ZUtOmS5-ZdNfsh2tfPUuZleBXEJqtl0lGx-da3SFdGKvF5KdCYqfHiqa4j4xGZFkqPHj_7fBX8E=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ZUtOmS5-ZdNfsh2tfPUuZleBXEJqtl0lGx-da3SFdGKvF5KdCYqfHiqa4j4xGZFkqPHj_7fBX8E=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ZUtOmS5-ZdNfsh2tfPUuZleBXEJqtl0lGx-da3SFdGKvF5KdCYqfHiqa4j4xGZFkqPHj_7fBX8E=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Task & Purpose",
+     "description": "Task & Purpose was founded in 2014 with a mission to inform, engage, entertain, and stand up for active-duty military members, veterans, and their families. The site quickly became one of the most trusted news and investigative journalism sources for the military, with its journalists reporting everywhere from the Pentagon to the White House and beyond. Videos are produced and hosted by Kyle Gunn."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUSq3p5NKEtyp5Rjd4ctiEbg"
+    }
+   },
+   "statistics": {
+    "viewCount": "636541128",
+    "subscriberCount": "1970000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "711"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/01h6rj",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Military",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "txo6et2HotLDLV3kw2ZoEatnQ3k",
+   "id": "UCVS9tA3PI8Gard_LrTx0YsQ",
+   "snippet": {
+    "title": "Kotaku",
+    "description": "Kotaku: Gaming Reviews, News, Tips and More.",
+    "customUrl": "@kotaku",
+    "publishedAt": "2012-02-07T20:01:02Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mNf1O1yLs53esHsDRRfLkh9bEzG_uEwVU0fZqSe4cl71g=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mNf1O1yLs53esHsDRRfLkh9bEzG_uEwVU0fZqSe4cl71g=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mNf1O1yLs53esHsDRRfLkh9bEzG_uEwVU0fZqSe4cl71g=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Kotaku",
+     "description": "Kotaku: Gaming Reviews, News, Tips and More."
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUVS9tA3PI8Gard_LrTx0YsQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "222493453",
+    "subscriberCount": "354000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "3362"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02ntfj",
+     "/m/0403l3g",
+     "/m/0bzvm2",
+     "/m/025zzc",
+     "/m/03hf_rm"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Action-adventure_game",
+     "https://en.wikipedia.org/wiki/Role-playing_video_game",
+     "https://en.wikipedia.org/wiki/Video_game_culture",
+     "https://en.wikipedia.org/wiki/Action_game",
+     "https://en.wikipedia.org/wiki/Strategy_video_game"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "2oxqt4OdXrNbLPbqNTUv4BI30eo",
+   "id": "UCYpRDnhk5H8h16jpS84uqsA",
+   "snippet": {
+    "title": "Le Monde",
+    "description": "Bienvenue sur la cha\u00eene YouTube du Monde. Chaque jour, des vid\u00e9os et des documentaires pour comprendre l'actualit\u00e9. International, politique, sciences, histoire, pop culture... Rejoignez-nous pour y voir plus clair !\n\n\u25b6\ufe0f Tous les jours, les images incontournables de l'actualit\u00e9\n\n\u25b6\ufe0f Chaque semaine, des documentaires explicatifs pour comprendre le monde\n\n\u25b6\ufe0f Nos enqu\u00eates vid\u00e9o : des violences polici\u00e8res \u00e0 la r\u00e9pression des Ou\u00efgours, notre \u00e9quipe enqu\u00eate sur les sujets les plus chauds, gr\u00e2ce \u00e0 des t\u00e9moignages, images satellites, reconstitutions 3D et documents exclusifs\n\n\u25b6\ufe0f La s\u00e9rie #Mappemonde, pour comprendre les grandes crises g\u00e9opolitiques du XXIe si\u00e8cle\n\n\u25b6\ufe0f La s\u00e9rie #Flashback, dans les secrets des images qui ont chang\u00e9 le monde\n\nEt bien plus ! N'h\u00e9sitez pas \u00e0 nous partager vos id\u00e9es en commentaires sous les vid\u00e9os.\n",
+    "customUrl": "@lemondefr",
+    "publishedAt": "2006-03-17T14:41:41Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m_z27vtP0odK2Y5z7t_2P1AsICnAPgezngWJaPKb7vREI=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m_z27vtP0odK2Y5z7t_2P1AsICnAPgezngWJaPKb7vREI=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_m_z27vtP0odK2Y5z7t_2P1AsICnAPgezngWJaPKb7vREI=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Le Monde",
+     "description": "Bienvenue sur la cha\u00eene YouTube du Monde. Chaque jour, des vid\u00e9os et des documentaires pour comprendre l'actualit\u00e9. International, politique, sciences, histoire, pop culture... Rejoignez-nous pour y voir plus clair !\n\n\u25b6\ufe0f Tous les jours, les images incontournables de l'actualit\u00e9\n\n\u25b6\ufe0f Chaque semaine, des documentaires explicatifs pour comprendre le monde\n\n\u25b6\ufe0f Nos enqu\u00eates vid\u00e9o : des violences polici\u00e8res \u00e0 la r\u00e9pression des Ou\u00efgours, notre \u00e9quipe enqu\u00eate sur les sujets les plus chauds, gr\u00e2ce \u00e0 des t\u00e9moignages, images satellites, reconstitutions 3D et documents exclusifs\n\n\u25b6\ufe0f La s\u00e9rie #Mappemonde, pour comprendre les grandes crises g\u00e9opolitiques du XXIe si\u00e8cle\n\n\u25b6\ufe0f La s\u00e9rie #Flashback, dans les secrets des images qui ont chang\u00e9 le monde\n\nEt bien plus ! N'h\u00e9sitez pas \u00e0 nous partager vos id\u00e9es en commentaires sous les vid\u00e9os.\n"
+    },
+    "country": "FR"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUYpRDnhk5H8h16jpS84uqsA"
+    }
+   },
+   "statistics": {
+    "viewCount": "742468330",
+    "subscriberCount": "2270000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "5231"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "u3LrMIZPVk8J8LemJhiKi1rNKV4",
+   "id": "UCUQx9Ua3trdr-XiN2aB9KVQ",
+   "snippet": {
+    "title": "Notizie.it",
+    "description": "Notizie.it \u00e8 una testata registrata presso il Tribunale di Milano n.68 in data 01/03/2018\n https://www.notizie.it/\n\nIscriviti al CANALE per restare sempre aggiornato:\n\u25b8 http://bit.ly/Notizieit-YouTube\nClicca sulla campanella per ricevere tutte le novit\u00e0\n\nSeguici anche sui SOCIAL:\n\u25b8 Facebook: https://www.facebook.com/notizie.it/\n\u25b8 Twitter: https://twitter.com/notizieit\n\u25b8 Instagram: https://www.instagram.com/notizieit//",
+    "customUrl": "@notizieitnotizie",
+    "publishedAt": "2017-03-29T14:14:41Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/5ZOLdHKGd-WStTDvqr0ytfHXwhx36VZ6l05fBRJsZwD748yzKJx_RrPotIaqZwdJLgwjUKHB7xA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/5ZOLdHKGd-WStTDvqr0ytfHXwhx36VZ6l05fBRJsZwD748yzKJx_RrPotIaqZwdJLgwjUKHB7xA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/5ZOLdHKGd-WStTDvqr0ytfHXwhx36VZ6l05fBRJsZwD748yzKJx_RrPotIaqZwdJLgwjUKHB7xA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Notizie.it",
+     "description": "Notizie.it \u00e8 una testata registrata presso il Tribunale di Milano n.68 in data 01/03/2018\n https://www.notizie.it/\n\nIscriviti al CANALE per restare sempre aggiornato:\n\u25b8 http://bit.ly/Notizieit-YouTube\nClicca sulla campanella per ricevere tutte le novit\u00e0\n\nSeguici anche sui SOCIAL:\n\u25b8 Facebook: https://www.facebook.com/notizie.it/\n\u25b8 Twitter: https://twitter.com/notizieit\n\u25b8 Instagram: https://www.instagram.com/notizieit//"
+    },
+    "country": "IT"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUUQx9Ua3trdr-XiN2aB9KVQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "8893725",
+    "subscriberCount": "82500",
+    "hiddenSubscriberCount": false,
+    "videoCount": "969"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "3Xk1R945v83X8A9O-T_SXjDH5EE",
+   "id": "UCUgrUBKwSnXwQOBG4v3igMg",
+   "snippet": {
+    "title": "Reddit",
+    "description": "Reddit is the heart of the internet, where millions gather for conversation and community.",
+    "customUrl": "@reddit",
+    "publishedAt": "2006-07-19T14:18:10Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ZBnkDCcneFV2uCrAOIzTCN4ItYEMoq6LFLs36qbJ0q6pPkQh1YVusaIsx5Hqn8n5BpYIhlg1Tg=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ZBnkDCcneFV2uCrAOIzTCN4ItYEMoq6LFLs36qbJ0q6pPkQh1YVusaIsx5Hqn8n5BpYIhlg1Tg=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ZBnkDCcneFV2uCrAOIzTCN4ItYEMoq6LFLs36qbJ0q6pPkQh1YVusaIsx5Hqn8n5BpYIhlg1Tg=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Reddit",
+     "description": "Reddit is the heart of the internet, where millions gather for conversation and community."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUUgrUBKwSnXwQOBG4v3igMg"
+    }
+   },
+   "statistics": {
+    "viewCount": "115378936",
+    "subscriberCount": "287000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "420"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02jjt",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Entertainment",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "eydwCT0drxBH0Do6h-c2wH2IzJo",
+   "id": "UCWq564ONoREJprMNhewS6Sw",
+   "snippet": {
+    "title": "Newshub",
+    "description": "You're joining us on the official YouTube channel for Warner Bros. Discovery ANZ's Newshub. Here you will find livestreams and news videos from our award-winning team of journalists working across our bulletins and shows.\n",
+    "customUrl": "@newshubnz",
+    "publishedAt": "2010-06-09T02:11:37Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/HZ0DSCAPKH3JfGxTQg_3sB4FYtMZKaddAkWwFlVVrzdAq0yWf_dTzNzXhgiJECO01jDCfN2ibQ=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/HZ0DSCAPKH3JfGxTQg_3sB4FYtMZKaddAkWwFlVVrzdAq0yWf_dTzNzXhgiJECO01jDCfN2ibQ=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/HZ0DSCAPKH3JfGxTQg_3sB4FYtMZKaddAkWwFlVVrzdAq0yWf_dTzNzXhgiJECO01jDCfN2ibQ=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Newshub",
+     "description": "You're joining us on the official YouTube channel for Warner Bros. Discovery ANZ's Newshub. Here you will find livestreams and news videos from our award-winning team of journalists working across our bulletins and shows.\n"
+    },
+    "country": "NZ"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUWq564ONoREJprMNhewS6Sw"
+    }
+   },
+   "statistics": {
+    "viewCount": "150054831",
+    "subscriberCount": "177000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "6733"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr",
+     "/m/0f2f9",
+     "/m/02jjt"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Television_program",
+     "https://en.wikipedia.org/wiki/Entertainment"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "tzX4G-L4YyGLhpBlD2F344s3DGE",
+   "id": "UCXmbJzoDFpSkvodIoBHND8A",
+   "snippet": {
+    "title": "Casa del Sole TV",
+    "description": "La Casa Del Sole \u00e8 una Testata Giornalistica iscritta al Registro della Stampa del Tribunale di Roma, n. 69 del 16.07.2020.\nIl direttore editoriale \u00e8 Margherita Furlan, iscritta all'Albo dei giornalisti italiani.\nLa crisi \u00e8 entrata in una fase potenzialmente non umana. L\u2019ambiente \u00e8 un insieme straordinariamente complesso di cicli, ma tecnologia e finanza vi hanno introdotto grandezze che collidono con gli equilibri naturali. La guerra, tra potenze concorrenti, \u00e8 il pi\u00f9 probabile degli esiti. Nella sua natura ibrida, appare immanente, circondata da una straordinaria tecnologia digitale. Occorre sottrarre l\u2019essere umano al totalitarismo del mercato e del pensiero unico. Dalle idee di Giulietto Chiesa, sorge La Casa del Sole, per ripartire da un nuovo giro intorno al Sole.",
+    "customUrl": "@casadelsoletvchannel",
+    "publishedAt": "2012-12-14T21:31:25Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_knLIPG4d9f0yiyfpoYYbbVlw3ggI1maXi0Ij-536vZ1NA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_knLIPG4d9f0yiyfpoYYbbVlw3ggI1maXi0Ij-536vZ1NA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_knLIPG4d9f0yiyfpoYYbbVlw3ggI1maXi0Ij-536vZ1NA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Casa del Sole TV",
+     "description": "La Casa Del Sole \u00e8 una Testata Giornalistica iscritta al Registro della Stampa del Tribunale di Roma, n. 69 del 16.07.2020.\nIl direttore editoriale \u00e8 Margherita Furlan, iscritta all'Albo dei giornalisti italiani.\nLa crisi \u00e8 entrata in una fase potenzialmente non umana. L\u2019ambiente \u00e8 un insieme straordinariamente complesso di cicli, ma tecnologia e finanza vi hanno introdotto grandezze che collidono con gli equilibri naturali. La guerra, tra potenze concorrenti, \u00e8 il pi\u00f9 probabile degli esiti. Nella sua natura ibrida, appare immanente, circondata da una straordinaria tecnologia digitale. Occorre sottrarre l\u2019essere umano al totalitarismo del mercato e del pensiero unico. Dalle idee di Giulietto Chiesa, sorge La Casa del Sole, per ripartire da un nuovo giro intorno al Sole."
+    },
+    "country": "IT"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUXmbJzoDFpSkvodIoBHND8A"
+    }
+   },
+   "statistics": {
+    "viewCount": "43839256",
+    "subscriberCount": "114000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "5004"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "fLsudWMjbvhq0uLGCWWuY34Uttg",
+   "id": "UCQQ5t1A3aIvGFe1QVHIjwOg",
+   "snippet": {
+    "title": "iPolitics",
+    "description": "Canadian political news, opinions, and analysis.\n",
+    "customUrl": "@ipoliticscanada",
+    "publishedAt": "2011-02-01T21:27:07Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/T6MAKidlITju9CzGzUNB8ZMK5kr28nZ68kGRSPZx6pRPqv9bmOdSD3RwRK9NIvkj5tKJtKhP-w=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/T6MAKidlITju9CzGzUNB8ZMK5kr28nZ68kGRSPZx6pRPqv9bmOdSD3RwRK9NIvkj5tKJtKhP-w=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/T6MAKidlITju9CzGzUNB8ZMK5kr28nZ68kGRSPZx6pRPqv9bmOdSD3RwRK9NIvkj5tKJtKhP-w=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "iPolitics",
+     "description": "Canadian political news, opinions, and analysis.\n"
+    },
+    "country": "CA"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUQQ5t1A3aIvGFe1QVHIjwOg"
+    }
+   },
+   "statistics": {
+    "viewCount": "3639665",
+    "subscriberCount": "4390",
+    "hiddenSubscriberCount": false,
+    "videoCount": "830"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "9V1GqWvhXj3FTS611Y_RqtD3W7g",
+   "id": "UCcPcua2PF7hzik2TeOBx3uw",
+   "snippet": {
+    "title": "faz",
+    "description": "Herzlich Willkommen auf dem YouTube-Kanal der Frankfurter Allgemeinen Zeitung F.A.Z.",
+    "customUrl": "@faz",
+    "publishedAt": "2005-10-27T05:32:16Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/E8OQ6gWRxw0aDlT2j5DrA5f1ffqMKc2AEE8W5VtAFhH4JN-j-6BKu6ord5vKnY1s5_kjWOk7HUE=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/E8OQ6gWRxw0aDlT2j5DrA5f1ffqMKc2AEE8W5VtAFhH4JN-j-6BKu6ord5vKnY1s5_kjWOk7HUE=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/E8OQ6gWRxw0aDlT2j5DrA5f1ffqMKc2AEE8W5VtAFhH4JN-j-6BKu6ord5vKnY1s5_kjWOk7HUE=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "faz",
+     "description": "Herzlich Willkommen auf dem YouTube-Kanal der Frankfurter Allgemeinen Zeitung F.A.Z."
+    },
+    "country": "DE"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUcPcua2PF7hzik2TeOBx3uw"
+    }
+   },
+   "statistics": {
+    "viewCount": "413703354",
+    "subscriberCount": "328000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "42012"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "C-JtFQ43e2w7xrk8NX49ipPm7sQ",
+   "id": "UCSKSlBrclINtzZjZjchSDFA",
+   "snippet": {
+    "title": "Flathead Beacon",
+    "description": "The Flathead Beacon is devoted to delivering thought-provoking news and commentary to the greater Flathead Valley. Printed every week in tabloid form and updated daily at flatheadbeacon.com, the Beacon encourages its readers to participate in discussions about their valley.\n\nMore innovative is our approach to our website. By arming our staff with the latest in audio and video technology, flatheadbeacon.com is a unique platform and an equal partner to the print edition, not an afterthought. Flatheadbeacon.com is home to original stories, citizen-hosted blogs, multimedia presentations and more.\n\nThe Flathead Beacon is funded by television personality and longtime valley resident Maury Povich.\n\nAll stories and images are protected under copyright by the Flathead Beacon or affiliated persons and organizations.\n\nThe Beacon is headquartered in historic downtown Kalispell, Montana.",
+    "customUrl": "@flatheadbeacon20",
+    "publishedAt": "2013-07-02T19:20:08Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mrJTa87RC4uCZvXui5yokv3fq1nbGdbQTX58uUbboOSGY=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mrJTa87RC4uCZvXui5yokv3fq1nbGdbQTX58uUbboOSGY=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mrJTa87RC4uCZvXui5yokv3fq1nbGdbQTX58uUbboOSGY=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Flathead Beacon",
+     "description": "The Flathead Beacon is devoted to delivering thought-provoking news and commentary to the greater Flathead Valley. Printed every week in tabloid form and updated daily at flatheadbeacon.com, the Beacon encourages its readers to participate in discussions about their valley.\n\nMore innovative is our approach to our website. By arming our staff with the latest in audio and video technology, flatheadbeacon.com is a unique platform and an equal partner to the print edition, not an afterthought. Flatheadbeacon.com is home to original stories, citizen-hosted blogs, multimedia presentations and more.\n\nThe Flathead Beacon is funded by television personality and longtime valley resident Maury Povich.\n\nAll stories and images are protected under copyright by the Flathead Beacon or affiliated persons and organizations.\n\nThe Beacon is headquartered in historic downtown Kalispell, Montana."
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUSKSlBrclINtzZjZjchSDFA"
+    }
+   },
+   "statistics": {
+    "viewCount": "50126",
+    "subscriberCount": "168",
+    "hiddenSubscriberCount": false,
+    "videoCount": "55"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/03glg",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Hobby",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "RA78V6nss0D4ZSy-tOGgAuxxwgY",
+   "id": "UCaeO5vkdj5xOQHp4UmIN6dw",
+   "snippet": {
+    "title": "The Daily Wire",
+    "description": "Unapologetic news, opinion, cultural commentary, and entertainment. Explore our vast library of content spanning from daily shows with your favorite hosts, documentaries, and more. Join America\u2019s leading voice of the counter-cultural movement where we fight for what we believe in and have fun doing it.\n\nFor the FULL library of DW video content, head over to www.dailywire.com\n",
+    "customUrl": "@dailywire",
+    "publishedAt": "2015-08-20T21:50:06Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/VuJ6LQ49qPsKTp1SvBJ4CCdEhCZhY5VRuuSrHojmAxaazs87YxfNr5gA3elzDJWnd8Ga1uWaiQ=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/VuJ6LQ49qPsKTp1SvBJ4CCdEhCZhY5VRuuSrHojmAxaazs87YxfNr5gA3elzDJWnd8Ga1uWaiQ=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/VuJ6LQ49qPsKTp1SvBJ4CCdEhCZhY5VRuuSrHojmAxaazs87YxfNr5gA3elzDJWnd8Ga1uWaiQ=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "The Daily Wire",
+     "description": "Unapologetic news, opinion, cultural commentary, and entertainment. Explore our vast library of content spanning from daily shows with your favorite hosts, documentaries, and more. Join America\u2019s leading voice of the counter-cultural movement where we fight for what we believe in and have fun doing it.\n\nFor the FULL library of DW video content, head over to www.dailywire.com\n"
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUaeO5vkdj5xOQHp4UmIN6dw"
+    }
+   },
+   "statistics": {
+    "viewCount": "1102534868",
+    "subscriberCount": "3230000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "8269"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr",
+     "/m/02jjt"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Entertainment"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "gJ5571h-i2jDr4ZL6JXyc9hd7Pg",
+   "id": "UCTJpOvxKtQU59WU6uHjlnBA",
+   "snippet": {
+    "title": "New Jersey Herald",
+    "description": "",
+    "customUrl": "@newjerseyherald5066",
+    "publishedAt": "2014-09-11T07:52:16Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nMDafgszhiQgoUAUcBVw341bS2Ku9aKuQm158gKFc5F_s=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nMDafgszhiQgoUAUcBVw341bS2Ku9aKuQm158gKFc5F_s=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nMDafgszhiQgoUAUcBVw341bS2Ku9aKuQm158gKFc5F_s=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "New Jersey Herald",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUTJpOvxKtQU59WU6uHjlnBA"
+    }
+   },
+   "statistics": {
+    "viewCount": "159380",
+    "subscriberCount": "89",
+    "hiddenSubscriberCount": false,
+    "videoCount": "119"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr",
+     "/m/01k8wb"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Knowledge"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "ah9tGE6nkADCJ458KT9dLEBE4DA",
+   "id": "UCQGqiGhMjc_p4lZEhSTb12g",
+   "snippet": {
+    "title": "NIUS",
+    "description": "Nachrichten, die Millionen Menschen bewegen, aber woanders zu wenig berichtet werden!\n\n\ud83d\udce2 \ud835\uddea\ud835\uddf6\ud835\uddff \ud835\ude00\ud835\uddf6\ud835\uddfb\ud835\uddf1 \ud835\udde1\ud835\udddc\ud835\udde8\ud835\udde6\nNiemand versteht die Lebensrealit\u00e4t, den Alltag, die Freuden und Sorgen, die N\u00f6te und Hoffnungen der Mehrheit der Menschen in unserem Land besser als NIUS. Uns k\u00fcmmert, was die Menschen k\u00fcmmert. Wir lieben, was dieses Land ausmacht. Wir sind skeptisch und glauben an die Kraft der Vernunft. Wir glauben an die Freiheit, nicht an Verbote.\n\nImpressum \nVIUS SE & Co. KGaA\nRitterstra\u00dfe 24-27\n10969 Berlin\n\nTelefon: +49 (0)30 - 2000443-00\nE-Mail: kontakt@nius.de\n\nGesch\u00e4ftsf\u00fchrende Direktoren: Julian Reichelt und Vera Regensburger\nRegister: HRB 247426 AG Charlottenburg\n",
+    "customUrl": "@niusde",
+    "publishedAt": "2022-10-05T15:58:41.347006Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/HdmG9Z5EWAG9CqlBJqHUOGHurhgJrRA7Ju9cHrdBi6-bZJl0LqNbO9ULbLNrnEN0Xm0kxmBfWSc=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/HdmG9Z5EWAG9CqlBJqHUOGHurhgJrRA7Ju9cHrdBi6-bZJl0LqNbO9ULbLNrnEN0Xm0kxmBfWSc=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/HdmG9Z5EWAG9CqlBJqHUOGHurhgJrRA7Ju9cHrdBi6-bZJl0LqNbO9ULbLNrnEN0Xm0kxmBfWSc=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "NIUS",
+     "description": "Nachrichten, die Millionen Menschen bewegen, aber woanders zu wenig berichtet werden!\n\n\ud83d\udce2 \ud835\uddea\ud835\uddf6\ud835\uddff \ud835\ude00\ud835\uddf6\ud835\uddfb\ud835\uddf1 \ud835\udde1\ud835\udddc\ud835\udde8\ud835\udde6\nNiemand versteht die Lebensrealit\u00e4t, den Alltag, die Freuden und Sorgen, die N\u00f6te und Hoffnungen der Mehrheit der Menschen in unserem Land besser als NIUS. Uns k\u00fcmmert, was die Menschen k\u00fcmmert. Wir lieben, was dieses Land ausmacht. Wir sind skeptisch und glauben an die Kraft der Vernunft. Wir glauben an die Freiheit, nicht an Verbote.\n\nImpressum \nVIUS SE & Co. KGaA\nRitterstra\u00dfe 24-27\n10969 Berlin\n\nTelefon: +49 (0)30 - 2000443-00\nE-Mail: kontakt@nius.de\n\nGesch\u00e4ftsf\u00fchrende Direktoren: Julian Reichelt und Vera Regensburger\nRegister: HRB 247426 AG Charlottenburg\n"
+    },
+    "country": "DE"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUQGqiGhMjc_p4lZEhSTb12g"
+    }
+   },
+   "statistics": {
+    "viewCount": "673266275",
+    "subscriberCount": "607000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "10558"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "QYhBUljbH7zjogrrxcS_zpafE2s",
+   "id": "UCbfSa4sFelkMsEHL1aUo2iw",
+   "snippet": {
+    "title": "Minnesota Spokesman-Recorder",
+    "description": "The Minnesota Spokesman-Recorder (MSR) holds a proud place in history as the oldest Black-owned newspaper in Minnesota and one of the longest continuously operated family-owned Black newspapers in the United States.\n\nOur Mission\nThe Minnesota Spokesman-Recorder (MSR) Multimedia Group goes beyond reporting the news \u2013 we elevate voices, challenge narratives, and ignite change. Through relevant storytelling, we inform, inspire, and impact communities.\n\nOur Vision\nTo be the leading voice in community media, shaping narratives, aspiring for global change and ensuring community voices are heard, valued and trusted.\n\nOur publication is recognized as both a trusted news source and a cultural institution. \n\nFor news, narratives, and info, visit us at spokesman-recorder.com",
+    "customUrl": "@mnspokesmanrecorder",
+    "publishedAt": "2015-08-15T17:54:40Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/qS1zLWIQ_2HazXxHFnixWXo3q5RDhMy0Ra1diNSI6B5jwnhGytGro64kwR8UgPYObcXKVLkhPA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/qS1zLWIQ_2HazXxHFnixWXo3q5RDhMy0Ra1diNSI6B5jwnhGytGro64kwR8UgPYObcXKVLkhPA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/qS1zLWIQ_2HazXxHFnixWXo3q5RDhMy0Ra1diNSI6B5jwnhGytGro64kwR8UgPYObcXKVLkhPA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Minnesota Spokesman-Recorder",
+     "description": "The Minnesota Spokesman-Recorder (MSR) holds a proud place in history as the oldest Black-owned newspaper in Minnesota and one of the longest continuously operated family-owned Black newspapers in the United States.\n\nOur Mission\nThe Minnesota Spokesman-Recorder (MSR) Multimedia Group goes beyond reporting the news \u2013 we elevate voices, challenge narratives, and ignite change. Through relevant storytelling, we inform, inspire, and impact communities.\n\nOur Vision\nTo be the leading voice in community media, shaping narratives, aspiring for global change and ensuring community voices are heard, valued and trusted.\n\nOur publication is recognized as both a trusted news source and a cultural institution. \n\nFor news, narratives, and info, visit us at spokesman-recorder.com"
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUbfSa4sFelkMsEHL1aUo2iw"
+    }
+   },
+   "statistics": {
+    "viewCount": "310591",
+    "subscriberCount": "554",
+    "hiddenSubscriberCount": false,
+    "videoCount": "829"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/019_rr",
+     "/m/01k8wb"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)",
+     "https://en.wikipedia.org/wiki/Knowledge"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "Fq4K6xrY9ULlzUgu37rI1Uy4VaU",
+   "id": "UCaWNn4aFJSqZW9FlN2YJP9g",
+   "snippet": {
+    "title": "RNS",
+    "description": "Covering the world of religion. ",
+    "customUrl": "@religionnewsservice",
+    "publishedAt": "2012-03-26T22:42:20Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/-nHoa0w05AkI4_zpRRNNy1aUXT7QRSkaYtfXGJJgmQEnjM1btGgAu6HgBwQYvtxg-D73Hv8J=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/-nHoa0w05AkI4_zpRRNNy1aUXT7QRSkaYtfXGJJgmQEnjM1btGgAu6HgBwQYvtxg-D73Hv8J=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/-nHoa0w05AkI4_zpRRNNy1aUXT7QRSkaYtfXGJJgmQEnjM1btGgAu6HgBwQYvtxg-D73Hv8J=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "RNS",
+     "description": "Covering the world of religion. "
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUaWNn4aFJSqZW9FlN2YJP9g"
+    }
+   },
+   "statistics": {
+    "viewCount": "1186873",
+    "subscriberCount": "3640",
+    "hiddenSubscriberCount": false,
+    "videoCount": "357"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/06bvp",
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Religion",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "Kr0j7D3C47SOp_oVRBv2S0FlOwY",
+   "id": "UCXJBRgiZRZvfilIGQ4wN5CQ",
+   "snippet": {
+    "title": "JUNGE FREIHEIT",
+    "description": "Interviews, Reportagen und Nachrichten von Deutschlands unabh\u00e4ngiger Wochenzeitung JUNGE FREIHEIT.\n\nJUNGE FREIHEIT: Wochenzeitung f\u00fcr Debatte. Nachrichten aus Politik und Wirtschaft sowie zu aktuellen Themen aus Kultur und Wissenschaft.\n\nGratis Probeabo: https://www.jf-aktion.de/probeabo",
+    "customUrl": "@junge_freiheit",
+    "publishedAt": "2011-10-31T16:23:09Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/03eMuueMUho0-kjnGtDCG2JzcT6E0zECxwb9UR-rUNsuMTwzJL6WODpt_1vSds4nFn4Y2-PEeNg=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/03eMuueMUho0-kjnGtDCG2JzcT6E0zECxwb9UR-rUNsuMTwzJL6WODpt_1vSds4nFn4Y2-PEeNg=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/03eMuueMUho0-kjnGtDCG2JzcT6E0zECxwb9UR-rUNsuMTwzJL6WODpt_1vSds4nFn4Y2-PEeNg=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "JUNGE FREIHEIT",
+     "description": "Interviews, Reportagen und Nachrichten von Deutschlands unabh\u00e4ngiger Wochenzeitung JUNGE FREIHEIT.\n\nJUNGE FREIHEIT: Wochenzeitung f\u00fcr Debatte. Nachrichten aus Politik und Wirtschaft sowie zu aktuellen Themen aus Kultur und Wissenschaft.\n\nGratis Probeabo: https://www.jf-aktion.de/probeabo"
+    },
+    "country": "DE"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUXJBRgiZRZvfilIGQ4wN5CQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "64658758",
+    "subscriberCount": "221000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1763"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "MZ9A67Hr7IW934hsMpBl3qlTS3w",
+   "id": "UCVG72F2Q5yCmLQfctNK6M2A",
+   "snippet": {
+    "title": "Zeteo",
+    "description": "Founded by Mehdi Hasan, Zeteo has a strong bias for the truth and an unwavering belief in the media\u2019s responsibility to the public. Unfiltered news, bold opinions.",
+    "customUrl": "@zeteo",
+    "publishedAt": "2024-03-05T17:20:03.476382Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/S_CoUS5cot6jsNE67BsrPFjrnLkot1-CKyxGUXnsqC-iOGBBwYLweJIWtI9UE-j9Klqk46Bp=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/S_CoUS5cot6jsNE67BsrPFjrnLkot1-CKyxGUXnsqC-iOGBBwYLweJIWtI9UE-j9Klqk46Bp=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/S_CoUS5cot6jsNE67BsrPFjrnLkot1-CKyxGUXnsqC-iOGBBwYLweJIWtI9UE-j9Klqk46Bp=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Zeteo",
+     "description": "Founded by Mehdi Hasan, Zeteo has a strong bias for the truth and an unwavering belief in the media\u2019s responsibility to the public. Unfiltered news, bold opinions."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUVG72F2Q5yCmLQfctNK6M2A"
+    }
+   },
+   "statistics": {
+    "viewCount": "562977132",
+    "subscriberCount": "2240000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "2479"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr",
+     "/m/01k8wb"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Knowledge"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "EQiGLXA2RlIVqBjGzHA_7rp_x6U",
+   "id": "UCbKd8XD55dOp4f1v17odafw",
+   "snippet": {
+    "title": "La Gazzetta del Mezzogiorno",
+    "description": "Canale Youtube Ufficiale del quotidiano La Gazzetta del Mezzogiorno.\nhttp://www.lagazzettadelmezzogiorno.it",
+    "customUrl": "@gazzettamezzogiornoweb",
+    "publishedAt": "2014-10-05T16:56:23Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/eUf6GKxTm8FBT-hH8SRu5bOY2suOPPbI02PtmGPhEk6M4cQx8UbSj_Ux9pLDXGBW_R8Lb13MEA4=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/eUf6GKxTm8FBT-hH8SRu5bOY2suOPPbI02PtmGPhEk6M4cQx8UbSj_Ux9pLDXGBW_R8Lb13MEA4=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/eUf6GKxTm8FBT-hH8SRu5bOY2suOPPbI02PtmGPhEk6M4cQx8UbSj_Ux9pLDXGBW_R8Lb13MEA4=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "La Gazzetta del Mezzogiorno",
+     "description": "Canale Youtube Ufficiale del quotidiano La Gazzetta del Mezzogiorno.\nhttp://www.lagazzettadelmezzogiorno.it"
+    },
+    "country": "IT"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUbKd8XD55dOp4f1v17odafw"
+    }
+   },
+   "statistics": {
+    "viewCount": "6172029",
+    "subscriberCount": "4200",
+    "hiddenSubscriberCount": false,
+    "videoCount": "1424"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/019_rr",
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "MY7xQk4sVDGZySEAox01TrejWbA",
+   "id": "UCPgLNge0xqQHWM5B5EFH9Cg",
+   "snippet": {
+    "title": "The Telegraph",
+    "description": "Daily UK and world news coverage, political analysis, in-depth defense reporting, and world-class journalism from The Telegraph.\n\n\u25ba Sign up to the Telegraph's free new daily newsletter, From the Editor, bringing you the latest news, features and analysis from the Telegraph newsroom.\n\n\u25ba Get the latest headlines from the UK and around the world. \n\n\u25ba Stay ahead with a Telegraph digital subscription.\n\n\u25ba NEW \u2013 Watch The Daily T Podcast.\n\n\u2b07 Links below \u2b07\n",
+    "customUrl": "@telegraph",
+    "publishedAt": "2006-11-19T00:03:44Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/uOxfdYTevjqB6SjPRXCyqNkkRswHYlqziocw1B4ShK1sXdht2i48JENHQefqS3S1zMydz8kYQw=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/uOxfdYTevjqB6SjPRXCyqNkkRswHYlqziocw1B4ShK1sXdht2i48JENHQefqS3S1zMydz8kYQw=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/uOxfdYTevjqB6SjPRXCyqNkkRswHYlqziocw1B4ShK1sXdht2i48JENHQefqS3S1zMydz8kYQw=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "The Telegraph",
+     "description": "Daily UK and world news coverage, political analysis, in-depth defense reporting, and world-class journalism from The Telegraph.\n\n\u25ba Sign up to the Telegraph's free new daily newsletter, From the Editor, bringing you the latest news, features and analysis from the Telegraph newsroom.\n\n\u25ba Get the latest headlines from the UK and around the world. \n\n\u25ba Stay ahead with a Telegraph digital subscription.\n\n\u25ba NEW \u2013 Watch The Daily T Podcast.\n\n\u2b07 Links below \u2b07\n"
+    },
+    "country": "GB"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUPgLNge0xqQHWM5B5EFH9Cg"
+    }
+   },
+   "statistics": {
+    "viewCount": "4487348580",
+    "subscriberCount": "6190000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "36731"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "l9i6ZtyYjQpBQfAIdhoDsY2AUsE",
+   "id": "UCTo_GrhRsASw22tOpwXfEaQ",
+   "snippet": {
+    "title": "McClatchy Washington Bureau",
+    "description": "National journalism with local impact. McClatchy's DC bureau serves 30 communities across the U.S. & millions of people around the world.",
+    "customUrl": "@mcclatchydc",
+    "publishedAt": "2009-08-04T21:19:31Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nSuF_HXt45fAVsmWexb6Eohzy0Fb1SX-X_QYdmbP2O9A=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nSuF_HXt45fAVsmWexb6Eohzy0Fb1SX-X_QYdmbP2O9A=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_nSuF_HXt45fAVsmWexb6Eohzy0Fb1SX-X_QYdmbP2O9A=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "McClatchy Washington Bureau",
+     "description": "National journalism with local impact. McClatchy's DC bureau serves 30 communities across the U.S. & millions of people around the world."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUTo_GrhRsASw22tOpwXfEaQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "9007157",
+    "subscriberCount": "8450",
+    "hiddenSubscriberCount": false,
+    "videoCount": "885"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "bfcy_rx0KCqINRumW1j6Y_koMfg",
+   "id": "UCRG85wzvd1a9RJhbhwkGKeA",
+   "snippet": {
+    "title": "LGBTQ Nation",
+    "description": "",
+    "customUrl": "@lgbtqnation",
+    "publishedAt": "2010-10-28T23:49:47Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/9f4cR4KZNGoRm6jAsOojVpRFFG3XcQ4XQAjKfeGvy5DO4SIp53SBLnuekIspySlrMvRhSSEnsc8=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/9f4cR4KZNGoRm6jAsOojVpRFFG3XcQ4XQAjKfeGvy5DO4SIp53SBLnuekIspySlrMvRhSSEnsc8=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/9f4cR4KZNGoRm6jAsOojVpRFFG3XcQ4XQAjKfeGvy5DO4SIp53SBLnuekIspySlrMvRhSSEnsc8=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "LGBTQ Nation",
+     "description": ""
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UURG85wzvd1a9RJhbhwkGKeA"
+    }
+   },
+   "statistics": {
+    "viewCount": "3561475",
+    "subscriberCount": "4290",
+    "hiddenSubscriberCount": false,
+    "videoCount": "414"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "gqxP7WHerh4uF3JHE98GpxSJ8J4",
+   "id": "UCYvQOj-t4u5-QKGB3AuoLjw",
+   "snippet": {
+    "title": "Paris Match",
+    "description": "Entrez dans l'histoire avec nos vid\u00e9os ! Personnalit\u00e9s c\u00e9l\u00e8bres, personnages inconnus, leaders d\u2019opinion\u2026 Leurs aventures font l'actu. Partagez ces moments de vie uniques, ces histoires passionnantes au fil d'\u00e9v\u00e9nements qui marquent le temps et entrent dans la post\u00e9rit\u00e9.",
+    "customUrl": "@parismatch",
+    "publishedAt": "2008-06-25T12:31:55Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/a8bg3B0F1DW1q9s_nkLMAF_2WMl-z4gYz7gM3B8gQ7yQTdPCcVngE7E6DsEoUaLEbQL7CF1cILY=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/a8bg3B0F1DW1q9s_nkLMAF_2WMl-z4gYz7gM3B8gQ7yQTdPCcVngE7E6DsEoUaLEbQL7CF1cILY=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/a8bg3B0F1DW1q9s_nkLMAF_2WMl-z4gYz7gM3B8gQ7yQTdPCcVngE7E6DsEoUaLEbQL7CF1cILY=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Paris Match",
+     "description": "Entrez dans l'histoire avec nos vid\u00e9os ! Personnalit\u00e9s c\u00e9l\u00e8bres, personnages inconnus, leaders d\u2019opinion\u2026 Leurs aventures font l'actu. Partagez ces moments de vie uniques, ces histoires passionnantes au fil d'\u00e9v\u00e9nements qui marquent le temps et entrent dans la post\u00e9rit\u00e9."
+    },
+    "country": "FR"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUYvQOj-t4u5-QKGB3AuoLjw"
+    }
+   },
+   "statistics": {
+    "viewCount": "252476235",
+    "subscriberCount": "269000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "6358"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/019_rr",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "L9YKtT02rEtQRnl4hgzo4rAsyuI",
+   "id": "UCQLRK5wiWGmzp4dnFt0arwA",
+   "snippet": {
+    "title": "PinkNews",
+    "description": "Serving you LGBTQ+ content to inform, inspire and empower\n\n\ud83d\udea8 Turn on notifications so you never miss a video.",
+    "customUrl": "@pinknews",
+    "publishedAt": "2013-08-12T10:47:42Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/UK7T2YYYos6J0avh1V0TLNzX1T2thFLAVmJvs6jWKACAMLX4bqvKvcqN38CWsd1XQWSdeoC4yhM=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/UK7T2YYYos6J0avh1V0TLNzX1T2thFLAVmJvs6jWKACAMLX4bqvKvcqN38CWsd1XQWSdeoC4yhM=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/UK7T2YYYos6J0avh1V0TLNzX1T2thFLAVmJvs6jWKACAMLX4bqvKvcqN38CWsd1XQWSdeoC4yhM=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "PinkNews",
+     "description": "Serving you LGBTQ+ content to inform, inspire and empower\n\n\ud83d\udea8 Turn on notifications so you never miss a video."
+    },
+    "country": "GB"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUQLRK5wiWGmzp4dnFt0arwA"
+    }
+   },
+   "statistics": {
+    "viewCount": "775815911",
+    "subscriberCount": "531000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "5282"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/019_rr",
+     "/m/02jjt"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)",
+     "https://en.wikipedia.org/wiki/Entertainment"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "t7po1FL2YKgC4rBrGKZmfHsbE10",
+   "id": "UCaJBwb7XkojUOPbz_6uzPag",
+   "snippet": {
+    "title": "EWTN News ",
+    "description": "This is the official YouTube channel of EWTN News. We provide reliable, free, up-to-the-minute news affecting the Catholic Church, with a particular emphasis on the words of Pope Leo XIV and Vatican news, as well as comprehensive coverage through a Catholic lens.",
+    "customUrl": "@ewtnnews",
+    "publishedAt": "2007-04-11T21:53:35Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/SEJffsPgVZxm_GuUnaDggHtkLoK41BZfyz6IHBjAX9vV77PWpEBUxssep5AMKQikHK6qyZIXrAo=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/SEJffsPgVZxm_GuUnaDggHtkLoK41BZfyz6IHBjAX9vV77PWpEBUxssep5AMKQikHK6qyZIXrAo=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/SEJffsPgVZxm_GuUnaDggHtkLoK41BZfyz6IHBjAX9vV77PWpEBUxssep5AMKQikHK6qyZIXrAo=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "EWTN News ",
+     "description": "This is the official YouTube channel of EWTN News. We provide reliable, free, up-to-the-minute news affecting the Catholic Church, with a particular emphasis on the words of Pope Leo XIV and Vatican news, as well as comprehensive coverage through a Catholic lens."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUaJBwb7XkojUOPbz_6uzPag"
+    }
+   },
+   "statistics": {
+    "viewCount": "147448720",
+    "subscriberCount": "315000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "4777"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/0f2f9",
+     "/m/06bvp",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Television_program",
+     "https://en.wikipedia.org/wiki/Religion",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "TIbk-EJvgk8DHbgQq-IQ1j76bSc",
+   "id": "UCP6HGa63sBC7-KHtkme-p-g",
+   "snippet": {
+    "title": "USA TODAY",
+    "description": "From heartwarming moments to the latest in sports, entertainment, and politics, our journalists are dedicated to bringing clarity to the news of the day with unique visual storytelling.\n",
+    "customUrl": "@usatoday",
+    "publishedAt": "2006-03-20T16:16:43Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mpuS6J3PwGJatG2czLGfmZHyE_kNicqukg0jBnCbENmiJl=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mpuS6J3PwGJatG2czLGfmZHyE_kNicqukg0jBnCbENmiJl=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mpuS6J3PwGJatG2czLGfmZHyE_kNicqukg0jBnCbENmiJl=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "USA TODAY",
+     "description": "From heartwarming moments to the latest in sports, entertainment, and politics, our journalists are dedicated to bringing clarity to the news of the day with unique visual storytelling.\n"
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUP6HGa63sBC7-KHtkme-p-g"
+    }
+   },
+   "statistics": {
+    "viewCount": "5240835685",
+    "subscriberCount": "7560000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "36533"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "10eNqdJ3Od-j1gT5-VgGp4_t7YY",
+   "id": "UCUBWCthNWS-Zz-wCqs--Fwg",
+   "snippet": {
+    "title": "el Nuevo Herald",
+    "description": "El Nuevo Herald es el diario hispano de Miami y el Sur de la Florida. En nuestro canal de YouTube te traemos las noticias del d\u00eda en formato reportaje y formato corto, las entrevistas m\u00e1s recientes con tus artistas favoritos, astrolog\u00eda e investigaciones por nuestro equipo de reporteros. ",
+    "customUrl": "@nuevoherald",
+    "publishedAt": "2011-12-19T22:13:01Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/t6rScW_pf4Q4XIAWJ1ztXzuZcZGVB7Leg-mgsNd5H74vbZslH60rP1AmZzCfdELvlp1La2jf=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/t6rScW_pf4Q4XIAWJ1ztXzuZcZGVB7Leg-mgsNd5H74vbZslH60rP1AmZzCfdELvlp1La2jf=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/t6rScW_pf4Q4XIAWJ1ztXzuZcZGVB7Leg-mgsNd5H74vbZslH60rP1AmZzCfdELvlp1La2jf=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "el Nuevo Herald",
+     "description": "El Nuevo Herald es el diario hispano de Miami y el Sur de la Florida. En nuestro canal de YouTube te traemos las noticias del d\u00eda en formato reportaje y formato corto, las entrevistas m\u00e1s recientes con tus artistas favoritos, astrolog\u00eda e investigaciones por nuestro equipo de reporteros. "
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUUBWCthNWS-Zz-wCqs--Fwg"
+    }
+   },
+   "statistics": {
+    "viewCount": "74734265",
+    "subscriberCount": "242000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "5055"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr",
+     "/m/06ntj",
+     "/m/01cgz",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Sport",
+     "https://en.wikipedia.org/wiki/Boxing",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "5XlMMlRdokXwtNue7UPZ0i46SGU",
+   "id": "UCcLK3j-XWdGBnt5bR9NJHaQ",
+   "snippet": {
+    "title": "CCTV\u4e2d\u56fd\u4e2d\u592e\u7535\u89c6\u53f0",
+    "description": "\u6211\u4eec\u81f4\u529b\u4e8e\u66f4\u597d\u5c55\u73b0\u771f\u5b9e\u3001\u7acb\u4f53\u3001\u5168\u9762\u7684\u4e2d\u56fd\uff0c\u6210\u4e3a\u4e2d\u56fd\u8d70\u5411\u4e16\u754c\u3001\u4e16\u754c\u8bfb\u61c2\u4e2d\u56fd\u7684\u91cd\u8981\u7a97\u53e3\u3002\n\n\u66f4\u591a\u7cbe\u5f69\u5185\u5bb9\u6b22\u8fce\u5173\u6ce8CCTV Global\uff1ahttps://global.cctv.com/\n\n\u7248\u6743\u95ee\u9898\u53ef\u8054\u7cfb\u90ae\u7bb1copyright.cctv@gmail.com\n\u5185\u5bb9\u53ca\u5176\u4ed6\u5546\u52a1\u4e8b\u5b9c\u8bf7\u8054\u7cfb\u90ae\u7bb1business.cctvcom@gmail.com\n",
+    "customUrl": "@cctv",
+    "publishedAt": "2014-01-03T09:39:50Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/UldwlGABN4ST-DVLUDoaKlA4bcE3TvYpLoJvcQslZeJdo2qJrDMR1ZHmFVIhBSxdDUUNgDEAFw=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/UldwlGABN4ST-DVLUDoaKlA4bcE3TvYpLoJvcQslZeJdo2qJrDMR1ZHmFVIhBSxdDUUNgDEAFw=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/UldwlGABN4ST-DVLUDoaKlA4bcE3TvYpLoJvcQslZeJdo2qJrDMR1ZHmFVIhBSxdDUUNgDEAFw=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "CCTV\u4e2d\u56fd\u4e2d\u592e\u7535\u89c6\u53f0",
+     "description": "\u6211\u4eec\u81f4\u529b\u4e8e\u66f4\u597d\u5c55\u73b0\u771f\u5b9e\u3001\u7acb\u4f53\u3001\u5168\u9762\u7684\u4e2d\u56fd\uff0c\u6210\u4e3a\u4e2d\u56fd\u8d70\u5411\u4e16\u754c\u3001\u4e16\u754c\u8bfb\u61c2\u4e2d\u56fd\u7684\u91cd\u8981\u7a97\u53e3\u3002\n\n\u66f4\u591a\u7cbe\u5f69\u5185\u5bb9\u6b22\u8fce\u5173\u6ce8CCTV Global\uff1ahttps://global.cctv.com/\n\n\u7248\u6743\u95ee\u9898\u53ef\u8054\u7cfb\u90ae\u7bb1copyright.cctv@gmail.com\n\u5185\u5bb9\u53ca\u5176\u4ed6\u5546\u52a1\u4e8b\u5b9c\u8bf7\u8054\u7cfb\u90ae\u7bb1business.cctvcom@gmail.com\n"
+    },
+    "country": "CN"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUcLK3j-XWdGBnt5bR9NJHaQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "1029279416",
+    "subscriberCount": "7290000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "42279"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02jjt",
+     "/m/05qt0",
+     "/m/0f2f9",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Entertainment",
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Television_program",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "0-M_35x3Pj32cpu_KxbEgrqEqPs",
+   "id": "UCQaEL2cqvySMoNT7223LXrg",
+   "snippet": {
+    "title": "askanews",
+    "description": "askanews, agenzia di stampa multimediale: ti raccontiamo quello che succede, ovunque.",
+    "customUrl": "@askanews",
+    "publishedAt": "2011-03-23T15:13:11Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kDgIP-ZCf7Xcrk7QswkJR_33TsQcT1O0iDvsZA-Itjew=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kDgIP-ZCf7Xcrk7QswkJR_33TsQcT1O0iDvsZA-Itjew=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kDgIP-ZCf7Xcrk7QswkJR_33TsQcT1O0iDvsZA-Itjew=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "askanews",
+     "description": "askanews, agenzia di stampa multimediale: ti raccontiamo quello che succede, ovunque."
+    },
+    "country": "IT"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUQaEL2cqvySMoNT7223LXrg"
+    }
+   },
+   "statistics": {
+    "viewCount": "161202716",
+    "subscriberCount": "146000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "78621"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "d10My1BflaOt2ABQdOsZ0F1dZW0",
+   "id": "UCNwUbsJ8HzvqwW_vA2vVOGw",
+   "snippet": {
+    "title": "Resist the Mainstream",
+    "description": "Reporting the news the mainstream media won\u2019t.\u2063\n\nContact for sponsorships: contact@resistthemainstream.com\n",
+    "customUrl": "@resistthemainstream",
+    "publishedAt": "2022-11-21T02:05:07.335045Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/hnd_cMC11ij0CUvsgf60IVrXbEgP5Zm2-S0lxeF_0HTAZpFTMTI5fDBbCl1p1pfV01sMoq5Lzxw=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/hnd_cMC11ij0CUvsgf60IVrXbEgP5Zm2-S0lxeF_0HTAZpFTMTI5fDBbCl1p1pfV01sMoq5Lzxw=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/hnd_cMC11ij0CUvsgf60IVrXbEgP5Zm2-S0lxeF_0HTAZpFTMTI5fDBbCl1p1pfV01sMoq5Lzxw=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Resist the Mainstream",
+     "description": "Reporting the news the mainstream media won\u2019t.\u2063\n\nContact for sponsorships: contact@resistthemainstream.com\n"
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUNwUbsJ8HzvqwW_vA2vVOGw"
+    }
+   },
+   "statistics": {
+    "viewCount": "89860359",
+    "subscriberCount": "361000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "2507"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "nSnUrDGVGjJW6eP7KWSwYlLVuXo",
+   "id": "UCVykXnNvvMNLM6q0l7V4ivA",
+   "snippet": {
+    "title": "The Inquisitr",
+    "description": "The Inquisitr delivers timely coverage of U.S. politics, breaking news, and major national developments with a clear and engaging approach. From White House updates to political analysis and trending stories, the channel focuses on keeping viewers informed with daily content centered on America\u2019s political landscape and current events.",
+    "customUrl": "@theinquisitr-t6e",
+    "publishedAt": "2015-06-21T14:00:34Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/8i-wh32OPECkqtS1-d9gc_yuloZ3l2uKT-SHQH5s5LeTDSAsLLLhN05td8FVOhOOSGV6TcRz=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/8i-wh32OPECkqtS1-d9gc_yuloZ3l2uKT-SHQH5s5LeTDSAsLLLhN05td8FVOhOOSGV6TcRz=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/8i-wh32OPECkqtS1-d9gc_yuloZ3l2uKT-SHQH5s5LeTDSAsLLLhN05td8FVOhOOSGV6TcRz=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "The Inquisitr",
+     "description": "The Inquisitr delivers timely coverage of U.S. politics, breaking news, and major national developments with a clear and engaging approach. From White House updates to political analysis and trending stories, the channel focuses on keeping viewers informed with daily content centered on America\u2019s political landscape and current events."
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUVykXnNvvMNLM6q0l7V4ivA"
+    }
+   },
+   "statistics": {
+    "viewCount": "4845713",
+    "subscriberCount": "5150",
+    "hiddenSubscriberCount": false,
+    "videoCount": "2122"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "DdpoQLic_rCkgd8lpdcb3Qug7LI",
+   "id": "UCOmcA3f_RrH6b9NmcNa4tdg",
+   "snippet": {
+    "title": "CNET",
+    "description": "CNET is the premier destination for explaining and navigating the changing world around us. Through news, product reviews, price comparisons, and more, we\u2019ll tell you what\u2019s new in the parts of modern life that increasingly matter more \u2014 from health, home, and money to tech, culture, and climate \u2014 and how to get the most out of them.",
+    "customUrl": "@cnet",
+    "publishedAt": "2006-05-05T19:10:07Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/SGoD0SodPuysPRUSFI8jd_eqR-ZCgvxhZk905338O1NUYI5eUqMZ1lQaekFNiDggJh0lA_5kQg=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/SGoD0SodPuysPRUSFI8jd_eqR-ZCgvxhZk905338O1NUYI5eUqMZ1lQaekFNiDggJh0lA_5kQg=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/SGoD0SodPuysPRUSFI8jd_eqR-ZCgvxhZk905338O1NUYI5eUqMZ1lQaekFNiDggJh0lA_5kQg=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "CNET",
+     "description": "CNET is the premier destination for explaining and navigating the changing world around us. Through news, product reviews, price comparisons, and more, we\u2019ll tell you what\u2019s new in the parts of modern life that increasingly matter more \u2014 from health, home, and money to tech, culture, and climate \u2014 and how to get the most out of them."
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUOmcA3f_RrH6b9NmcNa4tdg"
+    }
+   },
+   "statistics": {
+    "viewCount": "2107527268",
+    "subscriberCount": "4090000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "24573"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/07c1v",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Technology",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "L15apjPpe9aHh1z_dk8pNdPy55I",
+   "id": "UCP06SZMpEHKrx31UOr2SfqQ",
+   "snippet": {
+    "title": "Times of San Diego",
+    "description": "",
+    "customUrl": "@timesofsandiegonews",
+    "publishedAt": "2014-03-19T16:49:46Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mjEjVamO5V-EDXks9_rr22zA14Nj9Skp1wKOF_SMIrMg=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mjEjVamO5V-EDXks9_rr22zA14Nj9Skp1wKOF_SMIrMg=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_mjEjVamO5V-EDXks9_rr22zA14Nj9Skp1wKOF_SMIrMg=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Times of San Diego",
+     "description": ""
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUP06SZMpEHKrx31UOr2SfqQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "3339026",
+    "subscriberCount": "2880",
+    "hiddenSubscriberCount": false,
+    "videoCount": "644"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/06ntj",
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Sport",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "Plxfvx334I5zDJxh1NyQx6pklqw",
+   "id": "UCQVhgOxzt5W1fZhOd0l2E6g",
+   "snippet": {
+    "title": "The First",
+    "description": "The First TV: Free Speech, No Excuses. Featuring Bill O'Reilly, Jesse Kelly, Dana Loesch, Mike Slater & Sean Spicer. Delivering the best political coverage and analysis you can find on television. Download the FREE First TV APP on your phone, computer, or smart TV.  Or visit - www.thefirsttv.com/watch - and start watching today. ",
+    "customUrl": "@thefirstontv",
+    "publishedAt": "2019-10-09T16:44:49Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kQN9HP2Pdj7lXSQk1NEyz5gGH9MR9BsLmvIeMZwdEJFA=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kQN9HP2Pdj7lXSQk1NEyz5gGH9MR9BsLmvIeMZwdEJFA=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kQN9HP2Pdj7lXSQk1NEyz5gGH9MR9BsLmvIeMZwdEJFA=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "The First",
+     "description": "The First TV: Free Speech, No Excuses. Featuring Bill O'Reilly, Jesse Kelly, Dana Loesch, Mike Slater & Sean Spicer. Delivering the best political coverage and analysis you can find on television. Download the FREE First TV APP on your phone, computer, or smart TV.  Or visit - www.thefirsttv.com/watch - and start watching today. "
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUQVhgOxzt5W1fZhOd0l2E6g"
+    }
+   },
+   "statistics": {
+    "viewCount": "89697951",
+    "subscriberCount": "195000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "17572"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/02jjt",
+     "/m/0f2f9",
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Entertainment",
+     "https://en.wikipedia.org/wiki/Television_program",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "xlUwAFIhIF81PBW4tFzdJl0oRbM",
+   "id": "UCWckf0mR2VES5u5ErjuHgzg",
+   "snippet": {
+    "title": "RedaktionsNetzwerk Deutschland (RND)",
+    "description": "Der offizielle YouTube-Kanal des RedaktionsNetzwerks Deutschland (RND).\n\nDas RND behandelt als eines der gr\u00f6\u00dften redaktionellen Netzwerke Deutschlands t\u00e4glich Bilder und Themen, die um die Welt gehen und bewegen.\n\n\n_____\n\nRND RedaktionsNetzwerk Deutschland GmbH\nAugust-Madsack-Stra\u00dfe 1\n30559 Hannover\n\nTelefon: 0511 / 5453 8000\nE-Mail-Adresse: info@rnd.de\n\nGesch\u00e4ftsf\u00fchrung: Thomas D\u00fcffert, Bernhard Bahners\nChefredaktion: Sven Oliver Clausen, Eva Quadbeck\n",
+    "customUrl": "@redaktionsnetzwerkdeutschland",
+    "publishedAt": "2015-08-25T08:08:55Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/OfPX0r9fNSDWd6SZ0GoLQo6BwlXJLySkjfLbhLwBaxU9a9zuWnq3qWt6CfvwBXuLdYx4VCvyBQ=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/OfPX0r9fNSDWd6SZ0GoLQo6BwlXJLySkjfLbhLwBaxU9a9zuWnq3qWt6CfvwBXuLdYx4VCvyBQ=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/OfPX0r9fNSDWd6SZ0GoLQo6BwlXJLySkjfLbhLwBaxU9a9zuWnq3qWt6CfvwBXuLdYx4VCvyBQ=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "RedaktionsNetzwerk Deutschland (RND)",
+     "description": "Der offizielle YouTube-Kanal des RedaktionsNetzwerks Deutschland (RND).\n\nDas RND behandelt als eines der gr\u00f6\u00dften redaktionellen Netzwerke Deutschlands t\u00e4glich Bilder und Themen, die um die Welt gehen und bewegen.\n\n\n_____\n\nRND RedaktionsNetzwerk Deutschland GmbH\nAugust-Madsack-Stra\u00dfe 1\n30559 Hannover\n\nTelefon: 0511 / 5453 8000\nE-Mail-Adresse: info@rnd.de\n\nGesch\u00e4ftsf\u00fchrung: Thomas D\u00fcffert, Bernhard Bahners\nChefredaktion: Sven Oliver Clausen, Eva Quadbeck\n"
+    },
+    "country": "DE"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUWckf0mR2VES5u5ErjuHgzg"
+    }
+   },
+   "statistics": {
+    "viewCount": "10504893",
+    "subscriberCount": "14100",
+    "hiddenSubscriberCount": false,
+    "videoCount": "3679"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "Mg8Hbtw8eWUCz9P7ykch-RiA4Vg",
+   "id": "UCYZpcYxa-2fXWg-jNJOL8Ww",
+   "snippet": {
+    "title": "Money.it",
+    "description": "Canale video di Money.it, sito italiano di riferimento per le notizie di economia e finanza con un occhio di riguardo al mondo del risparmio gestito, della consulenza finanziaria e del trading. \n\nIn questo spazio trovate le interviste a economisti, trader, gestori italiani e esteri, consulenti finanziari, private banker e esponenti delle associazioni di categoria. \u00c8 inoltre possibile trovare approfondimenti su argomenti finanziari quali fondi comuni, ETF, hedge fund, azioni, obbligazioni, Certificati di investimento e a leva. \n\nIn occasione dei pi\u00f9 importanti eventi del risparmio gestito e del trading online, quali ConsulenTia, Salone del Risparmio, ITForum, Trading online Expo, Investing Roma e Napoli, Money.it mette a disposizione dei suoi utenti tutte le interviste ai protagonisti dell'industria economica e finanziaria italiana e mondiale. Per rimanere sempre aggiornati consulta: https://www.money.it",
+    "customUrl": "@moneyit",
+    "publishedAt": "2018-01-31T16:13:29Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/9UvbXYAUyN93bspbBi_uNumqIhl1WifhbpwgE08XfueZwxPL8E0yR6eDLeiPzbnA-pHgR6owshM=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/9UvbXYAUyN93bspbBi_uNumqIhl1WifhbpwgE08XfueZwxPL8E0yR6eDLeiPzbnA-pHgR6owshM=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/9UvbXYAUyN93bspbBi_uNumqIhl1WifhbpwgE08XfueZwxPL8E0yR6eDLeiPzbnA-pHgR6owshM=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Money.it",
+     "description": "Canale video di Money.it, sito italiano di riferimento per le notizie di economia e finanza con un occhio di riguardo al mondo del risparmio gestito, della consulenza finanziaria e del trading. \n\nIn questo spazio trovate le interviste a economisti, trader, gestori italiani e esteri, consulenti finanziari, private banker e esponenti delle associazioni di categoria. \u00c8 inoltre possibile trovare approfondimenti su argomenti finanziari quali fondi comuni, ETF, hedge fund, azioni, obbligazioni, Certificati di investimento e a leva. \n\nIn occasione dei pi\u00f9 importanti eventi del risparmio gestito e del trading online, quali ConsulenTia, Salone del Risparmio, ITForum, Trading online Expo, Investing Roma e Napoli, Money.it mette a disposizione dei suoi utenti tutte le interviste ai protagonisti dell'industria economica e finanziaria italiana e mondiale. Per rimanere sempre aggiornati consulta: https://www.money.it"
+    },
+    "country": "IT"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUYZpcYxa-2fXWg-jNJOL8Ww"
+    }
+   },
+   "statistics": {
+    "viewCount": "32335084",
+    "subscriberCount": "88300",
+    "hiddenSubscriberCount": false,
+    "videoCount": "6059"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/01k8wb",
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Knowledge",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "KB5Nbb0V6aucAP6GCkauIqASFWo",
+   "id": "UCQd5LYcykaFeZtjDaP3bNSA",
+   "snippet": {
+    "title": "Le Point",
+    "description": "V\u00e9rit\u00e9. Irr\u00e9v\u00e9rence. Non conformisme. Ind\u00e9pendance. \nLe Point c'est chaque jeudi en kiosque et tous les jours sur https://www.lepoint.fr\n\ud83d\uddde\ufe0f Abonnez-vous : 1\u20ac le 1er mois ! \u27a1\ufe0f https://abo.lepoint.fr/\nFond\u00e9 en 1972, par une \u00e9quipe de pens\u00e9e qui a \u00ab choisi de ne d\u00e9sesp\u00e9rer de rien \u00bb. \u00ab Le Point \u00bb est un magazine fran\u00e7ais d\u2019information g\u00e9n\u00e9rale. Il occupe la premi\u00e8re place des magazines d\u2019actualit\u00e9 en ventes kiosque. \n#actualit\u00e9s  #politique #sant\u00e9 #\u00e9conomie #climat #environnement #d\u00e9bat #id\u00e9es #france #monde \n\nSuivez nous sur :\n\nYoutube : https://www.youtube.com/c/lepoint/ \nFacebook : https://www.facebook.com/lepoint.fr/ \nTwitter : https://twitter.com/LePoint \nInstagram : https://www.instagram.com/lepointfr \nTik Tok : https://www.tiktok.com/@lepointfr \nLinkedIn : https://www.linkedin.com/company/le-point/posts/ \nBluesky : https://bsky.app/profile/lepoint.fr\nThreads : https://www.threads.net/@lepointfr\nWhatsApp : https://www.whatsapp.com/channel/0029VaDv82FL2ATwZXFPAK3c\nwww.lepoint.fr\n",
+    "customUrl": "@lepoint",
+    "publishedAt": "2007-12-12T17:41:32Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kpSus9en12mSSrnECMFs_PLOqpJDkg5EMmdvP3Btdj9ow=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kpSus9en12mSSrnECMFs_PLOqpJDkg5EMmdvP3Btdj9ow=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kpSus9en12mSSrnECMFs_PLOqpJDkg5EMmdvP3Btdj9ow=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Le Point",
+     "description": "V\u00e9rit\u00e9. Irr\u00e9v\u00e9rence. Non conformisme. Ind\u00e9pendance. \nLe Point c'est chaque jeudi en kiosque et tous les jours sur https://www.lepoint.fr\n\ud83d\uddde\ufe0f Abonnez-vous : 1\u20ac le 1er mois ! \u27a1\ufe0f https://abo.lepoint.fr/\nFond\u00e9 en 1972, par une \u00e9quipe de pens\u00e9e qui a \u00ab choisi de ne d\u00e9sesp\u00e9rer de rien \u00bb. \u00ab Le Point \u00bb est un magazine fran\u00e7ais d\u2019information g\u00e9n\u00e9rale. Il occupe la premi\u00e8re place des magazines d\u2019actualit\u00e9 en ventes kiosque. \n#actualit\u00e9s  #politique #sant\u00e9 #\u00e9conomie #climat #environnement #d\u00e9bat #id\u00e9es #france #monde \n\nSuivez nous sur :\n\nYoutube : https://www.youtube.com/c/lepoint/ \nFacebook : https://www.facebook.com/lepoint.fr/ \nTwitter : https://twitter.com/LePoint \nInstagram : https://www.instagram.com/lepointfr \nTik Tok : https://www.tiktok.com/@lepointfr \nLinkedIn : https://www.linkedin.com/company/le-point/posts/ \nBluesky : https://bsky.app/profile/lepoint.fr\nThreads : https://www.threads.net/@lepointfr\nWhatsApp : https://www.whatsapp.com/channel/0029VaDv82FL2ATwZXFPAK3c\nwww.lepoint.fr\n"
+    },
+    "country": "FR"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUQd5LYcykaFeZtjDaP3bNSA"
+    }
+   },
+   "statistics": {
+    "viewCount": "274530393",
+    "subscriberCount": "352000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "21353"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "QxAHgJ8hifDNeR4HLpoNFBJYKI4",
+   "id": "UCaXkIU1QidjPwiAYu6GcHjg",
+   "snippet": {
+    "title": "MS NOW",
+    "description": "The official MS NOW YouTube Channel. The place for in-depth analysis, political commentary and exclusive reporting.\n\n",
+    "customUrl": "@msnow",
+    "publishedAt": "2011-12-01T19:16:09Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/k6bDbWwngaO6KSyL1lxkmFIbW6ncdoLKITtcqTumbD5wBazaJltUEkJdrfHjuMtDrHltYaIbLd0=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/k6bDbWwngaO6KSyL1lxkmFIbW6ncdoLKITtcqTumbD5wBazaJltUEkJdrfHjuMtDrHltYaIbLd0=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/k6bDbWwngaO6KSyL1lxkmFIbW6ncdoLKITtcqTumbD5wBazaJltUEkJdrfHjuMtDrHltYaIbLd0=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "MS NOW",
+     "description": "The official MS NOW YouTube Channel. The place for in-depth analysis, political commentary and exclusive reporting.\n\n"
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUaXkIU1QidjPwiAYu6GcHjg"
+    }
+   },
+   "statistics": {
+    "viewCount": "21178807361",
+    "subscriberCount": "9990000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "120442"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/01k8wb",
+     "/m/098wr",
+     "/m/05qt0"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Knowledge",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Politics"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "-enhTiYYemDxUN6x42yHQPM1clo",
+   "id": "UCahujLjSL34EPNxtwKRi_vg",
+   "snippet": {
+    "title": "China Daily \u4e2d\u56fd\u65e5\u62a5",
+    "description": "Your fast way to all things China.",
+    "customUrl": "@chinadailyofficialchannel",
+    "publishedAt": "2016-12-06T19:47:06Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/PL4u6llUGC8DUqoyJ13Aqv8ie8Jz_Rg4NzCbPnQ3WpoZk9H7x0_0SVrCLxgW37WCRRFC4qB_knw=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/PL4u6llUGC8DUqoyJ13Aqv8ie8Jz_Rg4NzCbPnQ3WpoZk9H7x0_0SVrCLxgW37WCRRFC4qB_knw=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/PL4u6llUGC8DUqoyJ13Aqv8ie8Jz_Rg4NzCbPnQ3WpoZk9H7x0_0SVrCLxgW37WCRRFC4qB_knw=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "China Daily \u4e2d\u56fd\u65e5\u62a5",
+     "description": "Your fast way to all things China."
+    },
+    "country": "HK"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUahujLjSL34EPNxtwKRi_vg"
+    }
+   },
+   "statistics": {
+    "viewCount": "154365948",
+    "subscriberCount": "3200000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "12788"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr",
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "ZoS9qs5KRn3FxHZayTgCUgM0JUQ",
+   "id": "UCcXWldkGVrfEUCJjKyvKgvQ",
+   "snippet": {
+    "title": "Post-Bulletin",
+    "description": "The Post-Bulletin is southeastern Minnesota's leading news source. If it matters to you, it matters to us!",
+    "customUrl": "@post-bulletin3086",
+    "publishedAt": "2014-10-27T19:39:33Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_l6U1wvQxkqS-_6UtobFAirw9oHpr94Nj-J-w1sjtGPPDc=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_l6U1wvQxkqS-_6UtobFAirw9oHpr94Nj-J-w1sjtGPPDc=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_l6U1wvQxkqS-_6UtobFAirw9oHpr94Nj-J-w1sjtGPPDc=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Post-Bulletin",
+     "description": "The Post-Bulletin is southeastern Minnesota's leading news source. If it matters to you, it matters to us!"
+    },
+    "country": "US"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUcXWldkGVrfEUCJjKyvKgvQ"
+    }
+   },
+   "statistics": {
+    "viewCount": "336423",
+    "subscriberCount": "366",
+    "hiddenSubscriberCount": false,
+    "videoCount": "724"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "_kzwlD7uAXuTIS9YEDdQNYwEbuk",
+   "id": "UCYUOdlg706siqd1fRsLtDSA",
+   "snippet": {
+    "title": "The Breach",
+    "description": "Transformative Journalism - visit breachmedia.ca\n",
+    "customUrl": "@thebreach",
+    "publishedAt": "2021-03-10T14:19:04.458296Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lpAsYo-AzvCPpTT1311S7pd_Gh2PQPeNDebG5dFVkBows=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lpAsYo-AzvCPpTT1311S7pd_Gh2PQPeNDebG5dFVkBows=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_lpAsYo-AzvCPpTT1311S7pd_Gh2PQPeNDebG5dFVkBows=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "The Breach",
+     "description": "Transformative Journalism - visit breachmedia.ca\n"
+    },
+    "country": "CA"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUYUOdlg706siqd1fRsLtDSA"
+    }
+   },
+   "statistics": {
+    "viewCount": "1492706",
+    "subscriberCount": "20500",
+    "hiddenSubscriberCount": false,
+    "videoCount": "316"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr",
+     "/m/01k8wb"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society",
+     "https://en.wikipedia.org/wiki/Knowledge"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "r7JFuurHL8OWuCp82WYEXG6Cf80",
+   "id": "UCO1lJlI3gjuOMrKppvPlDww",
+   "snippet": {
+    "title": "\u041d\u043e\u0432\u0430\u044f \u0433\u0430\u0437\u0435\u0442\u0430 \u0415\u0432\u0440\u043e\u043f\u0430",
+    "description": "\u0411\u0443\u0434\u0443\u0449\u0435\u0435 \u043d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u043e, \u043d\u043e \u043f\u0440\u043e \u043d\u0430\u0441\u0442\u043e\u044f\u0449\u0435\u0435 \u0440\u0430\u0441\u0441\u043a\u0430\u0436\u0435\u043c. \n\n\u041c\u044b \u0433\u043e\u0432\u043e\u0440\u0438\u043c \u043e \u0441\u043e\u0431\u044b\u0442\u0438\u044f\u0445 \u0432 \u0420\u043e\u0441\u0441\u0438\u0438 \u0438 \u043c\u0438\u0440\u0435, \u0436\u0438\u0437\u043d\u0438 \u0432 \u0440\u0435\u0433\u0438\u043e\u043d\u0430\u0445, \u0434\u0435\u043b\u0430\u0435\u043c \u0438\u043d\u0442\u0435\u0440\u0432\u044c\u044e \u0438 \u0435\u0436\u0435\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u044b\u0435 \u043d\u043e\u0432\u043e\u0441\u0442\u0438, \u0440\u0430\u0441\u0441\u043a\u0430\u0437\u044b\u0432\u0430\u0435\u043c \u043e \u043f\u043e\u043b\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u044f\u0432\u043b\u0435\u043d\u0438\u044f\u0445 \u0442\u0430\u043a, \u0447\u0442\u043e\u0431\u044b \u0432\u0430\u043c \u0431\u044b\u043b\u043e \u0438\u043d\u0442\u0435\u0440\u0435\u0441\u043d\u043e. \u041f\u043e\u0434\u043f\u0438\u0441\u044b\u0432\u0430\u0439\u0442\u0435\u0441\u044c.\n\n\u0414\u043b\u044f \u0432\u043e\u043f\u0440\u043e\u0441\u043e\u0432 \u0438 \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u0439: video@novayagazeta.eu\n",
+    "customUrl": "@novayagazeta_eu",
+    "publishedAt": "2022-04-06T13:29:31.04623Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/5_JcEkzSB7St9UEV2UIenG8vES2yLPrnSW4T400lykoocRPZqU5F8bkWE9WT3AViEB6-5rqM=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/5_JcEkzSB7St9UEV2UIenG8vES2yLPrnSW4T400lykoocRPZqU5F8bkWE9WT3AViEB6-5rqM=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/5_JcEkzSB7St9UEV2UIenG8vES2yLPrnSW4T400lykoocRPZqU5F8bkWE9WT3AViEB6-5rqM=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "defaultLanguage": "ru",
+    "localized": {
+     "title": "\u041d\u043e\u0432\u0430\u044f \u0433\u0430\u0437\u0435\u0442\u0430 \u0415\u0432\u0440\u043e\u043f\u0430",
+     "description": "\u0411\u0443\u0434\u0443\u0449\u0435\u0435 \u043d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u043e, \u043d\u043e \u043f\u0440\u043e \u043d\u0430\u0441\u0442\u043e\u044f\u0449\u0435\u0435 \u0440\u0430\u0441\u0441\u043a\u0430\u0436\u0435\u043c. \n\n\u041c\u044b \u0433\u043e\u0432\u043e\u0440\u0438\u043c \u043e \u0441\u043e\u0431\u044b\u0442\u0438\u044f\u0445 \u0432 \u0420\u043e\u0441\u0441\u0438\u0438 \u0438 \u043c\u0438\u0440\u0435, \u0436\u0438\u0437\u043d\u0438 \u0432 \u0440\u0435\u0433\u0438\u043e\u043d\u0430\u0445, \u0434\u0435\u043b\u0430\u0435\u043c \u0438\u043d\u0442\u0435\u0440\u0432\u044c\u044e \u0438 \u0435\u0436\u0435\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u044b\u0435 \u043d\u043e\u0432\u043e\u0441\u0442\u0438, \u0440\u0430\u0441\u0441\u043a\u0430\u0437\u044b\u0432\u0430\u0435\u043c \u043e \u043f\u043e\u043b\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0445 \u044f\u0432\u043b\u0435\u043d\u0438\u044f\u0445 \u0442\u0430\u043a, \u0447\u0442\u043e\u0431\u044b \u0432\u0430\u043c \u0431\u044b\u043b\u043e \u0438\u043d\u0442\u0435\u0440\u0435\u0441\u043d\u043e. \u041f\u043e\u0434\u043f\u0438\u0441\u044b\u0432\u0430\u0439\u0442\u0435\u0441\u044c.\n\n\u0414\u043b\u044f \u0432\u043e\u043f\u0440\u043e\u0441\u043e\u0432 \u0438 \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u0439: video@novayagazeta.eu\n"
+    },
+    "country": "LV"
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUO1lJlI3gjuOMrKppvPlDww"
+    }
+   },
+   "statistics": {
+    "viewCount": "140285800",
+    "subscriberCount": "780000",
+    "hiddenSubscriberCount": false,
+    "videoCount": "853"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/05qt0",
+     "/m/098wr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Politics",
+     "https://en.wikipedia.org/wiki/Society"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified",
+    "madeForKids": false
+   }
+  },
+  {
+   "kind": "youtube#channel",
+   "etag": "0VKCBR6_7K47VTGN12WEOi4L7FM",
+   "id": "UCbtCkaSP0s0RtqTNnNrN4Iw",
+   "snippet": {
+    "title": "Thueringen 24 (TH24)",
+    "description": "#Schnell, #praktisch, #sexy: TH24 ist die erste Adresse f\u00fcr News, Services und Lifestyle aus Th\u00fcringen.",
+    "customUrl": "@thueringen2474",
+    "publishedAt": "2016-04-06T13:48:07Z",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kA1kR-GpdOURulrGgNYbnC9CaG-BfR7eXEKprd2vaQPQ=s88-c-k-c0x00ffffff-no-rj",
+      "width": 88,
+      "height": 88
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kA1kR-GpdOURulrGgNYbnC9CaG-BfR7eXEKprd2vaQPQ=s240-c-k-c0x00ffffff-no-rj",
+      "width": 240,
+      "height": 240
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/ytc/AIdro_kA1kR-GpdOURulrGgNYbnC9CaG-BfR7eXEKprd2vaQPQ=s800-c-k-c0x00ffffff-no-rj",
+      "width": 800,
+      "height": 800
+     }
+    },
+    "localized": {
+     "title": "Thueringen 24 (TH24)",
+     "description": "#Schnell, #praktisch, #sexy: TH24 ist die erste Adresse f\u00fcr News, Services und Lifestyle aus Th\u00fcringen."
+    }
+   },
+   "contentDetails": {
+    "relatedPlaylists": {
+     "likes": "",
+     "uploads": "UUbtCkaSP0s0RtqTNnNrN4Iw"
+    }
+   },
+   "statistics": {
+    "viewCount": "84406",
+    "subscriberCount": "100",
+    "hiddenSubscriberCount": false,
+    "videoCount": "60"
+   },
+   "topicDetails": {
+    "topicIds": [
+     "/m/019_rr"
+    ],
+    "topicCategories": [
+     "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+    ]
+   },
+   "status": {
+    "privacyStatus": "public",
+    "isLinked": true,
+    "longUploadsStatus": "longUploadsUnspecified"
+   }
+  }
+ ]
+}

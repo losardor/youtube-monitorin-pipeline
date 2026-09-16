@@ -16,6 +16,7 @@ import argparse
 import yaml
 from src.youtube_client import YouTubeAPIClient
 from src.database import Database
+from src.lock import advisory_lock, LockUnavailable
 from src.utils.helpers import load_sources_from_csv, extract_channel_id_from_url, setup_logging
 
 class ComprehensiveCollector:
@@ -574,15 +575,33 @@ def main():
     parser.add_argument('--resume', action='store_true',
                        help='Resume from last checkpoint')
     
+    parser.add_argument('--lock', type=str, default='data/.ytmon.lock',
+                       help='Advisory lock path, shared with daily.py')
+    parser.add_argument('--wait-for-lock', action='store_true',
+                       help='Block until the lock is free instead of exiting')
+
     args = parser.parse_args()
-    
-    collector = ComprehensiveCollector(config_path=args.config)
-    collector.run(
-        sources_csv=args.sources,
-        start_from=args.start_from,
-        max_channels=args.max_channels,
-        resume=args.resume
-    )
+
+    # The backfill and the daily run write the same SQLite file. WAL permits
+    # one writer at a time, and this run holds the database for hours, so the
+    # two are serialised here rather than left to fight. Same lock path as
+    # daily.py and the flock in deploy/run_daily.sh.
+    try:
+        with advisory_lock(args.lock, blocking=args.wait_for_lock):
+            collector = ComprehensiveCollector(config_path=args.config)
+            collector.run(
+                sources_csv=args.sources,
+                start_from=args.start_from,
+                max_channels=args.max_channels,
+                resume=args.resume
+            )
+    except LockUnavailable as e:
+        print(f"Not starting: {e}")
+        print("The daily run is holding the lock; it finishes in minutes. "
+              "Retry, or pass --wait-for-lock to queue behind it.")
+        return 1
+
+    return 0
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

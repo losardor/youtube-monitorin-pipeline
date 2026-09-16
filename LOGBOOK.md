@@ -1,13 +1,18 @@
 # YouTube Monitoring Pipeline - Logbook
 
-## Current Status (as of 2026-04-21)
+## Current Status (as of 2026-09-16)
 
-**Current phase:** Post-validation hold, validation phase closed.
+**Current phase:** Phase 2 of the ytmon merge largely complete on `feat/daily-monitor`. Gate 2: tier 1 passes (0% FP after demotion), **tier 2 fails (20%, threshold 15%)** and needs 2.3 tightened and redrawn. Phase 3 (cluster deployment) not started.
+
+- **Production database:** `data/youtube_monitoring.db` now holds the frame — 2,856 tier 0, 779 tier 1, 1,110 tier 2, 1,291 tier 3.
+- **Quota spent on tiering:** 2,505 units across 2026-09-15/16. All API responses archived; recomputable free.
 
 - **Validated URLs:** 3,307 / 3,307 (100%)
 - **Confirmed channels:** 2,867 (86.7% success rate after Run #3d recovery pass)
 - **Deferred:** 286 expensive bug-contaminated entries (`/c/`, `/user/`) — re-validation blocked on 1M quota approval
 - **Main collection:** blocked on 1M quota approval (request submitted 2026-04-20, response pending)
+- **403-swallow bug:** **FIXED 2026-09-15** in phase 1.2 — was present in five methods, not one. See the 2026-09-15 entry.
+- **Validated frame location:** `data/validation/validation_progress.json` (2,867 successes, 2,856 distinct ids). **Loaded into the production database 2026-09-16** as tier 0; see the phase 2 entry.
 - **DB channel mismatch (31 vs 73):** investigated in Task 1 on 2026-04-21 — resolution: "73" was never unique channels; it matched the sum of `channels_processed` attempts across completed Nov 19 runs. See the 2026-04-21 resolution entry below.
 
 ---
@@ -191,6 +196,432 @@ All passed:
 
 ---
 
+## 2026-09-15: Phase 1 — monitoring core ported (Gate 1 passed)
+
+Branch `feat/daily-monitor` off `production`, per `docs/briefs/CC_brief_ytmon_merge.md`.
+Ports the ytmon reference implementation in `external/ytmon/` into the pipeline:
+snapshot tables, a quota governor with a real error taxonomy, the four daily
+stages, and an advisory lock shared with the backfill.
+
+### Gate 1 result
+
+**`pytest -q`: 115 passed, 6 warnings in 9.98s.** (29 new in `tests/test_daily.py`.)
+
+**`view_data.py --stats`, before vs after `scripts/migrate_snapshots.py` on a copy of
+`data/youtube_monitoring.db`: identical, zero diff.**
+
+```
+Channels:          31            Channels:          31
+Videos:            5,255         Videos:            5,255
+Comments:          693,204       Comments:          693,204
+Total Views:       594,305,900   Total Views:       594,305,900
+Avg Views/Video:   113,244       Avg Views/Video:   113,244
+Unique Commenters: 271,863       Unique Commenters: 271,863
+```
+
+**`daily.py status` after migration** (the second gate check):
+
+```
+channel_snapshots            31 rows over 2 day(s)
+video_snapshots           5,255 rows over 2 day(s)
+```
+
+Second migration run inserts 0 and 0; both counts unchanged. The migration was
+run only on copies under the session scratchpad. The original
+`data/youtube_monitoring.db` has md5 `795bb9716410458888ff39355bde04a9` before
+and after — never opened for writing.
+
+### What changed
+
+| Sub-section | Commit | Substance |
+|---|---|---|
+| 1.1 | `eab26e1` | `channel_snapshots`, `video_snapshots`, `quota_ledger`, `run_log`; 7 new `channels` columns and 5 new `videos` columns via PRAGMA-guarded ALTER; `scripts/migrate_snapshots.py` |
+| 1.2 | `bfbeda4` | `src/quota.py`, `src/errors.py`, `_call` chokepoint, 403-swallow fix, four scripts deleted |
+| — | `c957f1d` | Liveness checks moved off `search.list` |
+| 1.3 | `07cd619` | `src/daily.py`, `daily.py` CLI, `config/config_daily.yaml`, `src/lock.py` |
+| 1.4 | `55aa4ff` | `collect.py` takes the lock; `DEPLOYMENT.md` crontab rewritten |
+| 1.5 | `2162a18` | `tests/test_daily.py`, two pre-existing test failures fixed, coverage omit |
+
+### Where the 2,867 validated channels actually live
+
+Asked before the gate, because phase 2 defines tier 0 as that set.
+
+**They are in `data/validation/validation_progress.json`, not in any database.**
+That file holds `{"validated": [...3307 urls...], "results": [...3307 objects...]}`,
+of which **2,867 have `success: true`**, resolving to **2,856 distinct `channel_id`
+values** (11 channels are referenced by two source rows each).
+
+`data/youtube_monitoring.db` holds only **31** channels — the Nov 19 2025 test runs.
+Overlap between the two: **29**. The 2 DB-only channels are the WDR Doku /
+parismatch pair already documented in the 2026-04-21 entry. `data/validation/
+validation_results.csv` is a stale pre-#3d export (2,252 successes) and must not
+be used as the frame.
+
+**Consequence for deployment:** the production database does not yet contain the
+validated frame. Before the daily run is useful, the 2,856 channel ids have to be
+loaded into `channels` (tier 0), and `scripts/migrate_snapshots.py` must be run
+against whichever file becomes the live database — running it against today's
+31-channel file backfills only those 31. Loading the frame is not in phase 1's
+scope; it is a prerequisite for phase 3 and overlaps phase 2.1.
+
+### Note on `quota_cumulative` — do not read it as measured
+
+The four deleted scripts (`check_quota_bug.py`, `migrate_quota_fix.py`,
+`test_quota_fix.py`, `verify_quota.py`) were chasing **a different bug** from the
+403 swallow: arithmetic under-reporting of quota in `collection_runs.quota_used`.
+
+That work is **superseded by `quota_ledger`**, which records actual charges per
+endpoint per Pacific billing day, written only on HTTP 200.
+
+**The `quota_cumulative` values on historical `collection_runs` rows are a
+back-estimate**, not a measurement. `migrate_quota_fix.py` reconstructed them from
+collected row counts as `max(reported, estimated)` where `estimated = channels*2 +
+(videos//50)*2 + (comments//100)`. They are left in place rather than rewritten,
+but nobody should later read them as observed spend. Actual spend from here on is
+`quota_ledger` only.
+
+### Secrets check
+
+`config/config.yaml` and `config/config_comprehensive.yaml` both contain live API
+keys. Both are **untracked and gitignored** (`.gitignore:52-53`), and neither
+appears anywhere in git history (`git log --all -- <path>` is empty). A scan of the
+entire tracked tree for `AIza`-prefixed keys returns nothing. **No key rotation is
+needed.** `config/config_daily.yaml`, added this phase, carries no key at all:
+`daily.py` requires `YOUTUBE_API_KEY` from the environment.
+
+### Commit boundaries for data provenance (added 2026-09-15)
+
+Two commits on `feat/daily-monitor` are provenance boundaries. Any dataset built
+from code before them carries the corresponding defect; anything built after does
+not. Both are recorded here so a future reader can date a database file against
+them rather than guess.
+
+**`bfbeda4` (1.2) — the truncation boundary.** Before this commit, the client
+could silently truncate video and comment collection on quota exhaustion and
+record the result as complete:
+
+- `get_channel_videos` and `get_video_details` caught the quota failure and
+  returned the *partial* list they had accumulated, so the caller recorded the
+  channel as fully collected when it was not.
+- `get_video_comments` treated any HTTP 403 as `commentsDisabled`, `quotaExceeded`
+  included, so a quota-exhausted video was written as having comments turned off.
+
+A channel or video collected before `bfbeda4` on a day that hit the quota ceiling
+may therefore hold an undercount presented as a complete count, and a video may be
+marked comments-disabled when it is not. **Every production backfill from now on
+runs on code after `bfbeda4`.** The 31 channels and 5,255 videos already in the
+database were collected 2025-11-19, before the boundary; the Nov 19 runs did not
+report quota exhaustion (185, 274, 723 units against a 10,000 ceiling), so they are
+very unlikely to be affected, but they are on the wrong side of it.
+
+**`eab26e1` (1.1) — the column-preservation boundary.** Before this commit,
+`INSERT OR REPLACE` in `insert_channel` and `insert_video` deleted the old row and
+did not restore the daily-pipeline columns, so any re-insert reset `tier` to its
+default, dropped `uploads_playlist`, and discarded `comment_cursor`,
+`comment_pages_fetched` and `comments_state`. In practice this means a backfill
+re-touching a channel would have silently undone phase 2's tiering and restarted
+comment harvesting for that video from page one. No data was collected between the
+columns being added and the preservation being added -- both are in the same
+commit -- so this boundary is a statement about the pattern, not about existing
+rows.
+
+### Bugs found and fixed while porting
+
+1. **The 403 swallow was in five places, not one.** `get_channel_info` and
+   `get_channel_by_username` are the two named in the brief. Also fixed:
+   `get_channel_videos` and `get_video_details` returned a *truncated list* on
+   quota failure, so the caller would record a partially collected channel as
+   complete; and `get_video_comments` treated **any** 403 as comments-disabled,
+   `quotaExceeded` included. The video/comment paths would have silently lost data
+   on any quota-exhaustion day of a `collect.py` run.
+
+2. **`INSERT OR REPLACE` would have wiped the new columns.** It deletes the old row,
+   so a backfill re-inserting a channel would have reset `tier` to 0 and dropped
+   `uploads_playlist`, and re-inserting a video would have discarded
+   `comment_cursor`, restarting comment harvesting from page one. Both
+   `insert_channel` and `insert_video` now carry those columns across explicitly.
+   Pinned by `test_insert_replace_preserves_daily_pipeline_columns`.
+
+3. **`src/lock.py` double-closed its file descriptor** on the contended path: the
+   error branch closed the fd and the `finally` closed it again, and the resulting
+   `EBADF` masked `LockUnavailable` with a misleading "Bad file descriptor". Found
+   by writing the contention test the brief asked for. Acquisition is now separate
+   from the held region.
+
+4. **`channels.first_collected_at` was in the DDL but never written** — NULL on all
+   31 rows, because `insert_channel` only ever set `last_updated_at`. Now populated,
+   and the migration reads `COALESCE(first_collected_at, last_updated_at)`.
+
+### Carried-over details
+
+- `run_log.calls` is **per stage**, not the session total. ytmon logged
+  `gov.session_calls` into every stage row, which is cumulative and overstates
+  every stage after the first. `Budget.calls` snapshots the counter at stage start.
+- Comment rows map to the existing `comments` schema (`author_name`, `text`). The
+  ytmon salted-hash privacy indirection is **not** ported: there is no such column
+  and 693,204 existing rows already store display names. Worth a separate decision
+  if the co-commenter layer wants pseudonymisation.
+- 61 videos with comments disabled keep `comment_count` NULL in both `videos` and
+  `video_snapshots`; `hidden_subscribers` is NULL on all 31 backfilled channel rows,
+  as no source column exists. Neither is coerced to 0.
+- `search.list` is now refused twice over on the daily path: `allow_search=False` on
+  the client, and the governor bans the `search` endpoint outright. The remaining
+  legitimate call sites are `src/resolve_youtube.py` (the anchor-pipeline matcher,
+  out of scope) and the `/c/` + `/user/` URL-resolution fallback in
+  `get_channel_by_username`, which is backfill-only.
+- The three liveness checks (`test_api_quick.py`, `test_api_simple.py`,
+  `test_comprehensive.py`) each spent **100 units per invocation** on a `search.list`
+  call to ask whether the key was valid. Now `channels.list(forHandle='@YouTube')`,
+  1 unit. Verified against the live API.
+
+### Not verifiable locally
+
+`flock(1)` does not exist on macOS, so the shell-side half of the lock contention
+(the cron wrapper's `flock -n` against the Python `fcntl.flock`) **could not be
+tested on this machine** — `command -v flock` returns nothing. The Python-to-Python
+contention is tested and passes (refused in 23 ms). Both take the same kernel lock
+on the same inode, so they will contend on Linux, but **this needs confirming on
+`infosphereVM` as part of Gate 3**, which already calls for a forced collision.
+
+### Open for phase 2 / 3
+
+- Load the 2,856 validated channel ids into `channels` as tier 0.
+- `channels.uploads_playlist` is empty until the first `resolve_channels` pass
+  (~58 units for the whole validated frame, 1 unit per 50 channels). That pass
+  writes the *next* observation, not the first: the validation-phase statistics
+  (Dec 2025 - Apr 2026) are loaded into `channel_snapshots` in phase 2.0, so
+  the series already has an earlier point for 2,845 of the 2,856 tier-0
+  channels.
+- `deploy/run_daily.sh`, `deploy/healthcheck.sh`, `deploy/backup.sh` and
+  `docs/operations/ytmon_daily_run.md` are phase 3; `DEPLOYMENT.md` already
+  references the 09:17 slot they will implement.
+- `SERVER_MIGRATION_GUIDE.md` still needs its superseded-by notice (phase 3).
+
+---
+
+## 2026-09-16: Phase 2 — Wikidata pool tiered (Gate 2: tier 1 passes, tier 2 fails)
+
+Branch `feat/daily-monitor`, continuing from phase 1. Loads the validated frame
+into the production database, tiers the 17,094-channel Wikidata pool, and runs
+the first daily channels pass.
+
+### Quota spent
+
+| Pacific day | Endpoint | Calls | Units |
+|---|---|---|---|
+| 2026-09-15 | channels.list | 71 | 71 |
+| 2026-09-15 | playlistItems.list | 1,711 | 1,711 |
+| 2026-09-16 | playlistItems.list | 665 | 665 |
+| 2026-09-16 | channels.list | 58 | 58 |
+| | **total** | **2,505** | **2,505** |
+
+Breakdown by purpose: confirmation pass 71, recency pass 2,376 (1,711 + 665
+across the day boundary), first daily channels pass 58. Every response is
+archived, so all of it can be recomputed for free.
+
+The run crossed the Pacific midnight, which is the first live demonstration
+that the ledger's billing-day key works: the 1,782 units spent before the
+rollover stayed on 2026-09-15 and the governor handed out a fresh budget on
+2026-09-16 without being told to.
+
+### 2.0 — the frame is loaded; this is now the production database
+
+`data/youtube_monitoring.db` md5 `795bb971…` → `0554f12b…` across the phase.
+
+| | before | after |
+|---|---|---|
+| channels | 31 | 2,858 → 6,036 after tiering |
+| tier 0 | — | 2,856 |
+| videos / comments | 5,255 / 693,204 | unchanged throughout |
+
+2,827 channels inserted, 29 updated in place (statistics, titles and snapshots
+untouched), 2 marked tier 3. All 2,867 validated URLs joined `sources.csv`
+exactly; every loaded channel carries a NewsGuard rating.
+
+**Validation statistics loaded as real observations** (`scripts/backfill_validation_snapshots.py`):
+`channel_snapshots` 31 → 2,887, spanning `2025-12-11T16:58:23` ..
+`2026-04-21T14:03:41`. 2,845 of 2,856 tier-0 channels carry an observation;
+the other 11 recorded no statistics at validation time. 40 channels already
+had two observations (29 November collections + 11 channels validated from two
+URLs on two dates). `view_count` and `hidden_subscribers` are NULL on every
+validation row — the validator never observed them, which is not zero.
+
+**Consequence:** the daily channels pass is the *next* observation, not the
+first. After the 2.5 pass the table holds 5,737 rows and 2,839 channels have
+two or more observations, so the series has real deltas from day one.
+
+### 2.1–2.3 — filters
+
+| Step | Count |
+|---|---|
+| Wikidata channels already in tier 0 (wd_item/wd_class attached) | 428 |
+| `stratum='outlet'` | 2,156 |
+| — pass class filter | **2,156 (0 rejected)** |
+| — already tier 0, skipped | 240 |
+| — to confirm | 1,916 |
+| `stratum='commentator'` distinct | 4,672 |
+| — QIDs queried for P106 / with occupations | 4,386 / 4,379 |
+| — pass occupation filter | **1,267** (849 all-news, 418 news-majority) |
+| — rejected: no news occupation / disqualifying / news minority | 1,879 / 946 / 580 |
+| — to confirm | 1,262 |
+
+**The class filter is a no-op on this pool.** All 2,156 outlet rows already
+carry at least one of the eight news classes, because the stratum was defined
+upstream by exactly that test. `mass media` occurs 1,240 times but always
+beside `newspaper` or `news media`, so the carrier-only exclusion never fires
+either. The brief's 2.2 class filter restates its own input, and the whole
+burden of precision therefore falls on the YouTube-side checks. The filter is
+kept as written so a noisier pool would still be narrowed.
+
+### The brief was wrong about `News`
+
+The topic check was specified as `News`, `Politics`, `Society`, `Business`.
+**`News` does not occur once** across the 3,423 channels in the confirmation
+pass. `Business` occurs 45 times. In practice the check is Society (58.8% of
+outlet candidates) or Politics (36.6%). `News` is dropped from
+`TOPIC_SUFFIXES`; keeping it implied a precision it never delivered.
+
+### Rule calibration against labelled positives
+
+The 240 Wikidata outlets already in tier 0 are known-good news channels that
+reached the frame independently through NewsGuard, so the fraction a rule keeps
+is a retention rate.
+
+| Rule | Labelled kept (240) | Candidates passed (1,916) |
+|---|---|---|
+| resolved + has videos | 238 (99.2%) | 1,793 (93.6%) |
+| topic only | 189 (78.8%) | 1,136 (59.3%) |
+| title only | 198 (82.5%) | 1,163 (60.7%) |
+| topic OR title | 233 (97.1%) | 1,558 (81.3%) |
+| topic AND title | 154 (64.2%) | 741 (38.7%) |
+| **topic OR (title & not gaming/music)** | **228 (95.0%)** | **1,445 (75.4%)** |
+
+Requiring a topic match discards 21.2% of known-good outlets, and they are
+systematically local newspapers — The Providence Journal, Wichita Eagle, The
+Baltimore Banner, La Provence, The Herald-Dispatch — tagged Sport or Lifestyle
+because that is what their video output is. Sport is therefore **not** a
+disqualifying topic; gaming and music are.
+
+### Tier assignment
+
+Rule: `topic OR (title AND not gaming/music-tagged)`, recency = newest upload
+within 180 days. `channels.tier_reason` records the admitting check.
+
+| | outlets | individuals |
+|---|---|---|
+| admitted | 1,445 | 932 |
+| fresh | 878 | 532 |
+| stale | 567 | 400 |
+| rejected (unresolved / zero-video / no match) | 471 | 330 |
+
+### Gate 2 — stratified hand check of 100 rows
+
+Criterion: is this channel a news outlet / news commentator **for a study of
+polarization and trust in news media**? Specialist sports, tech, science,
+health, lifestyle and entertainment publishers count as false positives even
+when the publisher is a real periodical or the person is a real journalist —
+the channel is not news. Verdicts recorded in `data/gate2_sample.csv`.
+
+| Stratum | n | FP | rate |
+|---|---|---|---|
+| tier 1 `topic` | 25 | 0 | **0%** |
+| tier 1 `title_only` | 25 | 17 | **68%** |
+| tier 2 `topic` | 25 | 5 | **20%** |
+| tier 2 `title_only` | 25 | 24 | **96%** |
+
+Pooled: tier 1 34% over the sample, **7.7% population-weighted** (the sample
+over-represents `title_only`, which is 11% of tier 1). Tier 2 individuals 58%
+over the sample, **32.6% population-weighted**.
+
+**Demotions applied**, per the stratum rule:
+- tier 1 `title_only` (99 rows) → tier 2, reason `title_only:gate2_demoted`
+- tier 2 `title_only` (88 rows) → tier 3, reason `title_only:gate2_demoted`
+
+**After demotion: tier 1 = 779 rows at 0% false positives — PASSES (≤5%).**
+
+**Tier 2 still FAILS: 444 individual rows at 20%, above the 15% threshold.**
+Per the brief, do not ship tier 2; tighten 2.3 and rerun. The tier-2 failures
+are journalists whose *channel* is lifestyle, science, health or trade tech —
+they pass on `Society`, which is too broad to discriminate.
+
+Tightening options, computed free from the archive:
+
+| Option | Tier-2 individuals retained |
+|---|---|
+| current (Society, Politics or Business) | 699 |
+| require Politics | 477 |
+| exclude lifestyle/health/entertainment/sport topics | 440 |
+| require Politics AND exclude those | 351 |
+
+Requiring `Politics` removes **all 5** false positives from the hand-checked 25
+while keeping 13 of them — 0% on that subsample, n=13. That is the recommended
+tightening, pending a decision and a fresh Gate 2 draw.
+
+### Final tier distribution
+
+| Tier | Count | Meaning |
+|---|---|---|
+| 0 | 2,856 | validated NewsGuard frame |
+| 1 | 779 | Wikidata outlets, topic-confirmed, active (Gate 2 passed) |
+| 2 | 1,110 | stale outlets, demoted title-only outlets, individuals (Gate 2 **not** passed) |
+| 3 | 1,291 | recorded, never collected |
+
+### 2.5 — first daily channels pass
+
+`daily.py run --stages channels --max-tier 0 --budget 9000`
+
+```
+run_id f46c844984aa   queued 2,856   resolved 2,850   unresolved 6
+units 58   calls 58   elapsed ~8s
+```
+
+2,850 tier-0 channels now have `uploads_playlist` and `status='active'`; 6 are
+marked `unresolved` and kept. Discovery can run without a single `search.list`
+call.
+
+### Changes made while running phase 2
+
+1. **Tier 3 was collectable.** The daily channels stage had no tier filter, so
+   it would have resolved tier-3 rows — the ones explicitly recorded never to
+   be collected — and tiers 1 and 2 when only tier 0 was wanted. Added a
+   hard tier-3 exclusion plus `limits.max_tier` / `--max-tier`, with tests.
+
+2. **13 rows carry a pipe-joined QID pair** (`Q20963418|Q4160936`): one channel
+   mapped to two Wikidata items. Passed through raw this builds `wd:Q1|Q2`,
+   invalid SPARQL, which 400s the whole batch — the first occupation fetch lost
+   2,250 good QIDs to 9 poisoned batches. QIDs are now regex-extracted and a
+   failing batch bisects.
+
+3. **The occupation sets were audited against the labels actually present**
+   rather than left as guessed, lifting passes from 782 to 1,267. Added
+   political pundit, freelance/broadcast/video journalist, editorial columnist,
+   media critic and the domain journalists. Deliberately excluded as adjacent
+   but not news: sports/baseball/esports/color commentator; film/video/
+   television/literary editor; media manager, media scholar, media personality.
+
+4. **The recency pass lost its work to one DNS blip.** It died at 1,711 of
+   2,377 on a `ServerNotFoundError` and, because it batched all database writes
+   to the end, wrote nothing — 1,711 units would have been wasted had the
+   responses not been archived. Transport failures are now per-channel and
+   non-fatal (the channel is left undecided for a retry), and tier writes flush
+   every 200 rows.
+
+5. **A migration test asserted a global row count** — `channel_snapshots` equals
+   the number of timestamped channels — which stopped being true the moment the
+   table held observations from more than one source. Rewritten to assert the
+   real invariant: every timestamped record has a snapshot at its own timestamp,
+   plus idempotence. It would have gone red on every future daily run.
+
+### Open
+
+- **Tier 2 is not shippable.** Tighten 2.3 and redraw Gate 2.
+- 2.4 (multi-channel items, `alt_of`) and 2.5's coverage audit
+  (`scripts/audit_frame_coverage.py`) are not done.
+- `data/frame_tiers.csv` is not yet emitted; the tiering lives in the database.
+- Country-for-persons handling (`reason='country_from_citizenship'`) not done.
+
+---
+
 ## Notes
 
 ### Quota Costs (YouTube Data API v3)
@@ -253,13 +684,15 @@ The 2,294 number is the truth: 2,393 Dec-15 entries − 110 duplicates (pre/post
 
 ## Known bugs
 
-### `youtube_client.get_channel_info` swallows quota 403 as "not found"
+### `youtube_client.get_channel_info` swallows quota 403 as "not found" — FIXED 2026-09-15
 
 When the YouTube API returns a `quotaExceeded` 403, the client currently catches the error and returns `None`, which the validator records as a resolution failure ("Channel not found"). This contaminated the tail of Dec 15's Run #2: the last ~137 entries with `cost=0` + `"Channel not found"` are likely valid channels, not invalid ones.
 
 After the 1M quota is approved (or on any day with spare quota), re-validate any URL in `validation_progress.json` matching the pattern `cost=0 AND status=failed AND reason="Channel not found"`.
 
 Client fix: catch the 403 explicitly, raise `QuotaExceededError`, stop cleanly. Out of scope for Run #3.
+
+**RESOLVED 2026-09-15 (phase 1.2, commit `bfbeda4`).** Every API call now routes through `YouTubeAPIClient._call`, which raises `QuotaExhausted` on a 403 with reason `quotaExceeded`/`dailyLimitExceeded` and charges the ledger only on HTTP 200. The blanket `except Exception -> return None` is gone from `get_channel_info` and `get_channel_by_username`, and the same swallow was found and fixed in three further methods (`get_channel_videos`, `get_video_details`, `get_video_comments`). Regression test: `tests/test_daily.py::test_quota_403_raises_and_leaves_the_channel_row_untouched`. The 286 remaining contaminated `/c/` and `/user/` entries are still outstanding and still blocked on the 1M quota approval; `scripts/revalidate_contaminated.py` remains the tool for them.
 
 **Update 2026-04-21 — Partial mitigation applied via Run #3d.** The cheap bucket (/channel/UC, /@handle) has been re-validated using `scripts/revalidate_contaminated.py`, which bypasses the bug by calling `_make_request` directly. 647 contaminated entries re-queried; 615 recovered to success, 32 confirmed failed. The underlying bug in `src/youtube_client.py:196-198` (blanket `except Exception` in `get_channel_info`) is still present. **Still outstanding:**
 - **Code fix** to `get_channel_info`: let quota 403 propagate as `HttpError` (or a named subclass) instead of returning `None`.

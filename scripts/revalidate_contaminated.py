@@ -39,6 +39,10 @@ sys.path.insert(0, parent_dir)
 
 import yaml
 from googleapiclient.errors import HttpError
+
+# _make_request now raises QuotaExhausted where it used to let a 403 HttpError
+# through. Both are caught below so this script's abort path still fires.
+from src.errors import QuotaExhausted
 from src.youtube_client import YouTubeAPIClient
 
 logger = logging.getLogger(__name__)
@@ -124,9 +128,11 @@ def revalidate_one(client, url: str):
         items = (resp or {}).get('items') or []
         return (items[0] if items else None), client.quota_usage - quota_before, False
 
+    except QuotaExhausted:
+        # Real quota exhaustion — explicit, raised by _call.
+        return None, client.quota_usage - quota_before, True
     except HttpError as e:
         if e.resp.status in (403, 429):
-            # Real quota exhaustion — explicit, re-raised by _make_request.
             return None, client.quota_usage - quota_before, True
         # 400/404/etc: treat as not found, not a crash.
         return None, client.quota_usage - quota_before, False
@@ -339,6 +345,9 @@ def main():
 
     except KeyboardInterrupt:
         print("\nInterrupted by user. Saving partial progress before exit.")
+    except QuotaExhausted as e:
+        print(f"\nQuota exhausted outside revalidate_one handler: {e}. Saving partial progress.")
+        quota_aborted = True
     except HttpError as e:
         if e.resp.status in (403, 429):
             print(f"\nAPI returned {e.resp.status} outside revalidate_one handler. Quota likely exhausted. Saving partial progress.")

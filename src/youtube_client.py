@@ -3,21 +3,59 @@ YouTube API Client Wrapper
 Handles all interactions with the YouTube Data API v3
 """
 
-import time
+import json
 import logging
+import random
+import time
 from typing import List, Dict, Optional, Any
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import isodate
 
+from src.errors import (
+    QuotaExhausted, CommentsDisabled, ItemUnavailable, APIError,
+    QUOTA_REASONS, RATE_LIMIT_REASONS, UNAVAILABLE_REASONS,
+    COMMENTS_DISABLED_REASONS, RETRYABLE_STATUSES,
+)
+from src.quota import COSTS
+
 logger = logging.getLogger(__name__)
+
+# api_method labels (kept for the quota_tracking table and existing callers)
+# mapped to the endpoint names the governor prices and bills.
+_METHOD_ENDPOINTS = {
+    'channels.list': 'channels',
+    'channels.list_forUsername': 'channels',
+    'channels.list_forHandle': 'channels',
+    'playlistItems.list': 'playlistItems',
+    'videos.list': 'videos',
+    'commentThreads.list': 'commentThreads',
+    'comments.list': 'comments',
+    'captions.list': 'captions',
+    'search.list': 'search',
+}
+
+
+def _error_detail(error: HttpError) -> tuple:
+    """Extract (reason, message) from an HttpError body."""
+    try:
+        payload = json.loads(error.content.decode('utf-8'))
+        err = payload.get('error', {})
+        errors = err.get('errors') or [{}]
+        return errors[0].get('reason', ''), str(err.get('message', ''))[:300]
+    except Exception:
+        try:
+            return '', error.content.decode('utf-8', 'replace')[:300]
+        except Exception:
+            return '', str(error)[:300]
 
 
 class YouTubeAPIClient:
     """Wrapper for YouTube Data API v3"""
     
     def __init__(self, api_key: str, max_retries: int = 3, retry_delay: int = 2,
-                 initial_quota: int = 0, db=None, run_id: int = None):
+                 initial_quota: int = 0, db=None, run_id: int = None,
+                 governor=None, allow_search: bool = False):
         """
         Initialize YouTube API client
 
@@ -28,6 +66,12 @@ class YouTubeAPIClient:
             initial_quota: Starting quota value (for resuming)
             db: Database instance for quota tracking
             run_id: Collection run ID for quota tracking
+            governor: QuotaGovernor enforcing the daily budget. Without one the
+                client still counts units but cannot refuse a call.
+            allow_search: Permit the 100-unit search.list URL-resolution
+                fallback. Off by default: only backfill/resolution entry points
+                turn it on. Independent of the governor's own endpoint ban, so
+                the daily path is guarded twice.
         """
         self.api_key = api_key
         self.max_retries = max_retries
@@ -37,49 +81,134 @@ class YouTubeAPIClient:
         self.quota_cumulative = initial_quota  # Cumulative quota
         self.db = db
         self.run_id = run_id
+        self.governor = governor
+        self.allow_search = allow_search
 
         logger.info(f"YouTube API client initialized with cumulative quota: {initial_quota}")
-    
-    def _make_request(self, request_func, quota_cost: int = 1, api_method: str = None) -> Any:
+
+    def _call(self, request_func, endpoint: str = None, quota_cost: int = None,
+              api_method: str = None) -> Any:
         """
-        Make API request with retry logic
+        The single chokepoint every API call goes through.
+
+        Contract:
+          1. refuse before calling if the governor cannot afford the endpoint;
+          2. charge the ledger only on a served response;
+          3. raise QuotaExhausted on 403 quotaExceeded/dailyLimitExceeded;
+          4. retry with backoff on rate-limit reasons and 5xx;
+          5. raise ItemUnavailable on channel/video/playlistNotFound.
+
+        Never returns None to mean "failed" -- the distinction between "spent"
+        and "absent" is what the exception types carry.
 
         Args:
-            request_func: Function that executes the API request
-            quota_cost: Estimated quota cost of this request
-            api_method: Name of API method for tracking
+            request_func: Callable executing the API request
+            endpoint: Endpoint name for pricing/billing (derived from
+                api_method when omitted)
+            quota_cost: Override the published cost (tests and odd parts)
+            api_method: Label recorded in quota_tracking
 
         Returns:
-            API response
+            Parsed API response
         """
+        if endpoint is None:
+            endpoint = _METHOD_ENDPOINTS.get(api_method or '', api_method or 'channels')
+        if quota_cost is None:
+            quota_cost = COSTS.get(endpoint, 1)
+
+        # Guard 1: the caller-level flag. search.list is reachable from the
+        # URL-resolution fallback, which the daily path must never trigger.
+        if endpoint == 'search' and not self.allow_search:
+            raise QuotaExhausted(
+                "search.list (100 units) refused: allow_search is False. "
+                "Discovery goes through playlistItems on channels.uploads_playlist."
+            )
+
+        # Guard 2: the governor's own endpoint ban, independent of the flag.
+        if self.governor is not None and self.governor.is_forbidden(endpoint):
+            raise QuotaExhausted(f"endpoint {endpoint!r} is not permitted on this path")
+
+        if self.governor is not None and not self.governor.can_afford(quota_cost):
+            raise QuotaExhausted(
+                f"budget spent: {self.governor.spent_today()}/"
+                f"{self.governor.daily_budget} units today; "
+                f"{endpoint} needs {quota_cost}"
+            )
+
         for attempt in range(self.max_retries):
             try:
                 response = request_func()
-                self.quota_usage += quota_cost
-                self.quota_cumulative += quota_cost
-
-                # Track quota in database if available
-                if self.db and self.run_id and api_method:
-                    self.db.track_quota_usage(self.run_id, api_method, quota_cost)
-
-                logger.debug(f"API request successful. Session quota: {self.quota_usage}, Cumulative: {self.quota_cumulative}")
-                return response
             except HttpError as e:
-                if e.resp.status in [403, 429]:  # Quota exceeded or rate limit
-                    logger.error(f"Quota/rate limit error: {e}")
-                    raise
-                elif attempt < self.max_retries - 1:
-                    logger.warning(f"Request failed (attempt {attempt + 1}/{self.max_retries}): {e}")
-                    time.sleep(self.retry_delay * (attempt + 1))
-                else:
-                    logger.error(f"Request failed after {self.max_retries} attempts: {e}")
-                    raise
-            except Exception as e:
-                logger.error(f"Unexpected error in API request: {e}")
+                status = e.resp.status
+                reason, message = _error_detail(e)
+
+                if status == 403 and reason in QUOTA_REASONS:
+                    # The 403-swallow bug lived here: this used to be returned
+                    # as None and recorded as "channel not found". It must
+                    # reach the caller so the run stops with nothing written.
+                    logger.error(f"Quota exhausted on {endpoint}: {reason}: {message}")
+                    raise QuotaExhausted(f"{reason}: {message}")
+
+                if (status in (403, 429)) and reason in RATE_LIMIT_REASONS:
+                    if attempt < self.max_retries - 1:
+                        delay = 5 * (attempt + 1) + random.random()
+                        logger.warning(f"Rate limited on {endpoint}, retrying in {delay:.1f}s")
+                        time.sleep(delay)
+                        continue
+                    raise QuotaExhausted(f"{reason}: {message}")
+
+                if reason in COMMENTS_DISABLED_REASONS:
+                    raise CommentsDisabled(message)
+
+                if status in (403, 404) and reason in UNAVAILABLE_REASONS:
+                    raise ItemUnavailable(f"{reason}: {message}")
+
+                if status in RETRYABLE_STATUSES and attempt < self.max_retries - 1:
+                    delay = self.retry_delay * (2 ** attempt) + random.random()
+                    logger.warning(f"{status} on {endpoint}, retrying in {delay:.1f}s")
+                    time.sleep(delay)
+                    continue
+
+                raise APIError(status, reason, message)
+
+            except (QuotaExhausted, CommentsDisabled, ItemUnavailable, APIError):
                 raise
-        
-        return None
-    
+            except Exception as e:
+                if attempt < self.max_retries - 1:
+                    logger.warning(
+                        f"Transport error on {endpoint} "
+                        f"(attempt {attempt + 1}/{self.max_retries}): {e}"
+                    )
+                    time.sleep(self.retry_delay * (attempt + 1))
+                    continue
+                logger.error(f"Request failed after {self.max_retries} attempts: {e}")
+                raise
+
+            # Served: charge now, and only now.
+            if self.governor is not None:
+                self.governor.charge(endpoint, quota_cost)
+            self.quota_usage += quota_cost
+            self.quota_cumulative += quota_cost
+
+            if self.db and self.run_id and api_method:
+                self.db.track_quota_usage(self.run_id, api_method, quota_cost)
+
+            logger.debug(
+                f"{endpoint} served. Session quota: {self.quota_usage}, "
+                f"Cumulative: {self.quota_cumulative}"
+            )
+            return response
+
+        raise APIError(0, 'retries_exhausted', endpoint)
+
+    def _make_request(self, request_func, quota_cost: int = 1, api_method: str = None) -> Any:
+        """
+        Backwards-compatible alias for _call, kept for existing callers
+        (collect.py, scripts/revalidate_contaminated.py).
+        """
+        return self._call(request_func, quota_cost=quota_cost, api_method=api_method)
+
+
     def extract_channel_id(self, url: str) -> Optional[str]:
         """
         Extract channel ID from various YouTube URL formats
@@ -146,25 +275,38 @@ class YouTubeAPIClient:
                 if response and response.get('items'):
                     return response['items'][0]
             
-            # Try search as last resort
+            # Search as last resort, at 100 units. Gated by allow_search, which
+            # _call enforces: on the daily path this raises rather than spends.
+            if not self.allow_search:
+                logger.info(
+                    f"No cheap resolution for {username!r} and search.list is "
+                    f"disabled on this path; treating as unresolved."
+                )
+                return None
+
             request = self.youtube.search().list(
                 part='snippet',
                 q=username,
                 type='channel',
                 maxResults=1
             )
-            response = self._make_request(lambda: request.execute(), quota_cost=100, api_method='search.list')
-            
+            response = self._call(lambda: request.execute(), endpoint='search',
+                                  api_method='search.list')
+
             if response and response.get('items'):
                 channel_id = response['items'][0]['id']['channelId']
                 return self.get_channel_info(channel_id)
-            
+
             logger.warning(f"Could not find channel for username: {username}")
             return None
-            
+
+        except (QuotaExhausted, ItemUnavailable, APIError):
+            # Deliberately not swallowed. A quota failure is not a missing
+            # channel, and callers must be able to tell the two apart.
+            raise
         except Exception as e:
-            logger.error(f"Error getting channel by username {username}: {e}")
-            return None
+            logger.error(f"Unexpected error getting channel by username {username}: {e}")
+            raise
     
     def get_channel_info(self, channel_id: str) -> Optional[Dict]:
         """
@@ -182,20 +324,28 @@ class YouTubeAPIClient:
                 return self.get_channel_by_username(channel_id)
             
             request = self.youtube.channels().list(
-                part='snippet,statistics,contentDetails,brandingSettings',
+                part='snippet,statistics,contentDetails,brandingSettings,topicDetails,status',
                 id=channel_id
             )
-            response = self._make_request(lambda: request.execute(), quota_cost=1, api_method='channels.list')
-            
+            response = self._call(lambda: request.execute(), endpoint='channels',
+                                  api_method='channels.list')
+
             if response and response.get('items'):
                 return response['items'][0]
-            
+
+            # An empty items list is the only honest "not found": the call was
+            # served, cost a unit, and came back with nothing.
             logger.warning(f"No channel found for ID: {channel_id}")
             return None
-            
+
+        except (QuotaExhausted, ItemUnavailable, APIError):
+            # Was: blanket `except Exception -> return None`, which turned a
+            # quotaExceeded 403 into a recorded not-found. That contaminated
+            # ~752 entries across Runs #2 and #3d (see LOGBOOK, Known bugs).
+            raise
         except Exception as e:
-            logger.error(f"Error getting channel info for {channel_id}: {e}")
-            return None
+            logger.error(f"Unexpected error getting channel info for {channel_id}: {e}")
+            raise
     
     def get_channel_videos(self, channel_id: str, max_results: int = 50, 
                           order: str = 'date', published_after: str = None,
@@ -266,7 +416,11 @@ class YouTubeAPIClient:
             
             logger.info(f"Retrieved {len(videos)} videos from channel {channel_id}")
             return videos
-            
+
+        except QuotaExhausted:
+            # Returning the partial list here would let the caller record the
+            # channel as fully collected when it is only partly collected.
+            raise
         except Exception as e:
             logger.error(f"Error getting videos for channel {channel_id}: {e}")
             return videos
@@ -299,7 +453,9 @@ class YouTubeAPIClient:
             
             logger.info(f"Retrieved details for {len(all_videos)} videos")
             return all_videos
-            
+
+        except QuotaExhausted:
+            raise
         except Exception as e:
             logger.error(f"Error getting video details: {e}")
             return all_videos
@@ -380,17 +536,21 @@ class YouTubeAPIClient:
                     if not next_page_token:
                         break
                         
-                except HttpError as e:
-                    if e.resp.status == 403:
-                        # Comments disabled for this video
-                        logger.warning(f"Comments disabled for video {video_id}")
-                        break
-                    else:
-                        raise
-            
+                except CommentsDisabled:
+                    # Previously any 403 was read as "comments disabled",
+                    # quotaExceeded included. _call now separates the two, so
+                    # only a genuine commentsDisabled reason lands here.
+                    logger.warning(f"Comments disabled for video {video_id}")
+                    break
+                except ItemUnavailable as e:
+                    logger.warning(f"Video {video_id} unavailable: {e}")
+                    break
+
             logger.info(f"Retrieved {len(comments)} comments for video {video_id}")
             return comments
-            
+
+        except QuotaExhausted:
+            raise
         except Exception as e:
             logger.error(f"Error getting comments for video {video_id}: {e}")
             return comments
@@ -422,16 +582,67 @@ class YouTubeAPIClient:
             
             return []
             
+        except QuotaExhausted:
+            raise
+        except (ItemUnavailable, APIError) as e:
+            # captions.list is forbidden without OAuth for most channels; that
+            # is expected and not worth failing the video over.
+            logger.warning(f"Cannot access captions for video {video_id}: {e}")
+            return []
         except HttpError as e:
-            if e.resp.status == 403:
-                logger.warning(f"Cannot access captions for video {video_id} (requires OAuth)")
-            else:
-                logger.error(f"Error getting captions for video {video_id}: {e}")
+            logger.error(f"Error getting captions for video {video_id}: {e}")
             return []
         except Exception as e:
             logger.error(f"Unexpected error getting captions for video {video_id}: {e}")
             return []
     
+    # ---- batch endpoints used by the daily pipeline ----------------------
+    # One call per endpoint, no partial-result swallowing: these raise the
+    # taxonomy so the stage can decide whether to stop or skip an item.
+
+    def channels_by_id(self, ids: List[str],
+                       part: str = 'snippet,statistics,contentDetails,topicDetails,status') -> Dict:
+        """channels.list for up to 50 ids. 1 unit for the whole batch."""
+        if len(ids) > 50:
+            raise ValueError("channels.list accepts at most 50 ids per call")
+        request = self.youtube.channels().list(part=part, id=','.join(ids), maxResults=50)
+        return self._call(lambda: request.execute(), endpoint='channels',
+                          api_method='channels.list')
+
+    def videos_by_id(self, ids: List[str],
+                     part: str = 'snippet,statistics,contentDetails,topicDetails,status') -> Dict:
+        """videos.list for up to 50 ids. 1 unit for the whole batch."""
+        if len(ids) > 50:
+            raise ValueError("videos.list accepts at most 50 ids per call")
+        request = self.youtube.videos().list(part=part, id=','.join(ids), maxResults=50)
+        return self._call(lambda: request.execute(), endpoint='videos',
+                          api_method='videos.list')
+
+    def playlist_items(self, playlist_id: str, page_token: str = None) -> Dict:
+        """One page of a playlist, 50 items, 1 unit. The discovery path."""
+        request = self.youtube.playlistItems().list(
+            part='contentDetails,status', playlistId=playlist_id,
+            maxResults=50, pageToken=page_token)
+        return self._call(lambda: request.execute(), endpoint='playlistItems',
+                          api_method='playlistItems.list')
+
+    def comment_threads(self, video_id: str, page_token: str = None,
+                        order: str = 'time') -> Dict:
+        """One page of comment threads, 100 items, 1 unit."""
+        request = self.youtube.commentThreads().list(
+            part='snippet,replies', videoId=video_id, maxResults=100,
+            order=order, textFormat='plainText', pageToken=page_token)
+        return self._call(lambda: request.execute(), endpoint='commentThreads',
+                          api_method='commentThreads.list')
+
+    def comment_replies(self, parent_id: str, page_token: str = None) -> Dict:
+        """One page of replies to a comment, 100 items, 1 unit."""
+        request = self.youtube.comments().list(
+            part='snippet', parentId=parent_id, maxResults=100,
+            textFormat='plainText', pageToken=page_token)
+        return self._call(lambda: request.execute(), endpoint='comments',
+                          api_method='comments.list')
+
     def get_quota_usage(self) -> int:
         """Get current session quota usage"""
         return self.quota_usage

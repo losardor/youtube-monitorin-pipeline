@@ -40,7 +40,14 @@ data/*.sqlite
 data/*.sqlite3
 data/youtube_monitoring.db
 data/sources.csv
-data/raw/
+# Advisory lock shared by daily.py and collect.py (runtime artefact)
+data/.ytmon.lock
+
+data/raw/*
+# Exception: the archived channels.list responses behind the phase 2 tiering.
+# Committed deliberately so the calibration can be re-run without spending
+# quota again. Everything else under data/raw/ stays ignored.
+!data/raw/wikidata_confirm/
 data/processed/*.csv
 data/checkpoints/
 
@@ -81,3 +88,15 @@ data/sources_risky.csv
 
 # Submission artefacts (PDFs generated from source .md files)
 YouTube_News_Monitoring_Pipeline_Design_Doc.pdf
+
+# News-creator demand anchor pipeline (M1 + M2)
+cache/
+data/raw/reuters_dnr_2025*.pdf
+data/raw/reuters_dnr_2025*.txt
+data/raw/pew/
+data/anchor_table.csv
+data/monitored_sources.csv
+data/excluded.csv
+data/review_queue.csv
+reports/resolution_summary.md
+reports/m2_summary.md
