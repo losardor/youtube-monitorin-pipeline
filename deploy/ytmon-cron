@@ -1,0 +1,19 @@
+# ytmon — YouTube monitoring pipeline.
+# Added 2026-09-16. Appended to the existing infosphere crontab; nothing else
+# in that file is touched by this deployment.
+#
+# Minutes are chosen to clear every job already scheduled on this box:
+# TAIWA run_live (*/15 at :00 :15 :30 :45), gdelt_update (every 5 at :02…:57),
+# gdelt_reconcile (:40), gdelt_reprobe (:50), drain_watchdog (every 10 at
+# :03…:53). The brief's 09:17 / 12:45 / 03:30 all collided with those.
+#
+# 09:18 Rome: the API quota resets at midnight US/Pacific, which is 09:00 Rome
+# under both DST regimes. The two zones shift within a couple of weeks of each
+# other; on those days the run starts up to an hour early or late, which the
+# governor tolerates because the ledger is keyed by Pacific day, not local day.
+
+CRON_TZ=Europe/Rome
+
+18 9 * * *   /data/home/infosphere/youtube_monitoring/deploy/run_daily.sh
+46 12 * * *  /data/home/infosphere/youtube_monitoring/deploy/healthcheck.sh
+34 3 * * *   /data/home/infosphere/youtube_monitoring/deploy/backup.sh

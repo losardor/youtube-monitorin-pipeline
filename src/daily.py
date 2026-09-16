@@ -290,18 +290,35 @@ def discover_uploads(con, client, cfg: dict, run_id: str) -> dict:
     """
     started = utcnow()
     budget = Budget(client.governor, cfg['quota']['share_discovery'], floor=1)
-    lookback = _iso_days_ago(cfg['schedule']['upload_lookback_days'])
     max_pages = cfg['limits']['max_upload_pages_per_channel']
     stop_known = cfg['limits']['stop_after_known_videos']
+    cadence_cfg = cfg['schedule'].get('discovery_days')
+    lookback_cfg = cfg['schedule']['upload_lookback_days']
 
-    tier_sql, tier_params = _tier_filter(cfg)
+    # Per-tier cadence. playlistItems costs a hard 1 unit per channel per
+    # visit, so visiting every channel every day is what makes the primary
+    # frame alone exceed a 10k budget. Tier 0 every 2 days, tier 1 weekly,
+    # tier 2 fortnightly keeps the whole frame inside one day's discovery
+    # share. A channel is queued only once its own cadence has elapsed, and
+    # within a tier the longest-unvisited go first, so no channel starves.
+    tiers = collect_tiers(cfg)
+    clauses, params = [], []
+    for tier in tiers:
+        days = _per_tier(cadence_cfg, tier, 1)
+        clauses.append("(COALESCE(tier, 0) = ? AND "
+                       "(last_discovered IS NULL OR last_discovered < ?))")
+        params.extend([tier, _iso_days_ago(days)])
+    due_sql = " OR ".join(clauses) if clauses else "0"
+
     chans = _tier_ordered(con, f"""
         SELECT channel_id, uploads_playlist, COALESCE(tier, 0) AS tier
           FROM channels
          WHERE status = 'active' AND uploads_playlist IS NOT NULL
-           AND {tier_sql}
-         ORDER BY {{tier_order}}, COALESCE(last_checked, '') ASC
-    """, tier_params)
+           AND ({due_sql})
+         ORDER BY {{tier_order}},
+                  (last_discovered IS NULL) DESC,
+                  COALESCE(last_discovered, '') ASC
+    """, tuple(params))
 
     known = {r[0] for r in con.execute("SELECT video_id FROM videos")}
     now = utcnow()
@@ -310,7 +327,11 @@ def discover_uploads(con, client, cfg: dict, run_id: str) -> dict:
     for ch in chans:
         if not budget.ok():
             break
-        channel_id, playlist = ch[0], ch[1]
+        channel_id, playlist, tier = ch[0], ch[1], ch[2]
+        # Lookback is the tier's cadence plus a day, so consecutive passes
+        # overlap and no upload can fall into the gap between them.
+        lookback = _iso_days_ago(_per_tier(lookback_cfg, tier,
+                                           _per_tier(cadence_cfg, tier, 1) + 1))
         consecutive_known, pages, token = 0, 0, None
 
         while budget.ok() and pages < max_pages:
@@ -356,12 +377,19 @@ def discover_uploads(con, client, cfg: dict, run_id: str) -> dict:
             token = page.get('nextPageToken')
             if stop or not token:
                 break
-        scanned += 1
+
+        if pages:
+            # Only a channel we actually paged counts as discovered; one
+            # skipped on budget stays due and keeps its place at the front.
+            con.execute("UPDATE channels SET last_discovered = ? "
+                        "WHERE channel_id = ?", (now, channel_id))
+            scanned += 1
+    con.commit()
 
     inserted = insert_ignore(con, 'videos', new_rows)
     log_run(con, run_id, 'discover_uploads', started, budget, inserted,
-            f"{scanned}/{len(chans)} channels scanned")
-    return {'channels_scanned': scanned, 'channels_queued': len(chans),
+            f"{scanned}/{len(chans)} due channels scanned")
+    return {'channels_scanned': scanned, 'channels_due': len(chans),
             'new_videos': inserted, 'units': budget.used, 'calls': budget.calls}
 
 

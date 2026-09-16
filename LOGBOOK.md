@@ -400,6 +400,59 @@ on the same inode, so they will contend on Linux, but **this needs confirming on
 
 ---
 
+## 2026-09-16: 3.0 — per-tier discovery cadence
+
+`playlistItems.list` costs a hard 1 unit per channel per visit, so a daily
+sweep of the whole frame costs 4,312 units/day before any other stage runs.
+That is what makes the primary frame alone unaffordable on a 10k key. Visiting
+each tier on its own cadence fixes it.
+
+### Cadence and projected cost
+
+| Tier | Channels | Cadence | Units/day |
+|---|---|---|---|
+| 0 | 2,856 | every 2 days | 1,428.0 |
+| 1 | 788 | every 7 days | 112.6 |
+| 2 | 668 | every 14 days | 47.7 |
+| | **4,312** | | **1,588** |
+
+**Projected daily discovery cost: about 1,590 units** — a sixth of a 10k day,
+where the daily sweep would have been 43%.
+
+`schedule.upload_lookback_days` becomes per-tier at cadence + 1 (3 / 8 / 15),
+so consecutive passes overlap and no upload can fall into the gap between them.
+
+`share_discovery` is raised 0.15 → 0.20, and `share_comments` lowered 0.65 →
+0.60 to match. At 0.15 discovery would receive about 1,490 units of a 10k day
+against the 1,588 it needs, so tier 0 would slip its 2-day cadence
+permanently. This is the kind of shortfall that shows up as a slow drift
+rather than an error, so it is worth naming.
+
+### 14-day simulation
+
+4,312 channels, 10,000-unit daily budget, a fresh budget each day, the
+channels stage charged first:
+
+```
+tier 0: n=2,856  visits min=7 max=7  mean 7.00
+tier 1: n=  788  visits min=2 max=2  mean 2.00
+tier 2: n=  668  visits min=1 max=1  mean 1.00
+total visits 22,236        mean 1,588 units/day
+```
+
+Every tier-0 channel is visited at least 7 times and every tier-2 channel at
+least once, which is the requirement. Days 0-2 hit the discovery share and
+left a backlog — 4,312 due, 1,982 scanned — which the oldest-first ordering
+within each tier drained by day 3. That is the property that keeps a channel
+from starving: a channel skipped on budget is not stamped as discovered, stays
+due, and keeps its place at the front of the queue.
+
+New column `channels.last_discovered`, carried across `INSERT OR REPLACE` like
+the other pipeline columns, so a backfill re-insert cannot silently reset a
+channel's cadence.
+
+---
+
 ## 2026-09-16: Phase 2 CLOSED
 
 Tier 2 admitted after tightening, alternates linked, coverage audited, frame

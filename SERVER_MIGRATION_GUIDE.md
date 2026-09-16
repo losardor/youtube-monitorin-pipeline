@@ -1,3 +1,14 @@
+> **SUPERSEDED (2026-09-16).**
+>
+> This guide describes a generic Ubuntu setup with a dedicated
+> `youtube_collector` user. The actual deployment targets `infosphereVM`
+> (SSH alias `gdelt-server`) as the existing `infosphere` user, following the
+> conventions already established there for TAIWA and GDELT.
+>
+> The current deployment is documented in
+> [`docs/operations/ytmon_daily_run.md`](docs/operations/ytmon_daily_run.md).
+> Read that first; treat everything below as historical context only.
+
 # Server Migration Guide - YouTube Monitoring Pipeline
 
 ## Part 1: Package Your Project

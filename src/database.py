@@ -5,6 +5,7 @@ Handles data persistence using SQLite or PostgreSQL
 
 import sqlite3
 import logging
+from pathlib import Path
 from typing import List, Dict, Optional, Any
 from datetime import datetime
 import json
@@ -12,16 +13,40 @@ import json
 logger = logging.getLogger(__name__)
 
 
+class ReplicaRefused(RuntimeError):
+    """The named file is a replica and was opened without acknowledgement."""
+
+
+def guard_replica(db_path: str, allow_replica: bool = False) -> None:
+    """
+    Refuse to open a database whose filename marks it a replica.
+
+    After the cluster cutover the authoritative file lives on gdelt-server and
+    the workstation copy is renamed *.replica.db. Writing to the replica would
+    produce a second divergent history that looks authoritative -- the failure
+    mode is silent, so the guard is on the filename rather than on intent.
+    """
+    if 'replica' in Path(db_path).name.lower() and not allow_replica:
+        raise ReplicaRefused(
+            f"{db_path} is a replica, not the production database.\n"
+            f"Production lives on gdelt-server:/data/ytmon/youtube_monitoring.db "
+            f"as of the phase 3 cutover.\n"
+            f"Pass --i-know-this-is-a-replica to operate on it anyway."
+        )
+
+
 class Database:
     """Database handler for YouTube monitoring data"""
     
-    def __init__(self, db_path: str = "data/youtube_monitoring.db"):
+    def __init__(self, db_path: str = "data/youtube_monitoring.db",
+                 allow_replica: bool = False):
         """
         Initialize database connection
         
         Args:
             db_path: Path to SQLite database file
         """
+        guard_replica(db_path, allow_replica)
         self.db_path = db_path
         self.conn = None
         self.cursor = None
@@ -242,6 +267,7 @@ class Database:
                 'wd_item': 'TEXT',
                 'wd_class': 'TEXT',
                 'uploads_playlist': 'TEXT',
+                'last_discovered': 'TEXT',
                 'status': 'TEXT',
                 'last_checked': 'TEXT',
                 'alt_of': 'TEXT',
@@ -416,7 +442,7 @@ class Database:
                     first_collected_at, last_updated_at,
                     source_domain, source_rating, source_orientation,
                     tier, tier_reason, wd_item, wd_class, uploads_playlist,
-                    status, last_checked, alt_of
+                    status, last_checked, last_discovered, alt_of
                 ) VALUES (
                     ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                     COALESCE((SELECT first_collected_at FROM channels WHERE channel_id = ?), ?),
@@ -427,8 +453,9 @@ class Database:
                     (SELECT wd_class FROM channels WHERE channel_id = ?),
                     COALESCE(?, (SELECT uploads_playlist FROM channels WHERE channel_id = ?)),
                     (SELECT status       FROM channels WHERE channel_id = ?),
-                    (SELECT last_checked FROM channels WHERE channel_id = ?),
-                    (SELECT alt_of       FROM channels WHERE channel_id = ?)
+                    (SELECT last_checked    FROM channels WHERE channel_id = ?),
+                    (SELECT last_discovered FROM channels WHERE channel_id = ?),
+                    (SELECT alt_of          FROM channels WHERE channel_id = ?)
                 )
             """, (
                 channel_id,
@@ -456,6 +483,7 @@ class Database:
                 uploads_playlist, channel_id,     # uploads_playlist COALESCE
                 channel_id,                       # status
                 channel_id,                       # last_checked
+                channel_id,                       # last_discovered
                 channel_id,                       # alt_of
             ))
 

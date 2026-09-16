@@ -28,13 +28,31 @@ quota:
   # submitted 2026-04-20).
   daily_budget: 9000
   share_channels: 0.05      # channels.list: 50 channels per unit
-  share_discovery: 0.15     # uploads playlists: 50 videos per unit
+  # Discovery needs ~1,590 units/day for the whole frame at the cadence below.
+  # At 0.15 of a 10k day it would get ~1,490 and fall permanently behind, so
+  # tier 0 would miss its 2-day cadence. 0.20 leaves headroom.
+  share_discovery: 0.20     # uploads playlists: 1 unit per channel visit
   share_videos: 0.15        # videos.list: 50 videos per unit
-  share_comments: 0.65      # commentThreads.list: 100 comments per unit
+  share_comments: 0.60      # commentThreads.list: 100 comments per unit
 
 schedule:
   channel_refresh_days: 1       # re-snapshot subscriber/view counts this often
-  upload_lookback_days: 7       # ignore uploads older than this during discovery
+
+  # Per tier: how often to look for new uploads. playlistItems costs a hard
+  # 1 unit per channel per visit, so a daily sweep of the whole frame is what
+  # makes tier 0 alone exceed a 10k day. At this cadence the frame costs about
+  # 1,590 units/day: 2,856/2 + 788/7 + 668/14.
+  discovery_days:
+    0: 2
+    1: 7
+    2: 14
+
+  # Per tier: cadence + 1, so consecutive passes overlap and no upload falls
+  # into the gap between them.
+  upload_lookback_days:
+    0: 3
+    1: 8
+    2: 15
   video_restat_days: 1          # re-snapshot video statistics this often
   video_tracking_days: 30       # keep re-snapshotting videos this young
 
