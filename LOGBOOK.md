@@ -535,14 +535,49 @@ and left a backlog, which is the designed behaviour, not a failure.
 **Today's ledger is not directly comparable to the new project's console.**
 It opened at **723 units already spent from the Mac against the old project**
 (the 2.5 channels pass and the tail of the recency sweep), before the cutover.
-Everything after that ran on the cluster with the new key. So:
+
+### The 1% check — failed at first, and found a real defect
 
 ```
-new project console  ≈  7,117 − 723  =  6,394 units
+console (daily project)                      6,666
+ledger total today                           7,117
+  less spent pre-cutover on the old project    723
+  ─────────────────────────────────────────────────
+  cluster portion of the ledger              6,394
+  discrepancy                                  272   = 4.25%   FAILS the 1% gate
 ```
 
-From 2026-09-17 the two align, because everything runs on the cluster with the
-new key and nothing else touches that project.
+**Cause: 212 `commentsDisabled` 403 responses.** YouTube bills the request, not
+the result — it served each of those and charged a unit — while `_call` charged
+the ledger only on HTTP 200.
+
+```
+  cluster ledger                             6,394
+  + 212 served-but-uncharged                   212
+  ─────────────────────────────────────────────────
+  adjusted                                   6,606
+  console                                    6,666
+  residual                                      60   = 0.90%   within 1%
+```
+
+The residual 60 units are **not explained** by anything in the logs. Candidates
+are console aggregation lag and a handful of other billed errors, but neither
+is evidenced, so it is recorded as unexplained rather than reasoned away.
+
+**The reporting gap was the smaller problem.** The governor believed it had 212
+more units than it did, so its refuse-before-calling guarantee was unsound: on
+a day with many comments-disabled videos it could spend past the real ceiling
+and hit a hard `quotaExceeded` instead of stopping cleanly. Fixed in `a4c5d37`:
+`_call` now charges for every response the API *served* — 200,
+`commentsDisabled`, and the not-found reasons — while refusals
+(`quotaExceeded`, `dailyLimitExceeded`, rate limits) and transport failures
+stay free, since those were never served. A test pins both halves, and one
+earlier assertion that expected `ItemUnavailable` to cost nothing was corrected:
+it encoded exactly this under-counting.
+
+**From 2026-09-17 the ledger and console should agree directly**, since
+everything runs on the cluster with the new key and the charging rule now
+matches how the API bills. That agreement is itself part of the Gate 3 check.
 
 ### Also this session
 
