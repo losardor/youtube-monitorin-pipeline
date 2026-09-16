@@ -45,6 +45,11 @@ schedule:
     1: 14
     2: 7
 
+# Tiers this pipeline is allowed to spend quota on. Tier 2 is excluded until
+# it passes Gate 2: its hand-checked false-positive rate was 20% against a 15%
+# threshold (LOGBOOK, 2026-09-16). Tier 3 is never collected whatever this says.
+collect_tiers: [0, 1]
+
 limits:
   max_upload_pages_per_channel: 2    # 2 pages = up to 100 recent uploads
   stop_after_known_videos: 10        # stop paging once the tail is already stored

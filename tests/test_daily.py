@@ -1109,3 +1109,88 @@ def test_max_tier_limits_the_channels_stage(tmp_path):
 
     sizes = [n for kind, n in yt.calls if kind == "channels"]
     assert sizes == [1]          # only the single tier-0 channel
+
+
+# ---------------------------------------------------------------------------
+# collect_tiers: scope gating
+# ---------------------------------------------------------------------------
+
+def test_collect_tiers_resolution():
+    from src.daily import collect_tiers
+
+    assert collect_tiers({'collect_tiers': [0, 1]}) == [0, 1]
+    assert collect_tiers({}) == [0, 1, 2]               # default: all but 3
+    # No configuration can opt into collecting tier 3.
+    assert collect_tiers({'collect_tiers': [0, 1, 2, 3]}) == [0, 1, 2]
+    assert collect_tiers({'collect_tiers': [3]}) == []
+    # --max-tier narrows further, never widens.
+    assert collect_tiers({'collect_tiers': [0, 1],
+                          'limits': {'max_tier': 0}}) == [0]
+    assert collect_tiers({'collect_tiers': [0],
+                          'limits': {'max_tier': 2}}) == [0]
+
+
+def _cfg_tiers(tiers):
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = tiers
+    return cfg
+
+
+def test_excluded_tier_is_never_queued_for_channels(tmp_path):
+    """Tier 2 must not be queued while it is outside collect_tiers."""
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 1, 2))
+    daily.resolve_channels(con, yt, _cfg_tiers([0, 1]), "run-scope")
+
+    # Two channels requested (tier 0 and 1), never the tier-2 one.
+    assert [n for kind, n in yt.calls if kind == "channels"] == [2]
+    assert con.execute(
+        "SELECT status FROM channels WHERE channel_id = ?", (CH[2],)
+    ).fetchone()[0] is None
+
+
+def test_excluded_tier_is_never_queued_for_discovery(tmp_path):
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 1, 2))
+    for cid in CH:
+        con.execute("UPDATE channels SET status = 'active', uploads_playlist = ? "
+                    "WHERE channel_id = ?", ("UU" + cid[2:], cid))
+    con.commit()
+
+    daily.discover_uploads(con, yt, _cfg_tiers([0, 1]), "run-scope")
+
+    scanned = {pid for kind, pid in yt.calls if kind == "playlistItems"}
+    assert "UU" + CH[2][2:] not in scanned      # tier 2 excluded
+    assert "UU" + CH[0][2:] in scanned
+    assert "UU" + CH[1][2:] in scanned
+
+
+def test_excluded_tier_is_never_queued_for_videos_or_comments(tmp_path):
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 2, 2))
+    # One video on a tier-0 channel, one on a tier-2 channel.
+    con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                "comments_state) VALUES ('vok', ?, '2026-09-01T00:00:00Z', "
+                "'pending')", (CH[0],))
+    con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                "comments_state) VALUES ('vno', ?, '2026-09-01T00:00:00Z', "
+                "'pending')", (CH[1],))
+    con.commit()
+    cfg = _cfg_tiers([0, 1])
+
+    daily.refresh_videos(con, yt, cfg, "run-scope")
+    assert con.execute("SELECT last_stats_at FROM videos WHERE video_id = 'vno'"
+                       ).fetchone()[0] is None
+    assert con.execute("SELECT last_stats_at FROM videos WHERE video_id = 'vok'"
+                       ).fetchone()[0] is not None
+
+    daily.harvest_comments(con, yt, cfg, "run-scope")
+    pulled = {vid for kind, vid in yt.calls if kind == "commentThreads"}
+    assert 'vno' not in pulled
+    assert 'vok' in pulled
+
+
+def test_shipped_config_excludes_tier_two(tmp_path):
+    """The committed daily config must not collect tier 2 until it passes."""
+    import yaml
+    cfg = yaml.safe_load(open('config/config_daily.yaml'))
+    assert cfg['collect_tiers'] == [0, 1]
+    from src.daily import collect_tiers
+    assert 2 not in collect_tiers(cfg)

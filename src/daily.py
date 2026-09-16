@@ -50,6 +50,35 @@ TIERS = (0, 1, 2)
 TIER_NEVER_COLLECT = 3
 
 
+def collect_tiers(cfg: dict) -> list:
+    """
+    Tiers this run may spend quota on.
+
+    `collect_tiers` in config is the standing scope decision -- a tier that has
+    not passed its gate is left out of it. `--max-tier` narrows further for a
+    single run. Tier 3 is filtered out unconditionally: no configuration can
+    opt into collecting rows recorded never to be collected.
+    """
+    tiers = cfg.get('collect_tiers')
+    if tiers is None:
+        tiers = [t for t in TIERS]
+    tiers = [int(t) for t in tiers if int(t) < TIER_NEVER_COLLECT]
+
+    max_tier = cfg.get('limits', {}).get('max_tier')
+    if max_tier is not None:
+        tiers = [t for t in tiers if t <= int(max_tier)]
+    return sorted(set(tiers))
+
+
+def _tier_filter(cfg: dict) -> tuple:
+    """SQL fragment and params restricting a query to the collectable tiers."""
+    tiers = collect_tiers(cfg)
+    if not tiers:
+        return "0", ()          # nothing collectable: match no rows
+    placeholders = ','.join('?' * len(tiers))
+    return f"COALESCE(tier, 0) IN ({placeholders})", tuple(tiers)
+
+
 # ---------------------------------------------------------------------------
 # helpers
 # ---------------------------------------------------------------------------
@@ -164,20 +193,15 @@ def resolve_channels(con, client, cfg: dict, run_id: str) -> dict:
     budget = Budget(client.governor, cfg['quota']['share_channels'], floor=1)
     stale_before = _iso_days_ago(cfg['schedule']['channel_refresh_days'])
 
-    # max_tier lets a run serve only the primary frame, which is how the first
-    # pass after tiering is scoped: resolving tier 1 and 2 as well would spend
-    # units the caller did not ask for.
-    max_tier = cfg.get('limits', {}).get('max_tier')
-    tier_cap = TIER_NEVER_COLLECT - 1 if max_tier is None else int(max_tier)
-
-    rows = _tier_ordered(con, """
+    tier_sql, tier_params = _tier_filter(cfg)
+    rows = _tier_ordered(con, f"""
         SELECT channel_id FROM channels
-         WHERE COALESCE(tier, 0) <= ?
+         WHERE {tier_sql}
            AND (status IS NULL OR status = 'unresolved'
                 OR last_checked IS NULL OR last_checked < ?)
-         ORDER BY {tier_order},
+         ORDER BY {{tier_order}},
                   (last_checked IS NULL) DESC, last_checked ASC
-    """, (tier_cap, stale_before))
+    """, tier_params + (stale_before,))
     todo = [r[0] for r in rows]
 
     now = utcnow()
@@ -270,16 +294,14 @@ def discover_uploads(con, client, cfg: dict, run_id: str) -> dict:
     max_pages = cfg['limits']['max_upload_pages_per_channel']
     stop_known = cfg['limits']['stop_after_known_videos']
 
-    max_tier = cfg.get('limits', {}).get('max_tier')
-    tier_cap = TIER_NEVER_COLLECT - 1 if max_tier is None else int(max_tier)
-
-    chans = _tier_ordered(con, """
+    tier_sql, tier_params = _tier_filter(cfg)
+    chans = _tier_ordered(con, f"""
         SELECT channel_id, uploads_playlist, COALESCE(tier, 0) AS tier
           FROM channels
          WHERE status = 'active' AND uploads_playlist IS NOT NULL
-           AND COALESCE(tier, 0) <= ?
-         ORDER BY {tier_order}, COALESCE(last_checked, '') ASC
-    """, (tier_cap,))
+           AND {tier_sql}
+         ORDER BY {{tier_order}}, COALESCE(last_checked, '') ASC
+    """, tier_params)
 
     known = {r[0] for r in con.execute("SELECT video_id FROM videos")}
     now = utcnow()
@@ -354,15 +376,17 @@ def refresh_videos(con, client, cfg: dict, run_id: str) -> dict:
     stale_before = _iso_days_ago(cfg['schedule']['video_restat_days'])
     track_after = _iso_days_ago(cfg['schedule']['video_tracking_days'])
 
-    rows = con.execute("""
+    tier_sql, tier_params = _tier_filter(cfg)
+    rows = con.execute(f"""
         SELECT v.video_id
           FROM videos v
           LEFT JOIN channels c ON c.channel_id = v.channel_id
-         WHERE v.last_stats_at IS NULL
-            OR (v.published_at >= ? AND v.last_stats_at < ?)
+         WHERE {tier_sql.replace('COALESCE(tier, 0)', 'COALESCE(c.tier, 0)')}
+           AND (v.last_stats_at IS NULL
+                OR (v.published_at >= ? AND v.last_stats_at < ?))
          ORDER BY COALESCE(c.tier, 0) ASC,
                   (v.last_stats_at IS NULL) DESC, v.published_at DESC
-    """, (track_after, stale_before)).fetchall()
+    """, tier_params + (track_after, stale_before)).fetchall()
     todo = [r[0] for r in rows]
 
     now = utcnow()
@@ -463,13 +487,16 @@ def _comment_queue(con, cfg) -> List[sqlite3.Row]:
     growth = cfg['limits']['recomment_growth_ratio']
     tracking = cfg['schedule']['comment_tracking_days']
 
+    allowed = collect_tiers(cfg)
     clauses, params = [], []
-    for tier in TIERS:
+    for tier in allowed:
         days = _per_tier(tracking, tier, 7)
         clauses.append("(COALESCE(c.tier, 0) = ? AND v.published_at >= ?)")
         params.extend([tier, _iso_days_ago(days)])
-    tracking_window = " OR ".join(clauses)
+    tracking_window = " OR ".join(clauses) if clauses else "0"
 
+    tier_sql_raw, tier_params = _tier_filter(cfg)
+    tier_sql = tier_sql_raw.replace('COALESCE(tier, 0)', 'COALESCE(c.tier, 0)')
     sql = f"""
         WITH latest AS (
             SELECT video_id, comment_count,
@@ -484,17 +511,18 @@ def _comment_queue(con, cfg) -> List[sqlite3.Row]:
           FROM videos v
           LEFT JOIN channels c ON c.channel_id = v.channel_id
           LEFT JOIN latest l ON l.video_id = v.video_id AND l.rn = 1
-         WHERE v.comments_state = 'pending'
+         WHERE {tier_sql}
+           AND (v.comments_state = 'pending'
             OR (v.comments_state = 'done'
                 AND ({tracking_window})
                 AND l.comment_count IS NOT NULL
-                AND l.comment_count > COALESCE(v.last_comment_count, 0) * ?)
+                AND l.comment_count > COALESCE(v.last_comment_count, 0) * ?))
          ORDER BY COALESCE(c.tier, 0) ASC,
                   (v.comments_state = 'pending') DESC,
                   v.published_at DESC
     """
     params.append(growth)
-    return con.execute(sql, params).fetchall()
+    return con.execute(sql, list(tier_params) + params).fetchall()
 
 
 def _flatten_thread(item, video_id, channel_id) -> List[Dict]:
