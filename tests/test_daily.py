@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import csv
 import json
+from collections import Counter
 import sqlite3
 import subprocess
 import sys
@@ -1249,3 +1250,147 @@ def test_alternate_never_enters_tier_zero():
     assert max(0, MIN_ALT_TIER) == 1
     assert max(2, MIN_ALT_TIER) == 2      # never promotes a tier-2 alternate
     assert max(3, MIN_ALT_TIER) == 3
+
+
+# ---------------------------------------------------------------------------
+# 3.0 per-tier discovery cadence
+# ---------------------------------------------------------------------------
+
+class CadenceFake:
+    """Minimal discovery-only client: one page per channel, charges 1 unit."""
+
+    def __init__(self, gov):
+        self.governor = gov
+        self.visits = Counter()
+
+    def playlist_items(self, playlist_id, page_token=None):
+        self.governor.charge('playlistItems', 1)
+        self.visits[playlist_id] += 1
+        # One page, no nextPageToken: the cheapest realistic visit.
+        return {'items': [{'contentDetails': {
+            'videoId': f"v{playlist_id[-6:]}_{self.visits[playlist_id]}",
+            'videoPublishedAt': daily.utcnow() + 'Z'}}]}
+
+
+def _cadence_cfg():
+    import yaml
+    return yaml.safe_load(open('config/config_daily.yaml'))
+
+
+def test_discovery_cadence_covers_the_frame_over_fourteen_days(tmp_path):
+    """
+    A 14-day run at the shipped cadence must serve the whole frame.
+
+    Tier 0 is due every 2 days, so 14 days gives it at least 7 visits; tier 2
+    is due every 14 days, so it must be reached at least once. This is the
+    property that makes the frame affordable: visiting every channel daily
+    would cost 4,312 units/day, which no 10k budget survives alongside the
+    other three stages.
+    """
+    cfg = _cadence_cfg()
+    cfg['quota']['daily_budget'] = 10000
+
+    db = Database(db_path=str(tmp_path / "cadence.db"))
+    con = db.conn
+    con.row_factory = sqlite3.Row
+
+    # The real frame's shape: 2,856 tier 0, 788 tier 1, 668 tier 2 = 4,312.
+    sizes = {0: 2856, 1: 788, 2: 668}
+    rows = []
+    for tier, n in sizes.items():
+        for i in range(n):
+            cid = f"UC{tier}{i:022d}"
+            rows.append((cid, tier, 'active', 'UU' + cid[2:]))
+    con.executemany(
+        "INSERT INTO channels (channel_id, tier, status, uploads_playlist) "
+        "VALUES (?, ?, ?, ?)", rows)
+    con.commit()
+    assert con.execute("SELECT COUNT(*) FROM channels").fetchone()[0] == 4312
+
+    total_visits = Counter()
+    daily_units = []
+
+    for day in range(14):
+        # A fresh budget each day, as the Pacific rollover gives.
+        gov = QuotaGovernor(con, cfg['quota']['daily_budget'])
+        con.execute("DELETE FROM quota_ledger")
+        con.commit()
+        yt = CadenceFake(gov)
+
+        # The channels stage runs first and takes its share; model that by
+        # charging its slice before discovery opens its budget.
+        gov.charge('channels', 4312 // 50 + 1)
+
+        daily.discover_uploads(con, yt, cfg, f"sim-{day}")
+        total_visits.update(yt.visits)
+        daily_units.append(gov.spent_today())
+
+        # Advance the clock by ageing every timestamp one day.
+        con.execute(
+            "UPDATE channels SET last_discovered = "
+            "datetime(last_discovered, '-1 day') WHERE last_discovered IS NOT NULL")
+        con.commit()
+
+    def visits_for(tier):
+        return [total_visits.get('UU' + f"{tier}{i:022d}", 0)
+                for i in range(sizes[tier])]
+
+    t0, t1, t2 = visits_for(0), visits_for(1), visits_for(2)
+
+    assert min(t0) >= 7, f"a tier-0 channel was visited only {min(t0)} times in 14 days"
+    assert min(t2) >= 1, f"a tier-2 channel was visited only {min(t2)} times in 14 days"
+    assert min(t1) >= 2, f"a tier-1 channel was visited only {min(t1)} times in 14 days"
+
+    # And it fits: discovery never exhausted its share on any day.
+    assert max(daily_units) < cfg['quota']['daily_budget']
+    db.close()
+
+
+def test_discovery_only_queues_channels_whose_cadence_has_elapsed(tmp_path):
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 1, 2))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['discovery_days'] = {'0': 2, '1': 7, '2': 14}
+    cfg['schedule']['upload_lookback_days'] = {'0': 3, '1': 8, '2': 15}
+
+    for cid in CH:
+        con.execute("UPDATE channels SET status='active', uploads_playlist=?, "
+                    "last_discovered=? WHERE channel_id=?",
+                    ('UU' + cid[2:], daily.utcnow(), cid))
+    con.commit()
+
+    # Nothing is due: every channel was discovered just now.
+    daily.discover_uploads(con, yt, cfg, "run-none")
+    assert [c for c in yt.calls if c[0] == 'playlistItems'] == []
+
+    # Age the tier-0 channel past its 2-day cadence; only it becomes due.
+    con.execute("UPDATE channels SET last_discovered = ? WHERE channel_id = ?",
+                (daily._iso_days_ago(3), CH[0]))
+    con.commit()
+    daily.discover_uploads(con, yt, cfg, "run-one")
+    scanned = [pid for kind, pid in yt.calls if kind == 'playlistItems']
+    assert scanned == ['UU' + CH[0][2:]]
+
+
+def test_channel_skipped_on_budget_stays_due(tmp_path):
+    """A channel not actually paged must not be stamped as discovered."""
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['discovery_days'] = {'0': 1}
+    cfg['schedule']['upload_lookback_days'] = {'0': 2}
+    for cid in CH:
+        con.execute("UPDATE channels SET status='active', uploads_playlist=? "
+                    "WHERE channel_id=?", ('UU' + cid[2:], cid))
+    con.commit()
+
+    yt.governor = QuotaGovernor(con, 1)      # one unit: one channel only
+    daily.discover_uploads(con, yt, cfg, "run-tight")
+
+    stamped = con.execute(
+        "SELECT COUNT(*) FROM channels WHERE last_discovered IS NOT NULL"
+    ).fetchone()[0]
+    assert stamped == 1
+    assert con.execute(
+        "SELECT COUNT(*) FROM channels WHERE last_discovered IS NULL"
+    ).fetchone()[0] == 2

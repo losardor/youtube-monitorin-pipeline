@@ -242,6 +242,7 @@ class Database:
                 'wd_item': 'TEXT',
                 'wd_class': 'TEXT',
                 'uploads_playlist': 'TEXT',
+                'last_discovered': 'TEXT',
                 'status': 'TEXT',
                 'last_checked': 'TEXT',
                 'alt_of': 'TEXT',
@@ -416,7 +417,7 @@ class Database:
                     first_collected_at, last_updated_at,
                     source_domain, source_rating, source_orientation,
                     tier, tier_reason, wd_item, wd_class, uploads_playlist,
-                    status, last_checked, alt_of
+                    status, last_checked, last_discovered, alt_of
                 ) VALUES (
                     ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                     COALESCE((SELECT first_collected_at FROM channels WHERE channel_id = ?), ?),
@@ -427,8 +428,9 @@ class Database:
                     (SELECT wd_class FROM channels WHERE channel_id = ?),
                     COALESCE(?, (SELECT uploads_playlist FROM channels WHERE channel_id = ?)),
                     (SELECT status       FROM channels WHERE channel_id = ?),
-                    (SELECT last_checked FROM channels WHERE channel_id = ?),
-                    (SELECT alt_of       FROM channels WHERE channel_id = ?)
+                    (SELECT last_checked    FROM channels WHERE channel_id = ?),
+                    (SELECT last_discovered FROM channels WHERE channel_id = ?),
+                    (SELECT alt_of          FROM channels WHERE channel_id = ?)
                 )
             """, (
                 channel_id,
@@ -456,6 +458,7 @@ class Database:
                 uploads_playlist, channel_id,     # uploads_playlist COALESCE
                 channel_id,                       # status
                 channel_id,                       # last_checked
+                channel_id,                       # last_discovered
                 channel_id,                       # alt_of
             ))
 
