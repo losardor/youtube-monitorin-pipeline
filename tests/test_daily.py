@@ -148,7 +148,9 @@ def fresh(tmp, tiers=(0, 0, 0), **kw):
     """A database with three seeded channels, a governor, and a fake client."""
     db = Database(db_path=str(tmp))
     con = db.conn
-    con.row_factory = sqlite3.Row
+    # Deliberately NOT setting row_factory here: Database sets it, and a
+    # fixture that configures the connection differently from production is
+    # how the harvest_comments tuple-indexing bug reached the cluster.
     for cid, tier in zip(CH, tiers):
         con.execute(
             "INSERT OR REPLACE INTO channels (channel_id, channel_title, tier) "
@@ -1081,7 +1083,9 @@ def test_tier_reason_survives_insert_or_replace(tmp_path):
                        'statistics': {'subscriberCount': '20'}})
     row = con.execute("SELECT tier, tier_reason, channel_title FROM channels "
                       "WHERE channel_id = 'UCkeep'").fetchone()
-    assert row == (1, 'title_only', 'Second')
+    # tuple(): rows are sqlite3.Row, which is a sequence but does not compare
+    # equal to a plain tuple.
+    assert tuple(row) == (1, 'title_only', 'Second')
     db.close()
 
 
@@ -1434,3 +1438,68 @@ def test_replica_refusal_names_where_production_is(tmp_path):
     message = str(exc.value)
     assert 'gdelt-server' in message
     assert '--i-know-this-is-a-replica' in message
+
+
+def test_harvest_comments_works_through_a_plain_database_connection(tmp_path):
+    """
+    Regression: the comment queue reads rows by column name.
+
+    Database now sets row_factory, but this test opens the stage exactly the
+    way daily.py does -- no fixture configuration of its own -- because the
+    original bug was precisely that the fixture set row_factory and production
+    did not, so the stage passed its tests and then raised
+    "tuple indices must be integers" on the cluster.
+    """
+    db = Database(db_path=str(tmp_path / "plain.db"))
+    con = db.conn
+    con.execute("INSERT INTO channels (channel_id, tier, status) "
+                "VALUES (?, 0, 'active')", (CH[0],))
+    con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                "comments_state) VALUES ('vplain', ?, '2026-09-01T00:00:00Z', "
+                "'pending')", (CH[0],))
+    con.commit()
+
+    gov = QuotaGovernor(con, 100)
+    yt = FakeYouTube(gov)
+    result = daily.harvest_comments(con, yt, CFG, "run-plain")
+
+    assert result['comments'] > 0
+    assert con.execute(
+        "SELECT comments_state FROM videos WHERE video_id = 'vplain'"
+    ).fetchone()[0] == 'done'
+    db.close()
+
+
+def test_adopt_backfill_videos_makes_null_state_videos_visible(tmp_path):
+    """NULL comments_state is invisible to the queue; adoption fixes that."""
+    from scripts.adopt_backfill_videos import main as adopt
+
+    db = Database(db_path=str(tmp_path / "adopt.db"))
+    con = db.conn
+    con.execute("INSERT INTO channels (channel_id, tier, status) "
+                "VALUES (?, 0, 'active')", (CH[0],))
+    # One with comments already, one without, both NULL-state.
+    for vid, count in (('vhas', 42), ('vnone', 7)):
+        con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                    "comment_count, comments_state) VALUES (?, ?, ?, ?, NULL)",
+                    (vid, CH[0], '2026-09-01T00:00:00Z', count))
+    con.execute("INSERT INTO comments (comment_id, video_id, text) "
+                "VALUES ('c1', 'vhas', 'hi')")
+    con.commit()
+
+    # Before adoption neither is queued.
+    assert daily._comment_queue(con, CFG) == []
+    db.close()
+
+    assert adopt(["--db", str(tmp_path / "adopt.db")]) == 0
+
+    db = Database(db_path=str(tmp_path / "adopt.db"))
+    con = db.conn
+    rows = {r[0]: (r[1], r[2]) for r in con.execute(
+        "SELECT video_id, comments_state, last_comment_count FROM videos")}
+    assert rows['vhas'] == ('done', 42)      # baseline for the growth re-poll
+    assert rows['vnone'][0] == 'pending'
+    # And the one never harvested is now visible to the queue.
+    queued = {r['video_id'] for r in daily._comment_queue(con, CFG)}
+    assert 'vnone' in queued
+    db.close()

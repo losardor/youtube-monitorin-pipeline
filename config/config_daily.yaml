@@ -10,7 +10,10 @@
 # after it.
 
 database:
-  sqlite_path: data/youtube_monitoring.db
+  # Production, as of the 2026-09-16 cutover. The workstation copy is
+  # data/youtube_monitoring.replica.db and both entry points refuse to open it
+  # without --i-know-this-is-a-replica.
+  sqlite_path: /data/ytmon/youtube_monitoring.db
 
 lock:
   # Must match the flock target in deploy/run_daily.sh and the crontab entry

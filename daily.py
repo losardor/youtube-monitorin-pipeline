@@ -57,10 +57,23 @@ def load_config(path: str) -> dict:
 def setup_logging(cfg: dict) -> None:
     log_path = cfg.get('logging', {}).get('file', 'logs/pipeline.log')
     Path(log_path).parent.mkdir(parents=True, exist_ok=True)
+
+    # Under cron, run_daily.sh redirects stderr into this same file, so adding
+    # a StreamHandler as well wrote every line twice. Attach it only when
+    # stderr is a terminal -- interactively it is the useful half, and under
+    # cron stderr still carries anything Python itself did not log, such as an
+    # uncaught traceback.
+    handlers = [logging.FileHandler(log_path)]
+    try:
+        if sys.stderr.isatty():
+            handlers.append(logging.StreamHandler(sys.stderr))
+    except (AttributeError, ValueError):
+        pass
+
     logging.basicConfig(
         level=getattr(logging, cfg.get('logging', {}).get('level', 'INFO')),
         format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
-        handlers=[logging.FileHandler(log_path), logging.StreamHandler(sys.stderr)],
+        handlers=handlers,
     )
 
 
@@ -242,7 +255,13 @@ def main(argv=None) -> int:
     p_status.set_defaults(func=cmd_status)
 
     args = parser.parse_args(argv)
-    return args.func(args)
+    try:
+        return args.func(args)
+    except ReplicaRefused as e:
+        # A policy refusal, not a crash: print it as such so an operator does
+        # not read a stack trace as a broken install.
+        print(f"Refusing to open the database:\n{e}", file=sys.stderr)
+        return 2
 
 
 if __name__ == '__main__':

@@ -57,6 +57,13 @@ class Database:
         """Establish database connection"""
         try:
             self.conn = sqlite3.connect(self.db_path)
+            # Rows are addressable by column name as well as position.
+            # sqlite3.Row is a superset of a tuple -- indexing, unpacking and
+            # iteration all still work -- so this is safe for existing callers,
+            # and it removes the gap that let a test fixture be more capable
+            # than production: harvest_comments read row['video_id'] and passed
+            # its tests, then failed on the cluster with plain tuples.
+            self.conn.row_factory = sqlite3.Row
             self.cursor = self.conn.cursor()
             # Enable foreign keys
             self.cursor.execute("PRAGMA foreign_keys = ON")
