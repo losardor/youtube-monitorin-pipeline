@@ -157,10 +157,21 @@ class YouTubeAPIClient:
                         continue
                     raise QuotaExhausted(f"{reason}: {message}")
 
+                # From here down the API *served* the request and billed for
+                # it, even though it answered with an error. Charging only on
+                # HTTP 200 made the ledger under-count: on 2026-09-16 the
+                # first live run left 212 commentsDisabled responses uncharged
+                # and the ledger read 4.25% below the Cloud console. Worse than
+                # the reporting gap, the governor then believed it had 212 more
+                # units than it did, so it could overspend the real ceiling.
+                # Quota exhaustion and rate limiting are excluded above: those
+                # are refusals, not served requests.
                 if reason in COMMENTS_DISABLED_REASONS:
+                    self._charge(endpoint, quota_cost, api_method)
                     raise CommentsDisabled(message)
 
                 if status in (403, 404) and reason in UNAVAILABLE_REASONS:
+                    self._charge(endpoint, quota_cost, api_method)
                     raise ItemUnavailable(f"{reason}: {message}")
 
                 if status in RETRYABLE_STATUSES and attempt < self.max_retries - 1:
@@ -169,6 +180,11 @@ class YouTubeAPIClient:
                     time.sleep(delay)
                     continue
 
+                # A 5xx that exhausted its retries was still served each time,
+                # but the API does not bill failed server-side attempts; a 4xx
+                # that reaches here was served and billed.
+                if status < 500:
+                    self._charge(endpoint, quota_cost, api_method)
                 raise APIError(status, reason, message)
 
             except (QuotaExhausted, CommentsDisabled, ItemUnavailable, APIError):
@@ -184,14 +200,8 @@ class YouTubeAPIClient:
                 logger.error(f"Request failed after {self.max_retries} attempts: {e}")
                 raise
 
-            # Served: charge now, and only now.
-            if self.governor is not None:
-                self.governor.charge(endpoint, quota_cost)
-            self.quota_usage += quota_cost
-            self.quota_cumulative += quota_cost
-
-            if self.db and self.run_id and api_method:
-                self.db.track_quota_usage(self.run_id, api_method, quota_cost)
+            # Served with a 200: charge it.
+            self._charge(endpoint, quota_cost, api_method)
 
             logger.debug(
                 f"{endpoint} served. Session quota: {self.quota_usage}, "
@@ -200,6 +210,22 @@ class YouTubeAPIClient:
             return response
 
         raise APIError(0, 'retries_exhausted', endpoint)
+
+    def _charge(self, endpoint: str, quota_cost: int, api_method: str = None) -> None:
+        """
+        Record units the API actually billed.
+
+        Called for every served response, not only successful ones: YouTube
+        bills the request, not the result, so a 403 commentsDisabled or a 404
+        videoNotFound costs a unit just as a 200 does. Only refusals (quota
+        exhausted, rate limited) and transport failures are free.
+        """
+        if self.governor is not None:
+            self.governor.charge(endpoint, quota_cost)
+        self.quota_usage += quota_cost
+        self.quota_cumulative += quota_cost
+        if self.db and self.run_id and api_method:
+            self.db.track_quota_usage(self.run_id, api_method, quota_cost)
 
     def _make_request(self, request_func, quota_cost: int = 1, api_method: str = None) -> Any:
         """

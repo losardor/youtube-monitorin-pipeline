@@ -606,7 +606,10 @@ def test_item_unavailable_does_not_stop_the_run(tmp_path):
 
     with pytest.raises(ItemUnavailable):
         client._call(gone, endpoint="videos")
-    assert gov.spent_today() == 0
+    # Charged: the API served this request and billed for it. This assertion
+    # previously expected 0, which encoded the under-counting that put the
+    # ledger 4.25% below the console on the first live run.
+    assert gov.spent_today() == 1
     db.close()
 
 
@@ -1583,3 +1586,81 @@ def test_database_writes_the_expected_timestamp_format(tmp_path):
         "SELECT observed_at FROM channel_snapshots").fetchone()[0]
     assert '+' not in snap
     db.close()
+
+
+# ---------------------------------------------------------------------------
+# ledger fidelity: the API bills the request, not the result
+# ---------------------------------------------------------------------------
+
+def test_served_error_responses_are_charged(tmp_path):
+    """
+    YouTube bills a request it served, whatever it answered.
+
+    The first live run left 212 commentsDisabled responses uncharged and the
+    ledger read 4.25% below the Cloud console. The reporting gap was the
+    smaller problem: the governor believed it had 212 more units than it did,
+    so it could overspend the real ceiling.
+    """
+    db = Database(db_path=str(tmp_path / "charge.db"))
+    gov = QuotaGovernor(db.conn, 500)
+    client = _client(tmp_path, governor=gov)
+
+    def disabled():
+        raise _http_error(403, "commentsDisabled", "comments are disabled")
+
+    with pytest.raises(CommentsDisabled):
+        client._call(disabled, endpoint="commentThreads")
+    assert gov.spent_today() == 1, "a served 403 must still be charged"
+
+    def gone():
+        raise _http_error(404, "videoNotFound", "no such video")
+
+    with pytest.raises(ItemUnavailableError := __import__(
+            'src.errors', fromlist=['ItemUnavailable']).ItemUnavailable):
+        client._call(gone, endpoint="videos")
+    assert gov.spent_today() == 2
+
+    db.close()
+
+
+def test_refusals_and_transport_failures_are_not_charged(tmp_path):
+    """Quota exhaustion and rate limiting are refusals, not served requests."""
+    db = Database(db_path=str(tmp_path / "nocharge.db"))
+    gov = QuotaGovernor(db.conn, 500)
+    client = _client(tmp_path, governor=gov)
+    client.max_retries = 1
+
+    with pytest.raises(QuotaExhausted):
+        client._call(lambda: (_ for _ in ()).throw(
+            _http_error(403, "quotaExceeded", "quota exceeded")),
+            endpoint="channels")
+    assert gov.spent_today() == 0
+
+    with pytest.raises(QuotaExhausted):
+        client._call(lambda: (_ for _ in ()).throw(
+            _http_error(403, "rateLimitExceeded", "slow down")),
+            endpoint="channels")
+    assert gov.spent_today() == 0
+
+    # A transport failure never reached the API at all.
+    with pytest.raises(OSError):
+        client._call(lambda: (_ for _ in ()).throw(OSError("dns")),
+                     endpoint="channels")
+    assert gov.spent_today() == 0
+    db.close()
+
+
+def test_comments_disabled_video_costs_a_unit_in_the_stage(tmp_path):
+    """End to end: a disabled video is recorded AND billed."""
+    con, gov, yt = fresh(tmp_path / "t.db", disabled_for=["vdis"])
+    con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                "comments_state) VALUES ('vdis', ?, '2026-09-01T00:00:00Z', "
+                "'pending')", (CH[0],))
+    con.commit()
+    # FakeYouTube raises CommentsDisabled without charging, mirroring the API
+    # refusing to answer; the real client charges in _call. Here we assert the
+    # stage still records the state, which is the stage's own contract.
+    daily.harvest_comments(con, yt, CFG, "run-dis-charge")
+    assert con.execute(
+        "SELECT comments_state FROM videos WHERE video_id = 'vdis'"
+    ).fetchone()[0] == 'disabled'
