@@ -69,17 +69,30 @@ def admits(record) -> str:
     return None
 
 
+class TransientFailure(RuntimeError):
+    """Network or transport failure: the channel is undecided, not rejected."""
+
+
 def newest_upload(client, playlist_id: str, raw_dir: Path, cid: str):
     """
     Date of the newest upload, via one playlistItems page (1 unit).
 
     Archived per channel so a re-run costs nothing.
+
+    Raises TransientFailure on a transport error. A DNS blip must not decide a
+    channel's tier, and must not end the run: the first attempt at this pass
+    died at 1,711 of 2,377 on one ServerNotFoundError.
     """
     cache = raw_dir / f"{cid}.json"
     if cache.exists():
         page = json.loads(cache.read_text())
     else:
-        page = client.playlist_items(playlist_id)
+        try:
+            page = client.playlist_items(playlist_id)
+        except (QuotaExhausted, ItemUnavailable, APIError):
+            raise
+        except Exception as e:
+            raise TransientFailure(f"{type(e).__name__}: {str(e)[:100]}") from e
         cache.write_text(json.dumps(page))
 
     newest = None
@@ -138,9 +151,33 @@ def main(argv=None) -> int:
     spent_before = governor.spent_today()
     cutoff = (datetime.now(timezone.utc) - timedelta(days=RECENCY_DAYS)).isoformat()
     updates, stats = [], {}
+    tier0 = {r[0] for r in db.conn.execute(
+        "SELECT channel_id FROM channels WHERE tier = 0")}
+    written = [0]
+
+    def flush(rows):
+        """Write decided rows now, so a crash cannot undo the whole pass."""
+        writable = [(t, why, cid) for t, why, cid in rows if cid not in tier0]
+        if not writable:
+            return
+        db.conn.executemany("""
+            INSERT INTO channels (channel_id, channel_url, tier, tier_reason,
+                                  wd_item, wd_class, status, last_checked)
+            VALUES (?, ?, ?, ?, ?, ?, NULL, NULL)
+            ON CONFLICT(channel_id) DO UPDATE SET
+                tier = excluded.tier,
+                tier_reason = excluded.tier_reason,
+                wd_item = COALESCE(channels.wd_item, excluded.wd_item),
+                wd_class = COALESCE(channels.wd_class, excluded.wd_class)
+        """, [(cid, f"https://www.youtube.com/channel/{cid}", t, why,
+               meta.get(cid, {}).get('wd_item'),
+               meta.get(cid, {}).get('wd_class')) for t, why, cid in writable])
+        db.conn.commit()
+        written[0] += len(writable)
+        rows.clear()
 
     for group, is_outlet in (('outlet_candidate', True), ('person_candidate', False)):
-        fresh = stale = broken = 0
+        fresh = stale = broken = deferred = 0
         for n, (record, reason) in enumerate(admitted[group], start=1):
             cid = record['channel_id']
             playlist = record['_uploads']
@@ -151,6 +188,12 @@ def main(argv=None) -> int:
                 except QuotaExhausted as e:
                     print(f"  {group}: stopped at {n:,}: {e}")
                     break
+                except TransientFailure as e:
+                    # Undecided: left untiered so a re-run retries it.
+                    deferred += 1
+                    if deferred <= 5 or deferred % 100 == 0:
+                        print(f"    deferred {cid}: {e}")
+                    continue
                 except (ItemUnavailable, APIError):
                     newest = None
 
@@ -166,10 +209,14 @@ def main(argv=None) -> int:
                 stale += 1
             if playlist is None:
                 broken += 1
+            if len(updates) >= 200:
+                flush(updates)
             if n % 250 == 0:
                 print(f"  {group}: {n:,}/{len(admitted[group]):,}  "
-                      f"fresh {fresh:,} stale {stale:,}  "
-                      f"units {governor.spent_today() - spent_before:,}")
+                      f"fresh {fresh:,} stale {stale:,} deferred {deferred:,}  "
+                      f"units {governor.spent_today() - spent_before:,}",
+                      flush=True)
+        flush(updates)
 
         # Not admitted: recorded, never collected.
         rejected = [r for r in groups[group] if not admits(r)]
@@ -179,32 +226,14 @@ def main(argv=None) -> int:
                    else 'no_topic_or_title')
             updates.append((TIER_REJECT, why, r['channel_id']))
 
-        stats[group] = {'fresh': fresh, 'stale': stale,
+        flush(updates)
+        stats[group] = {'fresh': fresh, 'stale': stale, 'deferred': deferred,
                         'no_playlist': broken, 'rejected': len(rejected)}
         print(f"  {group}: fresh {fresh:,}, stale {stale:,}, "
-              f"rejected {len(rejected):,}")
+              f"deferred {deferred:,}, rejected {len(rejected):,}")
 
-    # Only write rows that are not already in the validated frame: tier 0 is
-    # never overwritten by this pass.
-    tier0 = {r[0] for r in db.conn.execute("SELECT channel_id FROM channels WHERE tier = 0")}
-    writable = [(t, why, cid) for t, why, cid in updates if cid not in tier0]
-    print(f"\nrows to write: {len(writable):,} "
-          f"({len(updates) - len(writable):,} skipped, already tier 0)")
-
-    seed_meta = meta
-    db.conn.executemany("""
-        INSERT INTO channels (channel_id, channel_url, tier, tier_reason,
-                              wd_item, wd_class, status, last_checked)
-        VALUES (?, ?, ?, ?, ?, ?, NULL, NULL)
-        ON CONFLICT(channel_id) DO UPDATE SET
-            tier = excluded.tier,
-            tier_reason = excluded.tier_reason,
-            wd_item = COALESCE(channels.wd_item, excluded.wd_item),
-            wd_class = COALESCE(channels.wd_class, excluded.wd_class)
-    """, [(cid, f"https://www.youtube.com/channel/{cid}", t, why,
-           seed_meta.get(cid, {}).get('wd_item'),
-           seed_meta.get(cid, {}).get('wd_class')) for t, why, cid in writable])
-    db.conn.commit()
+    flush(updates)
+    print(f"\nrows written: {written[0]:,}")
 
     spent = governor.spent_today() - spent_before
     print(f"\nUnits spent this run: {spent:,}")

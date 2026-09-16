@@ -1082,3 +1082,30 @@ def test_tier_reason_survives_insert_or_replace(tmp_path):
                       "WHERE channel_id = 'UCkeep'").fetchone()
     assert row == (1, 'title_only', 'Second')
     db.close()
+
+
+def test_tier_three_is_never_resolved(tmp_path):
+    """Recorded, never collected: no stage may spend a unit on tier 3."""
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 1, 3))
+    daily.resolve_channels(con, yt, CFG, "run-t3")
+
+    asked = set()
+    for kind, n in yt.calls:
+        if kind == "channels":
+            asked.add(n)
+    # CH[2] is tier 3 here and must not be in any batch; only 2 ids requested.
+    assert asked == {2}
+    assert con.execute(
+        "SELECT status FROM channels WHERE channel_id = ?", (CH[2],)
+    ).fetchone()[0] is None
+
+
+def test_max_tier_limits_the_channels_stage(tmp_path):
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 1, 2))
+    cfg = json.loads(json.dumps(CFG))
+    cfg["limits"]["max_tier"] = 0
+
+    daily.resolve_channels(con, yt, cfg, "run-cap")
+
+    sizes = [n for kind, n in yt.calls if kind == "channels"]
+    assert sizes == [1]          # only the single tier-0 channel

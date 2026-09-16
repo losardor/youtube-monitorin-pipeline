@@ -1,15 +1,18 @@
 # YouTube Monitoring Pipeline - Logbook
 
-## Current Status (as of 2026-09-15)
+## Current Status (as of 2026-09-16)
 
-**Current phase:** Phase 1 of the ytmon merge complete (Gate 1 passed, branch `feat/daily-monitor`). Phase 2 (Wikidata tiering) not started.
+**Current phase:** Phase 2 of the ytmon merge largely complete on `feat/daily-monitor`. Gate 2: tier 1 passes (0% FP after demotion), **tier 2 fails (20%, threshold 15%)** and needs 2.3 tightened and redrawn. Phase 3 (cluster deployment) not started.
+
+- **Production database:** `data/youtube_monitoring.db` now holds the frame — 2,856 tier 0, 779 tier 1, 1,110 tier 2, 1,291 tier 3.
+- **Quota spent on tiering:** 2,505 units across 2026-09-15/16. All API responses archived; recomputable free.
 
 - **Validated URLs:** 3,307 / 3,307 (100%)
 - **Confirmed channels:** 2,867 (86.7% success rate after Run #3d recovery pass)
 - **Deferred:** 286 expensive bug-contaminated entries (`/c/`, `/user/`) — re-validation blocked on 1M quota approval
 - **Main collection:** blocked on 1M quota approval (request submitted 2026-04-20, response pending)
 - **403-swallow bug:** **FIXED 2026-09-15** in phase 1.2 — was present in five methods, not one. See the 2026-09-15 entry.
-- **Validated frame location:** `data/validation/validation_progress.json` (2,867 successes, 2,856 distinct ids). Not yet loaded into the database, which still holds only the 31 Nov 2025 channels.
+- **Validated frame location:** `data/validation/validation_progress.json` (2,867 successes, 2,856 distinct ids). **Loaded into the production database 2026-09-16** as tier 0; see the phase 2 entry.
 - **DB channel mismatch (31 vs 73):** investigated in Task 1 on 2026-04-21 — resolution: "73" was never unique channels; it matched the sum of `channels_processed` attempts across completed Nov 19 runs. See the 2026-04-21 resolution entry below.
 
 ---
@@ -393,6 +396,229 @@ on the same inode, so they will contend on Linux, but **this needs confirming on
   `docs/operations/ytmon_daily_run.md` are phase 3; `DEPLOYMENT.md` already
   references the 09:17 slot they will implement.
 - `SERVER_MIGRATION_GUIDE.md` still needs its superseded-by notice (phase 3).
+
+---
+
+## 2026-09-16: Phase 2 — Wikidata pool tiered (Gate 2: tier 1 passes, tier 2 fails)
+
+Branch `feat/daily-monitor`, continuing from phase 1. Loads the validated frame
+into the production database, tiers the 17,094-channel Wikidata pool, and runs
+the first daily channels pass.
+
+### Quota spent
+
+| Pacific day | Endpoint | Calls | Units |
+|---|---|---|---|
+| 2026-09-15 | channels.list | 71 | 71 |
+| 2026-09-15 | playlistItems.list | 1,711 | 1,711 |
+| 2026-09-16 | playlistItems.list | 665 | 665 |
+| 2026-09-16 | channels.list | 58 | 58 |
+| | **total** | **2,505** | **2,505** |
+
+Breakdown by purpose: confirmation pass 71, recency pass 2,376 (1,711 + 665
+across the day boundary), first daily channels pass 58. Every response is
+archived, so all of it can be recomputed for free.
+
+The run crossed the Pacific midnight, which is the first live demonstration
+that the ledger's billing-day key works: the 1,782 units spent before the
+rollover stayed on 2026-09-15 and the governor handed out a fresh budget on
+2026-09-16 without being told to.
+
+### 2.0 — the frame is loaded; this is now the production database
+
+`data/youtube_monitoring.db` md5 `795bb971…` → `0554f12b…` across the phase.
+
+| | before | after |
+|---|---|---|
+| channels | 31 | 2,858 → 6,036 after tiering |
+| tier 0 | — | 2,856 |
+| videos / comments | 5,255 / 693,204 | unchanged throughout |
+
+2,827 channels inserted, 29 updated in place (statistics, titles and snapshots
+untouched), 2 marked tier 3. All 2,867 validated URLs joined `sources.csv`
+exactly; every loaded channel carries a NewsGuard rating.
+
+**Validation statistics loaded as real observations** (`scripts/backfill_validation_snapshots.py`):
+`channel_snapshots` 31 → 2,887, spanning `2025-12-11T16:58:23` ..
+`2026-04-21T14:03:41`. 2,845 of 2,856 tier-0 channels carry an observation;
+the other 11 recorded no statistics at validation time. 40 channels already
+had two observations (29 November collections + 11 channels validated from two
+URLs on two dates). `view_count` and `hidden_subscribers` are NULL on every
+validation row — the validator never observed them, which is not zero.
+
+**Consequence:** the daily channels pass is the *next* observation, not the
+first. After the 2.5 pass the table holds 5,737 rows and 2,839 channels have
+two or more observations, so the series has real deltas from day one.
+
+### 2.1–2.3 — filters
+
+| Step | Count |
+|---|---|
+| Wikidata channels already in tier 0 (wd_item/wd_class attached) | 428 |
+| `stratum='outlet'` | 2,156 |
+| — pass class filter | **2,156 (0 rejected)** |
+| — already tier 0, skipped | 240 |
+| — to confirm | 1,916 |
+| `stratum='commentator'` distinct | 4,672 |
+| — QIDs queried for P106 / with occupations | 4,386 / 4,379 |
+| — pass occupation filter | **1,267** (849 all-news, 418 news-majority) |
+| — rejected: no news occupation / disqualifying / news minority | 1,879 / 946 / 580 |
+| — to confirm | 1,262 |
+
+**The class filter is a no-op on this pool.** All 2,156 outlet rows already
+carry at least one of the eight news classes, because the stratum was defined
+upstream by exactly that test. `mass media` occurs 1,240 times but always
+beside `newspaper` or `news media`, so the carrier-only exclusion never fires
+either. The brief's 2.2 class filter restates its own input, and the whole
+burden of precision therefore falls on the YouTube-side checks. The filter is
+kept as written so a noisier pool would still be narrowed.
+
+### The brief was wrong about `News`
+
+The topic check was specified as `News`, `Politics`, `Society`, `Business`.
+**`News` does not occur once** across the 3,423 channels in the confirmation
+pass. `Business` occurs 45 times. In practice the check is Society (58.8% of
+outlet candidates) or Politics (36.6%). `News` is dropped from
+`TOPIC_SUFFIXES`; keeping it implied a precision it never delivered.
+
+### Rule calibration against labelled positives
+
+The 240 Wikidata outlets already in tier 0 are known-good news channels that
+reached the frame independently through NewsGuard, so the fraction a rule keeps
+is a retention rate.
+
+| Rule | Labelled kept (240) | Candidates passed (1,916) |
+|---|---|---|
+| resolved + has videos | 238 (99.2%) | 1,793 (93.6%) |
+| topic only | 189 (78.8%) | 1,136 (59.3%) |
+| title only | 198 (82.5%) | 1,163 (60.7%) |
+| topic OR title | 233 (97.1%) | 1,558 (81.3%) |
+| topic AND title | 154 (64.2%) | 741 (38.7%) |
+| **topic OR (title & not gaming/music)** | **228 (95.0%)** | **1,445 (75.4%)** |
+
+Requiring a topic match discards 21.2% of known-good outlets, and they are
+systematically local newspapers — The Providence Journal, Wichita Eagle, The
+Baltimore Banner, La Provence, The Herald-Dispatch — tagged Sport or Lifestyle
+because that is what their video output is. Sport is therefore **not** a
+disqualifying topic; gaming and music are.
+
+### Tier assignment
+
+Rule: `topic OR (title AND not gaming/music-tagged)`, recency = newest upload
+within 180 days. `channels.tier_reason` records the admitting check.
+
+| | outlets | individuals |
+|---|---|---|
+| admitted | 1,445 | 932 |
+| fresh | 878 | 532 |
+| stale | 567 | 400 |
+| rejected (unresolved / zero-video / no match) | 471 | 330 |
+
+### Gate 2 — stratified hand check of 100 rows
+
+Criterion: is this channel a news outlet / news commentator **for a study of
+polarization and trust in news media**? Specialist sports, tech, science,
+health, lifestyle and entertainment publishers count as false positives even
+when the publisher is a real periodical or the person is a real journalist —
+the channel is not news. Verdicts recorded in `data/gate2_sample.csv`.
+
+| Stratum | n | FP | rate |
+|---|---|---|---|
+| tier 1 `topic` | 25 | 0 | **0%** |
+| tier 1 `title_only` | 25 | 17 | **68%** |
+| tier 2 `topic` | 25 | 5 | **20%** |
+| tier 2 `title_only` | 25 | 24 | **96%** |
+
+Pooled: tier 1 34% over the sample, **7.7% population-weighted** (the sample
+over-represents `title_only`, which is 11% of tier 1). Tier 2 individuals 58%
+over the sample, **32.6% population-weighted**.
+
+**Demotions applied**, per the stratum rule:
+- tier 1 `title_only` (99 rows) → tier 2, reason `title_only:gate2_demoted`
+- tier 2 `title_only` (88 rows) → tier 3, reason `title_only:gate2_demoted`
+
+**After demotion: tier 1 = 779 rows at 0% false positives — PASSES (≤5%).**
+
+**Tier 2 still FAILS: 444 individual rows at 20%, above the 15% threshold.**
+Per the brief, do not ship tier 2; tighten 2.3 and rerun. The tier-2 failures
+are journalists whose *channel* is lifestyle, science, health or trade tech —
+they pass on `Society`, which is too broad to discriminate.
+
+Tightening options, computed free from the archive:
+
+| Option | Tier-2 individuals retained |
+|---|---|
+| current (Society, Politics or Business) | 699 |
+| require Politics | 477 |
+| exclude lifestyle/health/entertainment/sport topics | 440 |
+| require Politics AND exclude those | 351 |
+
+Requiring `Politics` removes **all 5** false positives from the hand-checked 25
+while keeping 13 of them — 0% on that subsample, n=13. That is the recommended
+tightening, pending a decision and a fresh Gate 2 draw.
+
+### Final tier distribution
+
+| Tier | Count | Meaning |
+|---|---|---|
+| 0 | 2,856 | validated NewsGuard frame |
+| 1 | 779 | Wikidata outlets, topic-confirmed, active (Gate 2 passed) |
+| 2 | 1,110 | stale outlets, demoted title-only outlets, individuals (Gate 2 **not** passed) |
+| 3 | 1,291 | recorded, never collected |
+
+### 2.5 — first daily channels pass
+
+`daily.py run --stages channels --max-tier 0 --budget 9000`
+
+```
+run_id f46c844984aa   queued 2,856   resolved 2,850   unresolved 6
+units 58   calls 58   elapsed ~8s
+```
+
+2,850 tier-0 channels now have `uploads_playlist` and `status='active'`; 6 are
+marked `unresolved` and kept. Discovery can run without a single `search.list`
+call.
+
+### Changes made while running phase 2
+
+1. **Tier 3 was collectable.** The daily channels stage had no tier filter, so
+   it would have resolved tier-3 rows — the ones explicitly recorded never to
+   be collected — and tiers 1 and 2 when only tier 0 was wanted. Added a
+   hard tier-3 exclusion plus `limits.max_tier` / `--max-tier`, with tests.
+
+2. **13 rows carry a pipe-joined QID pair** (`Q20963418|Q4160936`): one channel
+   mapped to two Wikidata items. Passed through raw this builds `wd:Q1|Q2`,
+   invalid SPARQL, which 400s the whole batch — the first occupation fetch lost
+   2,250 good QIDs to 9 poisoned batches. QIDs are now regex-extracted and a
+   failing batch bisects.
+
+3. **The occupation sets were audited against the labels actually present**
+   rather than left as guessed, lifting passes from 782 to 1,267. Added
+   political pundit, freelance/broadcast/video journalist, editorial columnist,
+   media critic and the domain journalists. Deliberately excluded as adjacent
+   but not news: sports/baseball/esports/color commentator; film/video/
+   television/literary editor; media manager, media scholar, media personality.
+
+4. **The recency pass lost its work to one DNS blip.** It died at 1,711 of
+   2,377 on a `ServerNotFoundError` and, because it batched all database writes
+   to the end, wrote nothing — 1,711 units would have been wasted had the
+   responses not been archived. Transport failures are now per-channel and
+   non-fatal (the channel is left undecided for a retry), and tier writes flush
+   every 200 rows.
+
+5. **A migration test asserted a global row count** — `channel_snapshots` equals
+   the number of timestamped channels — which stopped being true the moment the
+   table held observations from more than one source. Rewritten to assert the
+   real invariant: every timestamped record has a snapshot at its own timestamp,
+   plus idempotence. It would have gone red on every future daily run.
+
+### Open
+
+- **Tier 2 is not shippable.** Tighten 2.3 and redraw Gate 2.
+- 2.4 (multi-channel items, `alt_of`) and 2.5's coverage audit
+  (`scripts/audit_frame_coverage.py`) are not done.
+- `data/frame_tiers.csv` is not yet emitted; the tiering lives in the database.
+- Country-for-persons handling (`reason='country_from_citizenship'`) not done.
 
 ---
 

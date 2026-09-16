@@ -45,6 +45,10 @@ logger = logging.getLogger(__name__)
 
 TIERS = (0, 1, 2)
 
+# Tier 3 is "recorded, never collected": the row exists to document that the
+# candidate was considered and rejected. No stage may spend a unit on it.
+TIER_NEVER_COLLECT = 3
+
 
 # ---------------------------------------------------------------------------
 # helpers
@@ -160,13 +164,20 @@ def resolve_channels(con, client, cfg: dict, run_id: str) -> dict:
     budget = Budget(client.governor, cfg['quota']['share_channels'], floor=1)
     stale_before = _iso_days_ago(cfg['schedule']['channel_refresh_days'])
 
+    # max_tier lets a run serve only the primary frame, which is how the first
+    # pass after tiering is scoped: resolving tier 1 and 2 as well would spend
+    # units the caller did not ask for.
+    max_tier = cfg.get('limits', {}).get('max_tier')
+    tier_cap = TIER_NEVER_COLLECT - 1 if max_tier is None else int(max_tier)
+
     rows = _tier_ordered(con, """
         SELECT channel_id FROM channels
-         WHERE status IS NULL OR status = 'unresolved'
-            OR last_checked IS NULL OR last_checked < ?
+         WHERE COALESCE(tier, 0) <= ?
+           AND (status IS NULL OR status = 'unresolved'
+                OR last_checked IS NULL OR last_checked < ?)
          ORDER BY {tier_order},
                   (last_checked IS NULL) DESC, last_checked ASC
-    """, (stale_before,))
+    """, (tier_cap, stale_before))
     todo = [r[0] for r in rows]
 
     now = utcnow()
@@ -259,12 +270,16 @@ def discover_uploads(con, client, cfg: dict, run_id: str) -> dict:
     max_pages = cfg['limits']['max_upload_pages_per_channel']
     stop_known = cfg['limits']['stop_after_known_videos']
 
+    max_tier = cfg.get('limits', {}).get('max_tier')
+    tier_cap = TIER_NEVER_COLLECT - 1 if max_tier is None else int(max_tier)
+
     chans = _tier_ordered(con, """
         SELECT channel_id, uploads_playlist, COALESCE(tier, 0) AS tier
           FROM channels
          WHERE status = 'active' AND uploads_playlist IS NOT NULL
+           AND COALESCE(tier, 0) <= ?
          ORDER BY {tier_order}, COALESCE(last_checked, '') ASC
-    """)
+    """, (tier_cap,))
 
     known = {r[0] for r in con.execute("SELECT video_id FROM videos")}
     now = utcnow()

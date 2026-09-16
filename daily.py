@@ -73,6 +73,8 @@ def cmd_run(args) -> int:
     setup_logging(cfg)
 
     budget = args.budget if args.budget is not None else cfg['quota']['daily_budget']
+    if args.max_tier is not None:
+        cfg.setdefault('limits', {})['max_tier'] = args.max_tier
     lock_path = cfg.get('lock', {}).get('path', 'data/.ytmon.lock')
 
     try:
@@ -179,6 +181,9 @@ def main(argv=None) -> int:
                        help='Stages to run, in order')
     p_run.add_argument('--budget', type=int, default=None,
                        help='Override quota.daily_budget for this run')
+    p_run.add_argument('--max-tier', type=int, default=None,
+                       help='Only serve channels at or below this tier '
+                            '(tier 3 is never collected regardless)')
     p_run.set_defaults(func=cmd_run)
 
     p_status = sub.add_parser('status', help='Print quota, tiers, and last run')
