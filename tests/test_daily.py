@@ -1187,10 +1187,17 @@ def test_excluded_tier_is_never_queued_for_videos_or_comments(tmp_path):
     assert 'vok' in pulled
 
 
-def test_shipped_config_excludes_tier_two(tmp_path):
-    """The committed daily config must not collect tier 2 until it passes."""
+def test_shipped_config_collects_the_gated_tiers(tmp_path):
+    """
+    The committed daily config collects tiers 0-2 and never tier 3.
+
+    Tier 2 was admitted once the rule-(a) tightening brought it to 8% false
+    positives on a 50-row redraw, under the 15% threshold. Tier 3 stays out
+    unconditionally, which is the part that must not regress.
+    """
     import yaml
     cfg = yaml.safe_load(open('config/config_daily.yaml'))
-    assert cfg['collect_tiers'] == [0, 1]
+    assert cfg['collect_tiers'] == [0, 1, 2]
     from src.daily import collect_tiers
-    assert 2 not in collect_tiers(cfg)
+    assert collect_tiers(cfg) == [0, 1, 2]
+    assert 3 not in collect_tiers(cfg)
