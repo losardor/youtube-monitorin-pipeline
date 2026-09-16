@@ -399,6 +399,83 @@ on the same inode, so they will contend on Linux, but **this needs confirming on
 
 ---
 
+## 2026-09-16: Tier 2 rule selection and redraw (branch `feat/tier2`, no quota)
+
+Gate 2 left tier 2 failing at 20% against a 15% threshold. This selects a
+tightening from the archived responses and redraws the hand check. **No quota
+spent** — every input is `data/raw/wikidata_confirm/` plus
+`data/wikidata_occupations.json`.
+
+### Scope
+
+Tier 2 holds 1,110 rows, but only **444 are individuals**, and rules (b) and
+(c) are occupation-based, so they only bite there. The other 666 are stale
+outlets (567) and the outlets demoted from tier 1 by Gate 2 (99); they are
+untouched by this.
+
+Of the 50 tier-2 rows hand-checked at Gate 2, **25 remain in scope** — the 25
+`title_only` rows were demoted to tier 3 and are no longer tier 2. Rates below
+are against those 25, and against the subset of them each rule keeps.
+
+### Rule comparison
+
+| Rule | Rows kept (of 444) | Checked rows kept | FP | FP rate |
+|---|---|---|---|---|
+| current (no tightening) | 444 | 25 | 5 | 20% |
+| **(a) Politics topic required** | **319** | 13 | 0 | **0%** |
+| (b) all-news occupations only | 303 | 17 | 3 | 18% |
+| (c) both | 224 | 9 | 0 | 0% |
+
+(a) and (c) are tied at 0%; (a) keeps 95 more rows, so the tie breaks to (a).
+(b) is 18 points clear of (a) and fails on its own, so it is not tied with
+anything. **Rule (a) selected.**
+
+The ranking denominators are small — 13, 17 and 9 rows — so this only orders
+the candidates. The redraw is what decides the gate, as intended.
+
+### Redraw under rule (a)
+
+50 rows drawn at random (seed 2026) from the 306 rule-(a) rows not already
+hand-checked, recorded with verdicts in `data/gate2_redraw.csv`.
+
+| | |
+|---|---|
+| n | 50 |
+| False positives | **4** |
+| **Rate** | **8%** |
+| Threshold | 15% |
+| **Result** | **PASSES** |
+
+Combined with the 13 rule-(a) rows checked earlier (0 false positives):
+**4/63 = 6.3%**.
+
+The four false positives are all Wikidata-classified journalists whose channel
+is something else:
+
+| Channel | Why |
+|---|---|
+| Myrka Dellanos Show | Emmy-winning broadcast journalist; the channel is faith and lifestyle |
+| potholer54 | former science journalist; debunks science misinformation |
+| Historia con Patricio Lons | history and hispanist advocacy |
+| АНДРІЙ ДАНІЛЕВИЧ | primarily a sports broadcaster |
+
+Three further rows were judged ok but are genuinely borderline and are flagged
+in the CSV: a Ukrainian talk-show host with heavy human-interest content, a
+Japanese conspiracy lecturer who calls himself a journalist (political
+content, so in scope for a polarization study, but not a journalist in any
+ordinary sense), and one channel with 320 subscribers and no description that
+could not be verified from the archive alone. Counting all three as false
+positives would give 7/50 = 14%, still under the threshold.
+
+### Status
+
+Rule (a) is selected and validated but **no tiers have been changed**; the
+tier-2 population is still the untightened 444 individuals, and
+`collect_tiers: [0, 1]` still excludes tier 2 from collection. Applying rule
+(a) would move 125 individuals from tier 2 to tier 3 and leave 319.
+
+---
+
 ## 2026-09-16: Phases 1 and 2 merged to production; raw archives backed up
 
 ### Merge and tag
