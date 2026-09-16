@@ -39,6 +39,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional
 
 from src.errors import QuotaExhausted, CommentsDisabled, ItemUnavailable, APIError
+from src.timeutil import utcnow as _utcnow, utcnow_dt
 from src.quota import Budget
 
 logger = logging.getLogger(__name__)
@@ -83,8 +84,8 @@ def _tier_filter(cfg: dict) -> tuple:
 # helpers
 # ---------------------------------------------------------------------------
 
-def utcnow() -> str:
-    return datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
+# Re-exported so existing callers (and the stages below) keep one definition.
+utcnow = _utcnow
 
 
 def _chunks(seq, n):

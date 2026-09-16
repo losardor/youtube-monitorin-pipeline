@@ -193,12 +193,15 @@ value, byte-identical serialisation, no migration**.
 
 **Moving to timezone-aware timestamps is deferred indefinitely** and should not
 be done casually. Stored timestamps are naive (`2026-09-16T10:00:00.123456`)
-and are compared **as strings** throughout: `last_discovered < ?`,
-`observed_at` ordering, and the snapshot primary keys. Aware values serialise
-as `2026-09-16T10:00:00+00:00`, and `'+'` sorts before `'.'`, so an aware
-timestamp compares as *earlier* than a naive one at the same instant. Mixing
-the two formats corrupts ordering silently. Any such change needs a migration
-of every stored timestamp and its own gate.
+and handled as strings. Ordering is *not* the problem — an ISO offset is
+appended after the whole date and time, so for UTC values string order still
+tracks time order. **Exact equality is the problem**, and these depend on it:
+the snapshot primary keys `(channel_id, observed_at)` and
+`(video_id, observed_at)`, the migration's join of a snapshot to its record's
+timestamp, and the `INSERT OR IGNORE` that makes re-running idempotent. A value
+written naive and looked up aware does not match, and it fails silently — a
+duplicate row rather than an error. Any such change needs a migration of every
+stored timestamp and its own gate.
 
 ## Routine checks
 

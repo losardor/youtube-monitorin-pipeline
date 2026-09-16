@@ -28,6 +28,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from src import daily as stages                       # noqa: E402
 from src.database import Database, ReplicaRefused     # noqa: E402
 from src.lock import advisory_lock, LockUnavailable   # noqa: E402
+from src.timeutil import utcnow_dt                    # noqa: E402
 from src.quota import (                               # noqa: E402
     QuotaGovernor, pacific_day, DAILY_FORBIDDEN_ENDPOINTS,
 )
@@ -170,7 +171,7 @@ def cmd_status(args) -> int:
     """).fetchone()
     if last and last[1]:
         from datetime import datetime
-        age = datetime.utcnow() - datetime.fromisoformat(last[1])
+        age = utcnow_dt() - datetime.fromisoformat(last[1])
         hours = age.total_seconds() / 3600
         print(f"  run {last[0]} finished {last[1]} ({hours:.1f}h ago)")
         for r in con.execute("""

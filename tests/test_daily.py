@@ -1503,3 +1503,83 @@ def test_adopt_backfill_videos_makes_null_state_videos_visible(tmp_path):
     queued = {r['video_id'] for r in daily._comment_queue(con, CFG)}
     assert 'vnone' in queued
     db.close()
+
+
+# ---------------------------------------------------------------------------
+# timestamp helper
+# ---------------------------------------------------------------------------
+
+def test_utcnow_is_naive_and_matches_the_stored_format():
+    """
+    The helper must produce the same naive UTC value datetime.utcnow() did.
+
+    Timestamps are compared as strings throughout, and an aware value
+    serialises as '...+00:00' where '+' sorts before '.', so an aware timestamp
+    would compare as earlier than a naive one at the same instant. The format
+    is therefore load-bearing, not cosmetic.
+    """
+    import re
+    from datetime import datetime, timezone
+    from src.timeutil import utcnow, utcnow_dt
+
+    now = utcnow_dt()
+    assert now.tzinfo is None
+
+    text = utcnow()
+    # Exactly what is already stored: no offset, no 'Z', microsecond precision.
+    assert re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,6})?", text), text
+    assert '+' not in text and not text.endswith('Z')
+    assert datetime.fromisoformat(text).tzinfo is None
+
+    # And it really is UTC, not local time.
+    drift = abs((now - datetime.now(timezone.utc).replace(tzinfo=None)).total_seconds())
+    assert drift < 5, f"helper is {drift}s from UTC"
+
+
+def test_aware_timestamps_would_break_exact_match_not_ordering():
+    """
+    Pin what switching to aware timestamps would actually break.
+
+    Ordering is *not* the hazard: an ISO offset is appended after the whole
+    date and time, so for UTC values string order still tracks time order. The
+    real breakage is exact string equality, which several things depend on --
+    the snapshot primary keys (channel_id, observed_at), the migration's
+    join of a snapshot to its record's timestamp, and the INSERT OR IGNORE
+    that makes re-running idempotent. A value written naive and looked up
+    aware simply does not match, and the failure is silent: a duplicate row
+    rather than an error.
+    """
+    from datetime import timezone
+    from src.timeutil import utcnow_dt
+
+    instant = utcnow_dt().replace(microsecond=123456)
+    naive = instant.isoformat()
+    aware = instant.replace(tzinfo=timezone.utc).isoformat()
+
+    assert naive != aware                    # same instant, different key
+    assert aware.startswith(naive)           # ordering survives; equality does not
+    assert aware.endswith('+00:00')
+
+    # Ordering, for the record, is preserved under UTC.
+    earlier = utcnow_dt().replace(second=1, microsecond=0).isoformat()
+    later = utcnow_dt().replace(second=2, microsecond=0).isoformat()
+    later_aware = utcnow_dt().replace(
+        second=2, microsecond=0, tzinfo=timezone.utc).isoformat()
+    assert earlier < later
+    assert earlier < later_aware
+
+
+def test_database_writes_the_expected_timestamp_format(tmp_path):
+    import re
+    db = Database(db_path=str(tmp_path / "ts.db"))
+    db.insert_channel({'id': CH[0], 'snippet': {'title': 'T'},
+                       'statistics': {'subscriberCount': '1'}})
+    row = db.conn.execute(
+        "SELECT last_updated_at, first_collected_at FROM channels").fetchone()
+    for value in row:
+        assert re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,6})?",
+                            value), value
+    snap = db.conn.execute(
+        "SELECT observed_at FROM channel_snapshots").fetchone()[0]
+    assert '+' not in snap
+    db.close()

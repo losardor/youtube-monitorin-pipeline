@@ -6,6 +6,8 @@ Handles data persistence using SQLite or PostgreSQL
 import sqlite3
 import logging
 from pathlib import Path
+
+from src.timeutil import utcnow
 from typing import List, Dict, Optional, Any
 from datetime import datetime
 import json
@@ -424,7 +426,7 @@ class Database:
             source_metadata = channel_data.get('source_metadata', {})
 
             channel_id = channel_data['id']
-            observed_at = datetime.utcnow().isoformat()
+            observed_at = utcnow()
 
             subscriber_count = int(statistics['subscriberCount']) if statistics.get('subscriberCount') else None
             video_count = int(statistics['videoCount']) if statistics.get('videoCount') else None
@@ -541,7 +543,7 @@ class Database:
                     pass
             
             video_id = video_data['id']
-            observed_at = datetime.utcnow().isoformat()
+            observed_at = utcnow()
 
             view_count = int(statistics['viewCount']) if statistics.get('viewCount') else None
             like_count = int(statistics['likeCount']) if statistics.get('likeCount') else None
@@ -646,7 +648,7 @@ class Database:
                 comment_data.get('reply_count', 0),
                 comment_data.get('published_at'),
                 comment_data.get('updated_at'),
-                datetime.utcnow().isoformat()
+                utcnow()
             ))
 
             self.conn.commit()
@@ -710,7 +712,7 @@ class Database:
                 snippet.get('name'),
                 snippet.get('trackKind'),
                 snippet.get('audioTrackType') == 'primary',
-                datetime.utcnow().isoformat()
+                utcnow()
             ))
             
             self.conn.commit()
@@ -732,7 +734,7 @@ class Database:
             self.cursor.execute("""
                 INSERT INTO collection_runs (start_time, status)
                 VALUES (?, ?)
-            """, (datetime.utcnow().isoformat(), 'running'))
+            """, (utcnow(), 'running'))
             
             self.conn.commit()
             return self.cursor.lastrowid
@@ -766,7 +768,7 @@ class Database:
                     error_message = ?
                 WHERE run_id = ?
             """, (
-                datetime.utcnow().isoformat(),
+                utcnow(),
                 stats.get('channels_processed', 0),
                 stats.get('videos_collected', 0),
                 stats.get('comments_collected', 0),
@@ -861,7 +863,7 @@ class Database:
             self.cursor.execute("""
                 INSERT INTO quota_tracking (run_id, timestamp, api_method, quota_cost, details)
                 VALUES (?, ?, ?, ?, ?)
-            """, (run_id, datetime.utcnow().isoformat(), api_method, quota_cost, details))
+            """, (run_id, utcnow(), api_method, quota_cost, details))
 
             self.conn.commit()
 

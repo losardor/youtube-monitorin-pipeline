@@ -19,7 +19,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from src.quota import pacific_day  # noqa: E402
+from src.quota import pacific_day    # noqa: E402
+from src.timeutil import utcnow, utcnow_dt  # noqa: E402
 
 DB = os.environ.get('YTMON_DB', '/data/ytmon/youtube_monitoring.db')
 NAS = '/data/nas_penpen/infosphere/ytmon'
@@ -49,7 +50,7 @@ def checks(con) -> list:
         return problems
 
     run_id, finished = last
-    age = datetime.utcnow() - datetime.fromisoformat(finished)
+    age = utcnow_dt() - datetime.fromisoformat(finished)
     if age > timedelta(hours=STALE_HOURS):
         problems.append(
             f"Last run finished {age.total_seconds() / 3600:.1f}h ago "
@@ -108,11 +109,11 @@ def main() -> int:
         con.close()
 
     if not problems:
-        print(f"{datetime.utcnow().isoformat()} healthcheck OK")
+        print(f"{utcnow()} healthcheck OK")
         return 0
 
     body = "\n".join(f"- {p}" for p in problems)
-    print(f"{datetime.utcnow().isoformat()} healthcheck FAILED\n{body}",
+    print(f"{utcnow()} healthcheck FAILED\n{body}",
           file=sys.stderr)
     try:
         notify = load_notify()
