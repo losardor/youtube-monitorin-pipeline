@@ -87,6 +87,23 @@ the other's quota, and the ledger would stop describing what the daily run
 actually had available. `run_daily.sh` exits 78 (`EX_CONFIG`) if `.env` is
 missing or the key is unset, rather than running against no key.
 
+### The daily project is separate from the quota-request project, by design
+
+Quota is granted **per Cloud project**, not per key. The 1M increase is being
+requested against one project; the daily monitor deliberately runs on a
+*different* one. That keeps the two from drawing on the same bucket while the
+request is pending, so neither the backfill nor an ad-hoc query can starve the
+daily series, and `quota_ledger` continues to describe what the daily run
+actually had available.
+
+**When the 1M approval lands**, `.env` switches to the approved project's key
+and `quota.daily_budget` in `config/config_daily.yaml` is raised to match.
+
+That switch is a **LOGBOOK event**, and it must record the **Pacific day it
+took effect** — the ledger is keyed by Pacific billing day, and the effective
+`daily_budget` changes partway through the series. Without that date, any later
+analysis of spend against budget silently compares two different ceilings.
+
 Alert credentials come from `~/.taiwa_notify_secrets` (mode 600), shared with
 the GDELT jobs: `TAIWA_SMTP_USER`, `TAIWA_SMTP_APP_PASSWORD`, `TAIWA_ALERT_TO`.
 
@@ -162,6 +179,26 @@ renamed `youtube_monitoring.replica.db`, and both `daily.py` and `collect.py`
 The guard is on the filename rather than on intent because the failure it
 prevents is silent: writing to the replica produces a second divergent history
 that looks authoritative.
+
+## Known: `datetime.utcnow()` deprecation
+
+Python 3.12 emits `DeprecationWarning` for `datetime.utcnow()`, which is
+scheduled for removal. Eleven call sites still use it directly
+(`src/database.py`, `deploy/healthcheck.py`, `daily.py`); `src/daily.py`
+already routes through a helper that does not.
+
+The fix is to route every site through that helper, whose body is
+`datetime.now(timezone.utc).replace(tzinfo=None)` — the **same naive UTC
+value, byte-identical serialisation, no migration**.
+
+**Moving to timezone-aware timestamps is deferred indefinitely** and should not
+be done casually. Stored timestamps are naive (`2026-09-16T10:00:00.123456`)
+and are compared **as strings** throughout: `last_discovered < ?`,
+`observed_at` ordering, and the snapshot primary keys. Aware values serialise
+as `2026-09-16T10:00:00+00:00`, and `'+'` sorts before `'.'`, so an aware
+timestamp compares as *earlier* than a naive one at the same instant. Mixing
+the two formats corrupts ordering silently. Any such change needs a migration
+of every stored timestamp and its own gate.
 
 ## Routine checks
 
