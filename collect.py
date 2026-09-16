@@ -17,12 +17,14 @@ import yaml
 from src.youtube_client import YouTubeAPIClient
 from src.database import Database
 from src.lock import advisory_lock, LockUnavailable
+from src.database import ReplicaRefused
 from src.utils.helpers import load_sources_from_csv, extract_channel_id_from_url, setup_logging
 
 class ComprehensiveCollector:
     """Comprehensive data collector with robust error handling"""
     
-    def __init__(self, config_path='config/config_comprehensive.yaml'):
+    def __init__(self, config_path='config/config_comprehensive.yaml',
+                 allow_replica=False):
         # Load config
         with open(config_path) as f:
             self.config = yaml.safe_load(f)
@@ -36,7 +38,7 @@ class ComprehensiveCollector:
         
         # Initialize database first
         db_path = self.config['database']['sqlite_path']
-        self.db = Database(db_path=db_path)
+        self.db = Database(db_path=db_path, allow_replica=allow_replica)
 
         # Get cumulative quota from previous runs
         initial_quota = self.db.get_last_quota_cumulative()
@@ -579,6 +581,8 @@ def main():
                        help='Advisory lock path, shared with daily.py')
     parser.add_argument('--wait-for-lock', action='store_true',
                        help='Block until the lock is free instead of exiting')
+    parser.add_argument('--i-know-this-is-a-replica', action='store_true',
+                       help='Operate on a *.replica.db file. Production is on the cluster.')
 
     args = parser.parse_args()
 
@@ -588,13 +592,18 @@ def main():
     # daily.py and the flock in deploy/run_daily.sh.
     try:
         with advisory_lock(args.lock, blocking=args.wait_for_lock):
-            collector = ComprehensiveCollector(config_path=args.config)
+            collector = ComprehensiveCollector(
+                config_path=args.config,
+                allow_replica=args.i_know_this_is_a_replica)
             collector.run(
                 sources_csv=args.sources,
                 start_from=args.start_from,
                 max_channels=args.max_channels,
                 resume=args.resume
             )
+    except ReplicaRefused as e:
+        print(f"Refusing to run: {e}")
+        return 2
     except LockUnavailable as e:
         print(f"Not starting: {e}")
         print("The daily run is holding the lock; it finishes in minutes. "

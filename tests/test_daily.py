@@ -1394,3 +1394,43 @@ def test_channel_skipped_on_budget_stays_due(tmp_path):
     assert con.execute(
         "SELECT COUNT(*) FROM channels WHERE last_discovered IS NULL"
     ).fetchone()[0] == 2
+
+
+# ---------------------------------------------------------------------------
+# replica guard (3.1 cutover)
+# ---------------------------------------------------------------------------
+
+def test_replica_database_is_refused_by_name(tmp_path):
+    """
+    After the cutover the cluster file is production and the local copy is a
+    replica. The guard keys on the filename because the failure it prevents is
+    silent: writing to the replica builds a second divergent history that looks
+    authoritative.
+    """
+    from src.database import ReplicaRefused, guard_replica
+
+    guard_replica(str(tmp_path / "youtube_monitoring.db"))          # fine
+    guard_replica(str(tmp_path / "ytmon_2026-09-16.db"))            # fine
+
+    for name in ("youtube_monitoring.replica.db", "REPLICA.db",
+                 "some.Replica.sqlite"):
+        with pytest.raises(ReplicaRefused):
+            guard_replica(str(tmp_path / name))
+        guard_replica(str(tmp_path / name), allow_replica=True)     # acknowledged
+
+    # And the guard fires through the Database constructor, not just directly.
+    with pytest.raises(ReplicaRefused):
+        Database(db_path=str(tmp_path / "youtube_monitoring.replica.db"))
+    db = Database(db_path=str(tmp_path / "youtube_monitoring.replica.db"),
+                  allow_replica=True)
+    db.close()
+
+
+def test_replica_refusal_names_where_production_is(tmp_path):
+    from src.database import ReplicaRefused, guard_replica
+
+    with pytest.raises(ReplicaRefused) as exc:
+        guard_replica(str(tmp_path / "youtube_monitoring.replica.db"))
+    message = str(exc.value)
+    assert 'gdelt-server' in message
+    assert '--i-know-this-is-a-replica' in message

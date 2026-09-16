@@ -26,7 +26,7 @@ REPO_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from src import daily as stages                       # noqa: E402
-from src.database import Database                     # noqa: E402
+from src.database import Database, ReplicaRefused     # noqa: E402
 from src.lock import advisory_lock, LockUnavailable   # noqa: E402
 from src.quota import (                               # noqa: E402
     QuotaGovernor, pacific_day, DAILY_FORBIDDEN_ENDPOINTS,
@@ -64,8 +64,9 @@ def setup_logging(cfg: dict) -> None:
     )
 
 
-def open_db(cfg: dict) -> Database:
-    return Database(db_path=cfg['database']['sqlite_path'])
+def open_db(cfg: dict, allow_replica: bool = False) -> Database:
+    return Database(db_path=cfg['database']['sqlite_path'],
+                    allow_replica=allow_replica)
 
 
 def cmd_run(args) -> int:
@@ -81,7 +82,7 @@ def cmd_run(args) -> int:
         # Non-blocking: a run that collides with a backfill exits rather than
         # queueing behind it for hours. The cron healthcheck reports it.
         with advisory_lock(lock_path, blocking=False):
-            db = open_db(cfg)
+            db = open_db(cfg, allow_replica=args.i_know_this_is_a_replica)
             governor = QuotaGovernor(db.conn, budget,
                                      forbidden_endpoints=DAILY_FORBIDDEN_ENDPOINTS)
             client = YouTubeAPIClient(
@@ -106,7 +107,7 @@ def cmd_run(args) -> int:
 
 def cmd_status(args) -> int:
     cfg = load_config(args.config)
-    db = open_db(cfg)
+    db = open_db(cfg, allow_replica=args.i_know_this_is_a_replica)
     con = db.conn
     budget = cfg['quota']['daily_budget']
     governor = QuotaGovernor(con, budget)
@@ -145,6 +146,8 @@ def cmd_status(args) -> int:
         ).fetchone()[0]
         print(f"  {table:<20} {n:>10,} rows over {days} day(s)")
 
+    _print_storage(con)
+
     print("\nLast run")
     print("-" * 56)
     last = con.execute("""
@@ -170,6 +173,50 @@ def cmd_status(args) -> int:
     return 0
 
 
+def _print_storage(con) -> None:
+    """
+    Last 7 days of storage_ledger with day-over-day deltas and a projection.
+
+    The NAS is a shared resource, so its growth is measured rather than
+    assumed: a linear projection from the observed daily delta is crude but it
+    answers the only question the share's owner will ask.
+    """
+    try:
+        rows = con.execute("""
+            SELECT day, location, bytes FROM storage_ledger
+             WHERE day >= date('now', '-7 day')
+             ORDER BY location, day
+        """).fetchall()
+    except Exception:
+        return
+    if not rows:
+        return
+
+    print("\nStorage (last 7 days)")
+    print("-" * 66)
+    by_location = {}
+    for day, location, byte_count in rows:
+        by_location.setdefault(location, []).append((day, byte_count or 0))
+
+    for location, series in by_location.items():
+        print(f"  {location}")
+        previous = None
+        for day, byte_count in series:
+            delta = '' if previous is None else f"{(byte_count - previous) / 1e6:+9.1f} MB"
+            print(f"    {day}  {byte_count / 1e9:>8.3f} GB  {delta}")
+            previous = byte_count
+        if len(series) >= 2:
+            span_days = len(series) - 1
+            per_day = (series[-1][1] - series[0][1]) / span_days
+            current = series[-1][1]
+            projection = "  ".join(
+                f"{n}d {(current + per_day * n) / 1e9:.2f} GB"
+                for n in (30, 90, 365))
+            print(f"    growth {per_day / 1e6:+.1f} MB/day  ->  {projection}")
+        else:
+            print("    (one observation; no growth estimate yet)")
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description='Daily YouTube monitoring run')
     sub = parser.add_subparsers(dest='command', required=True)
@@ -184,10 +231,14 @@ def main(argv=None) -> int:
     p_run.add_argument('--max-tier', type=int, default=None,
                        help='Only serve channels at or below this tier '
                             '(tier 3 is never collected regardless)')
+    p_run.add_argument('--i-know-this-is-a-replica', action='store_true',
+                       help='Operate on a *.replica.db file. Production is on the cluster.')
     p_run.set_defaults(func=cmd_run)
 
     p_status = sub.add_parser('status', help='Print quota, tiers, and last run')
     p_status.add_argument('--config', default=DEFAULT_CONFIG)
+    p_status.add_argument('--i-know-this-is-a-replica', action='store_true',
+                       help='Operate on a *.replica.db file. Production is on the cluster.')
     p_status.set_defaults(func=cmd_status)
 
     args = parser.parse_args(argv)
