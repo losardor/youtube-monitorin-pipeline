@@ -2,9 +2,9 @@
 
 ## Current Status (as of 2026-09-16)
 
-**Current phase:** Phases 1 and 2 of the ytmon merge **complete and merged to `production`** (tags `ytmon-merge-p1p2`, `ytmon-phase2-closed`). Phase 3 (cluster deployment) not started.
+**Current phase:** Phase 3 **deployed**. The production database is now `gdelt-server:/data/ytmon/youtube_monitoring.db`; the local file is a replica and both entry points refuse it. Cron is live at 09:18 / 12:46 / 03:34 Europe/Rome. Awaiting three cron mornings before the Gate 3 report.
 
-- **Production database:** `data/youtube_monitoring.db` — 2,856 tier 0, 788 tier 1, 668 tier 2, 1,724 tier 3 (6,036 rows). `collect_tiers: [0, 1, 2]`.
+- **Production database:** `gdelt-server:/data/ytmon/youtube_monitoring.db` (cutover 2026-09-16T10:47:44Z) — 2,856 tier 0, 788 tier 1, 668 tier 2, 1,724 tier 3. `collect_tiers: [0, 1, 2]`. The Mac copy is `data/youtube_monitoring.replica.db` and is refused by the replica guard.
 - **Gate 2:** tier 1 0/25 = 0%; tier 2 4/50 = 8% on the redraw under rule (a), 4/63 = 6.3% pooled. Both pass.
 - **Quota spent on tiering:** 2,505 units across 2026-09-15/16. All API responses archived and backed up to `gdelt-server:/data/ytmon/backups/`; everything downstream recomputes free.
 
@@ -397,6 +397,175 @@ on the same inode, so they will contend on Linux, but **this needs confirming on
   `docs/operations/ytmon_daily_run.md` are phase 3; `DEPLOYMENT.md` already
   references the 09:17 slot they will implement.
 - `SERVER_MIGRATION_GUIDE.md` still needs its superseded-by notice (phase 3).
+
+---
+
+## 2026-09-16: Phase 3 deployed — cutover, crontab, first manual run
+
+### Database cutover
+
+**The cluster file is production as of `2026-09-16T10:47:44Z`.**
+
+| | |
+|---|---|
+| Source | Mac `data/youtube_monitoring.db` |
+| Destination | `gdelt-server:/data/ytmon/youtube_monitoring.db` |
+| **md5, both ends** | **`b95825f215a9556d3e4333e5e961a03c`** |
+| integrity_check | `ok` on both |
+| Rows | channels 6,036 · videos 5,255 · comments 693,204 · channel_snapshots 5,737 · video_snapshots 5,255 — identical both ends |
+
+The Mac copy is renamed `data/youtube_monitoring.replica.db`. Both entry points
+refuse any path whose filename contains `replica` without
+`--i-know-this-is-a-replica`, and the refusal is printed as a message naming
+where production is, not as a traceback.
+
+Two snags worth recording: macOS ships `openrsync`, which rejects
+`--info=progress2`; and a verification command run against the not-yet-copied
+path **created an empty database file** at the destination, which was
+size-checked (0 bytes) and removed before the real transfer.
+
+### API key
+
+The daily project is deliberately **not** the project carrying the 1M request —
+quota is granted per project, so sharing one would let the backfill and the
+daily series starve each other. Verified by SHA-256 comparison, never by
+printing either key:
+
+```
+Mac     config key   4b2e56292709d8c8…b03e40
+Cluster .env         348fb7785a38d654…975ca1
+```
+
+### Crontab
+
+62 lines before, 82 after, **purely additive — no existing line touched**.
+Backup at `~/crontab.backup.20260916-124830`.
+
+```diff
+@@ -60,3 +60,23 @@
+ 3,13,23,33,43,53 * * * * /data/a4_inplace/drain_watchdog.sh >> ...
++
++# ytmon — YouTube monitoring pipeline.
++# Added 2026-09-16. Appended to the existing infosphere crontab; nothing else
++# in that file is touched by this deployment.
++#
++# Minutes are chosen to clear every job already scheduled on this box:
++# TAIWA run_live (*/15 at :00 :15 :30 :45), gdelt_update (every 5 at :02…:57),
++# gdelt_reconcile (:40), gdelt_reprobe (:50), drain_watchdog (every 10 at
++# :03…:53). The brief's 09:17 / 12:45 / 03:30 all collided with those.
++#
++# 09:18 Rome: the API quota resets at midnight US/Pacific, which is 09:00 Rome
++# under both DST regimes. The two zones shift within a couple of weeks of each
++# other; on those days the run starts up to an hour early or late, which the
++# governor tolerates because the ledger is keyed by Pacific day, not local day.
++
++CRON_TZ=Europe/Rome
++
++18 9 * * *   /data/home/infosphere/youtube_monitoring/deploy/run_daily.sh
++46 12 * * *  /data/home/infosphere/youtube_monitoring/deploy/healthcheck.sh
++34 3 * * *   /data/home/infosphere/youtube_monitoring/deploy/backup.sh
+```
+
+`CRON_TZ` is declared after every pre-existing job, so it applies only to the
+ytmon lines; TAIWA and GDELT are unaffected.
+
+### Interpreter
+
+Deployed on **Python 3.12.3**, not the brief's 3.10. `python3.10 -m venv` on
+this host produces a tree with **no pip** — `ensurepip` raises
+`ModuleNotFoundError`, because the installed `python3.10-venv` is
+`3.10.12-1~22.04.15`, a *jammy* package on a *noble* system — and there is no
+passwordless sudo to repair it. 3.12 builds cleanly, the pinned requirements
+install, and `pytest -q` is green in the cluster venv. Local development stays
+on 3.10.12.
+
+### First manual run — failed at stage 4, then succeeded
+
+The first run **crashed in `harvest_comments`** after three stages. Three
+defects, two of them invisible to the test suite:
+
+1. **`TypeError: tuple indices must be integers`.** `_comment_queue` reads rows
+   by column name, but `Database` never set `row_factory` — **and the test
+   fixture set it itself**, so the stage passed every test and died in
+   production. That is the actual defect: a fixture more capable than the thing
+   it tests. `Database` now sets `sqlite3.Row`, the fixture no longer configures
+   the connection, and a regression test drives the stage through a plain
+   `Database` connection.
+
+2. **5,248 videos were invisible to the comment queue.** Everything from the
+   pre-daily backfill carries `comments_state` NULL, and the queue matches only
+   `'pending'` or `'done'` — so their comments would never be harvested *or*
+   re-polled, with no error anywhere. `scripts/adopt_backfill_videos.py` adopts
+   them: 943 → `'done'` with `last_comment_count` seeded so the growth re-poll
+   has a baseline, 4,305 → `'pending'`. **442 of those claim a non-zero
+   `comment_count` while holding no comment rows** — either the pre-`bfbeda4`
+   truncation or a backfill that never reached them. Worth noting for the
+   paper's data-completeness section.
+
+3. **Every log line was written twice** — a `FileHandler` on `pipeline.log`
+   plus a `StreamHandler` on stderr, which the wrapper redirects into the same
+   file. The stream handler is now attached only when stderr is a terminal.
+
+### The successful run — `21ef37e46a97`
+
+```
+started  2026-09-16T11:09:57   finished 2026-09-16T11:35:09   (25m 12s)
+
+stage              calls   units   items
+resolve_channels       1       1      18    (28 queued, 10 unresolved)
+discover_uploads   1,250   1,250  14,797   (1,143 / 2,741 due channels scanned)
+refresh_videos       296     296  14,797   (0 unavailable)
+harvest_comments   2,823   2,823  25,186   (2,679 / 31,734 videos)
+
+quota_before 2,747   quota_after 7,117   units_spent 4,370
+```
+
+**All four stages non-zero**, which is the Gate 3 condition. Comments grew
+693,204 → 718,390. Discovery and comments both stopped on their budget share
+and left a backlog, which is the designed behaviour, not a failure.
+
+### Ledger and the console cross-check
+
+```
+2026-09-15  playlistItems 1,711 · channels    71                 = 1,782
+2026-09-16  playlistItems 3,564 · commentThreads 2,540 ·
+            videos 641 · comments 283 · channels 89              = 7,117
+```
+
+**Today's ledger is not directly comparable to the new project's console.**
+It opened at **723 units already spent from the Mac against the old project**
+(the 2.5 channels pass and the tail of the recency sweep), before the cutover.
+Everything after that ran on the cluster with the new key. So:
+
+```
+new project console  ≈  7,117 − 723  =  6,394 units
+```
+
+From 2026-09-17 the two align, because everything runs on the cluster with the
+new key and nothing else touches that project.
+
+### Also this session
+
+`datetime.utcnow()` is deprecated from 3.12 and was producing 84 warnings per
+test run. All 11 call sites now route through `src/timeutil.py`, whose body is
+`datetime.now(timezone.utc).replace(tzinfo=None)` — the same naive UTC value,
+byte-identical serialisation, no migration. Warnings are now zero.
+
+That commit also **corrects a claim made earlier in this session**: aware
+timestamps were said to sort before naive ones and corrupt ordering. That is
+wrong for UTC — the offset is appended after the whole date and time, so string
+order still tracks time order, and the test asserting otherwise failed. The
+real hazard is **exact string equality**, which the snapshot primary keys, the
+migration's timestamp join and the idempotent `INSERT OR IGNORE` all depend on:
+a value written naive and looked up aware does not match, and it fails silently
+as a duplicate row rather than an error. The aware migration stays deferred
+indefinitely, for that reason rather than the one first given.
+
+### Next
+
+Nothing until three cron mornings have passed (2026-09-17, 18, 19 at 09:18
+Rome). Gate 3 report after the third, including the console figure for the
+1% check.
 
 ---
 
