@@ -594,6 +594,39 @@ Day total 2026-09-18: 5,746.
   "how large a frame fits the budget" -- a single scalar ceiling is not
   well-defined for a tiered frame without that assumption.
 
+  **Report structure, agreed 2026-09-18:**
+
+  *At 10k — report coverage, not a ceiling.* Headroom is already negative: the
+  comment stage hit its share ceiling on every run to date, so the frame cannot
+  be exhaustively collected at this budget and asking "how many more channels
+  fit" is the wrong question. The answer reported instead is **sustainable
+  coverage** under the current caps and windows: the share of tier-0 videos
+  whose comments are harvested inside the tracking window, and the same for
+  tiers 1 and 2.
+
+  *At 1M — both ceiling readings, at the exhaustive-collection setting*, i.e.
+  full coverage with the per-tier page caps removed, which is what 1M would
+  actually be spent on:
+
+  1. **Headline — tier-0 growth with tiers 1 and 2 held fixed.** How much the
+     validated NewsGuard frame can grow; the reading closest to the research
+     question.
+  2. **Second — proportional scaling of the whole frame** at the current tier
+     mix.
+
+  Each with ±50% sensitivity on the provisional tier-1 and tier-2 rates.
+
+  Note that removing the page caps makes `comments_per_video` drive cost
+  directly -- pages become `ceil(comments / 100)` rather than the capped
+  minimum -- which is why that input is measured from
+  `video_snapshots.comment_count` rather than from harvested rows: at 1M the
+  cap is gone and the API's own count *is* the cost.
+
+  **Both blocks cite their measured inputs:** uploads per channel per day per
+  tier; comments per video per tier from `video_snapshots.comment_count`;
+  comments per unit observed; and discovery cost per tier per day under the
+  cadences.
+
 ---
 
 ## 2026-09-16: Phase 3 deployed — cutover, crontab, first manual run
