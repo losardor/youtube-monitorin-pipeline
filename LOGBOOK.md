@@ -402,11 +402,23 @@ on the same inode, so they will contend on Linux, but **this needs confirming on
 
 ## 2026-09-18: Gate 3 interim + post-gate-3 changes deployed
 
-### Gate 3 — 4 of 6, cannot close yet
+### Gate 3 — RESET to 09-19/20/21, counting from `b98418e`
+
+**The run counter restarts.** Runs 09-17 and 09-18 executed `93debfa`; the
+changes below alter the behaviour of every stage — discovery cadence, comment
+queue ordering and expiry, the status a failing channel receives, and what the
+healthcheck alerts on. Three consecutive clean runs are evidence about *one*
+build, so runs on the superseded code cannot be counted towards the deployed
+one. The qualifying runs are **2026-09-19, 09-20 and 09-21**, all on
+`b98418e` or its merge into `production`.
+
+The two earlier runs are not discarded as evidence — they are what surfaced the
+four defects, and their ledger and row-growth reconciliation still stands. They
+simply attest to a build that is no longer deployed.
 
 | Criterion | Status |
 |---|---|
-| Three consecutive clean cron runs, non-zero units every stage | **2 of 3** — 09-17 ✔, 09-18 ✔, 09-19 pending |
+| Three consecutive clean cron runs, non-zero units every stage | **0 of 3 on `b98418e`** — 09-19, 09-20, 09-21 pending (09-17 ✔ and 09-18 ✔ were on `93debfa`) |
 | Forced collision → `flock` exit | **PASS** — exit 1, 0s, ledger unchanged |
 | Healthcheck email on that collision | **FAIL** — see below |
 | Backup restore + `integrity_check` | **PASS** — `ok`, 0 foreign-key violations |
@@ -514,10 +526,18 @@ Day total 2026-09-18: 5,746.
 
 ### Open
 
-- Gate 3: third cron run 09-19, plus the 09-16 console figure.
-- First expiry sweep and first real coverage figure land with tomorrow's run.
-- `feat/post-gate3` is deployed to the cluster but **not merged** to
-  `production`; the branch is pushed.
+- Gate 3 on `b98418e`: runs 09-19, 09-20 and 09-21, plus the 09-16 console
+  figure. Tag `ytmon-gate3-closed` only after the 09-21 run.
+- First expiry sweep and first real coverage figure land with the 09-19 run.
+- **09-20 and 09-21 are expected to be idle discovery days.** After the 09-19
+  tier-0 sweep nothing is due until 09-22 under the corrected date cadence
+  (tier 1 on 09-24, tier 2 on 10-01), so `discover_uploads` will legitimately
+  spend 0 units on those two mornings. The new `due=` token is what keeps the
+  healthcheck silent about it: a stage with nothing due is not a stage that
+  failed. Whether those two days are in fact silent is itself part of the
+  Gate 3 evidence.
+- Then 3.5: re-derive sizing from `run_log` and `video_snapshots` over
+  09-19..09-21 as steady state.
 
 ---
 
