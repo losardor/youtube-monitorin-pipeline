@@ -562,7 +562,37 @@ Day total 2026-09-18: 5,746.
   **neither is swept during 09-19..09-21**. Their upload rates must come from
   the 09-17 sweep, which covered their 8- and 15-day lookback windows under the
   same `upload_lookback_days` config. Only tier 0's rate is measured inside the
-  steady-state window.
+  steady-state window. Re-sweeping early to fix this was considered and
+  **rejected** (2026-09-18): it would cost ~113 units and break the very
+  cadence the gate is testing.
+
+  Consequences, ruled 2026-09-18:
+
+  - Tier 1 and tier 2 upload rates are labelled **single-window estimates from
+    the 09-17 sweep**, not steady-state measurements.
+  - The sizing is **scheduled for revision after the 10-01 tier-2 sweep**, by
+    which point tier 1 will also have been swept twice more (09-24, 10-01).
+  - The ceiling is computed from tier 0's steady-state rate together with the
+    provisional tier-1 and tier-2 rates, and reported **with its sensitivity to
+    a ±50% change in those provisional rates**, so the provisional status is
+    visible in the number itself rather than only in a footnote.
+
+  **The reference model needs adapting before it can be used.**
+  `external/ytmon/ytmon/sizing.py` assumes a single homogeneous panel swept
+  **daily**: `u_discovery = n_channels * upload_pages`, one unit per channel
+  per day. Our pipeline is the opposite — per-tier cadences of 2/7/14 days are
+  precisely what makes the frame affordable, and discovery costs
+  `N_tier / cadence_tier` per day, not `N_tier`. Ported unchanged it would
+  overstate discovery by 2x for tier 0 and by 7x and 14x for tiers 1 and 2,
+  and so understate the panel ceiling badly. It also assumes one comment depth
+  and one tracking window, where we have three of each (page caps 10/10/3,
+  windows 30/14/7), and `comment_coverage=1.0`, where we now measure coverage
+  directly and it is not 1.
+
+  `src/sizing.py` will therefore be a tier-aware adaptation, not a
+  transcription, and will state the tier mix it holds fixed when it answers
+  "how large a frame fits the budget" -- a single scalar ceiling is not
+  well-defined for a tiered frame without that assumption.
 
 ---
 
