@@ -400,6 +400,147 @@ on the same inode, so they will contend on Linux, but **this needs confirming on
 
 ---
 
+## 2026-09-18: Gate 3 interim + post-gate-3 changes deployed
+
+### Gate 3 — RESET to 09-19/20/21, counting from `b98418e`
+
+**The run counter restarts.** Runs 09-17 and 09-18 executed `93debfa`; the
+changes below alter the behaviour of every stage — discovery cadence, comment
+queue ordering and expiry, the status a failing channel receives, and what the
+healthcheck alerts on. Three consecutive clean runs are evidence about *one*
+build, so runs on the superseded code cannot be counted towards the deployed
+one. The qualifying runs are **2026-09-19, 09-20 and 09-21**, all on
+`b98418e` or its merge into `production`.
+
+The two earlier runs are not discarded as evidence — they are what surfaced the
+four defects, and their ledger and row-growth reconciliation still stands. They
+simply attest to a build that is no longer deployed.
+
+| Criterion | Status |
+|---|---|
+| Three consecutive clean cron runs, non-zero units every stage | **0 of 3 on `b98418e`** — 09-19, 09-20, 09-21 pending (09-17 ✔ and 09-18 ✔ were on `93debfa`) |
+| Forced collision → `flock` exit | **PASS** — exit 1, 0s, ledger unchanged |
+| Healthcheck email on that collision | **FAIL** — see below |
+| Backup restore + `integrity_check` | **PASS** — `ok`, 0 foreign-key violations |
+| `pytest -q` in the cluster venv | **PASS** — 144 passed, 1 skipped |
+| Ledger vs console within 1% | **awaiting the 09-16 console figure** |
+
+The collision test exposed a genuine gap: the deployed healthcheck's staleness
+rule is "no run finished in 36 hours", and one skipped run sits well inside
+that, so a collision is silent until two consecutive days are lost. Fixed
+below.
+
+### Status after two cron mornings
+
+```
+runs        09-17  6,384 units, 4 stages, 28m22s
+            09-18  5,714 units, 4 stages, 14m28s
+ledger      09-16 7,117 · 09-17 6,384 · 09-18 5,714   (budget 9,000)
+rows        videos 5,255 -> 67,082 · comments 693,204 -> 868,720
+            channel_snapshots 5,737 -> 11,537 · video_snapshots 5,255 -> 99,062
+```
+
+`run_log` items reconcile **exactly** against row growth on all four tables,
+which is the strongest integrity signal available without re-querying the API.
+
+**Comments hit their share ceiling on every run**; discovery hit it on 09-16
+and 09-17. No day approached the 9,000 budget — the shares bind first, leaving
+2,616 and 3,286 units unspent.
+
+### Four problems found and fixed (`ee6a1d3`, branch `feat/post-gate3`)
+
+**1. The comment queue could never drain its tail.** Ordering put every
+`pending` video ahead of every re-poll, then sorted by date, so 52,621 newly
+discovered videos permanently outranked the 4,305 adopted from the backfill.
+Three runs in, not one of them had been harvested.
+
+Two new states make this countable rather than silent. `expired`: a pending
+video past its tier's `comment_tracking_days`, retired at the start of
+`harvest_comments` and counted in `run_log.note` — it could never be reached,
+so leaving it `pending` overstated the backlog forever. `deferred`: the 4,305
+adopted videos, parked explicitly. They claimed only **6,532 comments between
+them**, so almost nothing is given up.
+
+Queue order is now `tier ASC, published_at DESC`. Tier-0
+`max_comment_pages_per_video` 50 → 10: at 50 one busy video could take a
+twentieth of the day's comment share while videos behind it expired.
+
+**Coverage is the metric from now on** — of the videos in a tier's window that
+reached a terminal state, the share harvested rather than expired. Baseline
+now, before the first sweep:
+
+```
+tier 0, 30-day window:  8,808 done · 0 expired · 21,032 pending
+                        coverage 100% of settled, but 70% not yet settled
+tomorrow's sweep will expire 3,010 tier-2 videos (7-day window)
+```
+
+That 21,032 pending is the real question the metric exists to answer, and it
+resolves over the next few runs as those videos either get harvested or age
+out.
+
+**2. Tier 0 was running at a 2.85-day cadence, not 2.** "Older than 2 days"
+evaluated at a fixed 07:18 run means a channel discovered at 10:00 comes due at
+10:00 two days later — *after* that morning's run — so it waits another day.
+Observed directly: 2,704 tier-0 channels were last discovered on 09-16 and were
+not visited on either 09-17 or 09-18. The cadence now compares Pacific dates,
+so "every 2 days" means what it says whatever the hour. Tested on the
+2026-09-16 10:00 case.
+
+**3. Healthcheck.** NAS growth now requires **>25% AND >1 GB**: the ratio alone
+fired every day while the share filled from one backup to two (+121% but only
++0.2 GB), and an alert that cries wolf daily is one nobody reads. New alert for
+**any stage that had work due and spent 0 units** — the shape of a silent
+failure, and the gap the collision test exposed. Stages now write a parseable
+`due=` token so an idle stage is distinguishable from a failed one. `--dry-run`
+prints without sending. NAS retention 14 → 3 daily.
+
+**4. `unresolved` conflated two different failures**, and the pair oscillated.
+A channel whose uploads playlist refused was marked `unresolved` by discovery;
+`resolve_channels` then flipped it back to `active` on its next pass, discovery
+demoted it again, and so on, a unit at a time, forever. New status
+`uploads_unavailable`, which `resolve_channels` does not resurrect.
+
+The 41 existing rows re-checked for **32 units**:
+
+| Before | After | Meaning |
+|---|---|---|
+| 41 unresolved | **31 uploads_unavailable** | channel resolves; `playlistNotFound` on its uploads playlist |
+| | **10 unresolved** | `channels.list` does not return the id — genuinely gone |
+
+All 31 failed identically with `playlistNotFound`, which is why the split is
+clean.
+
+### Operational note
+
+A read-only status check earlier today ran `healthcheck.py` to see what it
+reported, which **also sends** on failure — it posted a duplicate `[ytmon]`
+alert at 12:51:58 UTC alongside the genuine cron one at 10:46:01. Same
+`thread_key`, so it threaded rather than arriving separately. The new
+`--dry-run` flag exists so that cannot recur.
+
+### Quota
+
+32 units (unresolved re-check). Everything else was database-only.
+Day total 2026-09-18: 5,746.
+
+### Open
+
+- Gate 3 on `b98418e`: runs 09-19, 09-20 and 09-21, plus the 09-16 console
+  figure. Tag `ytmon-gate3-closed` only after the 09-21 run.
+- First expiry sweep and first real coverage figure land with the 09-19 run.
+- **09-20 and 09-21 are expected to be idle discovery days.** After the 09-19
+  tier-0 sweep nothing is due until 09-22 under the corrected date cadence
+  (tier 1 on 09-24, tier 2 on 10-01), so `discover_uploads` will legitimately
+  spend 0 units on those two mornings. The new `due=` token is what keeps the
+  healthcheck silent about it: a stage with nothing due is not a stage that
+  failed. Whether those two days are in fact silent is itself part of the
+  Gate 3 evidence.
+- Then 3.5: re-derive sizing from `run_log` and `video_snapshots` over
+  09-19..09-21 as steady state.
+
+---
+
 ## 2026-09-16: Phase 3 deployed — cutover, crontab, first manual run
 
 ### Database cutover

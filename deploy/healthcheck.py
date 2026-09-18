@@ -7,8 +7,10 @@ it doing work, is any stage silently dead, is the disk about to fill, and is
 the NAS growing faster than anyone agreed to.
 """
 
+import argparse
 import importlib.util
 import os
+import re
 import shutil
 import sqlite3
 import subprocess
@@ -26,7 +28,12 @@ DB = os.environ.get('YTMON_DB', '/data/ytmon/youtube_monitoring.db')
 NAS = '/data/nas_penpen/infosphere/ytmon'
 DATA_MOUNT = os.environ.get('YTMON_DATA_MOUNT', '/data')
 FREE_GB_FLOOR = 10
+# Growth must be BOTH proportionally large and absolutely large. The ratio
+# alone fired every day while the NAS filled from one backup to two (0.16 ->
+# 0.36 GB is +121% but only +0.2 GB), which is ramp-up, not a runaway. An
+# alert that cries wolf daily is one nobody reads.
 NAS_GROWTH_LIMIT = 0.25
+NAS_GROWTH_MIN_BYTES = 1_000_000_000
 STALE_HOURS = 36
 
 
@@ -71,6 +78,20 @@ def checks(con) -> list:
             f"harvest_comments recorded 0 comments -- the comment stage may be "
             f"failing silently.")
 
+    # A stage that had work queued and spent nothing is the shape of a silent
+    # failure: a crash between queueing and calling, a lock collision, an
+    # exhausted share. A stage with genuinely nothing due spends 0 legitimately
+    # and must not alert, which is why the due count is read rather than
+    # assumed.
+    for stage, units, note in con.execute("""
+            SELECT stage, units_spent, COALESCE(note, '') FROM run_log
+             WHERE run_id = ?""", (run_id,)):
+        match = re.search(r'due=(\d+)', note)
+        if match and int(match.group(1)) > 0 and (units or 0) == 0:
+            problems.append(
+                f"Run {run_id}: stage {stage} had {match.group(1)} items due "
+                f"but spent 0 units -- it may have failed without raising.")
+
     # A missing mount must not crash the healthcheck: the other checks still
     # carry information, and a check that dies is indistinguishable from one
     # that passed.
@@ -89,16 +110,23 @@ def checks(con) -> list:
     """).fetchall()
     if len(rows) == 2 and rows[1][1]:
         today_b, prev_b = rows[0][1], rows[1][1]
-        growth = (today_b - prev_b) / prev_b
-        if growth > NAS_GROWTH_LIMIT:
+        delta = today_b - prev_b
+        growth = delta / prev_b
+        if growth > NAS_GROWTH_LIMIT and delta > NAS_GROWTH_MIN_BYTES:
             problems.append(
-                f"NAS usage under ytmon/ grew {growth * 100:.0f}% in a day "
+                f"NAS usage under ytmon/ grew {growth * 100:.0f}% "
+                f"(+{delta / 1e9:.2f} GB) in a day "
                 f"({prev_b / 1e9:.2f} -> {today_b / 1e9:.2f} GB). The NAS is a "
                 f"shared resource; check for a runaway backfill.")
     return problems
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description="ytmon healthcheck")
+    parser.add_argument('--dry-run', action='store_true',
+                        help='Print what would be reported; send no mail.')
+    args = parser.parse_args()
+
     if not Path(DB).exists():
         print(f"database missing: {DB}", file=sys.stderr)
         return 1
@@ -115,6 +143,9 @@ def main() -> int:
     body = "\n".join(f"- {p}" for p in problems)
     print(f"{utcnow()} healthcheck FAILED\n{body}",
           file=sys.stderr)
+    if args.dry_run:
+        print("(--dry-run: no mail sent)", file=sys.stderr)
+        return 1
     try:
         notify = load_notify()
         notify(subject=f"[ytmon] healthcheck: {len(problems)} problem(s)",

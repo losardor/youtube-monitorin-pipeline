@@ -1664,3 +1664,148 @@ def test_comments_disabled_video_costs_a_unit_in_the_stage(tmp_path):
     assert con.execute(
         "SELECT comments_state FROM videos WHERE video_id = 'vdis'"
     ).fetchone()[0] == 'disabled'
+
+
+# ---------------------------------------------------------------------------
+# post-gate-3: comment policy, cadence dates, status guard
+# ---------------------------------------------------------------------------
+
+def test_pending_videos_expire_out_of_their_tracking_window(tmp_path):
+    """A video past its tier's window is retired, not left pending forever."""
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 1, 2))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['comment_tracking_days'] = {'0': 30, '1': 14, '2': 7}
+
+    rows = [
+        ('v0_fresh', CH[0], daily._iso_days_ago(5)),     # tier 0, inside 30d
+        ('v0_stale', CH[0], daily._iso_days_ago(40)),    # tier 0, outside
+        ('v2_fresh', CH[2], daily._iso_days_ago(3)),     # tier 2, inside 7d
+        ('v2_stale', CH[2], daily._iso_days_ago(10)),    # tier 2, outside
+    ]
+    for vid, cid, pub in rows:
+        con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                    "comments_state) VALUES (?, ?, ?, 'pending')", (vid, cid, pub))
+    con.commit()
+
+    expired = daily.expire_stale_pending(con, cfg)
+    assert expired == 2
+
+    state = {r[0]: r[1] for r in con.execute(
+        "SELECT video_id, comments_state FROM videos")}
+    assert state['v0_fresh'] == 'pending'
+    assert state['v0_stale'] == 'expired'
+    assert state['v2_fresh'] == 'pending'
+    assert state['v2_stale'] == 'expired'
+    # Expired videos leave the queue.
+    assert 'v0_stale' not in {r['video_id'] for r in daily._comment_queue(con, cfg)}
+
+
+def test_queue_orders_by_tier_then_recency_only(tmp_path):
+    """
+    Pending no longer jumps ahead of a re-poll.
+
+    The old order put every pending video before any 'done' one, so a five-year
+    old backfill video outranked a live conversation from this morning purely
+    for never having been touched.
+    """
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['comment_tracking_days'] = {'0': 3650}
+
+    con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                "comments_state, last_comment_count) "
+                "VALUES ('old_pending', ?, '2019-01-01T00:00:00Z', 'pending', NULL)",
+                (CH[0],))
+    con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                "comments_state, last_comment_count) "
+                "VALUES ('new_done', ?, '2026-09-18T00:00:00Z', 'done', 10)",
+                (CH[0],))
+    con.execute("INSERT INTO video_snapshots (video_id, observed_at, comment_count) "
+                "VALUES ('new_done', ?, 500)", (daily.utcnow(),))
+    con.commit()
+
+    order = [r['video_id'] for r in daily._comment_queue(con, cfg)]
+    assert order.index('new_done') < order.index('old_pending')
+
+
+def test_coverage_metric_counts_settled_videos_only(tmp_path):
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['comment_tracking_days'] = {'0': 30}
+
+    recent = daily._iso_days_ago(2)
+    for vid, state in (('a', 'done'), ('b', 'done'), ('c', 'expired'),
+                       ('d', 'pending'), ('e', 'disabled')):
+        con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                    "comments_state) VALUES (?, ?, ?, ?)",
+                    (vid, CH[0], recent, state))
+    con.commit()
+
+    cov = daily.coverage_within_window(con, cfg, tier=0)
+    # 2 done of 3 settled (done + expired); pending is not settled yet and
+    # disabled was never collectable.
+    assert cov['done'] == 2 and cov['expired'] == 1 and cov['pending'] == 1
+    assert cov['coverage'] == round(2 / 3, 4)
+
+
+def test_cadence_uses_pacific_dates_not_elapsed_hours():
+    """
+    The 2026-09-16 10:00 case.
+
+    Under timestamp arithmetic a channel discovered at 10:00 was not 'older
+    than 2 days' at the 07:18 run two mornings later, so tier 0 ran at an
+    effective 2.85-day cadence. Comparing dates makes it due on schedule
+    whatever the hour.
+    """
+    from src.daily import _pacific_due_date
+
+    cutoff = _pacific_due_date(2, today='2026-09-18')
+    assert cutoff == '2026-09-16'
+    assert '2026-09-16' <= cutoff          # discovered 09-16 10:00 -> due
+    assert not ('2026-09-17' <= cutoff)    # discovered 09-17 -> not yet
+
+    assert _pacific_due_date(7, today='2026-09-18') == '2026-09-11'
+    assert _pacific_due_date(14, today='2026-09-18') == '2026-09-04'
+
+
+def test_uploads_unavailable_is_not_flipped_back_to_active(tmp_path):
+    """
+    A channel whose playlist refuses must stay out of discovery.
+
+    Otherwise resolve_channels marks it active, discovery demotes it again,
+    and the two oscillate a unit at a time forever.
+    """
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    con.execute("UPDATE channels SET status = 'uploads_unavailable', "
+                "last_checked = NULL WHERE channel_id = ?", (CH[0],))
+    con.commit()
+
+    daily.resolve_channels(con, yt, CFG, "run-guard")
+
+    assert con.execute(
+        "SELECT status FROM channels WHERE channel_id = ?", (CH[0],)
+    ).fetchone()[0] == 'uploads_unavailable'
+    # And it is never queued for discovery, which selects status='active'.
+    con.execute("UPDATE channels SET uploads_playlist = 'UUx' WHERE channel_id = ?",
+                (CH[0],))
+    con.commit()
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['discovery_days'] = {'0': 1, '1': 1, '2': 1}
+    cfg['schedule']['upload_lookback_days'] = {'0': 2, '1': 2, '2': 2}
+    daily.discover_uploads(con, yt, cfg, "run-guard2")
+    assert 'UUx' not in [p for k, p in yt.calls if k == 'playlistItems']
+
+
+def test_stage_notes_carry_a_parseable_due_count(tmp_path):
+    """The healthcheck reads due= to tell a silent failure from an idle stage."""
+    import re
+    con, gov, yt = fresh(tmp_path / "t.db")
+    daily.run(con, yt, CFG)
+    notes = [r[0] for r in con.execute("SELECT note FROM run_log")]
+    assert len(notes) == 4
+    for note in notes:
+        assert re.search(r'due=\d+', note or ''), note

@@ -40,11 +40,27 @@ from typing import Dict, List, Optional
 
 from src.errors import QuotaExhausted, CommentsDisabled, ItemUnavailable, APIError
 from src.timeutil import utcnow as _utcnow, utcnow_dt
-from src.quota import Budget
+from src.quota import Budget, pacific_day
 
 logger = logging.getLogger(__name__)
 
 TIERS = (0, 1, 2)
+
+# comments_state values and what each means for the budget:
+#   pending      never harvested; still inside its tier's tracking window
+#   done         harvested; re-polled while the count keeps growing
+#   disabled     the channel turned comments off
+#   unavailable  the video is gone
+#   expired      aged out of the tracking window before it was reached.
+#                Not an error -- an explicit record that this video was
+#                never harvested, so coverage can be measured rather than
+#                assumed. Leaving it 'pending' would overstate the queue
+#                forever, because newer videos always outrank it.
+#   deferred     deliberately parked: collected before the daily pipeline
+#                existed and not worth competing with live videos for
+#                quota. Revisited only by an explicit decision.
+COMMENT_STATE_EXPIRED = 'expired'
+COMMENT_STATE_DEFERRED = 'deferred'
 
 # Tier 3 is "recorded, never collected": the row exists to document that the
 # candidate was considered and rejected. No stage may spend a unit on it.
@@ -108,6 +124,20 @@ def _int(v) -> Optional[int]:
 
 def _iso_days_ago(days: int) -> str:
     return (datetime.now(timezone.utc) - timedelta(days=days)).replace(tzinfo=None).isoformat()
+
+
+def _pacific_due_date(days: int, today: str = None) -> str:
+    """
+    The latest discovery date that is still due today, as YYYY-MM-DD.
+
+    A channel is due when it was last discovered on or before
+    (today - cadence), both read as Pacific billing dates. Pacific is used
+    because it is the day the quota ledger is keyed by, so a run's cadence and
+    its budget roll over together.
+    """
+    from datetime import date
+    anchor = date.fromisoformat(today or pacific_day())
+    return (anchor - timedelta(days=days)).isoformat()
 
 
 def _jdump(value) -> Optional[str]:
@@ -200,6 +230,7 @@ def resolve_channels(con, client, cfg: dict, run_id: str) -> dict:
          WHERE {tier_sql}
            AND (status IS NULL OR status = 'unresolved'
                 OR last_checked IS NULL OR last_checked < ?)
+           AND COALESCE(status, '') != 'uploads_unavailable'
          ORDER BY {{tier_order}},
                   (last_checked IS NULL) DESC, last_checked ASC
     """, tier_params + (stale_before,))
@@ -235,7 +266,13 @@ def resolve_channels(con, client, cfg: dict, run_id: str) -> dict:
                        published_at = ?, description = ?, topic_categories = ?,
                        uploads_playlist = COALESCE(?, uploads_playlist),
                        subscriber_count = ?, video_count = ?, view_count = ?,
-                       status = 'active', last_checked = ?, last_updated_at = ?,
+                       -- A channel whose uploads playlist is refusing is not
+                       -- 'active' just because channels.list answers: flipping
+                       -- it back would have discovery demote it again next
+                       -- run, the two oscillating a unit at a time forever.
+                       status = CASE WHEN status = 'uploads_unavailable'
+                                     THEN status ELSE 'active' END,
+                       last_checked = ?, last_updated_at = ?,
                        first_collected_at = COALESCE(first_collected_at, ?)
                  WHERE channel_id = ?
             """, (
@@ -272,7 +309,7 @@ def resolve_channels(con, client, cfg: dict, run_id: str) -> dict:
         con.commit()
 
     log_run(con, run_id, 'resolve_channels', started, budget, resolved,
-            f"{len(todo)} queued, {unresolved} unresolved")
+            f"{len(todo)} queued, {unresolved} unresolved due={len(todo)}")
     return {'queued': len(todo), 'resolved': resolved,
             'unresolved': unresolved, 'units': budget.used,
             'calls': budget.calls}
@@ -306,9 +343,16 @@ def discover_uploads(con, client, cfg: dict, run_id: str) -> dict:
     clauses, params = [], []
     for tier in tiers:
         days = _per_tier(cadence_cfg, tier, 1)
+        # Due on the Pacific *date*, not by timestamp arithmetic. A strict
+        # "older than N days" test evaluated at a fixed daily run time rounds
+        # the cadence up to the next whole run: a channel visited at 10:00
+        # comes due at 10:00 two days later, which is after the 07:18 run, so
+        # it waits until the following morning and tier 0 ran at an effective
+        # 2.85-day cadence instead of 2. Comparing dates makes "every 2 days"
+        # mean what it says regardless of the hour either event happened.
         clauses.append("(COALESCE(tier, 0) = ? AND "
-                       "(last_discovered IS NULL OR last_discovered < ?))")
-        params.extend([tier, _iso_days_ago(days)])
+                       "(last_discovered IS NULL OR date(last_discovered) <= ?))")
+        params.extend([tier, _pacific_due_date(days)])
     due_sql = " OR ".join(clauses) if clauses else "0"
 
     chans = _tier_ordered(con, f"""
@@ -389,7 +433,7 @@ def discover_uploads(con, client, cfg: dict, run_id: str) -> dict:
 
     inserted = insert_ignore(con, 'videos', new_rows)
     log_run(con, run_id, 'discover_uploads', started, budget, inserted,
-            f"{scanned}/{len(chans)} due channels scanned")
+            f"{scanned}/{len(chans)} due channels scanned due={len(chans)}")
     return {'channels_scanned': scanned, 'channels_due': len(chans),
             'new_videos': inserted, 'units': budget.used, 'calls': budget.calls}
 
@@ -493,7 +537,7 @@ def refresh_videos(con, client, cfg: dict, run_id: str) -> dict:
         con.commit()
 
     log_run(con, run_id, 'refresh_videos', started, budget, got,
-            f"{len(todo)} queued, {gone} unavailable")
+            f"{len(todo)} queued, {gone} unavailable due={len(todo)}")
     return {'queued': len(todo), 'refreshed': got, 'unavailable': gone,
             'units': budget.used, 'calls': budget.calls}
 
@@ -547,7 +591,6 @@ def _comment_queue(con, cfg) -> List[sqlite3.Row]:
                 AND l.comment_count IS NOT NULL
                 AND l.comment_count > COALESCE(v.last_comment_count, 0) * ?))
          ORDER BY COALESCE(c.tier, 0) ASC,
-                  (v.comments_state = 'pending') DESC,
                   v.published_at DESC
     """
     params.append(growth)
@@ -614,6 +657,64 @@ def _fetch_replies(client, budget, parent_id, video_id, channel_id, cfg) -> List
     return out
 
 
+def expire_stale_pending(con, cfg: dict) -> int:
+    """
+    Retire pending videos that aged out of their tier's tracking window.
+
+    A video only stays worth harvesting while its conversation is live. Once
+    it is older than its tier's `comment_tracking_days` it will never be
+    reached -- newer videos outrank it forever -- so leaving it `pending`
+    overstates the queue and hides how much was actually covered. Marking it
+    `expired` makes the miss countable.
+    """
+    tracking = cfg['schedule']['comment_tracking_days']
+    total = 0
+    for tier in collect_tiers(cfg):
+        days = _per_tier(tracking, tier, 7)
+        cur = con.execute(f"""
+            UPDATE videos
+               SET comments_state = '{COMMENT_STATE_EXPIRED}'
+             WHERE comments_state = 'pending'
+               AND published_at < ?
+               AND video_id IN (
+                   SELECT v.video_id FROM videos v
+                     LEFT JOIN channels c ON c.channel_id = v.channel_id
+                    WHERE COALESCE(c.tier, 0) = ?)
+        """, (_iso_days_ago(days), tier))
+        total += cur.rowcount
+    con.commit()
+    return total
+
+
+def coverage_within_window(con, cfg: dict, tier: int = 0) -> dict:
+    """
+    Share of a tier's videos reached inside their tracking window.
+
+    The coverage metric: of the videos published within the window that have
+    reached a terminal state, how many were actually harvested rather than
+    expired. Disabled and unavailable videos are excluded -- they were not
+    missed, they were uncollectable.
+    """
+    days = _per_tier(cfg['schedule']['comment_tracking_days'], tier, 7)
+    row = con.execute("""
+        SELECT
+          SUM(CASE WHEN v.comments_state = 'done'    THEN 1 ELSE 0 END) AS done,
+          SUM(CASE WHEN v.comments_state = 'expired' THEN 1 ELSE 0 END) AS expired,
+          SUM(CASE WHEN v.comments_state = 'pending' THEN 1 ELSE 0 END) AS pending
+          FROM videos v
+          LEFT JOIN channels c ON c.channel_id = v.channel_id
+         WHERE COALESCE(c.tier, 0) = ?
+           AND v.published_at >= ?
+    """, (tier, _iso_days_ago(days))).fetchone()
+    done, expired, pending = (row[0] or 0), (row[1] or 0), (row[2] or 0)
+    settled = done + expired
+    return {
+        'tier': tier, 'window_days': days,
+        'done': done, 'expired': expired, 'pending': pending,
+        'coverage': round(done / settled, 4) if settled else None,
+    }
+
+
 def harvest_comments(con, client, cfg: dict, run_id: str) -> dict:
     """
     Pull comment threads, resuming mid-video where a previous run stopped.
@@ -627,6 +728,10 @@ def harvest_comments(con, client, cfg: dict, run_id: str) -> dict:
     order = cfg['limits']['comment_order']
     fetch_replies = bool(cfg['limits']['fetch_full_replies'])
     page_caps = cfg['limits']['max_comment_pages_per_video']
+
+    # Retire what can no longer be reached before measuring the queue, so the
+    # queue length means "work still worth doing" rather than "work ever due".
+    expired = expire_stale_pending(con, cfg)
 
     queue = _comment_queue(con, cfg)
     n_comments, n_videos = 0, 0
@@ -697,10 +802,13 @@ def harvest_comments(con, client, cfg: dict, run_id: str) -> dict:
         con.commit()
         n_videos += 1
 
+    cov = coverage_within_window(con, cfg, tier=0)
     log_run(con, run_id, 'harvest_comments', started, budget, n_comments,
-            f"{n_videos}/{len(queue)} videos")
+            f"{n_videos}/{len(queue)} videos, {expired} expired, "
+            f"tier0 coverage {cov['coverage']} due={len(queue)}")
     return {'queued': len(queue), 'videos_done': n_videos,
-            'comments': n_comments, 'units': budget.used, 'calls': budget.calls}
+            'comments': n_comments, 'expired': expired,
+            'tier0_coverage': cov, 'units': budget.used, 'calls': budget.calls}
 
 
 # ---------------------------------------------------------------------------
