@@ -416,9 +416,21 @@ The two earlier runs are not discarded as evidence — they are what surfaced th
 four defects, and their ledger and row-growth reconciliation still stands. They
 simply attest to a build that is no longer deployed.
 
+**Gate criterion, ruled 2026-09-18, before any qualifying run:**
+
+> non-zero units in every stage **that had due work**, and no healthcheck
+> alert on a stage that had none.
+
+Recorded ahead of the runs deliberately. The literal reading — "non-zero units
+in every stage" — would fail 09-20 and 09-21, where `discover_uploads`
+correctly spends nothing because the corrected cadence leaves nothing due.
+Settling that after seeing the results would be indistinguishable from moving
+the goalposts, so it is settled here first. The idle days are the intended
+case, and their silence in the healthcheck is part of the evidence.
+
 | Criterion | Status |
 |---|---|
-| Three consecutive clean cron runs, non-zero units every stage | **0 of 3 on `b98418e`** — 09-19, 09-20, 09-21 pending (09-17 ✔ and 09-18 ✔ were on `93debfa`) |
+| Three consecutive clean cron runs, non-zero units in every stage **with due work**, no alert on an idle one | **0 of 3 on `b98418e`** — 09-19, 09-20, 09-21 pending (09-17 ✔ and 09-18 ✔ were on `93debfa`) |
 | Forced collision → `flock` exit | **PASS** — exit 1, 0s, ledger unchanged |
 | Healthcheck email on that collision | **FAIL** — see below |
 | Backup restore + `integrity_check` | **PASS** — `ok`, 0 foreign-key violations |
@@ -537,7 +549,20 @@ Day total 2026-09-18: 5,746.
   failed. Whether those two days are in fact silent is itself part of the
   Gate 3 evidence.
 - Then 3.5: re-derive sizing from `run_log` and `video_snapshots` over
-  09-19..09-21 as steady state.
+  09-19..09-21 as steady state, with the method fixed in advance:
+  **comments per video per tier from `video_snapshots.comment_count`** — the
+  API's own count, not the number of rows harvested, which is capped by the
+  per-tier page limit and would understate busy videos by construction; and
+  **upload rates for tiers 1 and 2 from the lookback window of their sweeps**,
+  not a three-day average, since those tiers are swept every 7 and 14 days and
+  a flat average over three days would divide their uploads by the wrong
+  interval.
+
+  **Caveat, known now:** tier 1 is next due 09-24 and tier 2 on 10-01, so
+  **neither is swept during 09-19..09-21**. Their upload rates must come from
+  the 09-17 sweep, which covered their 8- and 15-day lookback windows under the
+  same `upload_lookback_days` config. Only tier 0's rate is measured inside the
+  steady-state window.
 
 ---
 
