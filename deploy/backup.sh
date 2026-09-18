@@ -54,10 +54,14 @@ ls -1t "$LOCAL"/ytmon_*.db.gz 2>/dev/null | tail -n +15 | while read -r f; do
   log "  removing local $(basename "$f")"; rm -f "$f"
 done
 
-# NAS: 14 daily, then one per week for 8 weeks, then one per month forever.
+# NAS: 3 daily, then one per week for 8 weeks, then one per month forever.
+# Narrowed from 14 daily on 2026-09-18: a full database backup is ~190 MB and
+# grows daily, so 14 dailies on a shared NAS is several GB of near-duplicates
+# for little recovery value. Three days covers the realistic 'yesterday was
+# wrong' case; the weekly and monthly tiers cover everything older.
 # Raw tarballs are kept indefinitely -- they are small and represent quota spent.
 if [ -d "$NAS" ]; then
-  log "pruning NAS (14 daily, 8 weekly, then monthly; raw kept forever)"
+  log "pruning NAS (3 daily, 8 weekly, then monthly; raw kept forever)"
   python3 - "$NAS" <<'PYEOF' | while read -r line; do log "  $line"; done
 import os, re, sys
 from datetime import date, timedelta
@@ -74,9 +78,9 @@ today = max(files)
 keep = set()
 for d in files:
     age = (today - d).days
-    if age <= 14:
-        keep.add(d)                      # every day for a fortnight
-    elif age <= 14 + 56:
+    if age <= 3:
+        keep.add(d)                      # the last three days
+    elif age <= 3 + 56:
         if d.weekday() == 6:
             keep.add(d)                  # one per week (Sundays) for 8 weeks
     elif d.day == 1:

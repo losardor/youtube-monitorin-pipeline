@@ -84,8 +84,12 @@ limits:
 
   # Per tier: comment pages per video, 100 comments per page. Tier 0 gets a
   # deep pull, tier 2 a shallow sample.
+  # Tier 0 lowered 50 -> 10 (2026-09-18): at 50 pages a single busy video
+  # could take 5,000 comments and a twentieth of the day's comment share,
+  # while videos behind it expired unharvested. 10 pages caps one video at
+  # 1,000 comments and spends the rest on breadth.
   max_comment_pages_per_video:
-    0: 50
+    0: 10
     1: 10
     2: 3
 
