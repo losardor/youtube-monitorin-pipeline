@@ -16,4 +16,7 @@ CRON_TZ=Europe/Rome
 
 18 9 * * *   /data/home/infosphere/youtube_monitoring/deploy/run_daily.sh
 46 12 * * *  /data/home/infosphere/youtube_monitoring/deploy/healthcheck.sh
-34 3 * * *   /data/home/infosphere/youtube_monitoring/deploy/backup.sh
+# backup.sh output is the only record that a backup was verified: the host
+# has no MTA, so without this redirect cron discards the integrity_check
+# verdict and healthcheck.py has nothing to read.
+34 3 * * *   /data/home/infosphere/youtube_monitoring/deploy/backup.sh >> /data/home/infosphere/youtube_monitoring/logs/backup.log 2>&1

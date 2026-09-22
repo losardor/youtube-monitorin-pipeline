@@ -1891,3 +1891,93 @@ def test_both_stages_share_one_cadence_helper():
     assert 'due_by_date' in src_discover
     # Neither stage may reconstruct the test by hand.
     assert 'last_checked < ?' not in src_resolve
+
+
+# ---------------------------------------------------------------------------
+# Task 2: backup verdict
+# ---------------------------------------------------------------------------
+
+def _hc():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        'ytmon_hc', str(Path(__file__).resolve().parents[1] / 'deploy' / 'healthcheck.py'))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _backup_log(tmp_path, stamp, result):
+    path = tmp_path / "backup.log"
+    path.write_text(
+        f"2026-09-22T03:34:00Z [backup] backing up /data/ytmon/x.db -> /tmp/y.db\n"
+        f"{stamp} [backup] integrity_check: {result}\n"
+        f"2026-09-22T03:35:00Z [backup] done\n")
+    return path
+
+
+def test_backup_verdict_recent_ok(tmp_path):
+    hc = _hc()
+    recent = daily.utcnow()
+    when, result = hc.backup_verdict(str(_backup_log(tmp_path, recent, 'ok')))
+    assert result == 'ok' and when is not None
+
+
+def test_backup_verdict_recent_failure(tmp_path):
+    hc = _hc()
+    log = _backup_log(tmp_path, daily.utcnow(),
+                      '*** in database main *** Page 42 is never used')
+    when, result = hc.backup_verdict(str(log))
+    assert result.startswith('***')
+    assert when is not None
+
+
+def test_backup_verdict_stale(tmp_path):
+    hc = _hc()
+    old = daily._iso_days_ago(3)
+    when, result = hc.backup_verdict(str(_backup_log(tmp_path, old, 'ok')))
+    assert result == 'ok'
+    age_h = (daily.utcnow_dt() - when).total_seconds() / 3600
+    assert age_h > hc.BACKUP_STALE_HOURS
+
+
+def test_backup_verdict_missing_log_is_reported_not_fatal(tmp_path):
+    hc = _hc()
+    when, result = hc.backup_verdict(str(tmp_path / "nope.log"))
+    assert when is None and result == 'missing'
+    # And a log with no verdict at all is distinguishable from a missing one.
+    empty = tmp_path / "empty.log"
+    empty.write_text("2026-09-22T03:34:00Z [backup] backing up\n")
+    assert hc.backup_verdict(str(empty)) == (None, 'no integrity_check line')
+
+
+def test_healthcheck_reports_each_backup_state(tmp_path, monkeypatch):
+    import sqlite3 as sq
+    hc = _hc()
+    monkeypatch.setenv('YTMON_DATA_MOUNT', str(tmp_path))
+    now = daily.utcnow()
+
+    def db_with_run():
+        con = sq.connect(':memory:')
+        con.executescript(
+            "CREATE TABLE run_log(run_id TEXT,stage TEXT,started_at TEXT,"
+            "finished_at TEXT,calls INT,units_spent INT,items INT,note TEXT);"
+            "CREATE TABLE storage_ledger(day TEXT,location TEXT,bytes INT);")
+        con.execute("INSERT INTO run_log VALUES('r','harvest_comments',?,?,5,5,9,'due=5')",
+                    (now, now))
+        con.commit()
+        return con
+
+    hc.DATA_MOUNT = str(tmp_path)
+
+    hc.BACKUP_LOG = str(_backup_log(tmp_path, now, 'ok'))
+    assert [p for p in hc.checks(db_with_run()) if 'backup' in p.lower()] == []
+
+    hc.BACKUP_LOG = str(_backup_log(tmp_path, now, 'malformed database'))
+    assert any('not' in p and 'ok' in p
+               for p in hc.checks(db_with_run()) if 'integrity_check' in p)
+
+    hc.BACKUP_LOG = str(_backup_log(tmp_path, daily._iso_days_ago(3), 'ok'))
+    assert any('old' in p for p in hc.checks(db_with_run()) if 'integrity_check' in p)
+
+    hc.BACKUP_LOG = str(tmp_path / "gone.log")
+    assert any('No usable backup verdict' in p for p in hc.checks(db_with_run()))
