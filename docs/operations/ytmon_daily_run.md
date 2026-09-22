@@ -166,8 +166,13 @@ they are also **charged** against the budget.
 
 | Flag | `units` column | Compare against the console |
 |---|---|---|
-| `false` (current) | 200 responses only | `units + error_calls` |
-| `true` | 200s and served errors | `units` |
+| `false` | 200 responses only | `units + error_calls` |
+| **`true` (current, from Pacific day 2026-09-23)** | 200s and served errors | `units` |
+
+Settled against the console on the two days a figure exists for. 09-16 (a
+200-only build): console 6,666 against 6,606 errors-charged (0.91%) and 6,394
+200-only (4.25%). 09-22 (an errors-charging build): console 6,348 against 6,348
+(0.00%) and 6,264 (1.34%). Both reject 200-only outside 1%.
 
 `daily.py status` prints both columns and their sum for the last 7 Pacific days.
 

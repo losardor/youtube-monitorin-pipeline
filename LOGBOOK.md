@@ -412,16 +412,36 @@ State: comments 83,126 pending / 21,047 done / 4,548 expired. refresh_videos que
 Storage: live DB +62 MB/day, `/data/ytmon` +298 MB/day, NAS +164 MB/day. Backups present every night since 09-17, NAS pruning to 3 dailies correct.
 
 ### Gate 3: 5 of 6
+(Item (e) was recorded as passing on a misattributed console figure; corrected below. It passes, on two days rather than one.)
 - (a) three consecutive clean cron runs: verified, 09-19/20/21.
 - (b) forced flock collision, (c) backup restore with integrity_check, (d) cluster-venv pytest (150 passed, 1 skipped): verified 09-18.
-- (e) ledger vs console for Pacific day 2026-09-16: passed. Ledger 7,117 units, of which 723 pre-cutover on the old project, so 6,394 on the daily project; console 6,348; difference 46 units, 0.72%. The day also had 212 uncharged 403 commentsDisabled responses; the console sitting below the ledger means Google's billing of error responses is undetermined from this day. Settled on 09-20/09-21 with the error_calls diagnostic (below).
+- (e) ledger vs console: **passed on 2026-09-16 and 2026-09-22.**
+
+  **Correction (2026-09-22, after the entry was first written).** The 6,348 figure recorded here as 09-16's console reading is not 09-16's: it was read on Pacific day 09-22 and is that day's usage. 09-16's console figure is 6,666, supplied on 09-16. The original line compared 6,348 against 09-16's ledger and drew the wrong conclusion from the difference.
+
+  Which figure the console should match depends on what the build was charging that day. `a4c5d37` (charge served errors) was committed 2026-09-16 13:53 CEST, *after* the last 09-16 run started at 13:09 CEST, so the 09-16 runs charged HTTP 200 only; every run from 09-17 to 09-22 ran a build containing it and charged served errors.
+
+  | day | regime | console | 200-only | errors-charged | verdict |
+  |---|---|---|---|---|---|
+  | 09-16 | 200-only | 6,666 | 6,394 (4.25%) | 6,606 (**0.91%**) | errors-charged |
+  | 09-22 | charged | 6,348 | 6,264 (1.34%) | 6,348 (**0.00%**) | errors-charged |
+
+  (09-16 figures are the daily project only, i.e. the 7,117-unit ledger less the 723 units spent pre-cutover on the old project.)
+
+  Both days match the errors-charged figure inside 1% and reject the 200-only figure outside it. **YouTube does bill a response it served with a non-quota error.** Console figures for 09-20 and 09-21 were not supplied (placeholders in the request); 09-21 would be the sharper test of the two, its two hypotheses being 3.13% apart against 09-20's 1.02%.
+
+  Served errors were 403 `commentsDisabled` in every case bar one 400 `processingFailure` on 09-22: 212 / 41 / 92 / 98 / 63 / 199 / 84 across 09-16 to 09-22.
 - (f) sizing re-derivation after seven runs: open, seventh run due 09-23.
 
 ### Defects found and fixed in this entry's branch (`fix/gate3-followups`)
 1. `resolve_channels` skipped whole days: due test compared `last_checked` against run start minus exactly one day, with `last_checked` written at stage start, so cron jitter decided staleness. Channel snapshots missing for 09-19 and 09-22. Fixed with the Pacific-date comparison discovery already uses (ee6a1d3).
 2. `backup.sh` output was discarded (no redirect, no MTA). Now logs to `logs/backup.log`, prints `integrity_check: <result>`, exits non-zero on anything other than ok; healthcheck alerts on a stale or failed verdict.
 3. `daily.py status` required an API key it never used. Client construction is now lazy.
-4. Ledger counted HTTP 200 only. `quota_ledger.error_calls` now counts non-quota error responses per endpoint and day; `quota.charge_error_responses` (default false) charges them when set; `daily.py status` prints units, calls, error_calls and their sum for the last 7 Pacific days for console comparison. Flipping the flag is a LOGBOOK event with its Pacific day.
+4. Ledger counted HTTP 200 only. `quota_ledger.error_calls` now counts non-quota error responses per endpoint and day; `quota.charge_error_responses` charges them when set; `daily.py status` prints units, calls, error_calls and their sum for the last 7 Pacific days for console comparison.
+
+   **`821d5e6` reversed `a4c5d37` on a misread console figure.** `a4c5d37` had charged served errors unconditionally; `821d5e6` put that behind a flag defaulting to false, on the reasoning that the console sat *below* the ledger on 09-16 and so could not support charging. That reasoning rested on comparing 09-22's console figure against 09-16's ledger. With each day's figure matched to its own ledger and its own charging regime, both available days say the opposite: served errors are billed.
+
+   **`quota.charge_error_responses` is therefore `true`, effective Pacific day 2026-09-23** (set 2026-09-22, before that day's 09:18 Rome run). This restores `a4c5d37`'s arithmetic, but deliberately and with `error_calls` recorded separately, so the question stays answerable from the data rather than from an assumption. Flipping it back is a LOGBOOK event carrying its Pacific day.
 5. One 400 processingFailure on commentThreads (61inYxp3n2A) left the video pending; retry on a later run confirmed as-is. `harvest_comments` sets the state back to `pending` and `_comment_queue` admits any pending video without consulting a failure count, so no retry counter was added; the live row still reads `pending` with `comment_pages_fetched = 0`. A second test pins the bound that makes a counter unnecessary: a permanently failing video is retired by the expiry sweep when it ages out of its tier's tracking window.
 
 ### Observations
