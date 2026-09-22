@@ -23,8 +23,14 @@ log() { echo "$(date -u +%FT%TZ) [backup] $*"; }
 OUT="$LOCAL/ytmon_${DAY}.db"
 log "backing up $DB -> $OUT"
 sqlite3 "$DB" ".backup '$OUT'"
-if [ "$(sqlite3 "$OUT" 'PRAGMA integrity_check;' | head -1)" != "ok" ]; then
-  log "FATAL: integrity_check failed on $OUT"
+
+# Printed verbatim and on its own line: deploy/healthcheck.py parses the most
+# recent "integrity_check:" line out of logs/backup.log, so the wording here is
+# an interface, not a message.
+INTEGRITY=$(sqlite3 "$OUT" 'PRAGMA integrity_check;' | head -1)
+log "integrity_check: $INTEGRITY"
+if [ "$INTEGRITY" != "ok" ]; then
+  log "FATAL: integrity_check did not return ok for $OUT"
   exit 1
 fi
 gzip -f "$OUT"

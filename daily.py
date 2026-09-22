@@ -39,14 +39,23 @@ DEFAULT_CONFIG = 'config/config_daily.yaml'
 logger = logging.getLogger('daily')
 
 
-def load_config(path: str) -> dict:
+def load_config(path: str, require_key: bool = True) -> dict:
+    """
+    Read the config and attach the API key from the environment.
+
+    require_key is False for commands that only read the database. `status`
+    makes no API call, and demanding a key to print a table meant the
+    documented routine check failed unless .env had been sourced first --
+    which the operations doc did not say, because the requirement was
+    incidental rather than intended.
+    """
     with open(path) as f:
         cfg = yaml.safe_load(f)
 
     # The key comes from the environment, never from the config file: the
     # config is committed, the key is not.
     key = os.environ.get('YOUTUBE_API_KEY') or (cfg.get('api') or {}).get('youtube_api_key')
-    if not key:
+    if not key and require_key:
         raise SystemExit(
             "No API key. Set YOUTUBE_API_KEY in the environment "
             "(deploy/run_daily.sh sources .env)."
@@ -97,8 +106,11 @@ def cmd_run(args) -> int:
         # queueing behind it for hours. The cron healthcheck reports it.
         with advisory_lock(lock_path, blocking=False):
             db = open_db(cfg, allow_replica=args.i_know_this_is_a_replica)
-            governor = QuotaGovernor(db.conn, budget,
-                                     forbidden_endpoints=DAILY_FORBIDDEN_ENDPOINTS)
+            governor = QuotaGovernor(
+                db.conn, budget,
+                forbidden_endpoints=DAILY_FORBIDDEN_ENDPOINTS,
+                charge_error_responses=cfg['quota'].get(
+                    'charge_error_responses', False))
             client = YouTubeAPIClient(
                 api_key=cfg['api']['youtube_api_key'],
                 max_retries=cfg.get('api', {}).get('max_retries', 3),
@@ -120,7 +132,8 @@ def cmd_run(args) -> int:
 
 
 def cmd_status(args) -> int:
-    cfg = load_config(args.config)
+    # Database only: no client is constructed, so no key is needed.
+    cfg = load_config(args.config, require_key=False)
     db = open_db(cfg, allow_replica=args.i_know_this_is_a_replica)
     con = db.conn
     budget = cfg['quota']['daily_budget']
@@ -137,6 +150,27 @@ def cmd_status(args) -> int:
         print("  no calls recorded today")
     print(f"  {'TOTAL':<20} {'':>8}        {governor.spent_today():>10,} units "
           f"of {budget:,} ({governor.remaining():,} left)")
+
+    print("\nLedger, last 7 Pacific days")
+    print("-" * 72)
+    print(f"  {'day':<12} {'units':>8} {'calls':>8} {'error_calls':>12} "
+          f"{'units+errors':>13}")
+    ledger = con.execute("""
+        SELECT day, SUM(units), SUM(calls), SUM(COALESCE(error_calls, 0))
+          FROM quota_ledger GROUP BY day ORDER BY day DESC LIMIT 7
+    """).fetchall()
+    for day, units, calls, errors in ledger:
+        note = ''
+        if day == '2026-09-16':
+            note = '  <- 723 units of this belong to the old Cloud project'
+        print(f"  {day:<12} {units:>8,} {calls:>8,} {errors:>12,} "
+              f"{units + errors:>13,}{note}")
+    if not cfg['quota'].get('charge_error_responses', False):
+        print("  charge_error_responses is false: compare 'units+errors' with "
+              "the Cloud console.")
+    else:
+        print("  charge_error_responses is TRUE: error responses are already "
+              "in 'units'; compare that column.")
 
     print("\nChannels by tier and status")
     print("-" * 56)

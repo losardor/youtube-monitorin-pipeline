@@ -26,7 +26,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src import daily                                              # noqa: E402
 from src.database import Database                                  # noqa: E402
-from src.errors import CommentsDisabled, QuotaExhausted            # noqa: E402
+from src.errors import (                                          # noqa: E402
+    APIError, CommentsDisabled, ItemUnavailable, QuotaExhausted,
+)
 from src.lock import advisory_lock, LockUnavailable                # noqa: E402
 from src.quota import QuotaGovernor, DAILY_FORBIDDEN_ENDPOINTS     # noqa: E402
 
@@ -606,10 +608,11 @@ def test_item_unavailable_does_not_stop_the_run(tmp_path):
 
     with pytest.raises(ItemUnavailable):
         client._call(gone, endpoint="videos")
-    # Charged: the API served this request and billed for it. This assertion
-    # previously expected 0, which encoded the under-counting that put the
-    # ledger 4.25% below the console on the first live run.
-    assert gov.spent_today() == 1
+    # Counted, not charged: charge_error_responses defaults to false while
+    # whether YouTube bills served errors is undetermined. The error is still
+    # visible in the ledger, which is the point of the separate column.
+    assert gov.spent_today() == 0
+    assert con_error_calls(db.conn, 'videos') == 1
     db.close()
 
 
@@ -1594,15 +1597,19 @@ def test_database_writes_the_expected_timestamp_format(tmp_path):
 
 def test_served_error_responses_are_charged(tmp_path):
     """
-    YouTube bills a request it served, whatever it answered.
+    A served error costs a unit -- when charge_error_responses is on.
 
-    The first live run left 212 commentsDisabled responses uncharged and the
-    ledger read 4.25% below the Cloud console. The reporting gap was the
-    smaller problem: the governor believed it had 212 more units than it did,
-    so it could overspend the real ceiling.
+    Written when the client charged every served response unconditionally,
+    after 212 uncharged commentsDisabled responses put the ledger 4.25% below
+    the console. That reading did not survive contact with 2026-09-16, where
+    the console sat *below* the ledger, so whether YouTube bills these is now
+    treated as undetermined: they are always counted in error_calls and
+    charged only behind the flag. This test pins the flag-on branch; the
+    flag-off default is pinned by
+    test_error_response_counted_not_charged_with_flag_off.
     """
     db = Database(db_path=str(tmp_path / "charge.db"))
-    gov = QuotaGovernor(db.conn, 500)
+    gov = QuotaGovernor(db.conn, 500, charge_error_responses=True)
     client = _client(tmp_path, governor=gov)
 
     def disabled():
@@ -1809,3 +1816,398 @@ def test_stage_notes_carry_a_parseable_due_count(tmp_path):
     assert len(notes) == 4
     for note in notes:
         assert re.search(r'due=\d+', note or ''), note
+
+
+# ---------------------------------------------------------------------------
+# Task 1: resolve_channels cadence on Pacific dates
+# ---------------------------------------------------------------------------
+
+def test_resolve_cadence_survives_sub_second_cron_jitter(tmp_path):
+    """
+    The 2026-09-19 / 2026-09-22 case.
+
+    last_checked is written at stage start, and the old test compared it
+    against "run start minus exactly one day". Whether a channel was stale
+    therefore turned on whether today's cron fired a few hundred milliseconds
+    earlier or later than yesterday's -- the channel series lost two whole
+    days to that. A date comparison cannot flip on jitter.
+    """
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['channel_refresh_days'] = 1
+
+    # Checked yesterday at 07:18:02.100; "now" is 07:18:01.700 today -- 400 ms
+    # short of a full day, which the old arithmetic scored as fresh.
+    con.execute("UPDATE channels SET status='active', "
+                "last_checked = '2026-09-21T07:18:02.100000'")
+    con.commit()
+
+    from src.daily import due_by_date
+    frag, param = due_by_date('last_checked', 1, today='2026-09-22')
+    due = con.execute(
+        f"SELECT COUNT(*) FROM channels WHERE {frag}", (param,)).fetchone()[0]
+    assert due == 3, "a channel checked yesterday must be due today"
+
+    # (b) checked earlier the same Pacific day -> not due
+    con.execute("UPDATE channels SET last_checked = '2026-09-22T00:00:01'")
+    con.commit()
+    still = con.execute(
+        f"SELECT COUNT(*) FROM channels WHERE {frag}", (param,)).fetchone()[0]
+    assert still == 0, "a channel checked today must not be due again today"
+
+    # NULL is always due: never observed, so always owed an observation.
+    con.execute("UPDATE channels SET last_checked = NULL WHERE channel_id = ?",
+                (CH[0],))
+    con.commit()
+    assert con.execute(
+        f"SELECT COUNT(*) FROM channels WHERE {frag}", (param,)).fetchone()[0] == 1
+
+
+def test_resolve_channels_queues_a_channel_checked_yesterday(tmp_path):
+    """End to end through the stage, not just the SQL fragment."""
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['channel_refresh_days'] = 1
+
+    con.execute("UPDATE channels SET status='active', last_checked = ?",
+                (daily._iso_days_ago(1),))
+    con.commit()
+    result = daily.resolve_channels(con, yt, cfg, "run-jitter")
+    assert result['queued'] == 3
+
+    # Immediately afterwards only the dead channel is queued: an unresolved
+    # channel is retried every run regardless of cadence, which is deliberate
+    # and cheap (1 unit for the whole batch). The two that resolved are not
+    # due again today.
+    again = daily.resolve_channels(con, yt, cfg, "run-jitter-2")
+    assert again['queued'] == 1
+    assert con.execute(
+        "SELECT status FROM channels WHERE channel_id = ?", (DEAD,)
+    ).fetchone()[0] == 'unresolved'
+
+
+def test_both_stages_share_one_cadence_helper():
+    """They drifted apart once; the helper is what stops it recurring."""
+    import inspect
+    from src import daily as mod
+    src_resolve = inspect.getsource(mod.resolve_channels)
+    src_discover = inspect.getsource(mod.discover_uploads)
+    assert 'due_by_date' in src_resolve
+    assert 'due_by_date' in src_discover
+    # Neither stage may reconstruct the test by hand.
+    assert 'last_checked < ?' not in src_resolve
+
+
+# ---------------------------------------------------------------------------
+# Task 2: backup verdict
+# ---------------------------------------------------------------------------
+
+def _hc():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        'ytmon_hc', str(Path(__file__).resolve().parents[1] / 'deploy' / 'healthcheck.py'))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _backup_log(tmp_path, stamp, result):
+    path = tmp_path / "backup.log"
+    path.write_text(
+        f"2026-09-22T03:34:00Z [backup] backing up /data/ytmon/x.db -> /tmp/y.db\n"
+        f"{stamp} [backup] integrity_check: {result}\n"
+        f"2026-09-22T03:35:00Z [backup] done\n")
+    return path
+
+
+def test_backup_verdict_recent_ok(tmp_path):
+    hc = _hc()
+    recent = daily.utcnow()
+    when, result = hc.backup_verdict(str(_backup_log(tmp_path, recent, 'ok')))
+    assert result == 'ok' and when is not None
+
+
+def test_backup_verdict_recent_failure(tmp_path):
+    hc = _hc()
+    log = _backup_log(tmp_path, daily.utcnow(),
+                      '*** in database main *** Page 42 is never used')
+    when, result = hc.backup_verdict(str(log))
+    assert result.startswith('***')
+    assert when is not None
+
+
+def test_backup_verdict_stale(tmp_path):
+    hc = _hc()
+    old = daily._iso_days_ago(3)
+    when, result = hc.backup_verdict(str(_backup_log(tmp_path, old, 'ok')))
+    assert result == 'ok'
+    age_h = (daily.utcnow_dt() - when).total_seconds() / 3600
+    assert age_h > hc.BACKUP_STALE_HOURS
+
+
+def test_backup_verdict_missing_log_is_reported_not_fatal(tmp_path):
+    hc = _hc()
+    when, result = hc.backup_verdict(str(tmp_path / "nope.log"))
+    assert when is None and result == 'missing'
+    # And a log with no verdict at all is distinguishable from a missing one.
+    empty = tmp_path / "empty.log"
+    empty.write_text("2026-09-22T03:34:00Z [backup] backing up\n")
+    assert hc.backup_verdict(str(empty)) == (None, 'no integrity_check line')
+
+
+def test_healthcheck_reports_each_backup_state(tmp_path, monkeypatch):
+    import sqlite3 as sq
+    hc = _hc()
+    monkeypatch.setenv('YTMON_DATA_MOUNT', str(tmp_path))
+    now = daily.utcnow()
+
+    def db_with_run():
+        con = sq.connect(':memory:')
+        con.executescript(
+            "CREATE TABLE run_log(run_id TEXT,stage TEXT,started_at TEXT,"
+            "finished_at TEXT,calls INT,units_spent INT,items INT,note TEXT);"
+            "CREATE TABLE storage_ledger(day TEXT,location TEXT,bytes INT);")
+        con.execute("INSERT INTO run_log VALUES('r','harvest_comments',?,?,5,5,9,'due=5')",
+                    (now, now))
+        con.commit()
+        return con
+
+    hc.DATA_MOUNT = str(tmp_path)
+
+    hc.BACKUP_LOG = str(_backup_log(tmp_path, now, 'ok'))
+    assert [p for p in hc.checks(db_with_run()) if 'backup' in p.lower()] == []
+
+    hc.BACKUP_LOG = str(_backup_log(tmp_path, now, 'malformed database'))
+    assert any('not' in p and 'ok' in p
+               for p in hc.checks(db_with_run()) if 'integrity_check' in p)
+
+    hc.BACKUP_LOG = str(_backup_log(tmp_path, daily._iso_days_ago(3), 'ok'))
+    assert any('old' in p for p in hc.checks(db_with_run()) if 'integrity_check' in p)
+
+    hc.BACKUP_LOG = str(tmp_path / "gone.log")
+    assert any('No usable backup verdict' in p for p in hc.checks(db_with_run()))
+
+
+# ---------------------------------------------------------------------------
+# Task 3: status without an API key
+# ---------------------------------------------------------------------------
+
+def test_status_runs_without_an_api_key(tmp_path, monkeypatch, capsys):
+    """
+    `daily.py status` reads the database and calls nothing.
+
+    It used to construct the client eagerly, so the documented routine check
+    failed with "No API key" unless .env had been sourced -- a requirement that
+    was incidental, not intended.
+    """
+    import yaml as _yaml
+    import daily as cli
+
+    db_path = tmp_path / "status.db"
+    Database(db_path=str(db_path)).close()
+
+    cfg = _yaml.safe_load(open('config/config_daily.yaml'))
+    cfg['database']['sqlite_path'] = str(db_path)
+    cfg_path = tmp_path / "cfg.yaml"
+    cfg_path.write_text(_yaml.safe_dump(cfg))
+
+    monkeypatch.delenv('YOUTUBE_API_KEY', raising=False)
+
+    rc = cli.main(['status', '--config', str(cfg_path)])
+    assert rc == 0
+    out = capsys.readouterr().out
+    assert 'Quota' in out and 'Channels by tier' in out
+
+
+def test_run_still_requires_an_api_key(tmp_path, monkeypatch):
+    """The relaxation must not leak into the stage that does call the API."""
+    import daily as cli
+    monkeypatch.delenv('YOUTUBE_API_KEY', raising=False)
+    with pytest.raises(SystemExit):
+        cli.load_config('config/config_daily.yaml')
+    # ...while the read-only path is fine.
+    cfg = cli.load_config('config/config_daily.yaml', require_key=False)
+    assert cfg['api']['youtube_api_key'] in (None, '')
+
+
+# ---------------------------------------------------------------------------
+# Task 4: error_calls diagnostic
+# ---------------------------------------------------------------------------
+
+def con_error_calls(con, endpoint):
+    row = con.execute(
+        "SELECT COALESCE(error_calls, 0) FROM quota_ledger WHERE endpoint = ?",
+        (endpoint,)).fetchone()
+    return row[0] if row else 0
+
+
+def _gov_client(tmp_path, charge_errors=False, budget=500):
+    db = Database(db_path=str(tmp_path / "led.db"))
+    gov = QuotaGovernor(db.conn, budget, charge_error_responses=charge_errors)
+    return db, gov, _client(tmp_path, governor=gov)
+
+
+def _ledger(con, endpoint='commentThreads'):
+    row = con.execute(
+        "SELECT calls, units, error_calls FROM quota_ledger WHERE endpoint = ?",
+        (endpoint,)).fetchone()
+    return tuple(row) if row else (0, 0, 0)
+
+
+def test_error_response_counted_not_charged_with_flag_off(tmp_path):
+    db, gov, client = _gov_client(tmp_path, charge_errors=False)
+
+    def disabled():
+        raise _http_error(403, "commentsDisabled", "comments are disabled")
+
+    with pytest.raises(CommentsDisabled):
+        client._call(disabled, endpoint="commentThreads")
+
+    calls, units, errors = _ledger(db.conn)
+    assert (calls, units, errors) == (0, 0, 1)
+    assert gov.spent_today() == 0
+    db.close()
+
+
+def test_error_response_charged_with_flag_on(tmp_path):
+    db, gov, client = _gov_client(tmp_path, charge_errors=True)
+
+    def disabled():
+        raise _http_error(403, "commentsDisabled", "comments are disabled")
+
+    with pytest.raises(CommentsDisabled):
+        client._call(disabled, endpoint="commentThreads")
+
+    calls, units, errors = _ledger(db.conn)
+    assert (calls, units, errors) == (1, 1, 1)
+    assert gov.spent_today() == 1
+    db.close()
+
+
+def test_quota_exhausted_touches_neither_column(tmp_path):
+    for flag in (False, True):
+        sub = tmp_path / f"q{int(flag)}"
+        sub.mkdir(exist_ok=True)
+        db, gov, client = _gov_client(sub, charge_errors=flag)
+
+        def exhausted():
+            raise _http_error(403, "quotaExceeded", "quota exceeded")
+
+        with pytest.raises(QuotaExhausted):
+            client._call(exhausted, endpoint="channels")
+        assert _ledger(db.conn, 'channels') == (0, 0, 0)
+        assert gov.spent_today() == 0
+        assert gov.session_error_calls == 0
+        db.close()
+
+
+def test_two_hundred_responses_behave_as_before(tmp_path):
+    db, gov, client = _gov_client(tmp_path, charge_errors=False)
+    client._call(lambda: {"items": []}, endpoint="channels")
+    assert _ledger(db.conn, 'channels') == (1, 1, 0)
+    assert gov.spent_today() == 1
+    db.close()
+
+
+def test_error_calls_column_is_added_to_an_existing_database(tmp_path):
+    """Additive migration: old rows read 0, nothing is rewritten."""
+    import sqlite3 as sq
+    path = tmp_path / "legacy_ledger.db"
+    con = sq.connect(str(path))
+    con.executescript(
+        "CREATE TABLE quota_ledger(day TEXT NOT NULL, endpoint TEXT NOT NULL,"
+        " calls INTEGER, units INTEGER, PRIMARY KEY(day,endpoint));"
+        "INSERT INTO quota_ledger VALUES('2026-09-16','channels',89,89);")
+    con.commit()
+    con.close()
+
+    db = Database(db_path=str(path))
+    row = db.conn.execute(
+        "SELECT day, endpoint, calls, units, error_calls FROM quota_ledger"
+    ).fetchone()
+    assert tuple(row) == ('2026-09-16', 'channels', 89, 89, 0)
+    db.close()
+
+
+# ---------------------------------------------------------------------------
+# Task 5: a video that failed with APIError retries on the next run
+# ---------------------------------------------------------------------------
+
+class FlakyComments(FakeYouTube):
+    """Raises APIError for one video, serves every other normally."""
+
+    def __init__(self, gov, fail_for, fail_times=1):
+        super().__init__(gov)
+        self.fail_for = fail_for
+        self.remaining = fail_times
+
+    def comment_threads(self, video_id, page_token=None, order="time"):
+        if video_id == self.fail_for and self.remaining > 0:
+            self.remaining -= 1
+            self.governor.charge('commentThreads', 1)
+            raise APIError(400, 'processingFailure',
+                           'The API server failed to process the request')
+        return super().comment_threads(video_id, page_token, order)
+
+
+def test_api_error_leaves_the_video_eligible_for_the_next_run(tmp_path):
+    """
+    The 2026-09-22 case: commentThreads answered 400 processingFailure for
+    video 61inYxp3n2A, which stayed `pending` and was still pending at the
+    time of the 09-22 inspection.
+
+    No retry counter is needed: APIError sets state back to 'pending', and the
+    queue admits any pending video without consulting a failure count. The
+    expiry sweep is what bounds an endlessly failing video -- it ages out of
+    its tier's tracking window like any other.
+    """
+    con, gov, _ = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['limits']['fetch_full_replies'] = False
+
+    con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                "comments_state) VALUES ('vflaky', ?, ?, 'pending')",
+                (CH[0], daily._iso_days_ago(1)))
+    con.commit()
+
+    yt = FlakyComments(gov, fail_for='vflaky', fail_times=1)
+    first = daily.harvest_comments(con, yt, cfg, "run-fail")
+    assert first['comments'] == 0
+
+    state = con.execute(
+        "SELECT comments_state FROM videos WHERE video_id = 'vflaky'").fetchone()[0]
+    assert state == 'pending', "an APIError must not retire the video"
+
+    # Still in the queue, with no special handling.
+    assert 'vflaky' in {r['video_id'] for r in daily._comment_queue(con, cfg)}
+
+    # Next run the API behaves and the video is harvested.
+    second = daily.harvest_comments(con, yt, cfg, "run-retry")
+    assert second['comments'] > 0
+    assert con.execute(
+        "SELECT comments_state FROM videos WHERE video_id = 'vflaky'"
+    ).fetchone()[0] == 'done'
+
+
+def test_a_permanently_failing_video_is_bounded_by_expiry(tmp_path):
+    """Repeated failure does not accumulate forever: the window retires it."""
+    con, gov, _ = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['comment_tracking_days'] = {'0': 30}
+    cfg['limits']['fetch_full_replies'] = False
+
+    # Published beyond the tier's window, still pending after failures.
+    con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                "comments_state) VALUES ('vold', ?, ?, 'pending')",
+                (CH[0], daily._iso_days_ago(40)))
+    con.commit()
+
+    yt = FlakyComments(gov, fail_for='vold', fail_times=99)
+    daily.harvest_comments(con, yt, cfg, "run-bound")
+    assert con.execute(
+        "SELECT comments_state FROM videos WHERE video_id = 'vold'"
+    ).fetchone()[0] == 'expired'

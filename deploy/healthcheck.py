@@ -35,6 +35,10 @@ FREE_GB_FLOOR = 10
 NAS_GROWTH_LIMIT = 0.25
 NAS_GROWTH_MIN_BYTES = 1_000_000_000
 STALE_HOURS = 36
+BACKUP_LOG = os.environ.get(
+    'YTMON_BACKUP_LOG',
+    '/data/home/infosphere/youtube_monitoring/logs/backup.log')
+BACKUP_STALE_HOURS = 36
 
 
 def load_notify():
@@ -43,6 +47,36 @@ def load_notify():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module.notify
+
+
+def backup_verdict(path: str = None) -> tuple:
+    """
+    The most recent integrity_check verdict from the backup log.
+
+    Returns (when, result) or (None, reason). Parsing the log rather than
+    re-reading the backup file keeps this cheap and, more to the point, checks
+    what the backup job actually observed at the time it ran.
+    """
+    log_path = Path(path or BACKUP_LOG)
+    if not log_path.exists():
+        return None, 'missing'
+    try:
+        lines = log_path.read_text(errors='replace').splitlines()
+    except OSError as e:
+        return None, f'unreadable: {e}'
+
+    for line in reversed(lines):
+        match = re.search(
+            r'^(\S+)\s+\[backup\]\s+integrity_check:\s*(.+?)\s*$', line)
+        if match:
+            stamp, result = match.group(1), match.group(2)
+            try:
+                when = datetime.fromisoformat(stamp.replace('Z', '+00:00'))
+                when = when.replace(tzinfo=None)
+            except ValueError:
+                return None, f'unparseable timestamp: {stamp[:40]}'
+            return when, result
+    return None, 'no integrity_check line'
 
 
 def checks(con) -> list:
@@ -103,6 +137,23 @@ def checks(con) -> list:
         if free_gb < FREE_GB_FLOOR:
             problems.append(f"Free space on {DATA_MOUNT} is {free_gb:.1f} GB, "
                             f"under the {FREE_GB_FLOOR} GB floor.")
+
+    # A backup nobody verified is not a backup. Treated like the NAS mount: a
+    # missing log is reported, not fatal, because the rest of the check still
+    # carries information.
+    when, result = backup_verdict()
+    if when is None:
+        problems.append(f"No usable backup verdict in {BACKUP_LOG} ({result}).")
+    elif result != 'ok':
+        problems.append(
+            f"Last backup integrity_check returned {result!r} at {when.isoformat()}, "
+            f"not 'ok'.")
+    else:
+        age_h = (utcnow_dt() - when).total_seconds() / 3600
+        if age_h > BACKUP_STALE_HOURS:
+            problems.append(
+                f"Last backup integrity_check is {age_h:.1f}h old "
+                f"({when.isoformat()}); the backup job may not be running.")
 
     rows = con.execute("""
         SELECT day, bytes FROM storage_ledger

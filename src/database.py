@@ -247,13 +247,23 @@ class Database:
             # API's own quota counter resets.
             self.cursor.execute("""
                 CREATE TABLE IF NOT EXISTS quota_ledger (
-                    day      TEXT NOT NULL,
-                    endpoint TEXT NOT NULL,
-                    calls    INTEGER,
-                    units    INTEGER,
+                    day         TEXT NOT NULL,
+                    endpoint    TEXT NOT NULL,
+                    calls       INTEGER,
+                    units       INTEGER,
+                    error_calls INTEGER NOT NULL DEFAULT 0,
                     PRIMARY KEY (day, endpoint)
                 )
             """)
+
+            # error_calls counts responses the API served with a non-quota
+            # error. Whether Google bills those is not documented and could not
+            # be settled from 2026-09-16, where the console sat *below* the
+            # ledger. Counting them separately makes the question answerable
+            # from any later day without changing what is charged.
+            self._add_missing_columns('quota_ledger', {
+                'error_calls': 'INTEGER NOT NULL DEFAULT 0',
+            })
 
             self.cursor.execute("""
                 CREATE TABLE IF NOT EXISTS run_log (
