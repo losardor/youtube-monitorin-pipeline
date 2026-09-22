@@ -1,8 +1,8 @@
 # YouTube Monitoring Pipeline - Logbook
 
-## Current Status (as of 2026-09-16)
+## Current Status (as of 2026-09-22)
 
-**Current phase:** Phase 3 **deployed**. The production database is now `gdelt-server:/data/ytmon/youtube_monitoring.db`; the local file is a replica and both entry points refuse it. Cron is live at 09:18 / 12:46 / 03:34 Europe/Rome. Awaiting three cron mornings before the Gate 3 report.
+**Current phase:** Phase 3 running. Six cron runs on six consecutive days (09-17 to 09-22). **Gate 3 at 5 of 6**; (f) sizing re-derivation opens with the seventh run on 09-23. Post-Gate-3 follow-ups deployed as `b177bf3` (tag `ytmon-gate3-followups`).
 
 - **Production database:** `gdelt-server:/data/ytmon/youtube_monitoring.db` (cutover 2026-09-16T10:47:44Z) — 2,856 tier 0, 788 tier 1, 668 tier 2, 1,724 tier 3. `collect_tiers: [0, 1, 2]`. The Mac copy is `data/youtube_monitoring.replica.db` and is refused by the replica guard.
 - **Gate 2:** tier 1 0/25 = 0%; tier 2 4/50 = 8% on the redraw under rule (a), 4/63 = 6.3% pooled. Both pass.
@@ -397,6 +397,38 @@ on the same inode, so they will contend on Linux, but **this needs confirming on
   `docs/operations/ytmon_daily_run.md` are phase 3; `DEPLOYMENT.md` already
   references the 09:17 slot they will implement.
 - `SERVER_MIGRATION_GUIDE.md` still needs its superseded-by notice (phase 3).
+
+---
+
+## 2026-09-22: Cluster status check, day 6 of the daily series; Gate 3 at 5 of 6
+
+Read-only inspection of infosphereVM by CC; full report in `docs/reports/cluster_status_2026-09-22.md`. Deployed `deploy/VERSION` was 2f34fbc, the `production` tip (`feat/post-gate3` merged as b941df2, three LOGBOOK-only commits after it); the 09-17 and 09-18 runs were on 93debfa, the 09-19 to 09-22 runs on the current build.
+
+### Series health
+Six cron runs on six consecutive days (09-17 to 09-22), all four stages non-zero, no zero-unit stage. Units per day 6,255 to 6,551 of the 9,000 budget. Comments hit their share ceiling on every run, refresh_videos on 09-19, 09-21 and 09-22. run.jsonl agrees with run_log on every figure. The 09-18 ledger exceeds run_log by exactly 32 units: the `recheck_unresolved.py` pass, ledger-charged, belonging to no run.
+
+State: comments 83,126 pending / 21,047 done / 4,548 expired. refresh_videos queue 39,467 (09-19) to 108,743 (09-22), 58,355 cleared on 09-22. Tier 0 discovery settled into alternating cohorts of 1,683 and 1,137 channels after the 09-19 sweep could not finish 2,820 due channels inside its share; max channel age 1.08 days, cadence holding. The predicted idle discovery days never occurred, so the "no alert on an idle stage" half of that healthcheck rule is still unexercised.
+
+Storage: live DB +62 MB/day, `/data/ytmon` +298 MB/day, NAS +164 MB/day. Backups present every night since 09-17, NAS pruning to 3 dailies correct.
+
+### Gate 3: 5 of 6
+- (a) three consecutive clean cron runs: verified, 09-19/20/21.
+- (b) forced flock collision, (c) backup restore with integrity_check, (d) cluster-venv pytest (150 passed, 1 skipped): verified 09-18.
+- (e) ledger vs console for Pacific day 2026-09-16: passed. Ledger 7,117 units, of which 723 pre-cutover on the old project, so 6,394 on the daily project; console 6,348; difference 46 units, 0.72%. The day also had 212 uncharged 403 commentsDisabled responses; the console sitting below the ledger means Google's billing of error responses is undetermined from this day. Settled on 09-20/09-21 with the error_calls diagnostic (below).
+- (f) sizing re-derivation after seven runs: open, seventh run due 09-23.
+
+### Defects found and fixed in this entry's branch (`fix/gate3-followups`)
+1. `resolve_channels` skipped whole days: due test compared `last_checked` against run start minus exactly one day, with `last_checked` written at stage start, so cron jitter decided staleness. Channel snapshots missing for 09-19 and 09-22. Fixed with the Pacific-date comparison discovery already uses (ee6a1d3).
+2. `backup.sh` output was discarded (no redirect, no MTA). Now logs to `logs/backup.log`, prints `integrity_check: <result>`, exits non-zero on anything other than ok; healthcheck alerts on a stale or failed verdict.
+3. `daily.py status` required an API key it never used. Client construction is now lazy.
+4. Ledger counted HTTP 200 only. `quota_ledger.error_calls` now counts non-quota error responses per endpoint and day; `quota.charge_error_responses` (default false) charges them when set; `daily.py status` prints units, calls, error_calls and their sum for the last 7 Pacific days for console comparison. Flipping the flag is a LOGBOOK event with its Pacific day.
+5. One 400 processingFailure on commentThreads (61inYxp3n2A) left the video pending; retry on a later run confirmed as-is. `harvest_comments` sets the state back to `pending` and `_comment_queue` admits any pending video without consulting a failure count, so no retry counter was added; the live row still reads `pending` with `comment_pages_fetched = 0`. A second test pins the bound that makes a counter unnecessary: a permanently failing video is retired by the expiry sweep when it ages out of its tier's tracking window.
+
+### Observations
+- refresh_videos is unbounded: every discovered video re-enters the refresh queue and the stage shares 20% of the budget with resolve. The 09-23 sizing step decides a refresh policy (candidate: daily inside the 30-day window, weekly beyond) rather than a share.
+- Tier-0 coverage reads 1.0 because no tier-0 video has aged out of the 30-day window yet (expired = 0); the figure becomes informative around 2026-10-16.
+
+Deployed to infosphereVM as deploy/VERSION b177bf3, 2026-09-22 12:18 CEST, before the 09-23 run. Cluster pytest: 167 passed, 1 skipped.
 
 ---
 
