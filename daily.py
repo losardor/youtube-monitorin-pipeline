@@ -106,8 +106,11 @@ def cmd_run(args) -> int:
         # queueing behind it for hours. The cron healthcheck reports it.
         with advisory_lock(lock_path, blocking=False):
             db = open_db(cfg, allow_replica=args.i_know_this_is_a_replica)
-            governor = QuotaGovernor(db.conn, budget,
-                                     forbidden_endpoints=DAILY_FORBIDDEN_ENDPOINTS)
+            governor = QuotaGovernor(
+                db.conn, budget,
+                forbidden_endpoints=DAILY_FORBIDDEN_ENDPOINTS,
+                charge_error_responses=cfg['quota'].get(
+                    'charge_error_responses', False))
             client = YouTubeAPIClient(
                 api_key=cfg['api']['youtube_api_key'],
                 max_retries=cfg.get('api', {}).get('max_retries', 3),
@@ -147,6 +150,27 @@ def cmd_status(args) -> int:
         print("  no calls recorded today")
     print(f"  {'TOTAL':<20} {'':>8}        {governor.spent_today():>10,} units "
           f"of {budget:,} ({governor.remaining():,} left)")
+
+    print("\nLedger, last 7 Pacific days")
+    print("-" * 72)
+    print(f"  {'day':<12} {'units':>8} {'calls':>8} {'error_calls':>12} "
+          f"{'units+errors':>13}")
+    ledger = con.execute("""
+        SELECT day, SUM(units), SUM(calls), SUM(COALESCE(error_calls, 0))
+          FROM quota_ledger GROUP BY day ORDER BY day DESC LIMIT 7
+    """).fetchall()
+    for day, units, calls, errors in ledger:
+        note = ''
+        if day == '2026-09-16':
+            note = '  <- 723 units of this belong to the old Cloud project'
+        print(f"  {day:<12} {units:>8,} {calls:>8,} {errors:>12,} "
+              f"{units + errors:>13,}{note}")
+    if not cfg['quota'].get('charge_error_responses', False):
+        print("  charge_error_responses is false: compare 'units+errors' with "
+              "the Cloud console.")
+    else:
+        print("  charge_error_responses is TRUE: error responses are already "
+              "in 'units'; compare that column.")
 
     print("\nChannels by tier and status")
     print("-" * 56)

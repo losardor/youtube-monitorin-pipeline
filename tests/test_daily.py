@@ -606,10 +606,11 @@ def test_item_unavailable_does_not_stop_the_run(tmp_path):
 
     with pytest.raises(ItemUnavailable):
         client._call(gone, endpoint="videos")
-    # Charged: the API served this request and billed for it. This assertion
-    # previously expected 0, which encoded the under-counting that put the
-    # ledger 4.25% below the console on the first live run.
-    assert gov.spent_today() == 1
+    # Counted, not charged: charge_error_responses defaults to false while
+    # whether YouTube bills served errors is undetermined. The error is still
+    # visible in the ledger, which is the point of the separate column.
+    assert gov.spent_today() == 0
+    assert con_error_calls(db.conn, 'videos') == 1
     db.close()
 
 
@@ -1594,15 +1595,19 @@ def test_database_writes_the_expected_timestamp_format(tmp_path):
 
 def test_served_error_responses_are_charged(tmp_path):
     """
-    YouTube bills a request it served, whatever it answered.
+    A served error costs a unit -- when charge_error_responses is on.
 
-    The first live run left 212 commentsDisabled responses uncharged and the
-    ledger read 4.25% below the Cloud console. The reporting gap was the
-    smaller problem: the governor believed it had 212 more units than it did,
-    so it could overspend the real ceiling.
+    Written when the client charged every served response unconditionally,
+    after 212 uncharged commentsDisabled responses put the ledger 4.25% below
+    the console. That reading did not survive contact with 2026-09-16, where
+    the console sat *below* the ledger, so whether YouTube bills these is now
+    treated as undetermined: they are always counted in error_calls and
+    charged only behind the flag. This test pins the flag-on branch; the
+    flag-off default is pinned by
+    test_error_response_counted_not_charged_with_flag_off.
     """
     db = Database(db_path=str(tmp_path / "charge.db"))
-    gov = QuotaGovernor(db.conn, 500)
+    gov = QuotaGovernor(db.conn, 500, charge_error_responses=True)
     client = _client(tmp_path, governor=gov)
 
     def disabled():
@@ -2023,3 +2028,102 @@ def test_run_still_requires_an_api_key(tmp_path, monkeypatch):
     # ...while the read-only path is fine.
     cfg = cli.load_config('config/config_daily.yaml', require_key=False)
     assert cfg['api']['youtube_api_key'] in (None, '')
+
+
+# ---------------------------------------------------------------------------
+# Task 4: error_calls diagnostic
+# ---------------------------------------------------------------------------
+
+def con_error_calls(con, endpoint):
+    row = con.execute(
+        "SELECT COALESCE(error_calls, 0) FROM quota_ledger WHERE endpoint = ?",
+        (endpoint,)).fetchone()
+    return row[0] if row else 0
+
+
+def _gov_client(tmp_path, charge_errors=False, budget=500):
+    db = Database(db_path=str(tmp_path / "led.db"))
+    gov = QuotaGovernor(db.conn, budget, charge_error_responses=charge_errors)
+    return db, gov, _client(tmp_path, governor=gov)
+
+
+def _ledger(con, endpoint='commentThreads'):
+    row = con.execute(
+        "SELECT calls, units, error_calls FROM quota_ledger WHERE endpoint = ?",
+        (endpoint,)).fetchone()
+    return tuple(row) if row else (0, 0, 0)
+
+
+def test_error_response_counted_not_charged_with_flag_off(tmp_path):
+    db, gov, client = _gov_client(tmp_path, charge_errors=False)
+
+    def disabled():
+        raise _http_error(403, "commentsDisabled", "comments are disabled")
+
+    with pytest.raises(CommentsDisabled):
+        client._call(disabled, endpoint="commentThreads")
+
+    calls, units, errors = _ledger(db.conn)
+    assert (calls, units, errors) == (0, 0, 1)
+    assert gov.spent_today() == 0
+    db.close()
+
+
+def test_error_response_charged_with_flag_on(tmp_path):
+    db, gov, client = _gov_client(tmp_path, charge_errors=True)
+
+    def disabled():
+        raise _http_error(403, "commentsDisabled", "comments are disabled")
+
+    with pytest.raises(CommentsDisabled):
+        client._call(disabled, endpoint="commentThreads")
+
+    calls, units, errors = _ledger(db.conn)
+    assert (calls, units, errors) == (1, 1, 1)
+    assert gov.spent_today() == 1
+    db.close()
+
+
+def test_quota_exhausted_touches_neither_column(tmp_path):
+    for flag in (False, True):
+        sub = tmp_path / f"q{int(flag)}"
+        sub.mkdir(exist_ok=True)
+        db, gov, client = _gov_client(sub, charge_errors=flag)
+
+        def exhausted():
+            raise _http_error(403, "quotaExceeded", "quota exceeded")
+
+        with pytest.raises(QuotaExhausted):
+            client._call(exhausted, endpoint="channels")
+        assert _ledger(db.conn, 'channels') == (0, 0, 0)
+        assert gov.spent_today() == 0
+        assert gov.session_error_calls == 0
+        db.close()
+
+
+def test_two_hundred_responses_behave_as_before(tmp_path):
+    db, gov, client = _gov_client(tmp_path, charge_errors=False)
+    client._call(lambda: {"items": []}, endpoint="channels")
+    assert _ledger(db.conn, 'channels') == (1, 1, 0)
+    assert gov.spent_today() == 1
+    db.close()
+
+
+def test_error_calls_column_is_added_to_an_existing_database(tmp_path):
+    """Additive migration: old rows read 0, nothing is rewritten."""
+    import sqlite3 as sq
+    path = tmp_path / "legacy_ledger.db"
+    con = sq.connect(str(path))
+    con.executescript(
+        "CREATE TABLE quota_ledger(day TEXT NOT NULL, endpoint TEXT NOT NULL,"
+        " calls INTEGER, units INTEGER, PRIMARY KEY(day,endpoint));"
+        "INSERT INTO quota_ledger VALUES('2026-09-16','channels',89,89);")
+    con.commit()
+    con.close()
+
+    db = Database(db_path=str(path))
+    row = db.conn.execute(
+        "SELECT day, endpoint, calls, units, error_calls FROM quota_ledger"
+    ).fetchone()
+    assert tuple(row) == ('2026-09-16', 'channels', 89, 89, 0)
+    db.close()

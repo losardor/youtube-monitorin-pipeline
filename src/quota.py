@@ -69,12 +69,18 @@ class QuotaGovernor:
         forbidden_endpoints: endpoints refused regardless of budget
     """
 
-    def __init__(self, con, daily_budget: int, forbidden_endpoints=frozenset()):
+    def __init__(self, con, daily_budget: int, forbidden_endpoints=frozenset(),
+                 charge_error_responses: bool = False):
         self.con = con
         self.daily_budget = int(daily_budget)
         self.forbidden_endpoints = frozenset(forbidden_endpoints)
+        # Whether a served error response also costs budget. Off by default:
+        # the ledger counts them either way, so the question can be settled
+        # from data before the arithmetic is changed.
+        self.charge_error_responses = bool(charge_error_responses)
         self.session_units = 0
         self.session_calls = 0
+        self.session_error_calls = 0
 
     def spent_today(self) -> int:
         row = self.con.execute(
@@ -95,7 +101,8 @@ class QuotaGovernor:
     def charge(self, endpoint: str, cost: int) -> None:
         """Record units actually spent. Call only after a served response."""
         self.con.execute(
-            "INSERT INTO quota_ledger (day, endpoint, calls, units) VALUES (?, ?, 1, ?) "
+            "INSERT INTO quota_ledger (day, endpoint, calls, units, error_calls) "
+            "VALUES (?, ?, 1, ?, 0) "
             "ON CONFLICT(day, endpoint) DO UPDATE SET "
             "calls = calls + 1, units = units + excluded.units",
             (pacific_day(), endpoint, cost),
@@ -104,14 +111,41 @@ class QuotaGovernor:
         self.session_units += cost
         self.session_calls += 1
 
+    def charge_error(self, endpoint: str, cost: int) -> None:
+        """
+        Record a response the API served with a non-quota error.
+
+        Always counted in error_calls; charged units only when
+        charge_error_responses is set. Whether Google bills these is not
+        documented, and 2026-09-16 could not settle it because the console sat
+        below the ledger. Counting without charging lets a later day answer the
+        question at no risk to the budget arithmetic.
+        """
+        charged = cost if self.charge_error_responses else 0
+        self.con.execute(
+            "INSERT INTO quota_ledger (day, endpoint, calls, units, error_calls) "
+            "VALUES (?, ?, ?, ?, 1) "
+            "ON CONFLICT(day, endpoint) DO UPDATE SET "
+            "calls = calls + excluded.calls, "
+            "units = units + excluded.units, "
+            "error_calls = error_calls + 1",
+            (pacific_day(), endpoint, 1 if charged else 0, charged),
+        )
+        self.con.commit()
+        self.session_error_calls += 1
+        if charged:
+            self.session_units += charged
+            self.session_calls += 1
+
     def spend_by_endpoint(self, day: str | None = None) -> dict:
         """Ledger for one day as {endpoint: {'calls': n, 'units': n}}."""
         rows = self.con.execute(
-            "SELECT endpoint, calls, units FROM quota_ledger WHERE day = ? "
-            "ORDER BY units DESC",
+            "SELECT endpoint, calls, units, COALESCE(error_calls, 0) "
+            "FROM quota_ledger WHERE day = ? ORDER BY units DESC",
             (day or pacific_day(),),
         ).fetchall()
-        return {r[0]: {'calls': r[1], 'units': r[2]} for r in rows}
+        return {r[0]: {'calls': r[1], 'units': r[2], 'error_calls': r[3]}
+                for r in rows}
 
 
 class Budget:

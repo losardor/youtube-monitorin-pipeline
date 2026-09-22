@@ -153,6 +153,32 @@ the share.
 a couple of weeks of ordinary runs, so the projection reflects the steady state
 rather than the initial load.
 
+## `quota.charge_error_responses`
+
+The API answers some requests with an error it still served: `400`, `403` other
+than `quotaExceeded`/`dailyLimitExceeded`, and `404`. Whether Google bills those
+is not documented, and the one day available to settle it — 2026-09-16 — could
+not, because the console read *below* the ledger.
+
+`quota_ledger.error_calls` therefore **counts** them per endpoint per Pacific
+day, always. `quota.charge_error_responses` (default **false**) decides whether
+they are also **charged** against the budget.
+
+| Flag | `units` column | Compare against the console |
+|---|---|---|
+| `false` (current) | 200 responses only | `units + error_calls` |
+| `true` | 200s and served errors | `units` |
+
+`daily.py status` prints both columns and their sum for the last 7 Pacific days.
+
+**Flipping this flag is a LOGBOOK event and must record the Pacific day it took
+effect**, because the day's budget arithmetic changes from that day on and any
+later comparison of spend against budget would otherwise span two rules without
+saying so.
+
+Refusals are never counted or charged: a `quotaExceeded` or rate-limit response
+is the API declining to serve, not serving an error.
+
 ## Healthcheck
 
 Alerts when any of these holds:
