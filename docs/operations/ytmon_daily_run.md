@@ -119,7 +119,13 @@ day's alerts group into one mail thread.
 
 ## Backups and retention
 
-`backup.sh` runs nightly at 03:34:
+`backup.sh` runs nightly at 03:34 and **logs to `logs/backup.log`** (the
+crontab entry redirects into it; the host has no MTA, so without that redirect
+the verdict is discarded). It prints `integrity_check: <result>` verbatim and
+exits non-zero on anything other than `ok`; `healthcheck.py` parses the most
+recent such line and alerts if it is missing, older than 36 hours, or not `ok`.
+
+Steps:
 
 1. `sqlite3 .backup` of the live database, `integrity_check`, gzip.
 2. Sundays: `tar -czf` of `data/raw/` — the archived API responses.
@@ -130,7 +136,7 @@ day's alerts group into one mail thread.
 | Location | Retention |
 |---|---|
 | `/data/ytmon/backups/` | 14 daily database backups |
-| NAS `ytmon/backups/` | 14 daily, then weekly for 8 weeks, then monthly indefinitely |
+| NAS `ytmon/backups/` | 3 daily, then weekly for 8 weeks, then monthly indefinitely |
 | NAS raw tarballs | indefinitely — small, and they represent quota already spent |
 
 ### The NAS is a shared resource
@@ -209,6 +215,16 @@ stored timestamp and its own gate.
 cd /data/home/infosphere/youtube_monitoring
 .venv/bin/python daily.py status                 # quota, tiers, storage, last run
 tail -1 logs/run.jsonl | python3 -m json.tool    # last run's report
-sqlite3 /data/ytmon/youtube_monitoring.db \
-  "SELECT day, endpoint, calls, units FROM quota_ledger ORDER BY day DESC LIMIT 10;"
+tail -20 logs/backup.log                         # last backup + integrity_check
+sqlite3 -readonly /data/ytmon/youtube_monitoring.db \
+  "SELECT day, endpoint, calls, units, error_calls FROM quota_ledger ORDER BY day DESC LIMIT 10;"
+.venv/bin/python deploy/healthcheck.py --dry-run  # what it would alert on, sends nothing
 ```
+
+`status` needs **no API key** — it reads the database and calls nothing, so it
+runs without sourcing `.env`. Use `sqlite3 -readonly` for ad-hoc queries so an
+inspection can never write to the live database.
+
+`status` prints a 7-day ledger table with `units`, `calls`, `error_calls` and
+`units + error_calls`. That last column is the figure to compare against the
+Cloud console while `quota.charge_error_responses` is false — see below.

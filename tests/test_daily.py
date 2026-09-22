@@ -1981,3 +1981,45 @@ def test_healthcheck_reports_each_backup_state(tmp_path, monkeypatch):
 
     hc.BACKUP_LOG = str(tmp_path / "gone.log")
     assert any('No usable backup verdict' in p for p in hc.checks(db_with_run()))
+
+
+# ---------------------------------------------------------------------------
+# Task 3: status without an API key
+# ---------------------------------------------------------------------------
+
+def test_status_runs_without_an_api_key(tmp_path, monkeypatch, capsys):
+    """
+    `daily.py status` reads the database and calls nothing.
+
+    It used to construct the client eagerly, so the documented routine check
+    failed with "No API key" unless .env had been sourced -- a requirement that
+    was incidental, not intended.
+    """
+    import yaml as _yaml
+    import daily as cli
+
+    db_path = tmp_path / "status.db"
+    Database(db_path=str(db_path)).close()
+
+    cfg = _yaml.safe_load(open('config/config_daily.yaml'))
+    cfg['database']['sqlite_path'] = str(db_path)
+    cfg_path = tmp_path / "cfg.yaml"
+    cfg_path.write_text(_yaml.safe_dump(cfg))
+
+    monkeypatch.delenv('YOUTUBE_API_KEY', raising=False)
+
+    rc = cli.main(['status', '--config', str(cfg_path)])
+    assert rc == 0
+    out = capsys.readouterr().out
+    assert 'Quota' in out and 'Channels by tier' in out
+
+
+def test_run_still_requires_an_api_key(tmp_path, monkeypatch):
+    """The relaxation must not leak into the stage that does call the API."""
+    import daily as cli
+    monkeypatch.delenv('YOUTUBE_API_KEY', raising=False)
+    with pytest.raises(SystemExit):
+        cli.load_config('config/config_daily.yaml')
+    # ...while the read-only path is fine.
+    cfg = cli.load_config('config/config_daily.yaml', require_key=False)
+    assert cfg['api']['youtube_api_key'] in (None, '')

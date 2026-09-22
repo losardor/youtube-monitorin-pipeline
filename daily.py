@@ -39,14 +39,23 @@ DEFAULT_CONFIG = 'config/config_daily.yaml'
 logger = logging.getLogger('daily')
 
 
-def load_config(path: str) -> dict:
+def load_config(path: str, require_key: bool = True) -> dict:
+    """
+    Read the config and attach the API key from the environment.
+
+    require_key is False for commands that only read the database. `status`
+    makes no API call, and demanding a key to print a table meant the
+    documented routine check failed unless .env had been sourced first --
+    which the operations doc did not say, because the requirement was
+    incidental rather than intended.
+    """
     with open(path) as f:
         cfg = yaml.safe_load(f)
 
     # The key comes from the environment, never from the config file: the
     # config is committed, the key is not.
     key = os.environ.get('YOUTUBE_API_KEY') or (cfg.get('api') or {}).get('youtube_api_key')
-    if not key:
+    if not key and require_key:
         raise SystemExit(
             "No API key. Set YOUTUBE_API_KEY in the environment "
             "(deploy/run_daily.sh sources .env)."
@@ -120,7 +129,8 @@ def cmd_run(args) -> int:
 
 
 def cmd_status(args) -> int:
-    cfg = load_config(args.config)
+    # Database only: no client is constructed, so no key is needed.
+    cfg = load_config(args.config, require_key=False)
     db = open_db(cfg, allow_replica=args.i_know_this_is_a_replica)
     con = db.conn
     budget = cfg['quota']['daily_budget']
