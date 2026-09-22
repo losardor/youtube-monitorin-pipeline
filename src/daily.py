@@ -140,6 +140,22 @@ def _pacific_due_date(days: int, today: str = None) -> str:
     return (anchor - timedelta(days=days)).isoformat()
 
 
+def due_by_date(column: str, days: int, today: str = None) -> tuple:
+    """
+    SQL fragment and parameter for "this column's date is at or past due".
+
+    The one place the cadence test lives. Both stages that schedule on a
+    cadence use it, so they cannot drift apart again: discovery was converted
+    to Pacific dates in ee6a1d3 while resolve_channels was left comparing
+    timestamps, and the two then behaved differently for the same config.
+
+    A NULL column counts as due -- never observed, so always owed an
+    observation.
+    """
+    return (f"({column} IS NULL OR date({column}) <= ?)",
+            _pacific_due_date(days, today))
+
+
 def _jdump(value) -> Optional[str]:
     return json.dumps(value) if value is not None else None
 
@@ -222,18 +238,23 @@ def resolve_channels(con, client, cfg: dict, run_id: str) -> dict:
     """
     started = utcnow()
     budget = Budget(client.governor, cfg['quota']['share_channels'], floor=1)
-    stale_before = _iso_days_ago(cfg['schedule']['channel_refresh_days'])
+
+    # Pacific-date cadence, not elapsed hours. last_checked is written at
+    # stage start, so comparing it against "run start minus exactly N days"
+    # made staleness turn on sub-second cron jitter: the channel series lost
+    # 2026-09-19 and 2026-09-22 entirely that way.
+    due_sql, due_param = due_by_date(
+        'last_checked', cfg['schedule']['channel_refresh_days'])
 
     tier_sql, tier_params = _tier_filter(cfg)
     rows = _tier_ordered(con, f"""
         SELECT channel_id FROM channels
          WHERE {tier_sql}
-           AND (status IS NULL OR status = 'unresolved'
-                OR last_checked IS NULL OR last_checked < ?)
+           AND (status IS NULL OR status = 'unresolved' OR {due_sql})
            AND COALESCE(status, '') != 'uploads_unavailable'
          ORDER BY {{tier_order}},
                   (last_checked IS NULL) DESC, last_checked ASC
-    """, tier_params + (stale_before,))
+    """, tier_params + (due_param,))
     todo = [r[0] for r in rows]
 
     now = utcnow()
@@ -350,9 +371,9 @@ def discover_uploads(con, client, cfg: dict, run_id: str) -> dict:
         # it waits until the following morning and tier 0 ran at an effective
         # 2.85-day cadence instead of 2. Comparing dates makes "every 2 days"
         # mean what it says regardless of the hour either event happened.
-        clauses.append("(COALESCE(tier, 0) = ? AND "
-                       "(last_discovered IS NULL OR date(last_discovered) <= ?))")
-        params.extend([tier, _pacific_due_date(days)])
+        frag, param = due_by_date('last_discovered', days)
+        clauses.append(f"(COALESCE(tier, 0) = ? AND {frag})")
+        params.extend([tier, param])
     due_sql = " OR ".join(clauses) if clauses else "0"
 
     chans = _tier_ordered(con, f"""

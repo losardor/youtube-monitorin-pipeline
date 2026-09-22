@@ -1809,3 +1809,85 @@ def test_stage_notes_carry_a_parseable_due_count(tmp_path):
     assert len(notes) == 4
     for note in notes:
         assert re.search(r'due=\d+', note or ''), note
+
+
+# ---------------------------------------------------------------------------
+# Task 1: resolve_channels cadence on Pacific dates
+# ---------------------------------------------------------------------------
+
+def test_resolve_cadence_survives_sub_second_cron_jitter(tmp_path):
+    """
+    The 2026-09-19 / 2026-09-22 case.
+
+    last_checked is written at stage start, and the old test compared it
+    against "run start minus exactly one day". Whether a channel was stale
+    therefore turned on whether today's cron fired a few hundred milliseconds
+    earlier or later than yesterday's -- the channel series lost two whole
+    days to that. A date comparison cannot flip on jitter.
+    """
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['channel_refresh_days'] = 1
+
+    # Checked yesterday at 07:18:02.100; "now" is 07:18:01.700 today -- 400 ms
+    # short of a full day, which the old arithmetic scored as fresh.
+    con.execute("UPDATE channels SET status='active', "
+                "last_checked = '2026-09-21T07:18:02.100000'")
+    con.commit()
+
+    from src.daily import due_by_date
+    frag, param = due_by_date('last_checked', 1, today='2026-09-22')
+    due = con.execute(
+        f"SELECT COUNT(*) FROM channels WHERE {frag}", (param,)).fetchone()[0]
+    assert due == 3, "a channel checked yesterday must be due today"
+
+    # (b) checked earlier the same Pacific day -> not due
+    con.execute("UPDATE channels SET last_checked = '2026-09-22T00:00:01'")
+    con.commit()
+    still = con.execute(
+        f"SELECT COUNT(*) FROM channels WHERE {frag}", (param,)).fetchone()[0]
+    assert still == 0, "a channel checked today must not be due again today"
+
+    # NULL is always due: never observed, so always owed an observation.
+    con.execute("UPDATE channels SET last_checked = NULL WHERE channel_id = ?",
+                (CH[0],))
+    con.commit()
+    assert con.execute(
+        f"SELECT COUNT(*) FROM channels WHERE {frag}", (param,)).fetchone()[0] == 1
+
+
+def test_resolve_channels_queues_a_channel_checked_yesterday(tmp_path):
+    """End to end through the stage, not just the SQL fragment."""
+    con, gov, yt = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['channel_refresh_days'] = 1
+
+    con.execute("UPDATE channels SET status='active', last_checked = ?",
+                (daily._iso_days_ago(1),))
+    con.commit()
+    result = daily.resolve_channels(con, yt, cfg, "run-jitter")
+    assert result['queued'] == 3
+
+    # Immediately afterwards only the dead channel is queued: an unresolved
+    # channel is retried every run regardless of cadence, which is deliberate
+    # and cheap (1 unit for the whole batch). The two that resolved are not
+    # due again today.
+    again = daily.resolve_channels(con, yt, cfg, "run-jitter-2")
+    assert again['queued'] == 1
+    assert con.execute(
+        "SELECT status FROM channels WHERE channel_id = ?", (DEAD,)
+    ).fetchone()[0] == 'unresolved'
+
+
+def test_both_stages_share_one_cadence_helper():
+    """They drifted apart once; the helper is what stops it recurring."""
+    import inspect
+    from src import daily as mod
+    src_resolve = inspect.getsource(mod.resolve_channels)
+    src_discover = inspect.getsource(mod.discover_uploads)
+    assert 'due_by_date' in src_resolve
+    assert 'due_by_date' in src_discover
+    # Neither stage may reconstruct the test by hand.
+    assert 'last_checked < ?' not in src_resolve
