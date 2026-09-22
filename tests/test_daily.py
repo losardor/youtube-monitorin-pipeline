@@ -26,7 +26,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src import daily                                              # noqa: E402
 from src.database import Database                                  # noqa: E402
-from src.errors import CommentsDisabled, QuotaExhausted            # noqa: E402
+from src.errors import (                                          # noqa: E402
+    APIError, CommentsDisabled, ItemUnavailable, QuotaExhausted,
+)
 from src.lock import advisory_lock, LockUnavailable                # noqa: E402
 from src.quota import QuotaGovernor, DAILY_FORBIDDEN_ENDPOINTS     # noqa: E402
 
@@ -2127,3 +2129,85 @@ def test_error_calls_column_is_added_to_an_existing_database(tmp_path):
     ).fetchone()
     assert tuple(row) == ('2026-09-16', 'channels', 89, 89, 0)
     db.close()
+
+
+# ---------------------------------------------------------------------------
+# Task 5: a video that failed with APIError retries on the next run
+# ---------------------------------------------------------------------------
+
+class FlakyComments(FakeYouTube):
+    """Raises APIError for one video, serves every other normally."""
+
+    def __init__(self, gov, fail_for, fail_times=1):
+        super().__init__(gov)
+        self.fail_for = fail_for
+        self.remaining = fail_times
+
+    def comment_threads(self, video_id, page_token=None, order="time"):
+        if video_id == self.fail_for and self.remaining > 0:
+            self.remaining -= 1
+            self.governor.charge('commentThreads', 1)
+            raise APIError(400, 'processingFailure',
+                           'The API server failed to process the request')
+        return super().comment_threads(video_id, page_token, order)
+
+
+def test_api_error_leaves_the_video_eligible_for_the_next_run(tmp_path):
+    """
+    The 2026-09-22 case: commentThreads answered 400 processingFailure for
+    video 61inYxp3n2A, which stayed `pending` and was still pending at the
+    time of the 09-22 inspection.
+
+    No retry counter is needed: APIError sets state back to 'pending', and the
+    queue admits any pending video without consulting a failure count. The
+    expiry sweep is what bounds an endlessly failing video -- it ages out of
+    its tier's tracking window like any other.
+    """
+    con, gov, _ = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['limits']['fetch_full_replies'] = False
+
+    con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                "comments_state) VALUES ('vflaky', ?, ?, 'pending')",
+                (CH[0], daily._iso_days_ago(1)))
+    con.commit()
+
+    yt = FlakyComments(gov, fail_for='vflaky', fail_times=1)
+    first = daily.harvest_comments(con, yt, cfg, "run-fail")
+    assert first['comments'] == 0
+
+    state = con.execute(
+        "SELECT comments_state FROM videos WHERE video_id = 'vflaky'").fetchone()[0]
+    assert state == 'pending', "an APIError must not retire the video"
+
+    # Still in the queue, with no special handling.
+    assert 'vflaky' in {r['video_id'] for r in daily._comment_queue(con, cfg)}
+
+    # Next run the API behaves and the video is harvested.
+    second = daily.harvest_comments(con, yt, cfg, "run-retry")
+    assert second['comments'] > 0
+    assert con.execute(
+        "SELECT comments_state FROM videos WHERE video_id = 'vflaky'"
+    ).fetchone()[0] == 'done'
+
+
+def test_a_permanently_failing_video_is_bounded_by_expiry(tmp_path):
+    """Repeated failure does not accumulate forever: the window retires it."""
+    con, gov, _ = fresh(tmp_path / "t.db", tiers=(0, 0, 0))
+    cfg = json.loads(json.dumps(CFG))
+    cfg['collect_tiers'] = [0, 1, 2]
+    cfg['schedule']['comment_tracking_days'] = {'0': 30}
+    cfg['limits']['fetch_full_replies'] = False
+
+    # Published beyond the tier's window, still pending after failures.
+    con.execute("INSERT INTO videos (video_id, channel_id, published_at, "
+                "comments_state) VALUES ('vold', ?, ?, 'pending')",
+                (CH[0], daily._iso_days_ago(40)))
+    con.commit()
+
+    yt = FlakyComments(gov, fail_for='vold', fail_times=99)
+    daily.harvest_comments(con, yt, cfg, "run-bound")
+    assert con.execute(
+        "SELECT comments_state FROM videos WHERE video_id = 'vold'"
+    ).fetchone()[0] == 'expired'
